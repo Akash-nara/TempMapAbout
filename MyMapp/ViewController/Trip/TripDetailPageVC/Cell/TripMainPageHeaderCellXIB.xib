@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,13 +30,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlJ-i9-0MU">
-                        <rect key="frame" x="10" y="0.0" width="300" height="286"/>
+                        <rect key="frame" x="10" y="0.0" width="300" height="266"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="RR2-zE-cdp">
-                                <rect key="frame" x="10" y="10" width="280" height="123"/>
+                                <rect key="frame" x="10" y="10" width="280" height="103"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_image_defaulut_one" translatesAutoresizingMaskIntoConstraints="NO" id="8nb-CX-rRD">
-                                        <rect key="frame" x="0.0" y="26.5" width="70" height="70"/>
+                                        <rect key="frame" x="0.0" y="16.5" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="9I9-tV-gVM"/>
                                             <constraint firstAttribute="width" constant="70" id="kaI-MI-ez6"/>
@@ -49,7 +48,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g2J-TN-xrc">
-                                        <rect key="frame" x="85" y="34.5" width="195" height="54"/>
+                                        <rect key="frame" x="85" y="24.5" width="195" height="54"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="José Luis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4S2-w6-uVi">
                                                 <rect key="frame" x="0.0" y="0.0" width="195" height="24.5"/>
@@ -68,7 +67,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3yV-uo-Bm6">
-                                <rect key="frame" x="67" y="93.5" width="7" height="7"/>
+                                <rect key="frame" x="67" y="83.5" width="7" height="7"/>
                                 <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="7" id="Mm6-Mb-Sgc"/>
@@ -81,7 +80,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6ko-fx-gga">
-                                <rect key="frame" x="10" y="153" width="280" height="54"/>
+                                <rect key="frame" x="10" y="133" width="280" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sWR-5M-EbC">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="24.5"/>
@@ -109,7 +108,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ahi-dB-EEG">
-                                <rect key="frame" x="10" y="222" width="280" height="59"/>
+                                <rect key="frame" x="10" y="202" width="280" height="59"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acf-M8-H2j">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="59"/>
@@ -121,7 +120,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3yV-uo-Bm6" firstAttribute="bottom" secondItem="8nb-CX-rRD" secondAttribute="bottom" constant="-6" id="5kJ-ZW-pKL"/>
                             <constraint firstItem="6ko-fx-gga" firstAttribute="top" secondItem="RR2-zE-cdp" secondAttribute="bottom" constant="20" id="A0T-Yw-buh"/>
@@ -138,12 +137,12 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="tlJ-i9-0MU" secondAttribute="trailing" constant="10" id="As0-Ui-Kvl"/>
                     <constraint firstItem="tlJ-i9-0MU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Hfa-HD-C4A"/>
                     <constraint firstItem="tlJ-i9-0MU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="M4N-4A-Mmp"/>
-                    <constraint firstAttribute="bottom" secondItem="tlJ-i9-0MU" secondAttribute="bottom" constant="10" id="zgW-nM-jCS"/>
+                    <constraint firstAttribute="bottom" secondItem="tlJ-i9-0MU" secondAttribute="bottom" constant="30" id="zgW-nM-jCS"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -158,8 +157,5 @@
         <namedColor name="App_Bg_Seafoamblue_Color">
             <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
