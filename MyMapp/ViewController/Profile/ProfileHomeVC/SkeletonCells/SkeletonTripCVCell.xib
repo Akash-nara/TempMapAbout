@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SkeletonTripCVCell" id="l7p-AN-Sny" customClass="SkeletonTripCVCell" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="156" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fC3-Xx-Ab6">
+                <rect key="frame" x="0.0" y="0.0" width="156" height="77"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gH-V2-xmD">
+                        <rect key="frame" x="0.0" y="0.0" width="156" height="77"/>
+                        <color key="backgroundColor" name="blueHeadingAlpha20"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5gH-V2-xmD" firstAttribute="top" secondItem="fC3-Xx-Ab6" secondAttribute="top" id="0FN-1x-Bqi"/>
+                    <constraint firstAttribute="trailing" secondItem="5gH-V2-xmD" secondAttribute="trailing" id="8J4-8o-84S"/>
+                    <constraint firstAttribute="bottom" secondItem="5gH-V2-xmD" secondAttribute="bottom" id="eef-qt-JSW"/>
+                    <constraint firstItem="5gH-V2-xmD" firstAttribute="leading" secondItem="fC3-Xx-Ab6" secondAttribute="leading" id="i3z-j8-1Mn"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="156" height="77"/>
+            <connections>
+                <outlet property="stripeOne" destination="5gH-V2-xmD" id="LKW-cT-URy"/>
+            </connections>
+            <point key="canvasLocation" x="79.710144927536234" y="7.03125"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="blueHeadingAlpha20">
+            <color red="0.16899999976158142" green="0.21600000560283661" blue="0.31000000238418579" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TripMainPageTableCell" rowHeight="-173" id="Evc-Du-Gil" customClass="TripMainPageTableCell" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="372" height="507"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Evc-Du-Gil" id="3NM-kk-VIg">
+                <rect key="frame" x="0.0" y="0.0" width="372" height="507"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x7z-cJ-teR">
+                        <rect key="frame" x="0.0" y="0.0" width="372" height="447"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="447" id="wO5-gR-BDW"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="SFW-N3-eSj">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                    </collectionView>
+                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBN-ZP-ZY2">
+                        <rect key="frame" x="108.5" y="462" width="155.5" height="30"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Ieg-Wh-Quh"/>
+                        </constraints>
+                        <color key="pageIndicatorTintColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                        <color key="currentPageIndicatorTintColor" name="App_Bg_Seafoamblue_Color"/>
+                    </pageControl>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="x7z-cJ-teR" firstAttribute="top" secondItem="3NM-kk-VIg" secondAttribute="top" id="1hp-G0-3Q7"/>
+                    <constraint firstAttribute="bottom" secondItem="bBN-ZP-ZY2" secondAttribute="bottom" id="1jL-vp-C5g"/>
+                    <constraint firstItem="bBN-ZP-ZY2" firstAttribute="centerX" secondItem="x7z-cJ-teR" secondAttribute="centerX" id="DHU-Ee-ZTr"/>
+                    <constraint firstAttribute="trailing" secondItem="x7z-cJ-teR" secondAttribute="trailing" id="UZJ-sP-ymA"/>
+                    <constraint firstItem="x7z-cJ-teR" firstAttribute="leading" secondItem="3NM-kk-VIg" secondAttribute="leading" id="lMa-jx-Gb4"/>
+                    <constraint firstItem="bBN-ZP-ZY2" firstAttribute="top" secondItem="x7z-cJ-teR" secondAttribute="bottom" constant="15" id="ydU-27-Lqz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="collectionViewTrip" destination="x7z-cJ-teR" id="94Y-rv-xe0"/>
+                <outlet property="heightOfCollectionViewTrip" destination="wO5-gR-BDW" id="Cfa-Xc-zu0"/>
+                <outlet property="pageCtrl" destination="bBN-ZP-ZY2" id="chs-5F-98s"/>
+            </connections>
+            <point key="canvasLocation" x="-133.33333333333334" y="17.075892857142858"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
+            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="App_Bg_Seafoamblue_Color">
+            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

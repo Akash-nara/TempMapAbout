@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+        <array key="Montserrat-SemiBold.ttf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="OnboardingCellXIB" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-t2-djB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_onboarding_bg" translatesAutoresizingMaskIntoConstraints="NO" id="brU-N6-hHw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unG-LG-tXQ">
+                                <rect key="frame" x="269" y="40" width="31" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="y8M-t2-gGu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G53-6j-gac">
+                                <rect key="frame" x="20" y="81" width="280" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="qvT-AW-T7Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="26"/>
+                                <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaD-IN-tyS">
+                                <rect key="frame" x="20" y="131" width="280" height="98"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="98" id="8dL-QV-haL"/>
+                                </constraints>
+                                <string key="text">A one-stop-shop for you! 
+
+Find and save all the important details you need when planning for a trip.</string>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="brU-N6-hHw" secondAttribute="bottom" id="3A1-Hb-QwQ"/>
+                            <constraint firstAttribute="trailing" secondItem="unG-LG-tXQ" secondAttribute="trailing" constant="20" id="HIu-tH-i2y"/>
+                            <constraint firstItem="unG-LG-tXQ" firstAttribute="top" secondItem="RJ7-t2-djB" secondAttribute="top" constant="40" id="ILh-cN-WhI"/>
+                            <constraint firstAttribute="trailing" secondItem="brU-N6-hHw" secondAttribute="trailing" id="O6E-CB-G6M"/>
+                            <constraint firstItem="brU-N6-hHw" firstAttribute="top" secondItem="RJ7-t2-djB" secondAttribute="top" id="T1u-rJ-C0J"/>
+                            <constraint firstAttribute="trailing" secondItem="yaD-IN-tyS" secondAttribute="trailing" constant="20" id="iA1-xB-ZUx"/>
+                            <constraint firstItem="yaD-IN-tyS" firstAttribute="leading" secondItem="RJ7-t2-djB" secondAttribute="leading" constant="20" id="m5D-oM-fNC"/>
+                            <constraint firstItem="G53-6j-gac" firstAttribute="top" secondItem="unG-LG-tXQ" secondAttribute="bottom" constant="10" id="qhW-Y9-1N3"/>
+                            <constraint firstItem="yaD-IN-tyS" firstAttribute="top" secondItem="G53-6j-gac" secondAttribute="bottom" constant="10" id="sOu-xE-aYz"/>
+                            <constraint firstItem="G53-6j-gac" firstAttribute="leading" secondItem="RJ7-t2-djB" secondAttribute="leading" constant="20" id="t7l-Ll-c7n"/>
+                            <constraint firstItem="brU-N6-hHw" firstAttribute="leading" secondItem="RJ7-t2-djB" secondAttribute="leading" id="ueS-r7-ENT"/>
+                            <constraint firstAttribute="trailing" secondItem="G53-6j-gac" secondAttribute="trailing" constant="20" id="vsK-b4-P3R"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
+            <constraints>
+                <constraint firstItem="RJ7-t2-djB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3fk-ki-jic"/>
+                <constraint firstAttribute="bottom" secondItem="RJ7-t2-djB" secondAttribute="bottom" id="6hd-2O-3DB"/>
+                <constraint firstItem="RJ7-t2-djB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pkb-gI-JaZ"/>
+                <constraint firstAttribute="trailing" secondItem="RJ7-t2-djB" secondAttribute="trailing" id="v8h-uD-IPq"/>
+            </constraints>
+            <connections>
+                <outlet property="btnTitleSkip" destination="unG-LG-tXQ" id="vok-LW-Bzd"/>
+                <outlet property="imgviewBG" destination="brU-N6-hHw" id="r3s-ni-jex"/>
+                <outlet property="lblDescription" destination="yaD-IN-tyS" id="jyK-R2-R6w"/>
+                <outlet property="lblHeader" destination="G53-6j-gac" id="HxC-Vc-I23"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="116.51785714285714"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_onboarding_bg" width="375" height="812"/>
+        <namedColor name="App_BG_SecondaryDark2_Color">
+            <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="App_Bg_Seafoamblue_Color">
+            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

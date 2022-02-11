@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ProfileImagesCellXIB" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="230"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="230" height="230"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cm-6V-Nzh">
+                        <rect key="frame" x="5" y="5" width="222" height="220"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7qa-1d-0t5">
+                                <rect key="frame" x="0.0" y="0.0" width="222" height="220"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-h5-Tym">
+                                <rect key="frame" x="10" y="10" width="167" height="33"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcelona" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DiU-Vi-VJ6">
+                                        <rect key="frame" x="0.0" y="0.0" width="167" height="17.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <color key="textColor" name="App_Bg_Seafoamblue_Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sb0-WM-ENy">
+                                        <rect key="frame" x="0.0" y="19.5" width="167" height="13.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BPe-kX-AKJ">
+                                <rect key="frame" x="10" y="196.5" width="34.5" height="12.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXy-E0-A7d">
+                                        <rect key="frame" x="0.0" y="0.0" width="34.5" height="12.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="10"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zf-Tp-XfN">
+                                <rect key="frame" x="86" y="85" width="50" height="50"/>
+                                <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="24s-jV-cJz"/>
+                                    <constraint firstAttribute="width" constant="50" id="uds-4R-pBi"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ic_plus_grey"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Round" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1E-Gl-I66">
+                                <rect key="frame" x="182" y="10" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Dwa-RZ-cLX"/>
+                                    <constraint firstAttribute="width" constant="30" id="fuo-Py-JiA"/>
+                                </constraints>
+                                <color key="tintColor" name="App_Bg_Seafoamblue_Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ic_black_Close"/>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T87-Ag-VnT">
+                                <rect key="frame" x="0.0" y="0.0" width="222" height="220"/>
+                                <color key="backgroundColor" red="0.16862745098039217" green="0.21568627450980393" blue="0.30980392156862746" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="BPe-kX-AKJ" secondAttribute="bottom" constant="11" id="4Aj-EL-xbP"/>
+                            <constraint firstItem="BPe-kX-AKJ" firstAttribute="leading" secondItem="4Cm-6V-Nzh" secondAttribute="leading" constant="10" id="5UR-bk-3yV"/>
+                            <constraint firstItem="T87-Ag-VnT" firstAttribute="leading" secondItem="4Cm-6V-Nzh" secondAttribute="leading" id="Esv-Pn-rs9"/>
+                            <constraint firstAttribute="trailing" secondItem="7qa-1d-0t5" secondAttribute="trailing" id="OjI-eb-f3J"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BPe-kX-AKJ" secondAttribute="trailing" constant="10" id="PuG-5P-uL7"/>
+                            <constraint firstItem="0Zf-Tp-XfN" firstAttribute="centerX" secondItem="4Cm-6V-Nzh" secondAttribute="centerX" id="ULd-D8-j6f"/>
+                            <constraint firstAttribute="trailing" secondItem="T87-Ag-VnT" secondAttribute="trailing" id="XBJ-ZL-4Qa"/>
+                            <constraint firstItem="e7w-h5-Tym" firstAttribute="top" secondItem="4Cm-6V-Nzh" secondAttribute="top" constant="10" id="aFY-VI-6Fj"/>
+                            <constraint firstItem="e7w-h5-Tym" firstAttribute="leading" secondItem="4Cm-6V-Nzh" secondAttribute="leading" constant="10" id="cy7-LQ-o3B"/>
+                            <constraint firstItem="T87-Ag-VnT" firstAttribute="top" secondItem="4Cm-6V-Nzh" secondAttribute="top" id="k6b-Hh-yVw"/>
+                            <constraint firstItem="r1E-Gl-I66" firstAttribute="leading" secondItem="e7w-h5-Tym" secondAttribute="trailing" constant="5" id="lLq-CB-vV1"/>
+                            <constraint firstItem="0Zf-Tp-XfN" firstAttribute="centerY" secondItem="4Cm-6V-Nzh" secondAttribute="centerY" id="okQ-qX-yfW"/>
+                            <constraint firstItem="r1E-Gl-I66" firstAttribute="top" secondItem="4Cm-6V-Nzh" secondAttribute="top" constant="10" id="v87-bG-6g5"/>
+                            <constraint firstAttribute="trailing" secondItem="r1E-Gl-I66" secondAttribute="trailing" constant="10" id="vKr-qt-5Sr"/>
+                            <constraint firstItem="7qa-1d-0t5" firstAttribute="leading" secondItem="4Cm-6V-Nzh" secondAttribute="leading" id="yG5-tW-Ocg"/>
+                            <constraint firstAttribute="bottom" secondItem="7qa-1d-0t5" secondAttribute="bottom" id="yor-h4-3n3"/>
+                            <constraint firstItem="7qa-1d-0t5" firstAttribute="top" secondItem="4Cm-6V-Nzh" secondAttribute="top" id="z0a-rN-Q7o"/>
+                            <constraint firstAttribute="bottom" secondItem="T87-Ag-VnT" secondAttribute="bottom" id="z1T-OK-9MD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4Cm-6V-Nzh" secondAttribute="trailing" constant="3" id="NNw-Fh-S8f"/>
+                <constraint firstItem="4Cm-6V-Nzh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="RzP-bD-pIN"/>
+                <constraint firstItem="4Cm-6V-Nzh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="dJr-bF-89S"/>
+                <constraint firstAttribute="bottom" secondItem="4Cm-6V-Nzh" secondAttribute="bottom" constant="5" id="xvu-Oy-vdq"/>
+            </constraints>
+            <connections>
+                <outlet property="BottomStackView" destination="BPe-kX-AKJ" id="lze-Br-vcG"/>
+                <outlet property="TopStackView" destination="e7w-h5-Tym" id="yDU-8V-o7u"/>
+                <outlet property="btnAddimage" destination="0Zf-Tp-XfN" id="FQc-uW-U3S"/>
+                <outlet property="btnTitleRemove" destination="r1E-Gl-I66" id="lDp-9a-bCz"/>
+                <outlet property="imgviewBG" destination="7qa-1d-0t5" id="B9Z-0E-31x"/>
+                <outlet property="skeletonView" destination="T87-Ag-VnT" id="8js-x8-yc0"/>
+                <outlet property="tripOfDays" destination="yXy-E0-A7d" id="n1W-9X-S7T"/>
+                <outlet property="tripSubTitle" destination="sb0-WM-ENy" id="Hhc-i2-0GV"/>
+                <outlet property="tripTitle" destination="DiU-Vi-VJ6" id="jYE-in-eQ7"/>
+                <outlet property="widthCancelButton" destination="fuo-Py-JiA" id="8Nb-KU-Htg"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="115.84821428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_black_Close" width="20" height="20"/>
+        <image name="ic_plus_grey" width="22" height="22"/>
+        <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
+            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="App_Bg_Seafoamblue_Color">
+            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

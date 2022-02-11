@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddTripFavouriteImageHeader" id="U6b-Vx-4bR" customClass="AddTripFavouriteImageHeader" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rE6-yv-jzJ">
+                    <rect key="frame" x="12.5" y="5" width="40" height="40"/>
+                    <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="FZc-8g-DYs"/>
+                        <constraint firstAttribute="height" constant="40" id="ljC-ad-IoY"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="ic_plus_grey"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="Round" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="rE6-yv-jzJ" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="cgc-18-b1z"/>
+                <constraint firstItem="rE6-yv-jzJ" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="x0o-Gn-vyo"/>
+            </constraints>
+            <connections>
+                <outlet property="btnTitleAddImage" destination="rE6-yv-jzJ" id="Cb0-dK-fLR"/>
+            </connections>
+            <point key="canvasLocation" x="147.10144927536234" y="95.758928571428569"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="ic_plus_grey" width="22" height="22"/>
+        <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
+            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

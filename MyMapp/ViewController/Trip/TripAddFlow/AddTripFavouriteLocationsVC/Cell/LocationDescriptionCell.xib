@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="LocationDescriptionCell" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Df1-Jf-GhW">
+                        <rect key="frame" x="5" y="5" width="190" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leisure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBW-sa-l83">
+                                <rect key="frame" x="5" y="0.0" width="180" height="40"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                                <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                        <constraints>
+                            <constraint firstItem="hBW-sa-l83" firstAttribute="leading" secondItem="Df1-Jf-GhW" secondAttribute="leading" constant="5" id="448-j0-4ZI"/>
+                            <constraint firstAttribute="trailing" secondItem="hBW-sa-l83" secondAttribute="trailing" constant="5" id="86P-Yw-Qb7"/>
+                            <constraint firstItem="hBW-sa-l83" firstAttribute="top" secondItem="Df1-Jf-GhW" secondAttribute="top" id="T63-x5-tLA"/>
+                            <constraint firstAttribute="bottom" secondItem="hBW-sa-l83" secondAttribute="bottom" id="hJ7-Vh-c0t"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Df1-Jf-GhW" secondAttribute="trailing" constant="5" id="SyS-Si-i3i"/>
+                <constraint firstItem="Df1-Jf-GhW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="jfd-Oq-g1C"/>
+                <constraint firstItem="Df1-Jf-GhW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="urj-fh-FqK"/>
+                <constraint firstAttribute="bottom" secondItem="Df1-Jf-GhW" secondAttribute="bottom" constant="5" id="vcz-jD-eLV"/>
+            </constraints>
+            <connections>
+                <outlet property="lblTItle" destination="hBW-sa-l83" id="Wyw-YL-gtw"/>
+                <outlet property="viewBG" destination="Df1-Jf-GhW" id="VAo-G7-Siz"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="70"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
+            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="App_BG_SecondaryDark2_Color">
+            <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

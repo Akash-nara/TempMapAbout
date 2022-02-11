@@ -1,0 +1,6 @@
+framework module Pods_MyMapp {
+  umbrella header "Pods-MyMapp-umbrella.h"
+
+  export *
+  module * { export * }
+}
