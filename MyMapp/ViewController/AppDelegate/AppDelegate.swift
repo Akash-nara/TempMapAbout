@@ -36,9 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
         // GMSServices.provideAPIKey("AIzaSyDBjaNDds3kltx7UHUipMduma3TfCzijSs")
         // GMSPlacesClient.provideAPIKey("AIzaSyDBjaNDds3kltx7UHUipMduma3TfCzijSs")
         
-        GMSServices.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
-        GMSPlacesClient.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
-        
+//        GMSServices.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
+//        GMSPlacesClient.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
+
+        GMSServices.provideAPIKey("AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218")
+        GMSPlacesClient.provideAPIKey("AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218")
+
         
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self

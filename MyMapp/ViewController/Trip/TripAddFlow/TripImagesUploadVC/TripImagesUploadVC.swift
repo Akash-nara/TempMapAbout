@@ -192,6 +192,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
     @objc func buttonRadioClicked(sender:UIButton){
         selectedImageRow = sender.tag
         debugPrint(arrayJsonFilterImages[sender.tag].keyToSubmitServer)
+        keyForDafultImageSelected = arrayJsonFilterImages[sender.tag].keyToSubmitServer
         collectionviewPhotos.reloadData()
     }
     

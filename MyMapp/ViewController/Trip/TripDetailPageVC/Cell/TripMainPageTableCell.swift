@@ -30,7 +30,7 @@ class TripMainPageTableCell: UITableViewCell {
     
     
     func configureArray(){
-        
+        arrayOfImageURL.removeAll()
         photoUploadedArray.forEach { obj in
             obj.arrayOfImageURL.forEach { obj1 in
                 arrayOfImageURL.append(obj1)
@@ -69,7 +69,7 @@ class TripMainPageTableCell: UITableViewCell {
         // small cell 140
         //1827 * 0.37
         
-        heightOfCollectionViewTrip.constant  = UIScreen.main.bounds.size.height*0.70
+        heightOfCollectionViewTrip.constant  = UIScreen.main.bounds.size.height*0.75
         
         /*
          var collectionViewHeight:CGFloat = 500
@@ -193,7 +193,7 @@ class TripMainPageTableCell: UITableViewCell {
         self.collectionViewTrip.register(UINib(nibName: "AddTripFavouriteImageHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "AddTripFavouriteImageHeader")
         
         
-        pageCtrl.numberOfPages = photoUploadedArray.count
+//        pageCtrl.numberOfPages = photoUploadedArray.count
         collectionViewTrip.registerCellNib(identifier: "TripMainPageCollectionCell", commonSetting: true)
         collectionViewTrip.backgroundColor = .white//UIColor.red
         collectionViewTrip.delegate = self
@@ -235,9 +235,38 @@ class TripMainPageTableCell: UITableViewCell {
          self.callbackAfterReload?(self.heightOfCollectionViewTrip.constant)
          //            self.collectionPhotos?.collectionViewLayout.invalidateLayout()
          }*/
+        setTotalPageNo()
     }
+
+    var startX = CGFloat(0)
+
 }
 
+// MARK: - ScrollView Delegates
+extension TripMainPageTableCell {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == collectionViewTrip{
+            startX = scrollView.contentOffset.x
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setTotalPageNo()
+        if scrollView == collectionViewTrip{
+            let pageNumber = scrollView.contentOffset.x / (cueSize.screen.width - 20)
+            pageCtrl.currentPage = (startX < scrollView.contentOffset.x) ? Int(floor(pageNumber)) : Int(ceil(pageNumber))
+        }
+    }
+
+    func setTotalPageNo() {
+        var totalPage = Int(ceil(collectionViewTrip.contentSize.width / (cueSize.screen.width - 20)))
+        if totalPage == 0 {
+            totalPage = 1
+        }
+        pageCtrl.numberOfPages = totalPage
+    }
+
+}
 
 //MARK: - COLLECTIONVIEW METHODS
 extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDelegate {
@@ -249,9 +278,9 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
         return arrayOfImageURL.count//photoUploadedArray[section].arrayOfImageURL.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
-        pageCtrl.currentPage = indexPath.section
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
+//        pageCtrl.currentPage = indexPath.section
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = self.collectionViewTrip.dequeueReusableCell(withReuseIdentifier: "TripMainPageCollectionCell", for: indexPath) as! TripMainPageCollectionCell
@@ -385,12 +414,12 @@ extension TripMainPageTableCell: UICollectionViewDelegateFlowLayout,UIScrollView
         return 1//self.viewModel.arrayOfTripList.count == 0 ? 1 : 2
     }
     
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            let pageWidth = scrollView.frame.size.width
-            let page = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1)
-            print("page = \(page)")
-            pageCtrl.currentPage = page+1
-        }
+//        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//            let pageWidth = scrollView.frame.size.width
+//            let page = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1)
+//            print("page = \(page)")
+//            pageCtrl.currentPage = page+1
+//        }
     
     // MARK: UIScrollViewDelegate
 //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
