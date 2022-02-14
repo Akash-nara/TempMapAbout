@@ -373,8 +373,9 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
                 cell.viewSaved.LightdropShadow()
             })
             
+            cell.segmentControll.isHidden = true
             cell.viewSearchStack.isHidden = false
-            
+
             // map
         case .map:
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -429,7 +430,7 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
             case .saved:
                 return 390
             default:
-                return 467//390
+                return 390//467//390
             }
         }
         return 0

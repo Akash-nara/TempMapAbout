@@ -43,7 +43,7 @@
                                         <rect key="frame" x="10" y="10" width="300" height="420"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Sog-Vv-7yb">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="420"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="350"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xpn-20-dBg">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="90"/>
@@ -100,10 +100,10 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rs7-rU-O4q">
-                                                        <rect key="frame" x="0.0" y="120" width="300" height="300"/>
+                                                        <rect key="frame" x="0.0" y="120" width="300" height="230"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ycg-C5-JWm">
-                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="230"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7bl-Da-he1">
                                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -160,7 +160,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ygm-Kj-Ch3">
-                                                                        <rect key="frame" x="0.0" y="70" width="300" height="230"/>
+                                                                        <rect key="frame" x="0.0" y="70" width="300" height="160"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="M5c-d6-ctY">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
@@ -313,10 +313,10 @@
                                                                                     </view>
                                                                                 </subviews>
                                                                             </stackView>
-                                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Idr-z0-qdt">
-                                                                                <rect key="frame" x="0.0" y="190" width="300" height="41"/>
+                                                                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Idr-z0-qdt">
+                                                                                <rect key="frame" x="0.0" y="160" width="300" height="1"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="40" id="RqK-Vf-JiG"/>
+                                                                                    <constraint firstAttribute="height" id="RqK-Vf-JiG"/>
                                                                                 </constraints>
                                                                                 <segments>
                                                                                     <segment title="Completed"/>
