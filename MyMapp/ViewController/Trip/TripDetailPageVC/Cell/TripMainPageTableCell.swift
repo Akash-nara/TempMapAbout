@@ -30,7 +30,7 @@ class TripMainPageTableCell: UITableViewCell {
     
     
     func configureArray(){
-        
+        arrayOfImageURL.removeAll()
         photoUploadedArray.forEach { obj in
             obj.arrayOfImageURL.forEach { obj1 in
                 arrayOfImageURL.append(obj1)

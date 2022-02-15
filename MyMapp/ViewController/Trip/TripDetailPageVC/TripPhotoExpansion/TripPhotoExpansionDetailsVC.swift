@@ -21,7 +21,7 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate{
     //MARK: - VARIABLES
     var centeredCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
     let cellPercentWidth: CGFloat = 0.9
-    var enumCurrentFlow:TripDetailVC.EnumTripPageFlow = .personal
+    var enumCurrentFlow:EnumTripPageFlow = .personal
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {

@@ -56,7 +56,7 @@ class SayNoForDataTableView: PaginationTableView {
         var getPlaceHolderImage: UIImage {
             switch self {
             case .noSearchResultFound:
-                return UIImage.init(named: "NoSearchFoundPlaceholderIcon")!
+                return UIImage()
             case .noInternetConnectionFound:
                 return UIImage.init(named: "noInternetIcon")!
             case .genericNoResultsFound:

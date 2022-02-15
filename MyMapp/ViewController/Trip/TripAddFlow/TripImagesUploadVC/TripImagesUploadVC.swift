@@ -26,7 +26,7 @@ class TripImagesUploadVC: UIViewController {
     @IBOutlet weak var labelSubmitingText: UILabel!
     @IBOutlet weak var viewContainerOfSubmitFeed: UIControl!
 
-    var arrayOfImageUpload = [KeyTripLocationFavouriteList]()
+    var arrayOfImageUpload = [AddTripFavouriteLocationDetail?]()
     var arrayJsonFilterImages = [TripImagesModel]()
 //    var totalImage = 21
     var selectedImageRow = -1
@@ -71,7 +71,7 @@ class TripImagesUploadVC: UIViewController {
 
         arrayJsonFilterImages.removeAll()
         arrayOfImageUpload.forEach { objDetail in
-            objDetail.detailOfFavoruite?.arrayOfImages.forEach({ img in
+            objDetail?.arrayOfImages.forEach({ img in
                 arrayJsonFilterImages.append(img)
             })
         }
@@ -192,6 +192,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
     @objc func buttonRadioClicked(sender:UIButton){
         selectedImageRow = sender.tag
         debugPrint(arrayJsonFilterImages[sender.tag].keyToSubmitServer)
+        keyForDafultImageSelected = arrayJsonFilterImages[sender.tag].keyToSubmitServer
         collectionviewPhotos.reloadData()
     }
     

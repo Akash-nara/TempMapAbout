@@ -197,7 +197,9 @@ extension ProfileHomeVC: UICollectionViewDataSource,UICollectionViewDelegate{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileImagesCellXIB", for: indexPath) as! ProfileImagesCellXIB
                 cell.imgviewBG.tag = indexPath.row
                 cell.loadCellData(objTripModel: viewModel.arrayOfTripList[indexPath.row]) { (isVertical, index, imgheight) in
-                    self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical
+                    if self.viewModel.arrayOfTripList.indices.contains(index){
+                        self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical                        
+                    }
                     UIView.animate(withDuration: 0.2) {
                         self.collectionviewProfile.collectionViewLayout.invalidateLayout()
 //                        self.collectionviewProfile.reloadItems(at: [IndexPath.init(row: index, section: 0)])
@@ -371,8 +373,9 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
                 cell.viewSaved.LightdropShadow()
             })
             
+            cell.segmentControll.isHidden = true
             cell.viewSearchStack.isHidden = false
-            
+
             // map
         case .map:
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -427,7 +430,7 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
             case .saved:
                 return 390
             default:
-                return 467//390
+                return 390//467//390
             }
         }
         return 0

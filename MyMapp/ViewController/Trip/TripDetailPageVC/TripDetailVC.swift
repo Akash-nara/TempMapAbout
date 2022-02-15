@@ -8,32 +8,23 @@
 import UIKit
 import SKPhotoBrowser
 import MapKit
+import SDWebImage
 
-class TripCommmnets {
-    var name = ""
-    var id = 0
-    var comment = ""
-    var userImage = ""
-    var bookmark = false
-    
-    var likeUnLiked = false
-    init(){}
-    
-    init(param:JSON) {
-        self.name = param["name"].stringValue
-        self.id = param["id"].intValue
-        self.comment = param["comment"].stringValue
-        self.userImage = param["userImage"].stringValue
-        self.likeUnLiked = param["likeUnLiked"].boolValue
-        self.likeUnLiked = param["likeUnLiked"].boolValue
-        
+
+
+enum EnumTripToalSections:Equatable {
+    static func == (lhs: EnumTripToalSections, rhs: EnumTripToalSections) -> Bool {
+        return lhs == rhs.self
     }
+    
+    case tripImages, locationList([AddTripFavouriteLocationDetail]), topTips(String,String), travelStory(String,String), logisticsRoute(String,String), comments, travelAdvice
+}
+
+enum EnumTripPageFlow {
+    case personal, otherUser
 }
 
 class TripDetailVC: UIViewController {
-    enum EnumTripPageFlow {
-        case personal, otherUser
-    }
     
     //MARK: - OUTLETS
     @IBOutlet weak var consX: NSLayoutConstraint!
@@ -44,6 +35,7 @@ class TripDetailVC: UIViewController {
     @IBOutlet weak var vwImage: UIImageView!
     @IBOutlet weak var txtComment:UITextField!
     @IBOutlet weak var viewSep:UIView!
+    @IBOutlet weak var viewSetting:UIView!
     
     @IBOutlet weak var buttonCurrentChatBookmark:UIButton!
     @IBOutlet weak var buttonCurrentChatLikeUnLike:UIButton!
@@ -52,7 +44,7 @@ class TripDetailVC: UIViewController {
     
     var enumCurrentFlow:EnumTripPageFlow = .personal
     
-    @IBOutlet weak var tblviewTrip: UITableView!{
+    @IBOutlet weak var tblviewTrip: SayNoForDataTableView!{
         didSet{
             tblviewTrip.setDefaultProperties(vc: self)
             tblviewTrip.registerCell(type: TripMainPageHeaderCellXIB.self, identifier: TripMainPageHeaderCellXIB.identifier)
@@ -74,6 +66,8 @@ class TripDetailVC: UIViewController {
             } else {
                 // Fallback on earlier versions
             }
+            tblviewTrip.sayNoSection = .noSearchResultFound("Trip detail not found.")
+            
         }
     }
     
@@ -94,28 +88,23 @@ class TripDetailVC: UIViewController {
         }
     }
     
-    enum EnumTripToalSections:Equatable {
-        static func == (lhs: TripDetailVC.EnumTripToalSections, rhs: TripDetailVC.EnumTripToalSections) -> Bool {
-            return lhs == rhs.self
-        }
-        
-        case tripImages, locationList([AddTripFavouriteLocationDetail]), topTips(String,String), travelStory(String,String), logisticsRoute(String,String), comments, travelAdvice
-    }
     var arrayOfSections = [EnumTripToalSections]()
     var arrayOfTravelAdvice = [EnumTripSection]()
     var arrayOfComments = [TripCommmnets]()
     var heightOFCollectionView  = CGFloat()
     var cellCollectionView:TripMainPageTableCell? = nil
+    
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if enumCurrentFlow == .otherUser{
             let headerCell = tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB") as! TripMainPageHeaderCellXIB
             tblviewTrip.tableHeaderView = headerCell
-//            tblviewTrip.sectionHeaderHeight = UITableView.automaticDimension
-//            tblviewTrip.estimatedSectionHeaderHeight = 40
-//            tblviewTrip.estimatedRowHeight = 80
+            //            tblviewTrip.sectionHeaderHeight = UITableView.automaticDimension
+            //            tblviewTrip.estimatedSectionHeaderHeight = 40
+            //            tblviewTrip.estimatedRowHeight = 80
         }
         
         self.vwBlur.isHidden = true
@@ -135,6 +124,8 @@ class TripDetailVC: UIViewController {
         buttonCurrentChatLikeUnLike.setImage(UIImage(named: "ic_Heart_unselected"), for: .normal)
         
         preparedArrayofSections()
+        tblviewTrip.reloadData()
+        tblviewTrip.figureOutAndShowNoResults()
         
         self.viewSep.isHidden = true
         if enumCurrentFlow == .otherUser{
@@ -147,6 +138,14 @@ class TripDetailVC: UIViewController {
                 self.viewSep.layer.shadowRadius = 3
                 self.viewSep.layer.shouldRasterize = true
             })
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SDImageCache.shared.clear(with: .all) {
+            print("Disk & memory data cleared")
         }
     }
     
@@ -187,8 +186,8 @@ class TripDetailVC: UIViewController {
     func preparedArrayofSections(){
         viewCommentHeightConstraint.constant = isOwnProfile ? 0 : 85
         viewComment.isHidden = isOwnProfile
-//        arrayOfSections.append(.tripImages)
-//        tblviewTrip.reloadData()
+        //        arrayOfSections.append(.tripImages)
+        //        tblviewTrip.reloadData()
         
         if let objDetailtrip = detailTripDataModel{
             
@@ -201,29 +200,6 @@ class TripDetailVC: UIViewController {
             if objDetailtrip.locationList.count > 0{
                 arrayOfSections.append(.locationList(objDetailtrip.locationList))
             }
-            
-            /*
-             var tempArrayAdvice = [EnumTripSection]()
-             objDetailtrip.advicesOfArray.forEach { objSection in
-             tempArrayAdvice
-             switch objSection{
-             case .topTips(<#T##String#>, <#T##String#>)
-             }
-             if objSection == .topTips("", ""){
-             tempArrayAdvice.append(objSection)
-             }
-             
-             if objSection == .travelStory("", ""){
-             tempArrayAdvice.append(objSection)
-             }
-             
-             if objSection == .logisticsRoute("", ""){
-             tempArrayAdvice.append(objSection)
-             }
-             }*/
-            
-            //        arrayOfSections.append(.travelStory("", ""))
-            //        arrayOfSections.append(.logisticsRoute("", ""))
             
             // travel advice
             arrayOfTravelAdvice = objDetailtrip.advicesOfArray
@@ -251,6 +227,10 @@ class TripDetailVC: UIViewController {
                     arrayOfSections.append(.comments)
                 }
             }
+        }
+        
+        if arrayOfSections.count == 0 || enumCurrentFlow == .personal{
+            viewSetting.isHidden = true
         }
     }
     
@@ -289,25 +269,19 @@ class TripDetailVC: UIViewController {
     }
     
     //MARK: - OTHER FUNCTIONS
-    @objc func isTopTipExpandView(sender:UIButton){
-        self.isTopTipExpand.toggle()
-        self.isLogisticsExpand = false
-        self.isFavouriteExpand = false
-        self.tblviewTrip.reloadData()
-    }
-    
-    @objc func isFavouriteExpandView(sender:UIButton){
-        self.isFavouriteExpand.toggle()
-        self.isTopTipExpand = false
-        self.isLogisticsExpand = false
-        self.tblviewTrip.reloadData()
-    }
-    
-    @objc func isLogisticsExpandView(sender:UIButton){
-        self.isLogisticsExpand = !isLogisticsExpand
-        self.isFavouriteExpand = false
-        self.isTopTipExpand = false
-        self.tblviewTrip.reloadData()
+    @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
+        
+        switch arrayOfSections[(Int(sender.accessibilityHint ?? "") ?? 0)] {
+        case .topTips:
+            self.isTopTipExpand = !isTopTipExpand
+        case .travelStory:
+            self.isFavouriteExpand = !isFavouriteExpand
+        case .logisticsRoute:
+            self.isLogisticsExpand = !isLogisticsExpand
+        default:
+            break
+        }
+        self.tblviewTrip.reloadSections(IndexSet(integer: Int(sender.accessibilityHint ?? "") ?? 0), with: .automatic)
     }
 }
 
@@ -318,7 +292,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch arrayOfSections[section] {
         case .tripImages:
             return 1
@@ -334,8 +307,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             return arrayOfComments.count
         case .travelAdvice:
             return 0
-        default:
-            return 0
         }
     }
     
@@ -348,27 +319,32 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
             cell.photoUploadedArray = self.detailTripDataModel?.photoUploadedArray ?? []
             cell.configureArray()
-            cell.collectionViewTrip.reloadData {
-                let pages = ceil(cell.collectionViewTrip.contentSize.width /
-                                 cell.collectionViewTrip.frame.size.width);
-                cell.pageCtrl.numberOfPages = Int(pages)
+            cell.collectionViewTrip.reloadData()
+            DispatchQueue.getMain(delay: 0.6) {
+                cell.setTotalPageNo()
             }
-
-//            cell.configureCollectionView()
+            //            cell.collectionViewTrip.reloadData {
+            //                let pages = ceil(cell.collectionViewTrip.contentSize.width /
+            //                                 cell.collectionViewTrip.frame.size.width);
+            //                cell.pageCtrl.numberOfPages = Int(pages)
+            //                cell.setTotalPageNo()
+            //            }
             
-//            let height = cell.collectionViewTrip.collectionViewLayout.collectionViewContentSize.height
-//            cell.heightOfCollectionViewTrip.constant = height
-//            self.view.setNeedsLayout()
-
-//            cell.frame = tableView.bounds
-//            cell.collectionViewTrip.reloadData()
-//            cell.layoutIfNeeded()
+            //            cell.configureCollectionView()
+            
+            //            let height = cell.collectionViewTrip.collectionViewLayout.collectionViewContentSize.height
+            //            cell.heightOfCollectionViewTrip.constant = height
+            //            self.view.setNeedsLayout()
+            
+            //            cell.frame = tableView.bounds
+            //            cell.collectionViewTrip.reloadData()
+            //            cell.layoutIfNeeded()
             
             cell.didTap = { [weak self] indexPath in
                 guard let detailVC = UIStoryboard.trip.tripPhotoExpansionDetailsVC else {
                     return
                 }
-//                self.navigationController?.pushViewController(detailVC, animated: true)
+                //                self.navigationController?.pushViewController(detailVC, animated: true)
             }
             
             cell.callbackAfterReload = { [weak self] height in
@@ -388,112 +364,26 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 for: indexPath) as? TripMainLocationCellXIB else {
                     return UITableViewCell()
                 }
-            cell.labelTitle.text = arrayLocation[indexPath.row].locationFav.name
-            cell.subTitle.text = arrayLocation[indexPath.row].locationFav.name
+            cell.labelTitle.text = arrayLocation[indexPath.row].locationFav?.name
+            cell.subTitle.text = arrayLocation[indexPath.row].locationFav?.name
+            
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
             cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
+            
             cell.buttonBookmark.tag = indexPath.section
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
             
             cell.buttonBookmark.isHidden = isOwnProfile
             
             return cell
-            
-        case .topTips(_, let subTitle):
-            guard let cell = self.tblviewTrip.dequeueCell(
-                withType: TripMainPageTopCellXIB.self,
-                for: indexPath) as? TripMainPageTopCellXIB else {
-                    return UITableViewCell()
-                }
-            
-            cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
-            cell.buttonBookmark.isHidden = isOwnProfile
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isTopTipExpandView(sender:)), for: .touchUpInside)
-            cell.lblHeader.numberOfLines = 1
-            cell.buttonBookmark.tag = indexPath.section
-            cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
-            
-            cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
-            cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
-            cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
-            
-            if self.isTopTipExpand == true{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle//subTitle
-                cell.lblHeader.numberOfLines = 0
-            }else{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
-                cell.lblHeader.text = "Top Tip"
-                cell.lblHeader.numberOfLines = 1
-            }
-            return cell
-            
-        case .travelStory(let _ , let subTitle):
-            guard let cell = self.tblviewTrip.dequeueCell(
-                withType: TripMainPageTopCellXIB.self,
-                for: indexPath) as? TripMainPageTopCellXIB else {
-                    return UITableViewCell()
-                }
-            
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isFavouriteExpandView(sender:)), for: .touchUpInside)
-            cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
-            cell.buttonBookmark.isHidden = isOwnProfile
-            cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
-            cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
-            cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
-            cell.buttonBookmark.tag = indexPath.section
-            cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
-            
-            if self.isFavouriteExpand == true{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle//subTitle
-                cell.lblHeader.numberOfLines = 0
-            }else{
-                cell.lblHeader.text = "Favorite Travel Story"
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
-                cell.lblHeader.numberOfLines = 1
-            }
-            
-            return cell
-            
-        case .logisticsRoute(_, let subTitle):
-            guard let cell = self.tblviewTrip.dequeueCell(
-                withType: TripMainPageTopCellXIB.self,
-                for: indexPath) as? TripMainPageTopCellXIB else {
-                    return UITableViewCell()
-                }
-            
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isLogisticsExpandView(sender:)), for: .touchUpInside)
-            cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
-            
-            
-            cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
-            cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
-            cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
-            cell.buttonBookmark.tag = indexPath.section
-            cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
-            cell.buttonBookmark.isHidden = isOwnProfile
-            if self.isLogisticsExpand == true{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle
-                cell.lblHeader.numberOfLines = 0
-                
-            }else{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
-                cell.lblHeader.text = "Logistics & Routes"
-                cell.lblHeader.numberOfLines = 1
-            }
-            
-            return cell
+        case .topTips(let title, let subTitle):
+            return configureAdvanceTravelCell(indexPath: indexPath, title: title, subTitle: subTitle, isExpadCell: isTopTipExpand)
+        case .travelStory(let title , let subTitle):
+            return configureAdvanceTravelCell(indexPath: indexPath, title: title, subTitle: subTitle, isExpadCell: isFavouriteExpand)
+        case .logisticsRoute(let title, let subTitle):
+            return configureAdvanceTravelCell(indexPath: indexPath, title: title, subTitle: subTitle, isExpadCell: isLogisticsExpand)
         case .comments:
-            
             guard let cell = self.tblviewTrip.dequeueCell(
                 withType: TripMainPageCommentsCellXIB.self,
                 for: indexPath) as? TripMainPageCommentsCellXIB else {
@@ -509,6 +399,42 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         default:
             return UITableViewCell()
         }
+    }
+    
+    func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, isExpadCell:Bool) -> TripMainPageTopCellXIB{
+        let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
+        
+        cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
+        
+        cell.viewExpand.accessibilityHint = "\(indexPath.row)"
+        cell.viewExpand.tag = indexPath.section
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.isExpandTravelAdvice(_:)))
+        tap.accessibilityHint = "\(indexPath.section)"
+        cell.viewExpand.addGestureRecognizer(tap)
+        
+        
+        cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
+        cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
+        cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
+        cell.buttonBookmark.tag = indexPath.row
+        cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
+        cell.buttonBookmark.isHidden = isOwnProfile
+        
+        cell.lblHeader.text = title
+        cell.labelSubTitle.text = subTitle
+        
+        cell.bottomConstrainOfMainStackView.constant = isExpadCell ? 20 : 8
+        if isExpadCell{
+            cell.buttonArrow.setImage(UIImage(named: "ic_black_expand_icon"), for: .normal)
+            cell.lblHeader.numberOfLines = 0
+            cell.labelSubTitle.isHidden = false
+        }else{
+            cell.buttonArrow.setImage(UIImage(named: "ic_black_collpase_icon"), for: .normal)
+            cell.lblHeader.numberOfLines = 1
+            cell.labelSubTitle.isHidden = true
+        }
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -560,16 +486,16 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch arrayOfSections[indexPath.section]{
         case.tripImages:
-//            if let cell = cellCollectionView{
-//                return cell.heioght ?? 0//cell.collectionViewTrip.contentSize.height
-//            }
+            //            if let cell = cellCollectionView{
+            //                return cell.heioght ?? 0//cell.collectionViewTrip.contentSize.height
+            //            }
             return UITableView.automaticDimension//323+30+30//UITableView.automaticDimension//self.collectionPhotos?.contentSize.height ?? 0.0
         case .topTips:
-            return isTopTipExpand ? UITableView.automaticDimension : 60.0
+            return UITableView.automaticDimension
         case .travelStory:
-            return isFavouriteExpand ? UITableView.automaticDimension : 60.0
+            return UITableView.automaticDimension
         case .logisticsRoute:
-            return isLogisticsExpand ? UITableView.automaticDimension : 60.0
+            return UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
         }
@@ -606,6 +532,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 self.consHeight.constant = cell.frame.size.height * 1.5
                 self.vwImage.isHidden = false
                 self.vwImage.image = cell.imgviewZoom.image
+                self.vwImage.contentMode = .scaleAspectFill
                 self.vwBlur.isHidden = false
                 self.view.layoutIfNeeded()
             })
@@ -635,18 +562,9 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         
         sender.isSelected.toggle()
         switch arrayOfSections[sender.tag]{
-        case .travelAdvice:
             
-            switch arrayOfTravelAdvice[indexRow]{
-            case .topTips:
-                debugPrint("topTips")
-            case .travelStory:
-                debugPrint("travelStory")
-            case .logisticsRoute:
-                debugPrint("logisticsRoute")
-            default:
-                break
-            }
+        case.logisticsRoute, .travelStory, .topTips:
+            self.tblviewTrip.reloadSections(IndexSet(integer: indexRow), with: .automatic)
         case .locationList(let array):
             if array.indices.contains(indexRow){
                 debugPrint("locationList:\(array[indexRow])")
@@ -656,6 +574,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     }
 }
 
+// UITextFieldDelegate
 extension TripDetailVC:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
@@ -683,17 +602,5 @@ extension TripDetailVC:UITextFieldDelegate{
             }
             self.tblviewTrip.scrollToBottom()
         }
-    }
-}
-
-class DynamicHeightCollectionView: UICollectionView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if bounds.size.height != intrinsicContentSize.height {
-            self.invalidateIntrinsicContentSize()
-        }
-    }
-    override var intrinsicContentSize: CGSize {
-        return collectionViewLayout.collectionViewContentSize
     }
 }

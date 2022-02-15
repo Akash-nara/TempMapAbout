@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import MapKit
 
 class TripDataModel{
     
@@ -144,6 +145,8 @@ class TripDataModel{
 //        return "\(diffInDays) days"//self.setTimestamp(epochTime: tripDate == tripEndDate ? "\(tripDate)" : "\(tripEndDate)")//self.relativeDate(for: tripDate == tripEndDate ? startDate : endDate) //relativeDate
     }
     
+    
+    
     func relativeDate(for date:Date) -> String {
          let components = Calendar.current.dateComponents([.day, .year, .month, .weekOfYear], from: date, to: Date())
          if let year = components.year, year == 1{
@@ -177,6 +180,8 @@ class TripDataModel{
 
     var defaultImageKey = ""
     var arraYOfPhotoCount = [Int]()
+    
+    init(){}
     init(param:JSON) {
         
         self.defaultImageKey = param["defaultImageKey"].stringValue
@@ -216,11 +221,11 @@ class TripDataModel{
         if let adviceArray = param["additionalInfo"].dictionary?["advice"]?.arrayValue{
             adviceArray.forEach { jsonObject in
                 if jsonObject.dictionaryValue.keys.contains("1"){
-                    advicesOfArray.append(.topTips("", jsonObject.dictionaryValue["1"]?.stringValue ?? ""))
+                    advicesOfArray.append(.topTips("Top Tip", jsonObject.dictionaryValue["1"]?.stringValue ?? ""))
                 }else if jsonObject.dictionaryValue.keys.contains("2"){
-                    advicesOfArray.append(.travelStory("", jsonObject.dictionaryValue["2"]?.stringValue ?? ""))
+                    advicesOfArray.append(.travelStory("Favorite Travel Story", jsonObject.dictionaryValue["2"]?.stringValue ?? ""))
                 }else if jsonObject.dictionaryValue.keys.contains("3"){
-                    advicesOfArray.append(.logisticsRoute("", jsonObject.dictionaryValue["3"]?.stringValue ?? ""))
+                    advicesOfArray.append(.logisticsRoute("Logistics & Tips", jsonObject.dictionaryValue["3"]?.stringValue ?? ""))
                 }
             }
         }
@@ -272,6 +277,10 @@ class TripDataModel{
         } else {
             return String(epochDay) + " " + getMonthNameFromInt(month: epochMonth) + " " + String(epochYear)
         }
+    }
+    
+    func setCityData(json:JSON){
+        self.city = TripCity.init(param: json)
     }
 
     func getMonthNameFromInt(month: Int) -> String {

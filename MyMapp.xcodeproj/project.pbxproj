@@ -79,6 +79,7 @@
 		38D7722727B5100300346B6D /* TripMainPageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D7722627B5100300346B6D /* TripMainPageTableCell.xib */; };
 		38E6C0AA2785963300953D55 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E6C0A92785963300953D55 /* UIApplication+Extensions.swift */; };
 		38E6C0AD27859D5A00953D55 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E6C0AC27859D5A00953D55 /* PaddingTextField.swift */; };
+		38E9563F27BB997E002276BD /* TripCommmnets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E9563E27BB997E002276BD /* TripCommmnets.swift */; };
 		6906DA5127464E4600B9F23A /* AddTripFavouriteAddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6906DA4F27464E4600B9F23A /* AddTripFavouriteAddImage.swift */; };
 		6906DA5227464E4600B9F23A /* AddTripFavouriteAddImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6906DA5027464E4600B9F23A /* AddTripFavouriteAddImage.xib */; };
 		6906DA55274656F400B9F23A /* AddTripStepVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6906DA54274656F400B9F23A /* AddTripStepVC.swift */; };
@@ -310,6 +311,7 @@
 		38D7722627B5100300346B6D /* TripMainPageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripMainPageTableCell.xib; sourceTree = "<group>"; };
 		38E6C0A92785963300953D55 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		38E6C0AC27859D5A00953D55 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
+		38E9563E27BB997E002276BD /* TripCommmnets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCommmnets.swift; sourceTree = "<group>"; };
 		52F359954BA2411B06E25F3A /* Pods-MyMappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMappTests.release.xcconfig"; path = "Target Support Files/Pods-MyMappTests/Pods-MyMappTests.release.xcconfig"; sourceTree = "<group>"; };
 		65226A10AD5E5D279F5AA5B1 /* Pods-MyMapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.release.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.release.xcconfig"; sourceTree = "<group>"; };
 		6906DA4F27464E4600B9F23A /* AddTripFavouriteAddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripFavouriteAddImage.swift; sourceTree = "<group>"; };
@@ -671,6 +673,14 @@
 				88EADAA82741501200A6B390 /* CHTCollectionViewWaterfallLayout.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		38E9563D27BB996F002276BD /* model */ = {
+			isa = PBXGroup;
+			children = (
+				38E9563E27BB997E002276BD /* TripCommmnets.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		6906DA53274656C400B9F23A /* AddTripThirdStepVC */ = {
@@ -1228,6 +1238,7 @@
 		88B81B02275BA3BC00F95934 /* TripDetailPageVC */ = {
 			isa = PBXGroup;
 			children = (
+				38E9563D27BB996F002276BD /* model */,
 				88A7C0C7275CA2BF001DFBDB /* Cell */,
 				88B81B03275BA3DD00F95934 /* TripDetailVC.swift */,
 				3872C59527B4355600B5920E /* TestTableViewUseCase.swift */,
@@ -1756,6 +1767,7 @@
 				38AE154D2782D6630016F80E /* UIStoryboard+Extensions.swift in Sources */,
 				88100B9B272A348B008A01F7 /* DPPickerManager.swift in Sources */,
 				38AE15462782D6630016F80E /* String+Extensions.swift in Sources */,
+				38E9563F27BB997E002276BD /* TripCommmnets.swift in Sources */,
 				69A88C5B273E4B6000C2BF79 /* AddTripTopTipCollpaseXIB.swift in Sources */,
 				69F436BA277495D000CC5F44 /* TripLocationList.swift in Sources */,
 				69F436B7277495D000CC5F44 /* AdditionalInfo.swift in Sources */,
