@@ -9,24 +9,22 @@ import UIKit
 
 class TripMainPageTopCellXIB: UITableViewCell {
 
-    @IBOutlet weak var imgviewExpand: UIImageView!
+    @IBOutlet weak var buttonArrow: UIButton!
     @IBOutlet weak var lblHeader: UILabel!
-    @IBOutlet weak var viewExpand: UIControl!
+    @IBOutlet weak var viewExpand: UIView!
+    @IBOutlet weak var labelSubTitle: UILabel!
 
-    @IBOutlet weak var btnTitleExpand: UIButton!
     @IBOutlet weak var buttonBookmark: UIButton!
     @IBOutlet weak var trealingViewExpand: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstrainOfMainStackView: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    @IBAction func controllExpandTap(_ sender:UIControl){
+        
+    }
 }
