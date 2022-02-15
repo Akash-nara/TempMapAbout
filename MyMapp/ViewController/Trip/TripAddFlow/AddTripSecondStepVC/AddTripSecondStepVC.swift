@@ -128,10 +128,12 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
     var favouriteStoryContent = ""
     var logisticContent = ""
     
-    var arrayOfTripLocationListData = [KeyTripLocationFavouriteList]()
+    var arrayOfTripLocationListData = [AddTripFavouriteLocationDetail?]()
     
     var selectedAddDetailButtonTag = -1
-    var tripBucketHash:String = ""
+    var tripBucketHash:String{
+        return objTirpDatModel?.bucketHash ?? ""
+    }
     
     var addTripModel = AddTripViewModel()
     var isPublicTrip:Bool = true{
@@ -141,8 +143,15 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
     }
     
     var arrayOfSection:[EnumTripSection] = [.description,.favouriteLocation]
-    var tripId = 0
-    var countryCode = ""
+    var tripId:Int{
+        return objTirpDatModel?.id ?? 0
+    }
+    var countryCode:String{
+        return objTirpDatModel?.city.countryName ?? ""
+    }
+    
+    var objTirpDatModel:TripDataModel? = nil
+    var editFlow = false
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -156,15 +165,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
         self.isFavouriteDataAdded = false
         self.isLogisticDataAdded = false
         
-        arrayOfTripLocationListData.removeAll()
-        
-        let objectLocation = Keylocation.init(name: "", latitude: 0.0, longitude: 0.0)
-        let objKeyTripLocationFavouriteList = KeyTripLocationFavouriteList()
-        objKeyTripLocationFavouriteList.locationDetail = objectLocation
-        self.arrayOfTripLocationListData.append(objKeyTripLocationFavouriteList)
-        self.tblviewCity.reloadSections([1], with: .none)
-        tblviewCity.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-        
+        defaultCityLocationAdded()
         let example = NSAttributedString(string: "By submitting, you are making this trip public and adding it to your feed for other travelers to see!").withLineSpacing(0.5)
         labelSubmitingText.attributedText = example
         
@@ -179,6 +180,58 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
         viewContainerOfSubmitFeed.addGestureRecognizer(gesture)
         hideAndShowSubmitPopUp(isHidden: true)
         getAdviceForTripAPi()
+        
+        loadDataEditFlow()
+    }
+    
+//    func defaultCityLocationAdded(){
+//        arrayOfTripLocationListData.removeAll()
+//        let objectLocation = Keylocation.init(name: "", latitude: 0.0, longitude: 0.0)
+//        let objKeyTripLocationFavouriteList = KeyTripLocationFavouriteList()
+//        objKeyTripLocationFavouriteList.locationDetail = objectLocation
+//        self.arrayOfTripLocationListData.append(objKeyTripLocationFavouriteList)
+//        self.tblviewCity.reloadSections([1], with: .none)
+//        tblviewCity.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+//    }
+    
+    
+    func defaultCityLocationAdded(){
+        arrayOfTripLocationListData.removeAll()
+        var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()//Keylocation.init(name: "", latitude: 0.0, longitude: 0.0)
+        objectLocation.lastRecord = true
+        let objAddTripFavouriteLocationDetail = AddTripFavouriteLocationDetail()
+        objAddTripFavouriteLocationDetail.locationFav = objectLocation
+        arrayOfTripLocationListData.append(objAddTripFavouriteLocationDetail)
+        self.tblviewCity.reloadSections([1], with: .none)
+        tblviewCity.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+    }
+    
+    func loadDataEditFlow(){
+        
+        if editFlow, let obDataModel = objTirpDatModel{
+            descriptionTextContent = obDataModel.tripDescription
+            self.defaultCityLocationAdded()
+            
+            obDataModel.locationList.forEach { objAddTripFavouriteLocationDetail in
+                self.arrayOfTripLocationListData.append(objAddTripFavouriteLocationDetail)
+            }
+            
+            objTirpDatModel?.advicesOfArray.forEach({ objAdvice in
+                switch objAdvice{
+                case .topTips(let _, let subTitle):
+                    self.topTipContent = subTitle
+                case .travelStory(let _, let subTitle):
+                    self.favouriteStoryContent = subTitle
+                case .logisticsRoute(let _, let subTitle):
+                    logisticContent = subTitle
+                default:break
+                }
+            })
+            
+            self.isTopDataAdded = !self.topTipContent.isEmpty
+            self.isFavouriteDataAdded = !self.favouriteStoryContent.isEmpty
+            self.isLogisticDataAdded = !self.logisticContent.isEmpty
+        }
     }
     
     func checkTripAddPrivateOrPublicButtonsTap(){
@@ -244,23 +297,23 @@ extension AddTripSecondStepVC{
         for (_, objModel) in  tempArrayRemovedFirstObject.enumerated() {
             
             var locationDict : [String : Any] = [String : Any]()
-            if objModel.locationId != 0{
-                locationDict["id"] = objModel.locationId
+            if let id = objModel?.id, id != 0{ //  here locationId intead id
+                locationDict["id"] = id
             }
             
-            if let tags = objModel.detailOfFavoruite?.combinedTag, !tags.isEmpty{
+            if let tags = objModel?.combinedTag, !tags.isEmpty{
                 locationDict["tags"] = tags
             }
             
-            if let notes = objModel.detailOfFavoruite?.notes, !notes.isEmpty{
-                locationDict["notes"] = notes
+            if let strNotes = objModel?.notes, !strNotes.isEmpty{
+                locationDict["notes"] = strNotes
             }
-            if !objModel.locationHash.isEmpty{
-                locationDict["hash"] = objModel.locationHash
+            if let hash = objModel?.locationHash,  !hash.isEmpty{
+                locationDict["hash"] = hash
             }
             
-            if let objLocation = objModel.locationDetail{
-                locationDict["location"] = ["name" : objLocation.name ?? "-", "latitude" : objLocation.latitude ?? 0.0,"longitude":objLocation.longitude ?? 0.0]
+            if let objLocation = objModel?.locationFav{
+                locationDict["location"] = ["name" : objLocation.name , "latitude" : objLocation.latitude ,"longitude":objLocation.longitude ]
             }
             
             if locationDict.count != 0{
@@ -344,11 +397,11 @@ extension AddTripSecondStepVC{
     }
     
     func deleteLocationTripApi(index:Int){
-        let hashLocation = self.arrayOfTripLocationListData[index].locationHash
+        let hashLocation = self.arrayOfTripLocationListData[index]?.locationHash ?? ""
         var paramDict:[String:Any] = ["locationHash":hashLocation]
         
-        if self.arrayOfTripLocationListData[index].locationId != 0{
-            paramDict["id"] = self.arrayOfTripLocationListData[index].locationId
+        if let id = self.arrayOfTripLocationListData[index]?.id,  id != 0{
+            paramDict["id"] = id
         }
         
         let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
@@ -357,7 +410,7 @@ extension AddTripSecondStepVC{
         API_SERVICES.callAPI(param, path: .deleteTripLocation, method: .post) { [weak self] dict in
             debugPrint(dict)
             if self?.arrayOfTripLocationListData.count ?? 0 == 1{
-                self?.arrayOfTripLocationListData[index].detailOfFavoruite = nil
+                self?.arrayOfTripLocationListData[index] = AddTripFavouriteLocationDetail()
             }else{
                 self?.arrayOfTripLocationListData.remove(at: index)
             }
@@ -372,14 +425,19 @@ extension AddTripSecondStepVC{
         
         if let _ = place.name{
             
-            guard let _ = self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag].detailOfFavoruite else {
+            guard let hash = self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationHash, !hash.isEmpty else {
                 
                 self.generateHashForLocationAddedApi { hashStr in
-                    let objectLocation = Keylocation.init(name: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-                    let obj = KeyTripLocationFavouriteList()
-                    obj.locationDetail = objectLocation
-                    obj.lastRecord = false
+                    var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()
+                    objectLocation.latitude = place.coordinate.latitude
+                    objectLocation.longitude = place.coordinate.longitude
+                    objectLocation.name = place.formattedAddress!
+                    objectLocation.lastRecord = false
+//                    let objectLocation = Keylocation.init(name: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+                    let obj = AddTripFavouriteLocationDetail()
+                    obj.locationFav = objectLocation
                     obj.locationHash = hashStr
+                    
 //                    self.arrayOfTripLocationListData.append(obj)
                     self.arrayOfTripLocationListData.insert(obj, at: 0)
                     self.tblviewCity.reloadSections([1], with: .none)
@@ -388,16 +446,20 @@ extension AddTripSecondStepVC{
                 return
             }
             
-            let objectLocation = Keylocation.init(name: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()
+            objectLocation.latitude = place.coordinate.latitude
+            objectLocation.longitude = place.coordinate.longitude
+            objectLocation.name = place.formattedAddress!
+            objectLocation.lastRecord = false
+            self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav = objectLocation
             
-            self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag].locationDetail = objectLocation
-            self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag].lastRecord = false
-            
-            // added deafult add new location
-            let model = KeyTripLocationFavouriteList()
-            model.locationDetail = nil
-            model.lastRecord = true
-            self.arrayOfTripLocationListData.insert(model, at: 0)
+            if let lastObj  = self.arrayOfTripLocationListData.last, !(lastObj?.locationFav?.lastRecord ?? false){
+                // added deafult add new location
+                let model = AddTripFavouriteLocationDetail()
+                model.locationFav = AddTripFavouriteLocationDetail.TripFavLocations()
+                model.locationFav?.lastRecord = true
+                self.arrayOfTripLocationListData.append(model)
+            }
             
             self.tblviewCity.reloadSections([1], with: .none)
         }
@@ -447,7 +509,7 @@ extension AddTripSecondStepVC{
     
     @objc func addDetailsButtonClicked(sender:UIButton){
         
-        guard let name = self.arrayOfTripLocationListData[sender.tag].locationDetail?.name, !name.isEmpty else {
+        guard let name = self.arrayOfTripLocationListData[sender.tag]?.locationFav?.name, !name.isEmpty else {
             Utility.errorMessage(message: "Please add location first")
             return
         }
@@ -463,12 +525,12 @@ extension AddTripSecondStepVC{
         popupVC.customNavigationController = navigationController!
         popupVC.tripId = self.tripId
         popupVC.tripBucketHash = self.tripBucketHash
-        popupVC.locationBucketHash = self.arrayOfTripLocationListData[sender.tag].locationHash
-        popupVC.selectedAddTripFavouriteLocationDetail = self.arrayOfTripLocationListData[sender.tag].detailOfFavoruite
+        popupVC.locationBucketHash = self.arrayOfTripLocationListData[sender.tag]?.locationHash ?? ""
+        popupVC.selectedAddTripFavouriteLocationDetail = self.arrayOfTripLocationListData[sender.tag]
         
         self.countTotalPhoto()
         popupVC.selectedTripDetailCallBackBlock = { [weak self] objModel in
-            self?.arrayOfTripLocationListData[sender.tag].detailOfFavoruite = objModel
+            self?.arrayOfTripLocationListData[sender.tag] = objModel
             self?.countTotalPhoto()
             self?.tblviewCity.reloadSections([1], with: .none)
         }
@@ -598,7 +660,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
             cell.btnTitleAddDetails.setTitle("Add details", for: .normal)
             cell.btnHandlerGooglePicker.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
 
-            if self.arrayOfTripLocationListData[indexPath.row].lastRecord == true{
+            if self.arrayOfTripLocationListData[indexPath.row]?.locationFav?.lastRecord == true{
                 cell.btnTitleAddDetails.isHidden = false
                 cell.btnTitleRemove.isHidden = true
                 cell.btnHandlerGooglePicker.setTitleColor(UIColor.App_BG_Textfield_Unselected_Border_Color, for: .normal)
@@ -606,18 +668,18 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 cell.btnHandlerGooglePicker.setTitleColor(.gray, for: .normal)
             }else{
                 
-                if self.arrayOfTripLocationListData[indexPath.row].locationDetail?.name == ""{
+                if self.arrayOfTripLocationListData[indexPath.row]?.locationFav?.name == ""{
                     cell.btnHandlerGooglePicker.setTitle("Add location here", for: .normal)
                     cell.btnHandlerGooglePicker.setTitleColor(.lightGray, for: .normal)
                     cell.btnTitleRemove.isHidden = true
                 }else{
-                    if self.arrayOfTripLocationListData[indexPath.row].detailOfFavoruite != nil{
+                    if self.arrayOfTripLocationListData[indexPath.row]?.isEdited ?? false{
                         cell.btnTitleAddDetails.setTitle("Edit details", for: .normal)
                     }
 
                     cell.btnHandlerGooglePicker.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor
                     cell.btnTitleRemove.isHidden = false
-                    cell.btnHandlerGooglePicker.setTitle(self.arrayOfTripLocationListData[indexPath.row].locationDetail?.name!, for: .normal)
+                    cell.btnHandlerGooglePicker.setTitle(self.arrayOfTripLocationListData[indexPath.row]?.locationFav?.name, for: .normal)
                     cell.btnHandlerGooglePicker.setTitleColor(UIColor.getColorIntoHex(Hex: "382239"), for: .normal)
                 }
                 cell.btnTitleAddDetails.isHidden = false

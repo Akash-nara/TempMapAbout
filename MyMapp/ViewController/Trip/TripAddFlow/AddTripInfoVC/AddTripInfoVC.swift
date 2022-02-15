@@ -40,6 +40,10 @@ class AddTripInfoVC: UIViewController,UITextFieldDelegate{
     var tripDateEndTimeStamps:Int64 = 0
     var selectedCityID = 0
     var countryCode = ""
+    
+    var objTirpDatModel:TripDataModel? = nil
+    var isEditFlow = false
+    
 
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -98,11 +102,39 @@ class AddTripInfoVC: UIViewController,UITextFieldDelegate{
         
         self.tblviewSuggestion.reloadData()
     }
+    
+    func loadEditData(){
+        if let objTrip = objTirpDatModel{
+            txtCity.text = objTrip.city.cityName
+            selectedCityID = objTrip.city.id
+            
+            self.tripDateStartTimeStamps = objTrip.tripDate
+            let startDateStr = getFormatedDate(timeStamp: objTrip.tripDate)
+            self.txtDate.text = startDateStr
+            self.selectedStartDate = startDateStr ?? ""
+
+            
+            self.tripDateEndTimeStamps = objTrip.tripEndDate
+            let tripEndDateStr = getFormatedDate(timeStamp: objTrip.tripEndDate)
+            self.txtDate.text = tripEndDateStr
+            self.selectedEndDate = tripEndDateStr ?? ""
+
+            self.txtDate.text =  selectedStartDate + " - " + selectedEndDate
+        }
+    }
+    
+    func getFormatedDate(timeStamp:Int64) -> String?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let std = Date.init(timeIntervalSince1970: TimeInterval(timeStamp))
+        return dateFormatter.string(from: std)
+    }
 }
 
 //MARK: - BUTTON ACTIONS
 extension AddTripInfoVC{
     @IBAction func btnHandlerNext(_ sender: Any){
+        var paramCity = [String:Any]()
         if self.selectedStartDate == ""{
             Utility.errorMessage(message: LocalValidation.selectStartdate)
             return
@@ -122,11 +154,18 @@ extension AddTripInfoVC{
             if cityOfArray.contains(self.txtCity.text!){
                 for obj in self.cityData{
                     self.selectedCityID = obj.id
+                    paramCity["id"] = obj.id
+                    paramCity["cityName"] = obj.name
+                    paramCity["country"] = obj.countryCode
                 }
             }else{
                 Utility.errorMessage(message: "City must be select or enter from the list")
                 return
             }
+        }
+        
+        if isEditFlow{
+            self.objTirpDatModel = TripDataModel.init(param: JSON.init(paramCity))
         }
         
 //        redirectNextScreen()
@@ -378,6 +417,14 @@ extension AddTripInfoVC{
             guard let status = dataResponce?["status"]?.intValue, status == 200, let bucketHash = dataResponce?["responseJson"]?["bucketHash"].stringValue, let id = dataResponce?["responseJson"]?["id"].intValue else {
                 return
             }
+            
+            if self?.objTirpDatModel == nil{
+                self?.objTirpDatModel = TripDataModel()
+            }
+            self?.objTirpDatModel?.city = TripDataModel.TripCity()
+            self?.objTirpDatModel?.city.countryName = self?.countryCode ?? ""
+            self?.objTirpDatModel?.id = id
+            self?.objTirpDatModel?.bucketHash = bucketHash
             self?.redirectNextScreen(bucketHash: bucketHash , tripId: id)
             
         } internetFailure: {
@@ -391,10 +438,12 @@ extension AddTripInfoVC{
         guard let addTripSecondStepVC = UIStoryboard.trip.addTripSecondStepVC else {
             return
         }
-        totalGlobalTripPhotoCount = 21
-        addTripSecondStepVC.countryCode = self.countryCode
-        addTripSecondStepVC.tripId = tripId
-        addTripSecondStepVC.tripBucketHash = bucketHash
+        
+        totalGlobalTripPhotoCount = (objTirpDatModel?.photoCount == 0 ? 21 : objTirpDatModel?.photoCount ?? 0)
+//        addTripSecondStepVC.countryCode = self.countryCode
+//        addTripSecondStepVC.tripId = tripId
+//        addTripSecondStepVC.tripBucketHash = bucketHash
+        addTripSecondStepVC.objTirpDatModel = objTirpDatModel
         self.navigationController?.pushViewController(addTripSecondStepVC, animated: true)
     }
 }

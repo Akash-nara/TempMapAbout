@@ -15,7 +15,8 @@ class AddTripFavouriteLocationDetail{
         var longitude:Double = 0.0
         var latitude:Double = 0.0
         var id = 0
-        
+        var lastRecord = false
+
         init() {}
         init(param:JSON) {
             self.id = param["id"].intValue
@@ -37,7 +38,8 @@ class AddTripFavouriteLocationDetail{
     }
     var recommendation = false
     var locationHash = ""
-    var locationFav = TripFavLocations()
+    var locationFav:TripFavLocations? = nil
+    var isEdited = false
     
     init(){}
     init(param:JSON) {

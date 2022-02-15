@@ -237,6 +237,7 @@ extension  AddTripFavouriteLocationsVC{
         
         let objAddTripFavouriteLocationDetail = AddTripFavouriteLocationDetail.init()
         objAddTripFavouriteLocationDetail.notes = txtviewNotes.text
+        
 //        if activeIndexOfParenttag > 0{
         if arrayParentIDs.count > 0{
             objAddTripFavouriteLocationDetail.firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayTagCopied[self.activeIndexOfParenttag].name
@@ -254,9 +255,16 @@ extension  AddTripFavouriteLocationsVC{
             totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         }
         
-        if filterArrray.count == 0, activeIndexOfChildTag == -1 && activeIndexOfParenttag == -1{
-            selectedTripDetailCallBackBlock?(nil)
+        if filterArrray.count == 0, activeIndexOfChildTag == -1 && activeIndexOfParenttag == -1, txtviewNotes.text.isEmpty, filterArrray.count == 0{
+//            selectedAddTripFavouriteLocationDetail?.notes = txtviewNotes.text
+            selectedAddTripFavouriteLocationDetail?.notes = ""
+            selectedAddTripFavouriteLocationDetail?.isEdited = false
+            selectedTripDetailCallBackBlock?(selectedAddTripFavouriteLocationDetail)
+            
         }else{
+            objAddTripFavouriteLocationDetail.locationFav = selectedAddTripFavouriteLocationDetail?.locationFav
+            objAddTripFavouriteLocationDetail.locationHash = selectedAddTripFavouriteLocationDetail?.locationHash ?? ""
+            objAddTripFavouriteLocationDetail.isEdited = true
             selectedTripDetailCallBackBlock?(objAddTripFavouriteLocationDetail)
         }
 

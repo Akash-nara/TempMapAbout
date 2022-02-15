@@ -144,9 +144,9 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
 
             cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
             cell.buttonBookmark.isHidden = isOwnProfile
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isTopTipExpandView(sender:)), for: .touchUpInside)
+            cell.viewExpand.tag = indexPath.section
+            cell.viewExpand.accessibilityHint = "\(indexPath.row)"
+//            cell.viewExpand.addTarget(self, action: #selector(self.isTopTipExpandView(sender:)), for: .touchUpInside)
             cell.lblHeader.numberOfLines = 1
             cell.buttonBookmark.tag = indexPath.section
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
@@ -156,11 +156,11 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
             
             if isTopTipExpand{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
                 cell.lblHeader.text = subTitle//subTitle
                 cell.lblHeader.numberOfLines = 0
             }else{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
                 cell.lblHeader.text = "Top Tip"
                 cell.lblHeader.numberOfLines = 1
             }
@@ -169,9 +169,9 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
         case .travelStory(let _ , let subTitle):
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
             
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isFavouriteExpandView(sender:)), for: .touchUpInside)
+            cell.viewExpand.tag = indexPath.section
+            cell.viewExpand.accessibilityHint = "\(indexPath.row)"
+//            cell.viewExpand.addTarget(self, action: #selector(self.isFavouriteExpandView(sender:)), for: .touchUpInside)
             
             cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
             cell.buttonBookmark.isHidden = isOwnProfile
@@ -182,12 +182,12 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
             
             if isFavouriteExpand{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
                 cell.lblHeader.text = subTitle//subTitle
                 cell.lblHeader.numberOfLines = 0
             }else{
                 cell.lblHeader.text = "Favorite Travel Story"
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
                 cell.lblHeader.numberOfLines = 1
             }
             
@@ -196,9 +196,9 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
         case .logisticsRoute(_, let subTitle):
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
 
-            cell.btnTitleExpand.accessibilityHint = "\(indexPath.row)"
-            cell.btnTitleExpand.tag = indexPath.section
-            cell.btnTitleExpand.addTarget(self, action: #selector(self.isLogisticsExpandView(sender:)), for: .touchUpInside)
+            cell.viewExpand.accessibilityHint = "\(indexPath.row)"
+            cell.viewExpand.tag = indexPath.section
+//            cell.viewExpand.addTarget(self, action: #selector(self.isLogisticsExpandView(sender:)), for: .touchUpInside)
             cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
             
             
@@ -210,12 +210,12 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.isHidden = isOwnProfile
             
             if isLogisticsExpand{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
                 cell.lblHeader.text = subTitle
                 cell.lblHeader.numberOfLines = 0
                 
             }else{
-                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
+//                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
                 cell.lblHeader.text = "Logistics & Routes"
                 cell.lblHeader.numberOfLines = 1
             }
