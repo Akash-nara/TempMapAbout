@@ -64,6 +64,7 @@ class AddTripInfoVC: UIViewController,UITextFieldDelegate{
         
         self.getTagData()
         
+        totalGlobalTripPhotoCount = (objTirpDatModel?.photoCount == 0 ? 21 : objTirpDatModel?.photoCount ?? 0)
         self.txtCity.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         self.txtDate.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         self.stackViewDate.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor

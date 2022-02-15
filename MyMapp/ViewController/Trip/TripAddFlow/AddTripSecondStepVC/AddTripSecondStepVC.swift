@@ -9,70 +9,6 @@ import UIKit
 import GooglePlaces
 import SwiftyJSON
 
-class KeyTripLocationFavouriteList{
-    var locationDetail : Keylocation?
-    var detailOfFavoruite : AddTripFavouriteLocationDetail?
-    var lastRecord : Bool?
-    var locationId = 0
-    var locationHash = ""
-    
-}
-class KeytripLocationList : NSObject{
-    var location : Keylocation?
-    var tags : String?
-    var notes : String?
-    var lastRecord : Bool?
-    
-    init(location:Keylocation,tags:String,notes:String,lastRecord:Bool) {
-        
-        self.location = location
-        self.tags = tags
-        self.notes = notes
-        self.lastRecord = lastRecord
-    }
-    
-    func toDictionary() -> [String:Any]{
-        var dictionary = [String:Any]()
-        if location != nil{
-            dictionary["location"] = JSON(location!.toDictionary)
-        }
-        if tags != nil{
-            dictionary["tags"] = tags?.description
-        }
-        if notes != nil{
-            dictionary["notes"] = notes?.description
-        }
-        
-        return dictionary
-    }
-}
-
-class Keylocation : NSObject{
-    var name : String?
-    var latitude : Double?
-    var longitude : Double?
-    
-    init(name:String,latitude:Double,longitude:Double) {
-        
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
-    }
-    
-    func toDictionary() -> [String:Any]{
-        var dictionary = [String:Any]()
-        if name != nil{
-            dictionary["name"] = name?.description
-        }
-        if latitude != nil{
-            dictionary["latitude"] = latitude?.description
-        }
-        if longitude != nil{
-            dictionary["longitude"] = longitude?.description
-        }
-        return dictionary
-    }
-}
 
 enum EnumTripSection:Equatable{
     case topTips(String,String), travelStory(String,String), logisticsRoute(String,String), description,favouriteLocation, travelAdvice
@@ -866,13 +802,14 @@ extension AddTripSecondStepVC{
     }
     
     @IBAction func btnHandlerNext(sender:UIButton){
-//        if self.descriptionTextContent == ""{
-//            Utility.errorMessage(message: "Please enter description")
-//            return
-//        }
         
         if self.arrayOfTripLocationListData.count == 1{
             Utility.errorMessage(message: "Please fill the details of the location")
+            return
+        }
+        
+        if totalGlobalTripPhotoCount == 21{
+            Utility.errorMessage(message: "Please select photo of favourite location to upload")
             return
         }
         
@@ -882,7 +819,5 @@ extension AddTripSecondStepVC{
         tripImagesUploadVC.arrayOfImageUpload = self.arrayOfTripLocationListData
         tripImagesUploadVC.paramDict = self.preparedParams()
         self.navigationController?.pushViewController(tripImagesUploadVC, animated: true)
-
-//        hideAndShowSubmitPopUp(isHidden: false)
     }
 }
