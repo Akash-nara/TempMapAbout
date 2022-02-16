@@ -303,11 +303,11 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
                 //since the width > height we may fit it and we'll have bands on top/bottom
                 cell.imgviewZoom.contentMode = .scaleAspectFill
                 //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = true
-                self.arrayOfImageURL[indexPath.row].isVerticle = true
+//                self.arrayOfImageURL[indexPath.row].isVerticle = true
             } else {
                 //width < height we fill it until width is taken up and clipped on top/bottom
                 cell.imgviewZoom.contentMode = .scaleToFill
-                self.arrayOfImageURL[indexPath.row].isVerticle = false
+//                self.arrayOfImageURL[indexPath.row].isVerticle = false
                 //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = false
             }
             collectionView.collectionViewLayout.invalidateLayout()
