@@ -24,11 +24,13 @@ class SayNoForDataTableView: PaginationTableView {
         case noSearchResultFound(String)
         case noInternetConnectionFound
         case genericNoResultsFound(String)
+        case noFeedFound(String)
+
         case none
         
         var getTitle: String {
             switch self {
-            case .noSearchResultFound(let title):
+            case .noSearchResultFound(let title),.noFeedFound(let title):
                 return title
             case .noInternetConnectionFound:
                 return "no_internet_connection"
@@ -48,6 +50,8 @@ class SayNoForDataTableView: PaginationTableView {
                 return "unable_to_connect_check_internet_connection"
             case .genericNoResultsFound:
                 return "Added trip will be display here"
+            case .noFeedFound:
+                return "You have no any feed"
             default:
                 return ""
             }
@@ -68,7 +72,7 @@ class SayNoForDataTableView: PaginationTableView {
         
         var getTitleTextColor: UIColor {
             switch self {
-            case .noSearchResultFound:
+            case .noSearchResultFound,.noFeedFound:
                 return UIColor.App_BG_SeafoamBlue_Color
             default:
                 return UIColor.black
