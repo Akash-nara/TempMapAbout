@@ -11,7 +11,6 @@ class ActivityInfoCellXIB: UITableViewCell {
     
     @IBOutlet weak var btnTitleFollow: UIButton!
     @IBOutlet weak var lblText: UILabel!
-    @IBOutlet weak var viewLine: UIView!
     @IBOutlet weak var viewButton: UIView!
     
     override func awakeFromNib() {

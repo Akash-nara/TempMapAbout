@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        SSReachabilityManager.shared.startMonitoring() // Start checking internet connection
+
         //        sleep(2)
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(UIStackView.self)
@@ -31,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysShow
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.toolbarTintColor = UIColor.black
-        SSReachabilityManager.shared.startMonitoring() // Start checking internet connection
         
         // GMSServices.provideAPIKey("AIzaSyDBjaNDds3kltx7UHUipMduma3TfCzijSs")
         // GMSPlacesClient.provideAPIKey("AIzaSyDBjaNDds3kltx7UHUipMduma3TfCzijSs")
@@ -54,6 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
         
         return true
     }
+    
+    // MARK: UISceneSession Lifecycle
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -113,6 +128,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
     
     func setTabbarRoot(){
         SceneDelegate.getWindow?.rootViewController = UIStoryboard.tabbar.instantiateInitialViewController()
+//        self.socketConnect()
+    }
+    
+    func socketConnect(){
+        SocketIOManager.sharedInstance.addBasicHandlers()
+        SocketIOManager.sharedInstance.addConnectHandler()
+        SocketIOManager.sharedInstance.connect()
     }
     
     //MARK: - OTHER FUNCTIONS

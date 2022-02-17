@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -25,10 +25,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATq-Z1-bux">
-                        <rect key="frame" x="5" y="0.0" width="310" height="50"/>
+                        <rect key="frame" x="5" y="0.0" width="310" height="35"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUW-LV-ZeH">
-                                <rect key="frame" x="0.0" y="0.0" width="310" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUW-LV-ZeH">
+                                <rect key="frame" x="0.0" y="0.0" width="310" height="35"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" name="App_Bg_Seafoamblue_Color"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="IUW-LV-ZeH" firstAttribute="leading" secondItem="ATq-Z1-bux" secondAttribute="leading" id="6zw-J4-Sdc"/>
-                            <constraint firstAttribute="height" constant="50" id="E40-Jr-axD"/>
                             <constraint firstItem="IUW-LV-ZeH" firstAttribute="top" secondItem="ATq-Z1-bux" secondAttribute="top" id="FTO-al-D0T"/>
                             <constraint firstAttribute="trailing" secondItem="IUW-LV-ZeH" secondAttribute="trailing" id="Gz3-0G-a4f"/>
                             <constraint firstAttribute="bottom" secondItem="IUW-LV-ZeH" secondAttribute="bottom" id="OY9-A9-x49"/>
@@ -45,7 +44,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="ATq-Z1-bux" secondAttribute="bottom" id="Zh9-Xs-r0P"/>
+                    <constraint firstAttribute="bottom" secondItem="ATq-Z1-bux" secondAttribute="bottom" constant="15" id="Zh9-Xs-r0P"/>
                     <constraint firstItem="ATq-Z1-bux" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="ejs-jC-MFy"/>
                     <constraint firstItem="ATq-Z1-bux" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="p66-Je-BKl"/>
                     <constraint firstAttribute="trailing" secondItem="ATq-Z1-bux" secondAttribute="trailing" constant="5" id="uWH-Dh-V2R"/>

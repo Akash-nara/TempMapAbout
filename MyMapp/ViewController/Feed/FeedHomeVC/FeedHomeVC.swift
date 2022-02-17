@@ -20,10 +20,25 @@ class FeedHomeVC: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        SSReachabilityManager.shared.startMonitoring()
+        getTripListApi()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
+    }
+    
+    @objc func reCallTripListApi() {
+        stopLoaders()
+        self.getTripListApi(isPullToRefresh: true)
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
     }
     
     func configureTableView(){
         tableViewFeedList.registerCell(type: FeedTableViewCell.self, identifier: "FeedTableViewCell")
+        tableViewFeedList.registerCell(type: SkeletonTripTVCell.self, identifier: "SkeletonTripTVCell")
+        
         tableViewFeedList.showsVerticalScrollIndicator = false
         
         // Enable automatic row auto layout calculations
@@ -37,6 +52,13 @@ class FeedHomeVC: UIViewController {
         tableViewFeedList.sayNoSection = .noFeedFound("Feed not found.")
 //        tableViewFeedList.figureOutAndShowNoResults()
         
+        tableViewFeedList.addRefreshControlForPullToRefresh { [weak self] in
+            self?.viewModel.isTripListFetched = false
+            self?.stopLoaders()
+            self?.getTripListApi(isPullToRefresh: true) // refresh
+        }
+
+        
     }
     
     @IBAction func buttonNotificationTapped(sender:UIButton){
@@ -47,12 +69,21 @@ class FeedHomeVC: UIViewController {
 //MARK: - TABLEVIEW METHODS
 extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.arrayOfFeed.count
+        guard self.viewModel.isTripListFetched else { return 10 }
+        return viewModel.arrayOfTripList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         
+        // show skelton while fetch firsyt time data or refresh data
+        guard self.viewModel.isTripListFetched else {
+            let cell = tableViewFeedList.dequeueReusableCell(withIdentifier: "SkeletonTripTVCell", for: indexPath) as! SkeletonTripTVCell
+            cell.startAnimating(index: indexPath.row)
+            return cell
+        }
+        
+
+        let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         
@@ -60,25 +91,52 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.buttonLike.tag = indexPath.row
         
         
-        let txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-        cell.labelExp.text = txt
-        cell.labelExp.isUserInteractionEnabled = true
-
-        if viewModel.arrayOfFeed[indexPath.row].isExpand{
-            cell.labelExp.appendReadmore(after: txt, trailingContent: .readmore)
-        }else{
-            cell.labelExp.appendReadLess(after: txt, trailingContent: .readless)
-        }
+//        let txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+//        cell.labelExp.text = txt
+//        cell.labelExp.isUserInteractionEnabled = true
+//
+//        if viewModel.arrayOfTripList[indexPath.row].isExpand{
+//            cell.labelExp.appendReadmore(after: txt, trailingContent: .readmore)
+//        }else{
+//            cell.labelExp.appendReadLess(after: txt, trailingContent: .readless)
+//        }
+        
+        cell.configureCell(modelData:viewModel.arrayOfTripList[indexPath.row])
 
         return cell
     }
     
     @objc func buttonLikeUnLikedClicked(sender:UIButton){
         sender.isSelected.toggle()
+        viewModel.arrayOfTripList[sender.tag].isLiked.toggle()
+        tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
+        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
+        tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return !viewModel.isTripListFetched ? 150 : UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
+            tripPageDetailVC.hidesBottomBarWhenPushed = true
+            tripPageDetailVC.enumCurrentFlow = .otherUser
+            tripPageDetailVC.detailTripDataModel = self.viewModel.arrayOfTripList[indexPath.row]
+            self.navigationController?.pushViewController(tripPageDetailVC, animated: true)
+        }
     }
 }
 
@@ -153,3 +211,55 @@ extension UILabel {
 }
 
 
+
+extension FeedHomeVC{
+    /*
+     requestJson:{"status":"C","pager":{"pageSize":5,"currentPage":1,"sortField":"CITY","sortOrder":1,"searchValue":""}}
+     */
+    func getTripListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        guard !self.tableViewFeedList.isAPIstillWorking else { return } // Shouldn't me making another call if already running.
+        
+        if !isNextPageRequest && !isPullToRefresh{
+            // API_LOADER.show(animated: true)
+            self.viewModel.isTripListFetched = false // show skeleton
+            self.tableViewFeedList.reloadData() // show skeleton
+            self.tableViewFeedList.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
+        }
+        
+        var param = viewModel.getPageDict(isPullToRefresh)
+            param["searchValue"] = ""
+            param["sortField"] = "CITY"
+        
+        self.tableViewFeedList.isAPIstillWorking = true
+        viewModel.getTripListApi(paramDict: ["status":"C", "pager":param], success: { response in
+            self.stopLoaders()
+            self.tableViewFeedList.reloadData()
+        })
+    }
+    
+    func stopLoaders() {
+        self.viewModel.isTripListFetched = true
+        self.tableViewFeedList.isAPIstillWorking = false
+        self.tableViewFeedList.stopPullToRefresh()
+        self.tableViewFeedList.reloadData()
+        self.tableViewFeedList.figureOutAndShowNoResults()
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension FeedHomeVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let height = scrollView.frame.size.height
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        if distanceFromBottom < height {
+            // pagination
+            
+            if viewModel.getTotalElements > viewModel.getAvailableElements &&
+                !self.tableViewFeedList.isAPIstillWorking {
+                self.getTripListApi(isNextPageRequest: true, isPullToRefresh: false)
+            }
+        }
+    }
+}

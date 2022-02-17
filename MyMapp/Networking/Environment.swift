@@ -35,6 +35,10 @@ class Environment {
         }
     }
     
+    static var socketURL:String{
+        return "http://54.160.11.28:9090/"
+    }
+    
     
     class func getVersionAndEnvironmentOfRelease() -> String {
         if let info = Bundle.main.infoDictionary {

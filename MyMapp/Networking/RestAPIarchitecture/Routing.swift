@@ -28,6 +28,8 @@ enum Routing {
     case deleteUploadedPhoto
     case getTripList
     case deleteTripLocation
+    case getFeedList
+    
     var getPath: String {
         switch self {
         case .signIn:
@@ -65,6 +67,10 @@ enum Routing {
             return "api/private/feed/list"
         case .deleteTripLocation:
            return "api/private/feed/deleteTripLocation"
+            
+        case .getFeedList:
+            return "api/private/feed/dashboard"
+
         }
     }
 }

@@ -86,6 +86,9 @@ PODS:
   - SDWebImage/Core (5.12.2)
   - SkeletonView (1.29.2)
   - SKPhotoBrowser (7.0.0)
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
+  - Starscream (4.0.4)
   - SVPinView (1.0.11)
   - SwiftyGif (5.4.2)
   - SwiftyJSON (5.0.1)
@@ -109,6 +112,7 @@ DEPENDENCIES:
   - SDWebImage
   - SkeletonView
   - SKPhotoBrowser
+  - Socket.IO-Client-Swift
   - SVPinView (~> 1.0)
   - SwiftyJSON
   - TagListView
@@ -134,6 +138,8 @@ SPEC REPOS:
     - SDWebImage
     - SkeletonView
     - SKPhotoBrowser
+    - Socket.IO-Client-Swift
+    - Starscream
     - SVPinView
     - SwiftyGif
     - SwiftyJSON
@@ -159,6 +165,8 @@ SPEC CHECKSUMS:
   SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
   SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
   SKPhotoBrowser: 6aaa8f232752e87c7e76bace183bead0a137097d
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
   SwiftyGif: dec758a9dd3d278e5a855dbf279bf062c923c387
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
@@ -166,6 +174,6 @@ SPEC CHECKSUMS:
   WaterfallLayout: 030e04b041e5c6c47ae2c1eaa685c60289fab0b1
   WXImageCompress: 86c7a4d028c7fc9c74181468c318a9ec688fcdac
 
-PODFILE CHECKSUM: 07e06aca7128fb14e8489314f59e7fbe96bc93d4
+PODFILE CHECKSUM: 7a2dffe7add70e3985c23ebc9ef5607c468607fc
 
 COCOAPODS: 1.11.2

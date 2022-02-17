@@ -17,7 +17,7 @@ class SSReachabilityManager: NSObject {
     
     // 3. Boolean to track network reachability
     var isNetworkAvailable : Bool {
-      return reachabilityStatus != .unavailable
+        return reachabilityStatus != .unavailable
     }
     
     // 4. Tracks current NetworkStatus (notReachable, reachableViaWiFi, reachableViaWWAN)
@@ -27,15 +27,15 @@ class SSReachabilityManager: NSObject {
     
     /// Starts monitoring the network availability status
     func startMonitoring() {
-       NotificationCenter.default.addObserver(self,
-                 selector: #selector(self.reachabilityChanged),
-                 name: Notification.Name.reachabilityChanged,
-                   object: reachability)
-      do{
-        try reachability.startNotifier()
-      } catch {
-        debugPrint("Could not start reachability notifier")
-      }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.reachabilityChanged),
+                                               name: Notification.Name.reachabilityChanged,
+                                               object: reachability)
+        do{
+            try reachability.startNotifier()
+        } catch {
+            debugPrint("Could not start reachability notifier")
+        }
     }
     
     /// Called whenever there is a change in NetworkReachibility Status
@@ -76,7 +76,7 @@ class SSReachabilityManager: NSObject {
             completed(SSReachabilityManager.shared)
         }
     }
-
+    
     // Network is reachable via WWAN/Cellular
     static func isReachableViaWWAN(completed: @escaping (SSReachabilityManager) -> Void) {
         if (SSReachabilityManager.shared.reachability).connection == .cellular {

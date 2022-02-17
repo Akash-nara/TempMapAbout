@@ -140,7 +140,7 @@
                                                                         <state key="normal" title="Button" image="ic_heart_with_Border"/>
                                                                         <state key="selected" image="iconsHeartSelected"/>
                                                                     </button>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="ssssss" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-v7-LhJ">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="ssssss" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-v7-LhJ">
                                                                         <rect key="frame" x="0.0" y="30" width="25" height="32"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
@@ -241,7 +241,15 @@
             <connections>
                 <outlet property="buttonBookmark" destination="Xef-Tm-g90" id="gbY-hQ-Y7f"/>
                 <outlet property="buttonLike" destination="7A7-EC-FkV" id="naY-Ly-fCR"/>
-                <outlet property="labelExp" destination="nQL-YM-LUn" id="d4p-Ij-bbd"/>
+                <outlet property="commentedUserPic" destination="2gm-oy-WQp" id="BcJ-rx-ni4"/>
+                <outlet property="labelExpDescription" destination="nQL-YM-LUn" id="ed5-pR-OPq"/>
+                <outlet property="labelTotaBookmarkCount" destination="I8z-Iv-94Q" id="hcF-GC-psH"/>
+                <outlet property="labelTotalLikeCount" destination="Xds-v7-LhJ" id="EJe-ht-iTV"/>
+                <outlet property="postedDate" destination="BQK-dI-XbA" id="Az0-eg-MGe"/>
+                <outlet property="postedUserAddress" destination="VJn-ks-DwE" id="LNq-lz-cfa"/>
+                <outlet property="postedUserName" destination="kdg-8x-Uwp" id="R7i-s5-0Ox"/>
+                <outlet property="postedUserPic" destination="0ht-Ru-jZA" id="uOJ-9m-J1B"/>
+                <outlet property="textFieldComment" destination="g7X-9x-fUi" id="rjK-1w-P8b"/>
             </connections>
             <point key="canvasLocation" x="66.666666666666671" y="195.20089285714286"/>
         </tableViewCell>
