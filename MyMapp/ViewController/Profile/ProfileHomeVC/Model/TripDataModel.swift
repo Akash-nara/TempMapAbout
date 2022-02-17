@@ -94,7 +94,7 @@ class TripDataModel{
     var photoUploadedArrayDetail = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
-    
+    var isExpand = false
     /*
     func processDetailArray(){
         photoUploadedArrayDetail.removeAll()

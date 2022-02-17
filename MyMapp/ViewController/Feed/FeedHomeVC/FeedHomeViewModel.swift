@@ -11,6 +11,23 @@ class FeedHomeViewModel {
     var arrayOfFeed = [TripDataModel]()
     
     init() {
+        loadStaticData()
+    }
+    
+    func loadStaticData(){
+        arrayOfFeed.removeAll()
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
+        arrayOfFeed.append(TripDataModel())
         
     }
 }

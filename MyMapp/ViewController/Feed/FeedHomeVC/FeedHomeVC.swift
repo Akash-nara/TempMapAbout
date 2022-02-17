@@ -24,6 +24,7 @@ class FeedHomeVC: UIViewController {
     
     func configureTableView(){
         tableViewFeedList.registerCell(type: FeedTableViewCell.self, identifier: "FeedTableViewCell")
+        tableViewFeedList.showsVerticalScrollIndicator = false
         
         // Enable automatic row auto layout calculations
         tableViewFeedList.rowHeight = UITableView.automaticDimension;
@@ -46,7 +47,7 @@ class FeedHomeVC: UIViewController {
 //MARK: - TABLEVIEW METHODS
 extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10//viewModel.arrayOfFeed.count
+        return viewModel.arrayOfFeed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,7 +64,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.labelExp.text = txt
         cell.labelExp.isUserInteractionEnabled = true
 
-        if isExpand{
+        if viewModel.arrayOfFeed[indexPath.row].isExpand{
             cell.labelExp.appendReadmore(after: txt, trailingContent: .readmore)
         }else{
             cell.labelExp.appendReadLess(after: txt, trailingContent: .readless)
