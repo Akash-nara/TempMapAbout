@@ -30,6 +30,7 @@ class TripMainPageTableCell: UITableViewCell {
     
     
     func configureArray(){
+        
         arrayOfImageURL.removeAll()
         photoUploadedArray.forEach { obj in
             obj.arrayOfImageURL.forEach { obj1 in
@@ -289,9 +290,7 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
             cell.imgviewZoom.clipsToBounds = true
             collectionView.collectionViewLayout.invalidateLayout()
         }
-        
-        
-        
+                
         
         //        if !arrayOfImageURL[indexPath.row].isDummyItem{
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGestureHandler))

@@ -27,14 +27,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-J8-vOR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="396"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-J8-vOR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDx-gy-M1M" userLabel="ViewFeedPostedBy">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="262"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="58.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jSg-UU-oHo">
-                                        <rect key="frame" x="25" y="12" width="270" height="240"/>
+                                        <rect key="frame" x="25" y="12" width="270" height="36.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-25-KDg">
                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="36.5"/>
@@ -88,35 +88,50 @@
                                     <constraint firstItem="jSg-UU-oHo" firstAttribute="top" secondItem="KDx-gy-M1M" secondAttribute="top" constant="12" id="nVd-cy-ebg"/>
                                 </constraints>
                             </view>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ojD-3p-9cH" userLabel="CollectionViewStack">
-                                <rect key="frame" x="0.0" y="262" width="320" height="0.0"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ojD-3p-9cH" userLabel="CollectionViewStack">
+                                <rect key="frame" x="0.0" y="73.5" width="320" height="226.5"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jvm-gS-Yf2">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qJl-1r-TJR">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" id="QiR-CZ-R4V"/>
-                                        </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D2o-zk-Js8">
-                                            <size key="itemSize" width="128" height="128"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Tn-by-0rl" customClass="UPCarouselFlowLayout" customModule="MyMapp" customModuleProvider="target">
+                                            <size key="itemSize" width="200" height="200"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="sideItemScale">
+                                                    <real key="value" value="0.59999999999999998"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="sideItemAlpha">
+                                                    <real key="value" value="0.40000000000000002"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </collectionViewFlowLayout>
+                                        <connections>
+                                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="Wbv-Dd-dr7"/>
+                                            <outlet property="delegate" destination="KGk-i7-Jjw" id="rsF-vq-Uyx"/>
+                                        </connections>
                                     </collectionView>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="UWz-N9-X6Z">
-                                        <rect key="frame" x="82.5" y="0.0" width="155.5" height="0.0"/>
+                                    <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="UWz-N9-X6Z">
+                                        <rect key="frame" x="0.0" y="219" width="320" height="7.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="pageIndicatorTintColor" name="App_BG_silver_Color"/>
+                                        <color key="currentPageIndicatorTintColor" name="App_BG_SecondaryDark2_Color"/>
                                     </pageControl>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="qJl-1r-TJR" firstAttribute="height" secondItem="ojD-3p-9cH" secondAttribute="height" multiplier="0.9" id="gDl-x7-8fu"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wdJ-0V-UOU">
-                                <rect key="frame" x="0.0" y="262" width="320" height="134"/>
+                                <rect key="frame" x="0.0" y="315" width="320" height="125"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="5UQ-eh-Cks" userLabel="BookmarkLikelabelStack">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OM3-xN-nPU">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The city is very vibrant at night, especially in summer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn">
                                                         <rect key="frame" x="25" y="10" width="205" height="32"/>
@@ -125,7 +140,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6VK-58-6dA">
-                                                        <rect key="frame" x="240" y="8" width="60" height="71"/>
+                                                        <rect key="frame" x="240" y="8" width="60" height="62"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qg8-bL-RoU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="62"/>
@@ -186,7 +201,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="d7O-Zm-897" userLabel="CommentStack">
-                                        <rect key="frame" x="0.0" y="94" width="320" height="40"/>
+                                        <rect key="frame" x="0.0" y="85" width="320" height="40"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0F-qW-QLr">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -241,10 +256,12 @@
             <connections>
                 <outlet property="buttonBookmark" destination="Xef-Tm-g90" id="gbY-hQ-Y7f"/>
                 <outlet property="buttonLike" destination="7A7-EC-FkV" id="naY-Ly-fCR"/>
+                <outlet property="collectionView" destination="qJl-1r-TJR" id="aDZ-bL-vpV"/>
                 <outlet property="commentedUserPic" destination="2gm-oy-WQp" id="BcJ-rx-ni4"/>
                 <outlet property="labelExpDescription" destination="nQL-YM-LUn" id="ed5-pR-OPq"/>
                 <outlet property="labelTotaBookmarkCount" destination="I8z-Iv-94Q" id="hcF-GC-psH"/>
                 <outlet property="labelTotalLikeCount" destination="Xds-v7-LhJ" id="EJe-ht-iTV"/>
+                <outlet property="pageControll" destination="UWz-N9-X6Z" id="eEL-xz-qz2"/>
                 <outlet property="postedDate" destination="BQK-dI-XbA" id="Az0-eg-MGe"/>
                 <outlet property="postedUserAddress" destination="VJn-ks-DwE" id="LNq-lz-cfa"/>
                 <outlet property="postedUserName" destination="kdg-8x-Uwp" id="R7i-s5-0Ox"/>

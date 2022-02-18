@@ -27,6 +27,10 @@
 		38857A2727A0004100AFAA1D /* AddTripFavouriteImageHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38857A2527A0004100AFAA1D /* AddTripFavouriteImageHeader.xib */; };
 		38857A2927A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38857A2827A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift */; };
 		38857A2B27A0174600AFAA1D /* TripImagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38857A2A27A0174600AFAA1D /* TripImagesModel.swift */; };
+		38A0D7CE27BFAA4E00CC5CD8 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7CB27BFAA4E00CC5CD8 /* iCarousel.m */; };
+		38A0D7D527BFC0B400CC5CD8 /* UPCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */; };
+		38A0D7D727BFC0D100CC5CD8 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7D627BFC0D000CC5CD8 /* CarouselCollectionViewCell.swift */; };
+		38A0D7D927BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38A0D7D827BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib */; };
 		38A7F52027A79FD300423250 /* PlaceHolderTripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A7F51E27A79FD300423250 /* PlaceHolderTripCell.swift */; };
 		38A7F52127A79FD300423250 /* PlaceHolderTripCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38A7F51F27A79FD300423250 /* PlaceHolderTripCell.xib */; };
 		38AE152F2782D6630016F80E /* CustomAlertHelpingUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE14FD2782D6630016F80E /* CustomAlertHelpingUtility.swift */; };
@@ -268,6 +272,12 @@
 		38857A2527A0004100AFAA1D /* AddTripFavouriteImageHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTripFavouriteImageHeader.xib; sourceTree = "<group>"; };
 		38857A2827A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripFavouriteLocationDetail.swift; sourceTree = "<group>"; };
 		38857A2A27A0174600AFAA1D /* TripImagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImagesModel.swift; sourceTree = "<group>"; };
+		38A0D7CB27BFAA4E00CC5CD8 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		38A0D7CC27BFAA4E00CC5CD8 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		38A0D7D327BFAAC200CC5CD8 /* MyMapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyMapp-Bridging-Header.h"; sourceTree = "<group>"; };
+		38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPCarouselFlowLayout.swift; sourceTree = "<group>"; };
+		38A0D7D627BFC0D000CC5CD8 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
+		38A0D7D827BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		38A7F51E27A79FD300423250 /* PlaceHolderTripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTripCell.swift; sourceTree = "<group>"; };
 		38A7F51F27A79FD300423250 /* PlaceHolderTripCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceHolderTripCell.xib; sourceTree = "<group>"; };
 		38AE14FD2782D6630016F80E /* CustomAlertHelpingUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertHelpingUtility.swift; sourceTree = "<group>"; };
@@ -524,6 +534,8 @@
 				38584CE427BD098600FACF6D /* FeedTableViewCell.xib */,
 				38584D4327BE1A4400FACF6D /* SkeletonTripTVCell.swift */,
 				38584D4427BE1A4400FACF6D /* SkeletonTripTVCell.xib */,
+				38A0D7D627BFC0D000CC5CD8 /* CarouselCollectionViewCell.swift */,
+				38A0D7D827BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -546,6 +558,15 @@
 				6906DA53274656C400B9F23A /* AddTripThirdStepVC */,
 			);
 			path = TripAddFlow;
+			sourceTree = "<group>";
+		};
+		38A0D7CA27BFAA4E00CC5CD8 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				38A0D7CB27BFAA4E00CC5CD8 /* iCarousel.m */,
+				38A0D7CC27BFAA4E00CC5CD8 /* iCarousel.h */,
+			);
+			path = iCarousel;
 			sourceTree = "<group>";
 		};
 		38AE14FB2782D6630016F80E /* Networking */ = {
@@ -839,6 +860,7 @@
 		883546482729CB1900DAD2B5 /* MyMapp */ = {
 			isa = PBXGroup;
 			children = (
+				38A0D7D327BFAAC200CC5CD8 /* MyMapp-Bridging-Header.h */,
 				38E6C0AB27859D4400953D55 /* Components */,
 				3840460527840EB000BF206D /* User */,
 				38AE14FB2782D6630016F80E /* Networking */,
@@ -919,7 +941,9 @@
 		8845433C2737F76500B52FED /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				38A0D7CA27BFAA4E00CC5CD8 /* iCarousel */,
 				38584D4127BE070200FACF6D /* SocketIOManager.swift */,
+				38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */,
 				38584CE227BD096300FACF6D /* Cell */,
 				884543402737FA5500B52FED /* FeedHomeVC */,
 			);
@@ -1501,6 +1525,7 @@
 				88122D59273FFEE5003512C1 /* LocationDescriptionCell.xib in Resources */,
 				88EADAA727414AD200A6B390 /* ProfileImagesCellXIB.xib in Resources */,
 				886763242729D2A00023D9DA /* Authentication.storyboard in Resources */,
+				38A0D7D927BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib in Resources */,
 				88B597042740E36D00CBA48C /* ActivityimageCellXIB.xib in Resources */,
 				887EECF727356068003D2F1A /* Trip.storyboard in Resources */,
 				38ED7CC827BE7C6600794C43 /* ActivityFooterCell.xib in Resources */,
@@ -1773,6 +1798,7 @@
 				8853FBEA272E8AC900787059 /* PersonalDetailsVC.swift in Sources */,
 				38AE154A2782D6630016F80E /* UIImage+Extensions.swift in Sources */,
 				88B81B04275BA3DD00F95934 /* TripDetailVC.swift in Sources */,
+				38A0D7D527BFC0B400CC5CD8 /* UPCarouselFlowLayout.swift in Sources */,
 				3802A30D278C281400A6E3C0 /* SSReachabilityManager.swift in Sources */,
 				38ED7CC727BE7C6600794C43 /* ActivityFooterCell.swift in Sources */,
 				38AE15442782D6630016F80E /* UIButton+Extensions.swift in Sources */,
@@ -1794,6 +1820,8 @@
 				38AE15482782D6630016F80E /* UIControl+Extensions.swift in Sources */,
 				38AE15552782D6630016F80E /* JSONhelperClasses.swift in Sources */,
 				88B81B00275B9B6600F95934 /* AlbumCellDisplayXIB.swift in Sources */,
+				38A0D7D727BFC0D100CC5CD8 /* CarouselCollectionViewCell.swift in Sources */,
+				38A0D7CE27BFAA4E00CC5CD8 /* iCarousel.m in Sources */,
 				88670B70272F0D3800BA6191 /* LocationServicesVC.swift in Sources */,
 				38AE153C2782D6630016F80E /* InputValidator.swift in Sources */,
 				88B596FF2740CD2300CBA48C /* ActivityInfoCellXIB.swift in Sources */,
@@ -2034,7 +2062,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development_20211208;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2079,7 +2107,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development_20211208;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
