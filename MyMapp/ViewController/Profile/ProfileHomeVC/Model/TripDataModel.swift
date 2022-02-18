@@ -45,7 +45,7 @@ class TripDataModel{
         
         struct TripImage {
             var isVerticle:Bool{
-                return width > height
+                return width < height
             }
             var image = ""
             var isDummyItem = false

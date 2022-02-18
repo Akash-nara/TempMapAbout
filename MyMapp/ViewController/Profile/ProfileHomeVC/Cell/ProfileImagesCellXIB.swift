@@ -57,7 +57,7 @@ class ProfileImagesCellXIB: UICollectionViewCell {
             imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
                 self.imgviewBG.image = img
                 self.stopAnimating()
-                if let sizeOfImage = self.imgviewBG.image?.size, sizeOfImage.width > sizeOfImage.height {
+                if let sizeOfImage = self.imgviewBG.image?.size, sizeOfImage.width < sizeOfImage.height {
                     
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     self.imgviewBG.contentMode = .scaleAspectFill

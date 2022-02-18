@@ -279,8 +279,19 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
 //                self.arrayOfImageURL[indexPath.row].isVerticle = false
                 //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = false
             }
+            
+            if self.arrayOfImageURL[indexPath.row].isVerticle{
+                cell.imgviewZoom.contentMode = .scaleAspectFill
+            }else{
+                cell.imgviewZoom.contentMode = .scaleToFill
+            }
+            
+            cell.imgviewZoom.clipsToBounds = true
             collectionView.collectionViewLayout.invalidateLayout()
         }
+        
+        
+        
         
         //        if !arrayOfImageURL[indexPath.row].isDummyItem{
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGestureHandler))
