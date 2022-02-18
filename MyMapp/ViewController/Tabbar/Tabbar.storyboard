@@ -223,7 +223,7 @@
                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2JH-zb-JN1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2JH-zb-JN1">
                                 <rect key="frame" x="20" y="120" width="374" height="683"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
@@ -634,28 +634,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epa-c7-kL8">
-                                <rect key="frame" x="163" y="437.5" width="88" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="RdJ-gx-98K"/>
-                                    <constraint firstAttribute="height" constant="21" id="UGc-Hv-thu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eH3-DU-GNk">
+                                <rect key="frame" x="25" y="59" width="379" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epa-c7-kL8">
+                                        <rect key="frame" x="0.0" y="6.5" width="155.5" height="32"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="26"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TI-1s-3gK">
+                                        <rect key="frame" x="329" y="0.0" width="50" height="45"/>
+                                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="10" maxY="10"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="ic_unselected_Notifications"/>
+                                        <connections>
+                                            <action selector="buttonNotificationTappedWithSender:" destination="JME-D0-L28" eventType="touchUpInside" id="eYi-Zu-u85"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gds-YP-4Iv" customClass="SayNoForDataTableView" customModule="MyMapp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="104" width="414" height="709"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="JME-D0-L28" id="jJR-XK-1Qu"/>
+                                    <outlet property="delegate" destination="JME-D0-L28" id="DbI-0q-FZf"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9QO-D8-zpA"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Epa-c7-kL8" firstAttribute="centerX" secondItem="6iw-cX-IcL" secondAttribute="centerX" id="IL6-ha-MjX"/>
-                            <constraint firstItem="Epa-c7-kL8" firstAttribute="centerY" secondItem="6iw-cX-IcL" secondAttribute="centerY" id="OEG-gb-y77"/>
+                            <constraint firstItem="9QO-D8-zpA" firstAttribute="trailing" secondItem="gds-YP-4Iv" secondAttribute="trailing" id="1PN-zU-SZJ"/>
+                            <constraint firstItem="eH3-DU-GNk" firstAttribute="top" secondItem="9QO-D8-zpA" secondAttribute="top" constant="15" id="2KB-fx-7Q1"/>
+                            <constraint firstItem="eH3-DU-GNk" firstAttribute="leading" secondItem="9QO-D8-zpA" secondAttribute="leading" constant="25" id="PDY-1j-Nc8"/>
+                            <constraint firstItem="9QO-D8-zpA" firstAttribute="bottom" secondItem="gds-YP-4Iv" secondAttribute="bottom" id="q84-sF-wfN"/>
+                            <constraint firstItem="9QO-D8-zpA" firstAttribute="trailing" secondItem="eH3-DU-GNk" secondAttribute="trailing" constant="10" id="tvj-9B-OwZ"/>
+                            <constraint firstItem="gds-YP-4Iv" firstAttribute="top" secondItem="eH3-DU-GNk" secondAttribute="bottom" id="vPb-NQ-KoX"/>
+                            <constraint firstItem="gds-YP-4Iv" firstAttribute="leading" secondItem="9QO-D8-zpA" secondAttribute="leading" id="wEU-48-1ZE"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Feed" id="RPN-DX-VBa">
                         <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="buttonNotification" destination="7TI-1s-3gK" id="P0P-MI-sz0"/>
+                        <outlet property="labelFeedTitle" destination="Epa-c7-kL8" id="dwT-Fe-Hbs"/>
+                        <outlet property="tableViewFeedList" destination="gds-YP-4Iv" id="yMg-tu-U2o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oWb-aM-0Ow" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -725,6 +754,7 @@
         <image name="ic_Settings" width="18" height="18"/>
         <image name="ic_heart" width="19" height="19"/>
         <image name="ic_nature_image" width="700" height="437"/>
+        <image name="ic_unselected_Notifications" width="25" height="25"/>
         <image name="ic_user_image_defaulut_one" width="512" height="512"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
             <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

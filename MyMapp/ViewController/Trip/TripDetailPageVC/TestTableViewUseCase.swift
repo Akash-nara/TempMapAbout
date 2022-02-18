@@ -129,6 +129,7 @@ class TestTableViewUseCase: UIViewController {
 //MARK: - TABLEVIEW METHODS
 extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return arrayOfSections.count
     }
     

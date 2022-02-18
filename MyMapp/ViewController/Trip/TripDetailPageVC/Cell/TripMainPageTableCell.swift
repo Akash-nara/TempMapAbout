@@ -193,7 +193,7 @@ class TripMainPageTableCell: UITableViewCell {
         self.collectionViewTrip.register(UINib(nibName: "AddTripFavouriteImageHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "AddTripFavouriteImageHeader")
         
         
-//        pageCtrl.numberOfPages = photoUploadedArray.count
+        //        pageCtrl.numberOfPages = photoUploadedArray.count
         collectionViewTrip.registerCellNib(identifier: "TripMainPageCollectionCell", commonSetting: true)
         collectionViewTrip.backgroundColor = .white//UIColor.red
         collectionViewTrip.delegate = self
@@ -202,39 +202,8 @@ class TripMainPageTableCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
-        //        layout.minimumLineSpacing = 10
-        //        layout.minimumInteritemSpacing = 10
-        //        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        //        let size = CGSize(width:(collectionViewTrip!.bounds.width-30)/2, height: 250)
-        //        layout.itemSize = size
-        //        collectionViewTrip.collectionViewLayout = layout
-        //        addObserver()
-        //        layout.delegate = self
-        
-        //        layout.headerHeight = 0
-        //        collectionViewTrip.reloadData()
-        //        self.collectionViewTrip.layoutIfNeeded()
-        //        collectionViewTrip.collectionViewLayout.invalidateLayout()
-        //      self.heightOfCollectionViewTrip.constant = self.collectionViewTrip.contentSize.height
-        //        collectionViewTrip.reloadData {
-        //            self.callbackAfterReload?(self.heioght)
-        //        }
-        //        let contentSize = self.collectionViewTrip.collectionViewLayout.collectionViewContentSize
-        
-        //        collectionViewTrip.collectionViewLayout.invalidateLayout()
-        //        collectionViewTrip.collectionViewLayout.prepare()
-        //        collectionViewTrip.layoutIfNeeded()
-        //        self.heightOfCollectionViewTrip.constant = self.collectionViewTrip.contentSize.height
         
         collectionViewTrip.isPagingEnabled = true
-        /*
-         collectionViewTrip.reloadData {
-         self.layoutIfNeeded()
-         self.heightOfCollectionViewTrip.constant = self.collectionViewTrip.contentSize.height
-         self.layoutIfNeeded()
-         self.callbackAfterReload?(self.heightOfCollectionViewTrip.constant)
-         //            self.collectionPhotos?.collectionViewLayout.invalidateLayout()
-         }*/
         setTotalPageNo()
     }
 
@@ -303,11 +272,11 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
                 //since the width > height we may fit it and we'll have bands on top/bottom
                 cell.imgviewZoom.contentMode = .scaleAspectFill
                 //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = true
-                self.arrayOfImageURL[indexPath.row].isVerticle = true
+//                self.arrayOfImageURL[indexPath.row].isVerticle = true
             } else {
                 //width < height we fill it until width is taken up and clipped on top/bottom
                 cell.imgviewZoom.contentMode = .scaleToFill
-                self.arrayOfImageURL[indexPath.row].isVerticle = false
+//                self.arrayOfImageURL[indexPath.row].isVerticle = false
                 //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = false
             }
             collectionView.collectionViewLayout.invalidateLayout()

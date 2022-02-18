@@ -44,10 +44,15 @@ class TripDataModel{
     class TripPhotoDetails{
         
         struct TripImage {
-            var isVerticle = false
+            var isVerticle:Bool{
+                return width > height
+            }
             var image = ""
             var isDummyItem = false
             var itemHeight:CGFloat = 0
+            
+            var height = ""
+            var width = ""
         }
         var hash = ""
         var arrayOfImageURL = [TripImage]()
@@ -56,9 +61,20 @@ class TripDataModel{
         init(param:JSON) {
             self.hash = param["hash"].stringValue
             param["imageArray"].arrayValue.forEach { objJson in
-                let objTripImage = TripImage.init(image: objJson.stringValue)
-//                objTripImage.image = objJson.stringValue
+                let arraySplited = objJson.stringValue.components(separatedBy: ",")
+                var objTripImage = TripImage.init()
+                if let imgUrl = arraySplited.first{
+                    objTripImage.image = imgUrl
+                }
+                if arraySplited.indices.contains(1){
+                    objTripImage.width = arraySplited[1].replacingOccurrences(of: "px", with: "")
+                }
+                
+                if arraySplited.indices.contains(2){
+                    objTripImage.height = arraySplited[2].replacingOccurrences(of: "px", with: "")
+                }
                 self.arrayOfImageURL.append(objTripImage)
+
             }
 //            self.arrayOfImageURL = param["imageArray"].arrayValue
         }
@@ -78,6 +94,11 @@ class TripDataModel{
     var photoUploadedArrayDetail = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
+    var isBookmarked = false
+    var isLiked = false
+    var bookmarkedTotalCount = 0
+    var likedTotalCount = 0
+
     
     /*
     func processDetailArray(){

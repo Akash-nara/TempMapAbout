@@ -23,6 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        SSReachabilityManager.shared.startMonitoring() // Start checking internet connection
+
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -64,6 +66,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        if let user = APP_USER, user.displayNameAdded{
+            if !SocketIOManager.sharedInstance.isConnected(){
+                SocketIOManager.sharedInstance.connect()
+            }
+        }
+        
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
 //        if let _ = COUNT_DOWN_VIEW {

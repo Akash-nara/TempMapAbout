@@ -29,10 +29,13 @@ class LoginViewModel {
             APP_USER = AppUser.init(loginResponse: responseJson, authToken: API_SERVICES.getAuthorization() ?? TOKEN_STATIC)
             UserManager.saveUser()
             UserManager.storeCertifUser(APP_USER)
+            appDelegateShared.socketConnect()
             
             successBlock(parsingResponse?["msg"]?.stringValue ?? "")
         } failureInform: {
             HIDE_CUSTOM_LOADER()
         }
-    }    
+    }
+    
+    
 }
