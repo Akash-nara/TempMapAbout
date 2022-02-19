@@ -11,6 +11,19 @@ import MapKit
 
 class TripDataModel{
     
+    
+    struct UserCreatedTrip{
+        var username = ""
+        var profilePic = ""
+        var region = ""
+        
+        init() {}
+        init(param:JSON) {
+            self.username = param["username"].stringValue
+            self.profilePic = param["profilePic"].stringValue
+            self.region = param["region"].stringValue
+        }
+    }
     struct TripCity{
         var cityName = ""
         var countryName = ""
@@ -94,10 +107,34 @@ class TripDataModel{
     var photoUploadedArrayDetail = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
-    var isBookmarked = false
+    var isBookmarked = false{
+        didSet{
+    
+        }
+    }
     var isLiked = false
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
+
+    func increaeeDecreaseBookmarkCount(){
+        if isBookmarked{
+            bookmarkedTotalCount += 1
+        }else{
+            if bookmarkedTotalCount != 0{
+                bookmarkedTotalCount -= 1
+            }
+        }
+    }
+    
+    func increaeeDecreaseLikeUNLIkeCount(){
+        if isLiked{
+            likedTotalCount += 1
+        }else{
+            if likedTotalCount != 0{
+                likedTotalCount -= 1
+            }
+        }
+    }
 
     
     /*
@@ -202,6 +239,8 @@ class TripDataModel{
     var defaultImageKey = ""
     var arraYOfPhotoCount = [Int]()
     
+    var userCreatedTrip:UserCreatedTrip? = nil
+    
     init(){}
     init(param:JSON) {
         
@@ -226,6 +265,7 @@ class TripDataModel{
         }
         
         
+        userCreatedTrip = UserCreatedTrip.init(param: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()
         arraYOfPhotoCount.removeAll()

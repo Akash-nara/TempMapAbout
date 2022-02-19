@@ -84,6 +84,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         
 
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
+        
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         
@@ -109,12 +110,14 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     @objc func buttonLikeUnLikedClicked(sender:UIButton){
         sender.isSelected.toggle()
         viewModel.arrayOfTripList[sender.tag].isLiked.toggle()
+        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseLikeUNLIkeCount()
         tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
         viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
+        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
         tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
     }
     

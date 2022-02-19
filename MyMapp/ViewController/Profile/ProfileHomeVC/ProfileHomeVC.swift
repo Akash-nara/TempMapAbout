@@ -71,7 +71,6 @@ class ProfileHomeVC: UIViewController {
         collectionviewProfile.register(UINib(nibName: "LoadingActivityIndicatorMoreCVCell", bundle: nil), forCellWithReuseIdentifier: "LoadingActivityIndicatorMoreCVCell")
         collectionviewProfile.register(UINib(nibName: "PlaceHolderTripCell", bundle: nil), forCellWithReuseIdentifier: "PlaceHolderTripCell")
         
-        
         collectionviewProfile.dataSource = self
         collectionviewProfile.dataSource = self
         let layout = CHTCollectionViewWaterfallLayout()

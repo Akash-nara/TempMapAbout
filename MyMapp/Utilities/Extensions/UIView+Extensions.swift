@@ -254,6 +254,31 @@ extension UIView {
     func applyShadowJobWithBelowBordersOnly(cornerRadius:CGFloat = 8.3){
         applyShadowWithBelowBordersOnly(cornerRadius: cornerRadius, shadowOpacity: 0.16, size: CGSize(width: 0, height: 1), shadowRadius: 2)
     }
+    
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+    
+    func roundCornersWithBorder(corners: UIRectCorner, radius: CGFloat) {
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        maskLayer.path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        
+        layer.mask = maskLayer
+        
+        // Add border
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = maskLayer.path // Reuse the Bezier path
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.strokeColor = UIColor.App_BG_silver_Color.cgColor//UIColor(red:3/255, green:33/255, blue:70/255, alpha: 0.15).cgColor
+        borderLayer.lineWidth = 2
+        borderLayer.frame = bounds
+        layer.addSublayer(borderLayer)
+    }
+
 }
 
 extension UIView {

@@ -92,5 +92,39 @@ extension UIImage {
         }
     }
     
+    func drawOutlie(imageKeof: CGFloat = 1.011, color: UIColor = .App_BG_silver_Color)-> UIImage? {
+        let outlinedImageRect = CGRect(x: 0.0, y: 0.0, width: size.width * imageKeof, height: size.height * imageKeof)
+        let imageRect = CGRect(x: self.size.width * (imageKeof - 1) * 0.5, y: self.size.height * (imageKeof - 1) * 0.5, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(outlinedImageRect.size, false, imageKeof)
+        draw(in: outlinedImageRect)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setBlendMode(.sourceIn)
+        context!.setFillColor(color.cgColor)
+        context!.fill(outlinedImageRect)
+        draw(in: imageRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+
+    // image with rounded corners
+    public func withRoundedCorners(radius: CGFloat? = nil) -> UIImage? {
+        let maxRadius = min(size.width, size.height) / 2
+        let cornerRadius: CGFloat
+        if let radius = radius, radius > 0 && radius <= maxRadius {
+            cornerRadius = radius
+        } else {
+            cornerRadius = maxRadius
+        }
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        let rect = CGRect(origin: .zero, size: size)
+        UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).addClip()
+        draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+
+    
 }
 
