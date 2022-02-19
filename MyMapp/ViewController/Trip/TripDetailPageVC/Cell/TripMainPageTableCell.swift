@@ -27,7 +27,7 @@ class TripMainPageTableCell: UITableViewCell {
     }
     var isTripListFetched:Bool = false
     var arrayOfImageURL = [TripDataModel.TripPhotoDetails.TripImage]()
-    
+    var pages = 0
     
     func configureArray(){
         
@@ -37,6 +37,10 @@ class TripMainPageTableCell: UITableViewCell {
                 arrayOfImageURL.append(obj1)
             }
         }
+        
+        
+//        tmpRearrageArrray()
+        prepareDummyCellData()
         
         /*
         arrayOfImageURL.removeAll()
@@ -71,47 +75,180 @@ class TripMainPageTableCell: UITableViewCell {
         //1827 * 0.37
         
         heightOfCollectionViewTrip.constant  = UIScreen.main.bounds.size.height*0.75
-        
-        /*
-         var collectionViewHeight:CGFloat = 500
-         var longCellHeight = ((collectionViewHeight - 10 - 10)/5)*2 //231
-         var smallCellHeight = (collectionViewHeight - 10 - 10)/5
-         
-         let localArray = arrayOfImageURL
-         var dummyItemCount = 0
-         var columHeight:CGFloat = 0
-         
-         
-         for (i, obj) in localArray.enumerated(){
-         var indexMain: Int { i + dummyItemCount }
-         var itemHeight = arrayOfImageURL[indexMain].isVerticle ? longCellHeight : smallCellHeight
-         print("columHeight Begin: \(columHeight)")
-         if !columHeight.isZero {
-         columHeight += 10
-         }
-         columHeight += itemHeight
-         
-         if columHeight > collectionViewHeight{
-         columHeight -= itemHeight
-         itemHeight = collectionViewHeight - columHeight
-         columHeight += itemHeight
-         arrayOfImageURL.insert(
-         TripDataModel.TripPhotoDetails.TripImage(isVerticle: false, image: "", isDummyItem: true, itemHeight: itemHeight),
-         at: indexMain)
-         dummyItemCount += 1
-         //                columHeight = 0
-         }
-         arrayOfImageURL[indexMain].itemHeight = itemHeight
-         print("columHeight End: \(columHeight)")
-         if columHeight == collectionViewHeight {
-         columHeight = 0
-         }
-         }*/
-        
+                
         // Initialization code
         self.backgroundColor = .white//.green
         configureCollectionView()
         
+    }
+    
+    func tmpRearrageArrray() {
+        var index = 0
+        
+        moveNext(isVerticle: true)
+        moveNext(isVerticle: true)
+        moveNext(isVerticle: true)
+//        moveVerticleNext()
+//        moveVerticleNext()
+
+        func moveNext(isVerticle: Bool) {
+            guard index < arrayOfImageURL.count else { return }
+            if let i = arrayOfImageURL.lastIndex(where: {
+                if isVerticle {
+                    return $0.isVerticle
+                } else {
+                    return !$0.isVerticle
+                }
+            } ) {
+                let obj = arrayOfImageURL.remove(at: i)
+                arrayOfImageURL.insert(obj, at: index)
+            }
+            index += 1
+        }
+    }
+    
+
+    func prepareDummyCellData(){
+        //        var collectionViewHieght:CGFloat = 500
+//        var longCellHeight = ((collectionViewHeight - 15 - 15)/5)*2 //231
+//        var smallCellHeight = (collectionViewHeight - 15 - 15)/5
+        
+        let space:CGFloat = 5
+//       let space:CGFloat = 10
+        let smallCellHeight = (collectionViewHeight - space - space)*0.23
+        let longCellHeight = (collectionViewHeight - space - space - smallCellHeight)/2 //231
+
+        
+//        /*
+//        let collectionViewHeight:CGFloat = 500
+//        let longCellHeight = ((collectionViewHeight - 10 - 10)/5)*2 //231
+//        let smallCellHeight = (collectionViewHeight - 10 - 10)/5
+        
+        let localArray = arrayOfImageURL
+        var dummyItemCount = 0
+        var columHeight:CGFloat = 0
+        let verticalSpace:CGFloat = 5
+        
+        var noOfColumn = 0
+        print("localArray.count: \(localArray.count)")
+        var i = 0
+        while true {
+
+            var itemHeight = arrayOfImageURL[i].isVerticle ? longCellHeight : smallCellHeight
+            print("columHeight Begin: \(columHeight)")
+            if !columHeight.isZero {
+                columHeight += verticalSpace
+            }
+            columHeight += itemHeight
+            
+            func addDummyItem() {
+                columHeight -= itemHeight
+                itemHeight = collectionViewHeight - columHeight
+                columHeight += itemHeight
+                arrayOfImageURL.insert(
+                    TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0),
+//                    TripDataModel.TripPhotoDetails.TripImage(isVerticle: false, image: "", isDummyItem: true, itemHeight: itemHeight),
+                    at: i)
+                dummyItemCount += 1
+                //                columHeight = 0
+            }
+            
+            if columHeight > collectionViewHeight{
+                addDummyItem()
+            } else {
+                arrayOfImageURL[i].itemHeight = itemHeight
+            }
+            print("columHeight End: \(columHeight)")
+            if columHeight == collectionViewHeight {
+                columHeight = 0
+                noOfColumn += 1
+            }
+
+            i += 1
+            if i == (localArray.count + dummyItemCount) {
+                func addLastDummyCellIfNeeded() {
+                    // last item closed
+                    // now check if in last vertical line is there any space ?
+                    guard columHeight != 0 else { return }
+                    let itemHeight = collectionViewHeight - columHeight - verticalSpace
+                    arrayOfImageURL.append(
+                        TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0))
+                    dummyItemCount += 1
+                    noOfColumn += 1
+                }
+
+                func addDummyCellForHorizontalPagination() {
+                    // last item closed
+                    // now check if in last vertical line is there any space ?
+                    guard columHeight != 0 else { return }
+                    let itemHeight = collectionViewHeight
+                    arrayOfImageURL.append(
+                        TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0))
+                    dummyItemCount += 1
+                }
+
+                addLastDummyCellIfNeeded()
+                
+                print("noOfColumn: \(noOfColumn)")
+                if noOfColumn % 2 == 1 {
+                    addDummyCellForHorizontalPagination()
+                    noOfColumn += 1
+                }
+                
+                pages = noOfColumn / 2
+                
+                break
+            }
+        }
+        
+//        for i in 0..<(localArray.count + dummyItemCount) {
+//            if i == 2 {
+//                dummyItemCount = 2
+//            }
+//            print("i:\(i)")
+//        }
+        
+//        for (i, _) in localArray.enumerated(){
+//
+//            var indexMain: Int { i + dummyItemCount }
+//            var itemHeight = arrayOfImageURL[indexMain].isVerticle ? longCellHeight : smallCellHeight
+//            print("columHeight Begin: \(columHeight)")
+//            if !columHeight.isZero {
+//                columHeight += verticalSpace
+//            }
+//            columHeight += itemHeight
+//
+//            if columHeight > collectionViewHeight{
+//                columHeight -= itemHeight
+//                itemHeight = collectionViewHeight - columHeight
+//                columHeight += itemHeight
+//                arrayOfImageURL.insert(
+//                    TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0),
+////                    TripDataModel.TripPhotoDetails.TripImage(isVerticle: false, image: "", isDummyItem: true, itemHeight: itemHeight),
+//                    at: indexMain)
+//                dummyItemCount += 1
+//                //                columHeight = 0
+//
+//            } else {
+//                arrayOfImageURL[indexMain].itemHeight = itemHeight
+//            }
+//            print("columHeight End: \(columHeight)")
+//            if columHeight == collectionViewHeight {
+//                columHeight = 0
+//            }
+//        }
+        //         */
+    }
+    
+    func minimizeCollectionViewHightIfNeeded() {
+        if arrayOfImageURL.count <= 3 {
+            var totalHeight: CGFloat = 0
+            arrayOfImageURL.forEach({ totalHeight += $0.itemHeight })
+            totalHeight += CGFloat((arrayOfImageURL.count - 1) * 5)
+            if totalHeight < collectionViewHeight {
+                heightOfCollectionViewTrip.constant = totalHeight
+            }
+        }
     }
     
     /*
@@ -233,13 +370,35 @@ extension TripMainPageTableCell {
         if totalPage == 0 {
             totalPage = 1
         }
-        pageCtrl.numberOfPages = totalPage
+        pageCtrl.numberOfPages = pages == 0 ? totalPage : pages
     }
 
 }
 
 //MARK: - COLLECTIONVIEW METHODS
 extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AddTripFavouriteImageHeader", for: indexPath) as! AddTripFavouriteImageHeader
+
+            headerView.backgroundColor = UIColor.blue
+            return headerView
+
+        case UICollectionView.elementKindSectionFooter:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AddTripFavouriteImageHeader", for: indexPath) as! AddTripFavouriteImageHeader
+            footerView.backgroundColor = UIColor.green
+            return footerView
+
+        default:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AddTripFavouriteImageHeader", for: indexPath) as! AddTripFavouriteImageHeader
+            footerView.backgroundColor = UIColor.green
+            return footerView
+        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1//photoUploadedArray.count
     }
@@ -258,10 +417,10 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
         
         if arrayOfImageURL[indexPath.row].isDummyItem{
             cell.contentView.backgroundColor = .red
-            cell.contentView.alpha = 0
+//            cell.contentView.alpha = 0
         }else{
-//            cell.contentView.backgroundColor = .green
-            cell.contentView.alpha = 1
+            cell.contentView.backgroundColor = .green
+//            cell.contentView.alpha = 1
         }
         
         
@@ -361,28 +520,19 @@ extension TripMainPageTableCell: UICollectionViewDelegateFlowLayout,UIScrollView
         //        if self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle{
         
         let widthPerItem = collectionView.frame.width / 2 - 20
-        //        var collectionViewHieght:CGFloat = 500
-//        var longCellHeight = ((collectionViewHeight - 15 - 15)/5)*2 //231
-//        var smallCellHeight = (collectionViewHeight - 15 - 15)/5
-        
-        let space:CGFloat = 5
-//       let space:CGFloat = 10
-        let smallCellHeight = (collectionViewHeight - space - space)*0.23
-        let longCellHeight = (collectionViewHeight - space - space - smallCellHeight)/2 //231
+//        let widthPerItem = (cueSize.screen.width - 5 - 20) / 2
 
-        //        return CGSize(width: widthPerItem, height:  arrayOfImageURL[indexPath.row].itemHeight)
+//        let space:CGFloat = 5
+//        let smallCellHeight = (collectionViewHeight - space - space)*0.23
+//        let longCellHeight = (collectionViewHeight - space - space - smallCellHeight)/2 //231
+
+        return CGSize(width: widthPerItem, height:  arrayOfImageURL[indexPath.row].itemHeight)
         
-        if arrayOfImageURL[indexPath.row].isVerticle{//arrayOfImageURL[indexPath.section+indexPath.row].isVerticle{
-            return CGSize(width: widthPerItem, height: longCellHeight)
-        }else{
-            return CGSize(width: widthPerItem, height:  smallCellHeight)
-        }
-        
-        //        if arrayOfImageURL[indexPath.row].isVerticle{
-        //            return CGSize(width: widthPerItem, height: longCellHeight)
-        //        }else{
-        //            return CGSize(width: widthPerItem, height:  smallCellHeight)
-        //        }
+//        if arrayOfImageURL[indexPath.row].isVerticle{//arrayOfImageURL[indexPath.section+indexPath.row].isVerticle{
+//            return CGSize(width: widthPerItem, height: longCellHeight)
+//        }else{
+//            return CGSize(width: widthPerItem, height:  smallCellHeight)
+//        }
     }
     
     // here return total colum need to show

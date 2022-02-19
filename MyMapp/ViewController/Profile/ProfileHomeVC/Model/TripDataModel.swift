@@ -60,12 +60,12 @@ class TripDataModel{
             var isVerticle:Bool{
                 return width < height
             }
-            var image = ""
             var isDummyItem = false
             var itemHeight:CGFloat = 0
             
-            var height = ""
-            var width = ""
+            var image = ""
+            var height:Double = 0
+            var width:Double = 0
         }
         var hash = ""
         var arrayOfImageURL = [TripImage]()
@@ -80,11 +80,11 @@ class TripDataModel{
                     objTripImage.image = imgUrl
                 }
                 if arraySplited.indices.contains(1){
-                    objTripImage.width = arraySplited[1].replacingOccurrences(of: "px", with: "")
+                    objTripImage.width = Double(arraySplited[1].replacingOccurrences(of: "px", with: "")) ?? 0
                 }
                 
                 if arraySplited.indices.contains(2){
-                    objTripImage.height = arraySplited[2].replacingOccurrences(of: "px", with: "")
+                    objTripImage.height = Double(arraySplited[2].replacingOccurrences(of: "px", with: "")) ?? 0
                 }
                 self.arrayOfImageURL.append(objTripImage)
 
