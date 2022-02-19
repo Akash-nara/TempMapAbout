@@ -619,6 +619,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             
             return cell
         default:
+            
             // photo selected collection
             let cell = collectionViewPhotos.dequeueReusableCell(withReuseIdentifier: "AddTripFavouriteAddImage", for: indexPath ) as! AddTripFavouriteAddImage
             
@@ -730,6 +731,13 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
         
         if collectionView == self.collectionviewFirst{
                     
+//            arrayChildIDs.forEach { id in
+//                if var indexId = arrayTagCopied[activeIndexOfParenttag].subTagsList.first(where: {$0.id == id}), !arrayTagCopied[activeIndexOfParenttag].subTagsList.contains(indexId){
+//                    indexId.isSelected = true
+//                    arrayTagCopied[activeIndexOfParenttag].subTagsList.insert(indexId, at: 0)
+//                }
+//            }
+
 //            if !arrayOfTags.contains(where: {$0.id == arrayTagCopied[indexPath.row].id}){
 //                let obj = TripTags()
 //                obj.id = arrayTagCopied[indexPath.row].id
@@ -746,19 +754,30 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             guard let currentParentId = arrayTagCopied[indexPath.row].id else {
                 return
             }
+            
+            // check contain parent
             if arrayParentIDs.contains(currentParentId){
+                
                 if let index = arrayParentIDs.firstIndex(where: {$0 == currentParentId}){
                     arrayParentIDs.remove(at: index)
-                    let getIds = arrayTagCopied[indexPath.row].subTagsList.map({$0.id})
-                    let tempIds = arrayChildIDs
                     
-                    for (index, id) in tempIds.enumerated(){
-                        if getIds.contains(id){
-                            arrayChildIDs.remove(at: index)
+                    let getIds = arrayTagCopied[indexPath.row].subTagsList.map({$0.id})
+                    
+                    for (_, id) in getIds.enumerated(){
+                        if let idOfChild = id, arrayChildIDs.contains(idOfChild){
+                            arrayChildIDs.removeAll(where:{$0 == idOfChild})
                         }
                     }
                 }
+                
+                // hide second tag child
+                activeIndexOfParenttag = -1
+                collectionviewSecond.isHidden = true
+                collectionviewSecond.reloadData()
+                collectionviewFirst.reloadData()
+                self.updatePopupHeight(to: mainSubHeight)
             }else{
+                // append id of parent tag
                 arrayParentIDs.append(currentParentId)
             }
             
@@ -770,7 +789,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
 //            }
             
             
-            arrayTagCopied.sort{ $0.isSelected && !$1.isSelected }
+//            arrayTagCopied.sort{ $0.isSelected && !$1.isSelected }
 
             if let index = arrayTagCopied.firstIndex(where: {$0.id == currentParentId}){
                 self.activeIndexOfParenttag = index
@@ -882,6 +901,13 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             }else{
                 self.isSelctedSecondIndex = indexPath.row
             }*/
+            
+//            arrayChildIDs.forEach { id in
+//                if var indexId = arrayTagCopied[activeIndexOfParenttag].subTagsList.first(where: {$0.id == id}), !arrayTagCopied[activeIndexOfParenttag].subTagsList.contains(indexId){
+//                    indexId.isSelected = true
+//                    arrayTagCopied[activeIndexOfParenttag].subTagsList.insert(indexId, at: 0)
+//                }
+//            }
             self.collectionviewSecond.reloadData()
         }
     }
@@ -982,9 +1008,7 @@ open class CustomUIDelegate: DKImagePickerControllerBaseUIDelegate {
         return CustomGroupDetailImageCell.self
     }
     
-    open override func imagePickerControllerDidReachMaxLimit(_ imagePickerController: DKImagePickerController) {
-        
-    }
+    open override func imagePickerControllerDidReachMaxLimit(_ imagePickerController: DKImagePickerController) {}
 }
 
 class CustomGroupDetailImageCell: DKAssetGroupDetailBaseCell {
@@ -1050,7 +1074,6 @@ class CustomGroupDetailImageCell: DKAssetGroupDetailBaseCell {
 }
 
 extension AddTripFavouriteLocationsVC {
-    
     func showPermisionAlert(type: String) {
         
         let alert = UIAlertController(title: "", message: "Please allow your " + type, preferredStyle: .alert)
@@ -1184,6 +1207,7 @@ extension AddTripFavouriteLocationsVC : CropViewControllerDelegate {
         })
     }
 }
+
 extension Collection{
     func sorted<Value: Comparable>(
         by keyPath: KeyPath<Element, Value>,
