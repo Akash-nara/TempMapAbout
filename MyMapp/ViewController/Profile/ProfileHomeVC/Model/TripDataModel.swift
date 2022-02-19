@@ -107,10 +107,34 @@ class TripDataModel{
     var photoUploadedArrayDetail = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
-    var isBookmarked = false
+    var isBookmarked = false{
+        didSet{
+    
+        }
+    }
     var isLiked = false
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
+
+    func increaeeDecreaseBookmarkCount(){
+        if isBookmarked{
+            bookmarkedTotalCount += 1
+        }else{
+            if bookmarkedTotalCount != 0{
+                bookmarkedTotalCount -= 1
+            }
+        }
+    }
+    
+    func increaeeDecreaseLikeUNLIkeCount(){
+        if isLiked{
+            likedTotalCount += 1
+        }else{
+            if likedTotalCount != 0{
+                likedTotalCount -= 1
+            }
+        }
+    }
 
     
     /*

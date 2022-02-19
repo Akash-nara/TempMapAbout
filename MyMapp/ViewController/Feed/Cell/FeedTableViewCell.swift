@@ -65,8 +65,8 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func configureCell(modelData:TripDataModel){
-        labelExpDescription.text = modelData.tripDescription
-        labelExpDescription.isHidden = modelData.tripDescription.isEmpty
+        labelExpDescription.text = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//modelData.tripDescription
+        labelExpDescription.isHidden = labelExpDescription.text!.isEmpty
 
         postedDate.text = modelData.dateFromatedOftrip
         
@@ -97,7 +97,7 @@ class FeedTableViewCell: UITableViewCell {
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
         collectionView.reloadData {
             if self.arrayOfImageURL.count > 2{
-                self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: true)
+                self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: false)
             }
         }
     }
