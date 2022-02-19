@@ -43,8 +43,6 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var dismissDuration: Double?
     var shouldDismissInteractivelty: Bool?
     var customNavigationController: UINavigationController?
-    var activeIndexOfParenttag = -1
-    var activeIndexOfChildTag = -1
     var tripImages = [TripImagesModel]()
     var isRecomandationYesorNot:Bool? = nil{
         didSet{
@@ -68,10 +66,8 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var tripBucketHash = ""
     var locationBucketHash = ""
     var tripId = 0
-    var arrayTagCopied = [TagListModel]()
-    var arrayParentIDs = [Int]()
-    var arrayChildIDs = [Int]()
-
+    var arrayParentTags = [TagListModel]()
+    var arraySubTags = [SubCategoryListModel]()
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -93,7 +89,18 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
         self.viewNotes.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         self.txtviewNotes.placeholder = "A bit pricy but worth it! Try the cheeseburger"
         
-        self.arrayTagCopied = appDelegateShared.tagsData
+        self.arrayParentTags.removeAll()
+//        appDelegateShared.tagsData.forEach { tag in
+//            let abc = tag
+//            abc.subTagsList.forEach({ $0.isSelected = false })
+////            let sampleModel = TagListModel(fromJson: JSON(tag.toDictionary()))
+//            self.arrayParentTags.append(tag)
+//        }
+
+        self.arrayParentTags = appDelegateShared.tagsData
+        self.arrayParentTags.forEach { parentTag in
+            parentTag.subTagsList.forEach({ $0.isSelected = false })
+        }
         
         checkRecomandationButtonsTap()
         configureCollectionView()
@@ -154,7 +161,8 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
             
             txtviewNotes.text = objDetail.notes
             let tagWithoutParen = (objDetail.firstTag ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-            
+            var arrayParentIDs = [Int]()
+            var arrayChildIDs = [Int]()
             tagWithoutParen.components(separatedBy: ",").forEach { str in
                 if let id = Int(str.trimSpace()){
                     arrayParentIDs.append(id)
@@ -171,24 +179,36 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
 
 //            arrayParentIDs = objDetail.firstTag.components(separatedBy: ",").map({Int($0) ?? 0})
 //            arrayChildIDs = objDetail.secondTag.components(separatedBy: ",").map({Int($0) ?? 0})
-//            if let firstTagIndex = arrayTagCopied.firstIndex(where: {$0.name.lowercased() == objDetail.firstTag.lowercased()}){
+//            if let firstTagIndex = arrayParentTags.firstIndex(where: {$0.name.lowercased() == objDetail.firstTag.lowercased()}){
 //                self.activeIndexOfParenttag = firstTagIndex
-//                if let indexOfSecondtag = arrayTagCopied[firstTagIndex].subTagsList.firstIndex(where: {$0.name.lowercased() == objDetail.secondTag.lowercased()}){
+//                if let indexOfSecondtag = arrayParentTags[firstTagIndex].subTagsList.firstIndex(where: {$0.name.lowercased() == objDetail.secondTag.lowercased()}){
 //                    self.activeIndexOfChildTag = indexOfSecondtag
 //                }
 //            }
-            if let index = arrayTagCopied.firstIndex(where: {$0.id == arrayParentIDs.first}){
-                self.activeIndexOfParenttag = index
-                if arrayChildIDs.indices.contains(self.activeIndexOfParenttag){
-                    //            if arrayTagCopied.indices.contains(self.activeIndexOfParenttag){
-                    if arrayTagCopied[self.activeIndexOfParenttag].subTagsList.count > 0{
-                        self.collectionviewSecond.isHidden = false
-                    }
+            
+            var lastSeletedParentTagId = 0
+            arrayParentTags.forEach { parentTag in
+                parentTag.isSelected = arrayParentIDs.contains(parentTag.id)
+                if parentTag.isSelected {
+                    arraySubTags += parentTag.subTagsList.filter({ arrayChildIDs.contains($0.id) })
+                    lastSeletedParentTagId = parentTag.id
                 }
             }
+            arraySubTags.forEach({ $0.isSelected = true })
             
-            self.collectionviewFirst.reloadData()
-            self.collectionviewSecond.reloadData()
+            if let lastSeletedParentTag = arrayParentTags.first(where: { $0.id == lastSeletedParentTagId } ) {
+                let unselctedTags = lastSeletedParentTag.subTagsList.filter({ !arrayChildIDs.contains($0.id) })
+                arraySubTags += unselctedTags
+            }
+            
+            collectionviewFirst.reloadData()
+            collectionviewSecond.reloadData()
+            
+            if !arraySubTags.count.isZero() {
+                collectionviewSecond.isHidden = false
+                updatePopupHeight(to: mainHeight)
+            }
+
         }
     }
 }
@@ -238,14 +258,18 @@ extension  AddTripFavouriteLocationsVC{
         let objAddTripFavouriteLocationDetail = AddTripFavouriteLocationDetail.init()
         objAddTripFavouriteLocationDetail.notes = txtviewNotes.text
         
+        arraySubTags.removeAll(where: { !$0.isSelected })
+        var arrayParentIDs = arraySubTags.map({ $0.parentId! })
+        arrayParentIDs = Array(Set(arrayParentIDs))
+        let arrayChildIDs = arraySubTags.map({ $0.id! })
 //        if activeIndexOfParenttag > 0{
         if arrayParentIDs.count > 0{
-            objAddTripFavouriteLocationDetail.firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayTagCopied[self.activeIndexOfParenttag].name
+            objAddTripFavouriteLocationDetail.firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayParentTags[self.activeIndexOfParenttag].name
         }
         
         if arrayChildIDs.count > 0{
 //        if activeIndexOfChildTag > 0 && activeIndexOfParenttag > 0{
-            objAddTripFavouriteLocationDetail.secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))" //arrayTagCopied[self.activeIndexOfParenttag].subTagsList[activeIndexOfChildTag].name!
+            objAddTripFavouriteLocationDetail.secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))" //arrayParentTags[self.activeIndexOfParenttag].subTagsList[activeIndexOfChildTag].name!
         }
         
         let filterArrray = tripImages.filter({$0.statusUpload == .done})
@@ -255,7 +279,7 @@ extension  AddTripFavouriteLocationsVC{
             totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         }
         
-        if filterArrray.count == 0, activeIndexOfChildTag == -1 && activeIndexOfParenttag == -1, txtviewNotes.text.isEmpty, filterArrray.count == 0{
+        if filterArrray.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty, filterArrray.count == 0{
 //            selectedAddTripFavouriteLocationDetail?.notes = txtviewNotes.text
             selectedAddTripFavouriteLocationDetail?.notes = ""
             selectedAddTripFavouriteLocationDetail?.isEdited = false
@@ -513,25 +537,18 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         switch collectionView{
         case self.collectionviewFirst:
-            if arrayTagCopied.count > 0{
-                return arrayTagCopied.count
-            }else{
-                return 0
-            }
+            return arrayParentTags.count
             
         case self.collectionviewSecond:
-            if self.activeIndexOfParenttag == -1{
-                return 0
-            }else{
-                if arrayTagCopied[self.activeIndexOfParenttag].subTagsList.count > 0{
-                    return arrayTagCopied[self.activeIndexOfParenttag].subTagsList.count
-                }else{
-                    return 0
-                }
-            }
+            return arraySubTags.count
+
         default:
             return self.tripImages.count
         }
+    }
+    
+    func getTagColor(_ isSelected: Bool) -> UIColor {
+        return isSelected ? UIColor.App_BG_SeafoamBlue_Color : UIColor.App_BG_App_BG_colorsNeutralLightDark2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
@@ -540,19 +557,19 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
         case self.collectionviewFirst:
             let cell = collectionviewFirst.dequeueReusableCell(withReuseIdentifier: "LocationDescriptionCell", for: indexPath ) as! LocationDescriptionCell
             
-//            if arrayOfTags.contains(where: {$0.id == arrayTagCopied[indexPath.row].id}){
+//            if arrayOfTags.contains(where: {$0.id == arrayParentTags[indexPath.row].id}){
 //                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
 //            }else{
 //                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
 //            }
             
-            if arrayParentIDs.contains(arrayTagCopied[indexPath.row].id){
-                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-            }else{
-                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-            }
+//            if arrayParentIDs.contains(arrayParentTags[indexPath.row].id){
+//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
+//            }else{
+//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
+//            }
 //
-//            if arrayTagCopied[indexPath.row].isSelected{
+//            if arrayParentTags[indexPath.row].isSelected{
 //                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
 //            }else{
 //                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
@@ -565,8 +582,9 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
             }*/
             
-            if arrayTagCopied.count > 0{
-                cell.lblTItle.text = arrayTagCopied[indexPath.row].name!
+            if !arrayParentTags.count.isZero() {
+                cell.lblTItle.text = arrayParentTags[indexPath.row].name!
+                cell.viewBG.backgroundColor = getTagColor(arrayParentTags[indexPath.row].isSelected)
             }
             return cell
             
@@ -574,6 +592,9 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             // sub tag list collection view
             let cell = collectionviewSecond.dequeueReusableCell(withReuseIdentifier: "LocationDescriptionCell", for: indexPath ) as! LocationDescriptionCell
             
+            cell.lblTItle.text = arraySubTags[indexPath.row].name!
+            cell.viewBG.backgroundColor = getTagColor(arraySubTags[indexPath.row].isSelected)
+
             /*
             if self.isSelctedSecondIndex == indexPath.row{
                 cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
@@ -581,9 +602,9 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
             }*/
             
-            let currentId = arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].id
+//            let currentId = arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].id
             
-//            if let indexParentId = arrayOfTags.firstIndex(where: {$0.id == arrayTagCopied[self.isSelectedFirstIndex].id}){
+//            if let indexParentId = arrayOfTags.firstIndex(where: {$0.id == arrayParentTags[self.isSelectedFirstIndex].id}){
 //                if arrayOfTags[indexParentId].subIdArrray.contains(where: {$0.id == currentId}){
 //                    cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
 //                }else{
@@ -591,11 +612,13 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
 //                }
 //            }
             
-            if self.activeIndexOfParenttag != -1{
-                if arrayTagCopied[self.activeIndexOfParenttag].subTagsList.count > 0{
-                    cell.lblTItle.text = arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].name!
-                }
-            }
+//            if self.activeIndexOfParenttag != -1{
+//                if arrayParentTags[self.activeIndexOfParenttag].subTagsList.count > 0{
+//                    cell.lblTItle.text = arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].name!
+//                }
+//            }
+            
+
             
 //            let firstObj = arrayOfTags.filter({$0.subIdArrray.contains(where: {$0 == })})
 //            arrayOfTags.firstIndex(where: {$0.id == })
@@ -605,13 +628,13 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
 //                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
 //            }
         
-            if arrayChildIDs.contains(arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].id){
-                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-            }else{
-                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-            }
+//            if arrayChildIDs.contains(arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].id){
+//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
+//            }else{
+//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
+//            }
             
-//            if arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].isSelected{
+//            if arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].isSelected{
 //                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
 //            }else{
 //                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
@@ -714,12 +737,12 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
         
         if collectionView == self.collectionviewFirst{
             let label = UILabel(frame: CGRect.zero)
-            label.text = arrayTagCopied[indexPath.row].name!
+            label.text = arrayParentTags[indexPath.row].name!
             label.sizeToFit()
             return CGSize(width: label.frame.width + 30, height: 40)
         }else if collectionView == self.collectionviewSecond{
             let label = UILabel(frame: CGRect.zero)
-            label.text = arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].name!
+            label.text = arraySubTags[indexPath.row].name!
             label.sizeToFit()
             return CGSize(width: label.frame.width + 30, height: 40)
         }else{
@@ -730,185 +753,42 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.collectionviewFirst{
-                    
-//            arrayChildIDs.forEach { id in
-//                if var indexId = arrayTagCopied[activeIndexOfParenttag].subTagsList.first(where: {$0.id == id}), !arrayTagCopied[activeIndexOfParenttag].subTagsList.contains(indexId){
-//                    indexId.isSelected = true
-//                    arrayTagCopied[activeIndexOfParenttag].subTagsList.insert(indexId, at: 0)
-//                }
-//            }
-
-//            if !arrayOfTags.contains(where: {$0.id == arrayTagCopied[indexPath.row].id}){
-//                let obj = TripTags()
-//                obj.id = arrayTagCopied[indexPath.row].id
-//                arrayOfTags.append(obj)
-//                arrayTagCopied[indexPath.row].isSelected = true
-//            }else if let index = arrayOfTags.firstIndex(where: {$0.id == arrayTagCopied[indexPath.row].id}){
-//                debugPrint("parent remove with id :\(index)")
-//                arrayOfTags.remove(at: index)
-//                self.collectionviewSecond.isHidden = true
-//                arrayTagCopied[indexPath.row].isSelected = false
-//            }else{
-//                self.collectionviewSecond.isHidden = true
-//            }
-            guard let currentParentId = arrayTagCopied[indexPath.row].id else {
-                return
-            }
-            
-            // check contain parent
-            if arrayParentIDs.contains(currentParentId){
-                
-                if let index = arrayParentIDs.firstIndex(where: {$0 == currentParentId}){
-                    arrayParentIDs.remove(at: index)
-                    
-                    let getIds = arrayTagCopied[indexPath.row].subTagsList.map({$0.id})
-                    
-                    for (_, id) in getIds.enumerated(){
-                        if let idOfChild = id, arrayChildIDs.contains(idOfChild){
-                            arrayChildIDs.removeAll(where:{$0 == idOfChild})
+            let parentId = arrayParentTags[indexPath.row].id
+            if arrayParentTags[indexPath.row].isSelected {
+                arrayParentTags[indexPath.row].isSelected = false
+                arraySubTags.removeAll(where: {
+                    if $0.parentId == parentId {
+                        $0.isSelected = false
+                        return true
+                    }
+                    return false
+                })
+            } else {
+                //subtags: remove unselected tags
+                arraySubTags.removeAll(where: { !$0.isSelected })
+                //parenttags: unselect parent tag if no subtags selected
+                arrayParentTags.forEach({ parentTag in
+                    if parentTag.isSelected {
+                        if !arraySubTags.contains(where: { $0.parentId == parentTag.id }) {
+                            parentTag.isSelected = false
                         }
                     }
-                }
-                
-                // hide second tag child
-                activeIndexOfParenttag = -1
-                collectionviewSecond.isHidden = true
-                collectionviewSecond.reloadData()
-                collectionviewFirst.reloadData()
-                self.updatePopupHeight(to: mainSubHeight)
-            }else{
-                // append id of parent tag
-                arrayParentIDs.append(currentParentId)
-            }
-            
-//            arrayTagCopied[indexPath.row].isSelected.toggle()
-//            if !arrayTagCopied[indexPath.row].isSelected{
-//                arrayTagCopied[indexPath.row].subTagsList.forEach { subTag in
-//                    subTag.isSelected = false
-//                }
-//            }
-            
-            
-//            arrayTagCopied.sort{ $0.isSelected && !$1.isSelected }
-
-            if let index = arrayTagCopied.firstIndex(where: {$0.id == currentParentId}){
-                self.activeIndexOfParenttag = index
+                })
+                //parenttags: select current parent tag
+                arrayParentTags[indexPath.row].isSelected = true
+                //parenttags: add all submtags which belogs to current parent tag
+                arraySubTags += arrayParentTags[indexPath.row].subTagsList
             }
 
-//            arrayTagCopied[indexPath.row].isSelected.toggle()
-            self.collectionviewSecond.isHidden = true
-            self.collectionviewFirst.reloadData()
-            self.collectionviewSecond.reloadData()
+            collectionviewFirst.reloadData()
+            collectionviewSecond.reloadData()
 
-            if arrayTagCopied.indices.contains(self.activeIndexOfParenttag){
-                if arrayTagCopied[self.activeIndexOfParenttag].subTagsList.count > 0{
-                    self.collectionviewSecond.isHidden = false
-                    self.updatePopupHeight(to: mainSubHeight)
-                }
-            }
+            collectionviewSecond.isHidden = false
+            updatePopupHeight(to: mainHeight)
 
-            /*
-            if self.isSelectedFirstIndex == -1{
-                
-                self.isSelectedFirstIndex = indexPath.row
-                self.collectionviewSecond.isHidden = false
-                self.collectionviewFirst.reloadData()
-                self.collectionviewSecond.reloadData()
-                
-                if arrayTagCopied.indices.contains(self.isSelectedFirstIndex){
-                    if arrayTagCopied[self.isSelectedFirstIndex].subTagsList.count > 0{
-                        self.collectionviewSecond.isHidden = false
-                        self.updatePopupHeight(to: mainSubHeight)
-                    }
-                }
-            }else{
-                if self.isSelectedFirstIndex == indexPath.row{
-                    self.isSelectedFirstIndex = -1
-                    self.isSelctedSecondIndex = -1
-                    self.collectionviewFirst.reloadData()
-                    self.collectionviewSecond.isHidden = true
-                    self.collectionviewSecond.reloadData()
-                    
-                    self.updatePopupHeight(to: mainHeight)
-                    if arrayTagCopied.indices.contains(self.isSelectedFirstIndex){
-                        if arrayTagCopied[self.isSelectedFirstIndex].subTagsList.count > 0{
-                            self.collectionviewSecond.isHidden = false
-                            self.updatePopupHeight(to: mainSubHeight)
-                            
-                        }
-                    }
-                }else{
-                    self.isSelctedSecondIndex = -1
-                    self.isSelectedFirstIndex = indexPath.row
-                    self.collectionviewFirst.reloadData()
-                    self.collectionviewSecond.isHidden = false
-                    self.collectionviewSecond.reloadData()
-                    
-                    if arrayTagCopied.indices.contains(self.isSelectedFirstIndex){
-                        if arrayTagCopied[self.isSelectedFirstIndex].subTagsList.count > 0{
-                            self.collectionviewSecond.isHidden = false
-                            self.updatePopupHeight(to: mainSubHeight)
-                        }
-                    }
-                }
-            }
-             */
-        }else if collectionView == self.collectionviewSecond{
-            
-            self.activeIndexOfChildTag = indexPath.row
-            let parentTagId = arrayTagCopied[self.activeIndexOfParenttag].id
-            let childTagId = arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].id
-            
-            
-            if arrayChildIDs.contains(childTagId ?? 0){
-                if let index = arrayChildIDs.firstIndex(where: {$0 == childTagId}){
-                    arrayChildIDs.remove(at: index)
-                }
-            }else if let childId = childTagId{
-                arrayChildIDs.append(childId)
-            }
-            
-            if let index = arrayChildIDs.firstIndex(where: {$0 == childTagId}){
-                self.activeIndexOfChildTag = index
-            }
-
-//            if let index = arrayOfTags.firstIndex(where: {$0.id == parentTagId}), !arrayOfTags[index].subIdArrray.contains(where: {$0.id == childTagId}){
-//
-//                debugPrint("child add with id :\(childTagId)")
-//                arrayOfTags[index].subIdArrray.append(arrayTagCopied[self.isSelectedFirstIndex].subTagsList[indexPath.row])
-//
-//                arrayTagCopied[self.isSelectedFirstIndex].subTagsList[indexPath.row].isSelected = true
-//            }else if let parentIndex = arrayOfTags.firstIndex(where: {$0.id == parentTagId}),
-//                     let childIndex = arrayOfTags[parentIndex].subIdArrray.firstIndex(where: {$0.id == childTagId}){
-//                debugPrint("child remove with id :\(arrayOfTags[parentIndex].subIdArrray[childIndex])")
-//                arrayOfTags[parentIndex].subIdArrray.remove(at: childIndex)
-//                arrayTagCopied[self.isSelectedFirstIndex].subTagsList[indexPath.row].isSelected = false
-//            }
-//            arrayTagCopied[self.activeIndexOfParenttag].subTagsList[indexPath.row].isSelected.toggle()
-            
-//            arrayTagCopied.sort{ $0.subTagsList.sorted(by: {$0.isSelected  && !$1.isSelected})}
-//    arrayTagCopied.sort{ $0.subTagsList.sorted(by: {$0.isSelected  && !$1.isSelected}) && !$1.subTagsList.sorted(by: {$0.isSelected  && !$1.isSelected}) }
-
-//            arrayTagCopied.sorted(by: \.isSelected, <) /* using `<` for ascending sorting */
-//            arrayTagCopied.sorted(by: \.subTagsList.sorted(by: \.isSelected.sor, <), <)
-//            arrayTagCopied.forEach { obj in
-//                obj.subTagsList.sort{ $0.isSelected && !$1.isSelected }
-//            }
-
-            /*
-            if self.isSelctedSecondIndex == indexPath.row{
-                self.isSelctedSecondIndex = -1
-            }else{
-                self.isSelctedSecondIndex = indexPath.row
-            }*/
-            
-//            arrayChildIDs.forEach { id in
-//                if var indexId = arrayTagCopied[activeIndexOfParenttag].subTagsList.first(where: {$0.id == id}), !arrayTagCopied[activeIndexOfParenttag].subTagsList.contains(indexId){
-//                    indexId.isSelected = true
-//                    arrayTagCopied[activeIndexOfParenttag].subTagsList.insert(indexId, at: 0)
-//                }
-//            }
-            self.collectionviewSecond.reloadData()
+        } else if collectionView == self.collectionviewSecond{
+            arraySubTags[indexPath.row].isSelected.toggle()
+            collectionviewSecond.reloadData()
         }
     }
     

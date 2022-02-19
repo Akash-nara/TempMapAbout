@@ -26,6 +26,7 @@ class TagListModel : NSObject, NSCoding{
         let interestsArray = json["subTagsList"].arrayValue
         for interestsJson in interestsArray{
             let value = SubCategoryListModel(fromJson: interestsJson)
+            value.parentId = id
             subTagsList.append(value)
         }
 	}

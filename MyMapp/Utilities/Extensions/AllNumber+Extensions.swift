@@ -9,6 +9,9 @@
 import UIKit
 
 extension Int {
+    public func isZero() -> Bool {
+        return self == 0
+    }
 }
 
 extension Double {

@@ -11,6 +11,7 @@ class SubCategoryListModel : NSObject, NSCoding{
 	var id : Int!
 	var name : String!
     var isSelected = false
+    var parentId : Int!
 
 
 
