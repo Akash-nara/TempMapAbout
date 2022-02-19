@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x7z-cJ-teR">
-                        <rect key="frame" x="0.0" y="0.0" width="372" height="447"/>
+                        <rect key="frame" x="20" y="0.0" width="332" height="447"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="447" id="wO5-gR-BDW"/>
@@ -45,8 +45,8 @@
                     <constraint firstItem="x7z-cJ-teR" firstAttribute="top" secondItem="3NM-kk-VIg" secondAttribute="top" id="1hp-G0-3Q7"/>
                     <constraint firstAttribute="bottom" secondItem="bBN-ZP-ZY2" secondAttribute="bottom" id="1jL-vp-C5g"/>
                     <constraint firstItem="bBN-ZP-ZY2" firstAttribute="centerX" secondItem="x7z-cJ-teR" secondAttribute="centerX" id="DHU-Ee-ZTr"/>
-                    <constraint firstAttribute="trailing" secondItem="x7z-cJ-teR" secondAttribute="trailing" id="UZJ-sP-ymA"/>
-                    <constraint firstItem="x7z-cJ-teR" firstAttribute="leading" secondItem="3NM-kk-VIg" secondAttribute="leading" id="lMa-jx-Gb4"/>
+                    <constraint firstAttribute="trailing" secondItem="x7z-cJ-teR" secondAttribute="trailing" constant="20" id="UZJ-sP-ymA"/>
+                    <constraint firstItem="x7z-cJ-teR" firstAttribute="leading" secondItem="3NM-kk-VIg" secondAttribute="leading" constant="20" id="lMa-jx-Gb4"/>
                     <constraint firstItem="bBN-ZP-ZY2" firstAttribute="top" secondItem="x7z-cJ-teR" secondAttribute="bottom" constant="15" id="ydU-27-Lqz"/>
                 </constraints>
             </tableViewCellContentView>

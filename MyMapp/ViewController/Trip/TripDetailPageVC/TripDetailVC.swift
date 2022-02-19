@@ -17,7 +17,7 @@ enum EnumTripToalSections:Equatable {
         return lhs == rhs.self
     }
     
-    case tripImages, locationList([AddTripFavouriteLocationDetail]), topTips(String,String), travelStory(String,String), logisticsRoute(String,String), comments, travelAdvice
+    case userDetail, tripImages, locationList([AddTripFavouriteLocationDetail]), topTips(String,String), travelStory(String,String), logisticsRoute(String,String), comments, travelAdvice
 }
 
 enum EnumTripPageFlow {
@@ -99,13 +99,6 @@ class TripDetailVC: UIViewController {
         super.viewDidLoad()
         
         
-        if enumCurrentFlow == .otherUser{
-            let headerCell = tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB") as! TripMainPageHeaderCellXIB
-            tblviewTrip.tableHeaderView = headerCell
-            //            tblviewTrip.sectionHeaderHeight = UITableView.automaticDimension
-            //            tblviewTrip.estimatedSectionHeaderHeight = 40
-            //            tblviewTrip.estimatedRowHeight = 80
-        }
         
         self.vwBlur.isHidden = true
         self.vwImage.alpha = 0
@@ -128,6 +121,7 @@ class TripDetailVC: UIViewController {
         tblviewTrip.figureOutAndShowNoResults()
         
         self.viewSep.isHidden = true
+        
         if enumCurrentFlow == .otherUser{
             self.viewSep.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -152,23 +146,6 @@ class TripDetailVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if let headerView = tblviewTrip.tableHeaderView, enumCurrentFlow == .otherUser{
-            
-            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-            var headerFrame = headerView.frame
-            
-            //Comparison necessary to avoid infinite loop
-            if height != headerFrame.size.height {
-                headerFrame.size.height = height
-                headerView.frame = headerFrame
-                tblviewTrip.tableHeaderView = headerView
-            }
-        }else{
-            tblviewTrip.tableHeaderView = nil
-            tblviewTrip.tableHeaderView?.frame = .zero
-            tblviewTrip.reloadData()
-        }
-        
         /*
          if let cell = cellCollectionView{
          if cell.heightOfCollectionViewTrip.constant != cell.collectionViewTrip.contentSize.height{
@@ -180,12 +157,15 @@ class TripDetailVC: UIViewController {
          }
          }*/
     }
+    
     var isOwnProfile:Bool{
         return enumCurrentFlow != .otherUser
     }
+    
     func preparedArrayofSections(){
         viewCommentHeightConstraint.constant = isOwnProfile ? 0 : 85
         viewComment.isHidden = isOwnProfile
+        arrayOfSections.append(.userDetail)
         //        arrayOfSections.append(.tripImages)
         //        tblviewTrip.reloadData()
         
@@ -293,6 +273,8 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch arrayOfSections[section] {
+        case .userDetail:
+            return 1
         case .tripImages:
             return 1
         case .locationList(let arrayLocation):
@@ -313,7 +295,16 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch arrayOfSections[indexPath.section] {
+        case .userDetail:
+            let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB", for: indexPath) as! TripMainPageHeaderCellXIB
             
+            //            let headerCell = tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB") as! TripMainPageHeaderCellXIB
+            cell.configureCell(dataModel: detailTripDataModel)
+            //        headerCell.layoutIfNeeded()
+            if enumCurrentFlow != .otherUser{
+                cell.stackViewUserNameAndAddress.isHidden = true
+            }
+            return cell
         case .tripImages:
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTableCell", for: indexPath) as! TripMainPageTableCell
             
@@ -448,7 +439,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch arrayOfSections[section]{
             
-        case .locationList(let array):
+        case .locationList:
             // title section only
             guard let cell = self.tblviewTrip.dequeueCell(
                 withType: TripMainPageHeaderNameXIB.self,

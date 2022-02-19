@@ -336,7 +336,7 @@ class TripMainPageTableCell: UITableViewCell {
         collectionViewTrip.backgroundColor = .white//UIColor.red
         collectionViewTrip.delegate = self
         collectionViewTrip.dataSource = self
-        
+//        collectionViewTrip.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
