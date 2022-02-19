@@ -11,6 +11,19 @@ import MapKit
 
 class TripDataModel{
     
+    
+    struct UserCreatedTrip{
+        var username = ""
+        var profilePic = ""
+        var region = ""
+        
+        init() {}
+        init(param:JSON) {
+            self.username = param["username"].stringValue
+            self.profilePic = param["profilePic"].stringValue
+            self.region = param["region"].stringValue
+        }
+    }
     struct TripCity{
         var cityName = ""
         var countryName = ""
@@ -202,6 +215,8 @@ class TripDataModel{
     var defaultImageKey = ""
     var arraYOfPhotoCount = [Int]()
     
+    var userCreatedTrip:UserCreatedTrip? = nil
+    
     init(){}
     init(param:JSON) {
         
@@ -226,6 +241,7 @@ class TripDataModel{
         }
         
         
+        userCreatedTrip = UserCreatedTrip.init(param: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()
         arraYOfPhotoCount.removeAll()

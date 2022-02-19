@@ -10,7 +10,6 @@ import SDWebImage
 
 class FeedTableViewCell: UITableViewCell {
     
-    @IBOutlet var carousel: iCarousel!
     @IBOutlet weak var postedUserPic: UIImageView!
     @IBOutlet weak var commentedUserPic: UIImageView!
     @IBOutlet weak var postedUserName: UILabel!
@@ -41,14 +40,15 @@ class FeedTableViewCell: UITableViewCell {
         } else {
             pageSize.height += layout.minimumLineSpacing
         }
-        return pageSize
+         
+        return pageSize//CGSize.init(width: arrayOfImageURL.count == 1 ? collectionView.frame.size.width : pageSize.width, height: pageSize.height)
     }
     
     
     func setupLayout() {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -50)
-        layout.sideItemAlpha = 0.8
+        layout.sideItemAlpha = 0.6
         layout.sideItemScale = 0.6
         //        layout.sideItemShift = 0.8
     }
@@ -56,10 +56,8 @@ class FeedTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        //        carousel.type = .rotary
-        //        carousel.centerItemWhenSelected = true
-        
-        collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        postedDate.textColor = UIColor.App_BG_silver_Color
+        collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         
         self.collectionView.registerCellNib(identifier: CarouselCollectionViewCell.identifier)
         setupLayout()
@@ -68,14 +66,25 @@ class FeedTableViewCell: UITableViewCell {
     
     func configureCell(modelData:TripDataModel){
         labelExpDescription.text = modelData.tripDescription
-        postedUserAddress.text = modelData.city.cityName+","+modelData.city.countryName
+        labelExpDescription.isHidden = modelData.tripDescription.isEmpty
+
         postedDate.text = modelData.dateFromatedOftrip
+        
         labelTotalLikeCount.text = "\(modelData.likedTotalCount)"
+        labelTotalLikeCount.isHidden = modelData.likedTotalCount == 0
+        
         labelTotaBookmarkCount.text = "\(modelData.bookmarkedTotalCount)"
+        labelTotaBookmarkCount.isHidden = modelData.bookmarkedTotalCount == 0
+
         buttonBookmark.isSelected = modelData.isBookmarked
         buttonLike.isSelected = modelData.isLiked
         
+        postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePic ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
+        postedUserName.text = modelData.userCreatedTrip?.username ?? "-"
         
+        postedUserAddress.text = modelData.userCreatedTrip?.region ?? "-"
+        postedUserAddress.isHidden = (modelData.userCreatedTrip?.region ?? "").isEmpty
+
         arrayOfImageURL.removeAll()
         modelData.photoUploadedArray.forEach { obj in
             obj.arrayOfImageURL.forEach { obj1 in
@@ -84,42 +93,15 @@ class FeedTableViewCell: UITableViewCell {
         }
         
         pageControll.numberOfPages = arrayOfImageURL.count
-        collectionView.reloadData()
-        //        carousel.reloadData()
+//        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
+        self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
+        collectionView.reloadData {
+            if self.arrayOfImageURL.count > 2{
+                self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: true)
+            }
+        }
     }
 }
-
-/*
- extension FeedTableViewCell:iCarouselDataSource, iCarouselDelegate{
- func numberOfItems(in carousel: iCarousel) -> Int {
- return arrayOfImageURL.count
- }
- 
- func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
- var itemView: UIImageView
- 
- //reuse view if available, otherwise create a new view
- if let view = view as? UIImageView {
- itemView = view
- } else {
- //don't do anything specific to the index within
- //this `if ... else` statement because the view will be
- //recycled and used with other index values later
- itemView = UIImageView(frame: CGRect(x: 0, y: 0, width: Int(arrayOfImageURL[index].width) ?? 0, height: 200))
- itemView.setImage(url: arrayOfImageURL[index].image, placeholder: nil)
- itemView.contentMode = .scaleToFill
- }
- itemView.cornerRadius = 15
- return itemView
- }
- 
- func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
- if (option == .spacing) {
- //return value * 1.1
- }
- return value
- }
- }*/
 
 // MARK: - Card Collection Delegate & DataSource
 extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -130,12 +112,7 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
         
-//        cell.image.sd_setImage(with: URL.init(string: arrayOfImageURL[indexPath.row].image), placeholderImage: nil, options: .highPriority) { img, error, caceh, url in
-//
-//            cell.image.image = img?.drawOutlie()
-//        }
-        cell.image.setImage(url: arrayOfImageURL[indexPath.row].image, placeholder: nil)
-        cell.image.cornerRadius = 15
+        cell.configureCell(model: arrayOfImageURL[indexPath.row])
         return cell
     }
     

@@ -84,6 +84,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         
 
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
+        
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         

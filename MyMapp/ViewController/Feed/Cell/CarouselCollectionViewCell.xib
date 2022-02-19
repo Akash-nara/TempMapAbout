@@ -28,6 +28,13 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIs-CK-G6T">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <color key="backgroundColor" red="0.16862745098039217" green="0.21568627450980393" blue="0.30980392156862746" alpha="0.19733205782312926" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,7 +42,11 @@
                 <constraint firstItem="OOI-vw-cwP" firstAttribute="leading" secondItem="clg-Xc-sv5" secondAttribute="leading" id="6bK-VG-KHm"/>
                 <constraint firstAttribute="trailing" secondItem="OOI-vw-cwP" secondAttribute="trailing" id="9vI-H0-1Kz"/>
                 <constraint firstAttribute="bottom" secondItem="OOI-vw-cwP" secondAttribute="bottom" id="DKf-Jx-cAO"/>
+                <constraint firstAttribute="trailing" secondItem="nIs-CK-G6T" secondAttribute="trailing" id="LEI-gG-Dnu"/>
+                <constraint firstItem="nIs-CK-G6T" firstAttribute="top" secondItem="clg-Xc-sv5" secondAttribute="top" id="NCW-Xd-ot1"/>
+                <constraint firstItem="nIs-CK-G6T" firstAttribute="leading" secondItem="clg-Xc-sv5" secondAttribute="leading" id="gjR-UP-aS7"/>
                 <constraint firstItem="OOI-vw-cwP" firstAttribute="top" secondItem="clg-Xc-sv5" secondAttribute="top" id="kRo-F3-ZM5"/>
+                <constraint firstAttribute="bottom" secondItem="nIs-CK-G6T" secondAttribute="bottom" id="mX5-gu-wSv"/>
             </constraints>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -43,7 +54,8 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="image" destination="OOI-vw-cwP" id="V4C-6u-6zo"/>
+                <outlet property="sketonView" destination="nIs-CK-G6T" id="kgg-po-KI1"/>
+                <outlet property="tripImage" destination="OOI-vw-cwP" id="6Yz-YR-Hwc"/>
             </connections>
             <point key="canvasLocation" x="-61" y="82"/>
         </collectionViewCell>
