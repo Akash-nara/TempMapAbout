@@ -535,6 +535,7 @@ extension TripMainPageTableCell: UICollectionViewDelegateFlowLayout,UIScrollView
 //        }
     }
     
+    
     // here return total colum need to show
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, columnCountFor section: Int) -> Int {
         if isTripListFetched{
