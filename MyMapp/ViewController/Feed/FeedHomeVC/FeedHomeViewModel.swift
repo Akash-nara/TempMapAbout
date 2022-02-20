@@ -71,4 +71,9 @@ class FeedHomeViewModel {
         }
         return ["currentPage": getPageNo(), "pageSize": pageSize,"sortOrder":2]
     }
+    
+    func addNewTripInArray(objTripModel:TripDataModel){
+        totalElements += 1
+        arrayOfTripList.insert(objTripModel, at: 0)
+    }
 }

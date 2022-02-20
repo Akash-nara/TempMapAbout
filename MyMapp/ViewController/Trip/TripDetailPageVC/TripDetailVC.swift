@@ -10,8 +10,6 @@ import SKPhotoBrowser
 import MapKit
 import SDWebImage
 
-
-
 enum EnumTripToalSections:Equatable {
     static func == (lhs: EnumTripToalSections, rhs: EnumTripToalSections) -> Bool {
         return lhs == rhs.self
@@ -165,7 +163,7 @@ class TripDetailVC: UIViewController {
     func preparedArrayofSections(){
         viewCommentHeightConstraint.constant = isOwnProfile ? 0 : 85
         viewComment.isHidden = isOwnProfile
-        arrayOfSections.append(.userDetail)
+                arrayOfSections.append(.userDetail)
         //        arrayOfSections.append(.tripImages)
         //        tblviewTrip.reloadData()
         
@@ -200,11 +198,11 @@ class TripDetailVC: UIViewController {
                 }
             }
             
-            //             comments
+            // comments
             if enumCurrentFlow == .otherUser{
                 arrayOfComments.append(TripCommmnets.init(param: JSON.init(["":""])))
                 if arrayOfComments.count != 0{
-                    arrayOfSections.append(.comments)
+                    //                    arrayOfSections.append(.comments)
                 }
             }
         }

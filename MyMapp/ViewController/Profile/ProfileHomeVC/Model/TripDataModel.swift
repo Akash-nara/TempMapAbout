@@ -49,7 +49,6 @@ class TripDataModel{
             self.name = param["name"].stringValue
             self.longitude = param["longitude"].doubleValue
             self.latitude = param["latitude"].doubleValue
-
         }
     }
     
@@ -136,7 +135,6 @@ class TripDataModel{
         }
     }
 
-    
     /*
     func processDetailArray(){
         photoUploadedArrayDetail.removeAll()
@@ -204,7 +202,6 @@ class TripDataModel{
     }
     
     
-    
     func relativeDate(for date:Date) -> String {
          let components = Calendar.current.dateComponents([.day, .year, .month, .weekOfYear], from: date, to: Date())
          if let year = components.year, year == 1{
@@ -264,7 +261,6 @@ class TripDataModel{
             locationList.append(AddTripFavouriteLocationDetail.init(param: jsonLocation))
         }
         
-        
         userCreatedTrip = UserCreatedTrip.init(param: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()
@@ -297,7 +293,6 @@ class TripDataModel{
         let epochDate = Date(timeIntervalSince1970: TimeInterval(epochTime)!)
 
         let calendar = Calendar.current
-
         let currentDay = calendar.component(.day, from: currentDate)
         let currentHour = calendar.component(.hour, from: currentDate)
         let currentMinutes = calendar.component(.minute, from: currentDate)

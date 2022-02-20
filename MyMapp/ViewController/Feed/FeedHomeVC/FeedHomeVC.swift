@@ -20,12 +20,20 @@ class FeedHomeVC: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        SSReachabilityManager.shared.startMonitoring()
-        getTripListApi()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
+        getSocketTripData()
+        SHOW_CUSTOM_LOADER()
+        DispatchQueue.getMain(delay: 0.1) {
+            self.HIDE_CUSTOM_LOADER()
+            self.getTripListApi()
+
+        }
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+    }
     @objc func reCallTripListApi() {
         stopLoaders()
         self.getTripListApi(isPullToRefresh: true)
@@ -57,12 +65,9 @@ class FeedHomeVC: UIViewController {
             self?.stopLoaders()
             self?.getTripListApi(isPullToRefresh: true) // refresh
         }
-
-        
     }
     
     @IBAction func buttonNotificationTapped(sender:UIButton){
-        
     }
 }
 
@@ -81,7 +86,6 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
             cell.startAnimating(index: indexPath.row)
             return cell
         }
-        
 
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         
@@ -92,7 +96,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.buttonLike.tag = indexPath.row
         
         
-//        let txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+//        let txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
 //        cell.labelExp.text = txt
 //        cell.labelExp.isUserInteractionEnabled = true
 //
@@ -111,14 +115,16 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         sender.isSelected.toggle()
         viewModel.arrayOfTripList[sender.tag].isLiked.toggle()
         viewModel.arrayOfTripList[sender.tag].increaeeDecreaseLikeUNLIkeCount()
-        tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
+        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
+        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
         viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
         viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
-        tableViewFeedList.reloadRows(at: [IndexPath.init(row: sender.tag, section: 0)], with: .automatic)
+        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
+        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,7 +162,6 @@ enum TrailingContent {
 }
 
 extension UILabel {
-
     private var minimumLines: Int { return 4 }
     private var highlightColor: UIColor { return .red }
 
@@ -200,7 +205,6 @@ extension UILabel {
 
             truncatedSentence = NSString(string: sentenceText.substring(with: NSRange(location: 0, length: endIndex)))
             truncatedSentence = (String(truncatedSentence) + trailingContent.text) as NSString
-
         }
         self.text = truncatedSentence as String
         self.highlight(trailingContent.text, color: highlightColor)
@@ -212,8 +216,6 @@ extension UILabel {
         self.highlight(trailingContent.text, color: highlightColor)
     }
 }
-
-
 
 extension FeedHomeVC{
     /*
@@ -236,7 +238,6 @@ extension FeedHomeVC{
         self.tableViewFeedList.isAPIstillWorking = true
         viewModel.getTripListApi(paramDict: ["status":"C", "pager":param], success: { response in
             self.stopLoaders()
-            self.tableViewFeedList.reloadData()
         })
     }
     
@@ -263,6 +264,19 @@ extension FeedHomeVC: UIScrollViewDelegate {
                 !self.tableViewFeedList.isAPIstillWorking {
                 self.getTripListApi(isNextPageRequest: true, isPullToRefresh: false)
             }
+        }
+    }
+}
+
+extension FeedHomeVC{
+    func getSocketTripData(){
+        SocketIOManager.sharedInstance.callbackClouserOfTrip = { [weak self] dataModel in
+            guard let tripDataModel = dataModel else {
+                return
+            }
+            self?.viewModel.addNewTripInArray(objTripModel: tripDataModel)
+            self?.tableViewFeedList.reloadData()
+            self?.tableViewFeedList.figureOutAndShowNoResults()
         }
     }
 }

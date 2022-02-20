@@ -27,7 +27,7 @@ target 'MyMapp' do
   pod 'GooglePlaces'
   pod 'ReachabilitySwift'
   pod 'SkeletonView'
-  pod 'Socket.IO-Client-Swift'
+  pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

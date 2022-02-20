@@ -128,12 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
     
     func setTabbarRoot(){
         SceneDelegate.getWindow?.rootViewController = UIStoryboard.tabbar.instantiateInitialViewController()
-//        self.socketConnect()
+        self.socketConnect()
     }
     
     func socketConnect(){
         SocketIOManager.sharedInstance.addBasicHandlers()
-        SocketIOManager.sharedInstance.addConnectHandler()
         SocketIOManager.sharedInstance.connect()
     }
     

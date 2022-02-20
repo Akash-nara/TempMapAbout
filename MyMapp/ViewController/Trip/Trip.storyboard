@@ -2929,9 +2929,6 @@
         <designable name="0Tb-Sr-MFx">
             <size key="intrinsicContentSize" width="374" height="32"/>
         </designable>
-        <designable name="uxx-tO-DEr">
-            <size key="intrinsicContentSize" width="268" height="8"/>
-        </designable>
     </designables>
     <resources>
         <image name="ic_Heart_unselected" width="25" height="25"/>

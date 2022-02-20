@@ -78,7 +78,6 @@ class SigninVC: UIViewController,UITextFieldDelegate{
         let param: [String: Any] = ["requestJson" : strJson]
         loginViewModel.loginApi(param) { responseMsg in
             Utility.successMessage(message: responseMsg)
-            
             appDelegateShared.checkRedirectionFlow()
         }
     }

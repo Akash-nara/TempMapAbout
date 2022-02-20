@@ -76,7 +76,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQK-dI-XbA">
                                                         <rect key="frame" x="255" y="0.0" width="15" height="17.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                                        <color key="textColor" name="App_BG_silver_Color"/>
+                                                        <color key="textColor" red="0.69411764705882351" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -224,9 +224,11 @@
                                                     </imageView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Comment.." minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-9x-fUi">
                                                         <rect key="frame" x="60" y="0.0" width="235" height="40"/>
+                                                        <color key="tintColor" red="0.69411764710000001" green="0.68627450980000004" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="bhP-dG-URX"/>
                                                         </constraints>
+                                                        <color key="textColor" red="0.69411764710000001" green="0.68627450980000004" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>

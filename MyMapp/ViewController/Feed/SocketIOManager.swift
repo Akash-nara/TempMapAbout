@@ -13,8 +13,8 @@ import SwiftyJSON
 struct kSocketEvents {
     static let Online = "connect"
     static let Offline = "disconnect"
-//    static let joinUser = "joinUser"
-    static let receiveMSG = "receiveMSG"
+    static let userName = "userName"
+    static let receiveMSG = "receiveMsg"
 }
 
 class SocketIOManager: NSObject {
@@ -23,13 +23,20 @@ class SocketIOManager: NSObject {
     //    var socket = SocketIOClient(socketURL: URL(string: kUrlApi.BaseUrl)!, config: [.log(false),.reconnects(false),.forcePolling(true),.forceWebsockets(true),.forceNew(true)])
     
     static var sharedInstance = SocketIOManager()
-    var socketManager = SocketManager(socketURL: URL(string: Environment.socketURL)!, config: [.log(true)])
+    var socketManager = SocketManager(socketURL: URL(string: "http://54.160.11.28:9090/")!, config: [.log(true),.compress])
     var socket:SocketIOClient!
+    var callbackClouserOfTrip: ((TripDataModel?) -> Void)?
+    
     
     //MARK:- Init
     override init() {
         super.init()
+        
+        socketManager.config = SocketIOClientConfiguration(arrayLiteral: .connectParams([kSocketEvents.userName:"\(APP_USER?.userId ?? 0)"]))
         socket = socketManager.defaultSocket
+        socket.on(clientEvent: .connect) {data, ack in
+            self.addBasicHandlers()
+        }
     }
     
     //MARK:- Connection Methods
@@ -37,6 +44,7 @@ class SocketIOManager: NSObject {
         guard socket.status == .disconnected || socket.status == .notConnected else {
             return
         }
+        addConnectHandler()
         socket.connect()
     }
     
@@ -47,7 +55,8 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
-    func isConnected() -> Bool {
+    func isConnected() -> Bool{
+        debugPrint("Status Current :\(SocketIOManager.sharedInstance.socket.status)")
         return SocketIOManager.sharedInstance.socket.status == .connected
     }
 }
@@ -56,8 +65,8 @@ class SocketIOManager: NSObject {
 extension SocketIOManager{
     func addConnectHandler() {
         socket.on(clientEvent: .connect) { (dataArray, ack) in
-            print("connect dataArray---- : \(dataArray)")
-            print("Socket Connected Successfully !!! SocketSid : \(String(describing: self.socket.sid)) Time : \(Date())")
+            debugPrint("Socket Connected Successfully !!! SocketSid : \(String(describing: self.socket.sid)) Time : \(Date())")
+            debugPrint("")
             
             //            if kStorage.isNetworkIssue{
             //                kStorage.isNetworkIssue = false
@@ -66,7 +75,6 @@ extension SocketIOManager{
             //            }
             
             self.addBasicHandlers()
-            self.joinUserEmit()
         }
     }
     
@@ -78,12 +86,12 @@ extension SocketIOManager{
         addReconnectAttemptHandler()
         addStatusChangeHandler()
         addErrorHandler()
-        
         addOnFeedHandler()
     }
     
     // diconnet socket handler
     func addDisconnectHandler() {
+        
         socket.on(clientEvent: .disconnect) { (dataArray, ack) in
             print("Socket Disconnected !!! SocketSid : \(String(describing: self.socket.sid)) Time : \(Date())")
         }
@@ -91,6 +99,7 @@ extension SocketIOManager{
     
     // re connect socket handler
     func addReconnectHandler() {
+        
         socket.on(clientEvent: .reconnect) { (dataArray, ack) in
             print("Socket Reconnected !!! SocketSid : \(String(describing: self.socket.sid))")
         }
@@ -98,9 +107,11 @@ extension SocketIOManager{
     
     // re connect attemp socket handler
     func addReconnectAttemptHandler() {
-        socket.on(clientEvent: .reconnectAttempt) { (dataArray, ack) in
-            print("Socket Reconnect Attempt !!! SocketSid : \(String(describing: self.socket.sid))")
-        }
+        
+        //        socket.on(clientEvent: .reconnectAttempt) { (dataArray, ack) in
+        //            print("Socket Reconnect Attempt !!! SocketSid : \(String(describing: self.socket.sid))")
+        //
+        //        }
     }
     
     
@@ -108,6 +119,7 @@ extension SocketIOManager{
     func addStatusChangeHandler() {
         socket.on(clientEvent: .statusChange) { (dataArray, ack) in
             print("Socket statusChange !!! SocketSid : \(String(describing: self.socket.sid))")
+            
         }
     }
     
@@ -140,7 +152,7 @@ extension SocketIOManager{
             print("User ID Empty On joinUser")
             return
         }
-//        SocketIOManager.sharedInstance.emiting(eventName: kSocketEvents.joinUser, requestData: userId, showHud: false, timeOut: false)
+        SocketIOManager.sharedInstance.emiting(eventName: kSocketEvents.userName, requestData: userId, showHud: false, timeOut: false)
     }
     
     func emiting(eventName:String, requestData:Any, showHud:Bool = false, timeOut:Bool = false) {
@@ -151,6 +163,8 @@ extension SocketIOManager{
         }
         
         guard SocketIOManager.sharedInstance.socket.status == .connected else {
+            
+            
             //            Utility.showToastMessage(kToast.General.SocketConnection)
             return
         }
@@ -168,28 +182,29 @@ extension SocketIOManager{
         guard let response = dataArray.first else{
             return
         }
+        
         let responseDict = JSON.init(response)
+        let dict = Utility.convertToDictionary(text: responseDict.stringValue)
+        let jsonREs = JSON.init(dict)
         switch eventName {
         case kSocketEvents.receiveMSG:
             guard let _ = APP_USER else {
                 return
             }
-            
-            debugPrint(responseDict)
-            switch UIApplication.shared.applicationState {
-            case .background, .inactive:
-                // background
-                break
-            case .active:
-                // foreground
-                break
-            default:
-                break
+            if let msgType = jsonREs["msgType"].string, msgType == "3"{
+                debugPrint(jsonREs["msgContent"])
+                callbackClouserOfTrip?(TripDataModel.init(param: jsonREs["msgContent"]))
+                switch UIApplication.shared.applicationState {
+                case .background, .inactive:
+                    // background
+                    break
+                case .active:
+                    // foreground'
+                    break
+                default:
+                    break
+                }
             }
-        case kSocketEvents.Online:
-            break
-        case kSocketEvents.Offline:
-            break
         default:
             print("Invalid Event Received!!!")
         }

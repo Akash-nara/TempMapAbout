@@ -55,18 +55,18 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         if let firstObject = objTripModel.photoUploadedArray.first?.arrayOfImageURL.first{
             let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
             imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
+                
                 self.imgviewBG.image = img
-                self.stopAnimating()
-                if let sizeOfImage = self.imgviewBG.image?.size, sizeOfImage.width < sizeOfImage.height {
-                    
+                if let image = img, image.isImageVerticle{
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     self.imgviewBG.contentMode = .scaleAspectFill
                     completion?(true, self.imgviewBG.tag, imgviewBG.image?.getHeight ?? 0)
-                } else {
+                }else{
                     //width < height we fill it until width is taken up and clipped on top/bottom
                     self.imgviewBG.contentMode = .scaleToFill
                     completion?(false,self.imgviewBG.tag, imgviewBG.image?.getHeight ?? 0)
                 }
+                self.stopAnimating()
             }
             
             self.imgviewBG.clipsToBounds = true
@@ -74,7 +74,16 @@ class ProfileImagesCellXIB: UICollectionViewCell {
             self.imgviewBG.contentMode = .scaleToFill
             self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
             self.stopAnimating()
-            
+        }
+    }
+}
+
+extension UIImage{
+    var isImageVerticle:Bool{
+        if self.size.width < self.size.height {
+            return true
+        }else{
+            return false
         }
     }
 }

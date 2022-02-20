@@ -151,7 +151,7 @@ extension NetworkingManager{
                 }
             }else{
                 DispatchQueue.main.async {
-                    Utility.errorMessage(message: "internet_failure")
+//                    Utility.errorMessage(message: "internet failure")
                 }
             }
             // Stop loader if working

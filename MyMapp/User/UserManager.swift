@@ -88,6 +88,8 @@ extension UserManager {
         UserDefaults.standard.synchronize()
         UIApplication.shared.unregisterForRemoteNotifications()
         SocketIOManager.sharedInstance.addDisconnectHandler()
+        SocketIOManager.sharedInstance.disconnect()
+        SocketIOManager.sharedInstance.removeAllHandlers()
         APP_USER = nil
         API_SERVICES.removeAuthorizationAndVarification() // Networking...
         IS_USER_INSIDE_APP = false // User is not inside app any more.

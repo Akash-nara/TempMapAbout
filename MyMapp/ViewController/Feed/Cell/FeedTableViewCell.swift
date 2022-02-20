@@ -64,6 +64,7 @@ class FeedTableViewCell: UITableViewCell {
         commentedUserPic.setImage(url: APP_USER?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
     }
     
+    
     func configureCell(modelData:TripDataModel){
         labelExpDescription.text = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//modelData.tripDescription
         labelExpDescription.isHidden = labelExpDescription.text!.isEmpty
@@ -96,7 +97,9 @@ class FeedTableViewCell: UITableViewCell {
 //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
         collectionView.reloadData {
-            if self.arrayOfImageURL.count > 2{
+            if self.arrayOfImageURL.count > 3{
+                self.collectionView.scrollToItem(at: IndexPath.init(row: 2, section: 0), at: .right, animated: false)
+            }else if self.arrayOfImageURL.count > 4{
                 self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: false)
             }
         }
@@ -115,14 +118,6 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.configureCell(model: arrayOfImageURL[indexPath.row])
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-            // In this function is the code you must implement to your code project if you want to change size of Collection view
-           let height  = Int(arrayOfImageURL[indexPath.row].height)
-            let width  = (collectionView.frame.width-20)/3
-            return CGSize(width: width, height: 200)
-    }
-    
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -18,15 +18,10 @@ class SkeletonTripTVCell: UITableViewCell {
         
         self.stripeOne.layer.cornerRadius = 4.0
         self.stripeOne.clipsToBounds = true
-        
         self.stripeOne.isSkeletonable = true
     }
     
     func startAnimating(index: Int) {
-//        self.viewOfSeparator.isHidden = false
-//        if index == 0 {
-//            self.viewOfSeparator.isHidden = true
-//        }
         self.stripeOne.showAnimatedSkeleton()
     }
     
