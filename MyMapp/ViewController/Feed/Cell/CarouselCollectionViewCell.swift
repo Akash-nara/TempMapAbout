@@ -41,6 +41,8 @@ class CarouselCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(model:TripDataModel.TripPhotoDetails.TripImage){
+        
+        tripImage.contentMode = .scaleToFill
         startAnimating()
         tripImage.sd_setImage(with: URL.init(string: model.image), placeholderImage: nil, options: .highPriority) { img, error, caceh, url in
             if let lodedImage = img{
