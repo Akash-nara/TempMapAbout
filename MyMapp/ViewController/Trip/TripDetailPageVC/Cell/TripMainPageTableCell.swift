@@ -62,7 +62,7 @@ class TripMainPageTableCell: UITableViewCell {
     }
     
     var collectionViewHeight:CGFloat{
-        return heightOfCollectionViewTrip.constant
+        return heightOfCollectionViewTrip.constant - 1
     }
     
     override func awakeFromNib() {
