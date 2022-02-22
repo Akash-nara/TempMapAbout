@@ -161,8 +161,11 @@ class TripDetailVC: UIViewController {
     }
     
     func preparedArrayofSections(){
-        viewCommentHeightConstraint.constant = isOwnProfile ? 0 : 85
-        viewComment.isHidden = isOwnProfile
+                viewCommentHeightConstraint.constant = 0
+                viewComment.isHidden = true
+
+//        viewCommentHeightConstraint.constant = isOwnProfile ? 0 : 85
+//        viewComment.isHidden = isOwnProfile
                 arrayOfSections.append(.userDetail)
         //        arrayOfSections.append(.tripImages)
         //        tblviewTrip.reloadData()
@@ -517,11 +520,13 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
             UIView.animate(withDuration: 0.01, animations: { () -> Void in
                 self.vwImage.alpha = 1
-                self.consWidth.constant = cell.frame.size.width * 1.5
-                self.consHeight.constant = cell.frame.size.height * 1.5
+                self.consWidth.constant = cell.frame.size.width * 1.9
+                self.consHeight.constant = cell.frame.size.height * 1.9
                 self.vwImage.isHidden = false
                 self.vwImage.image = cell.imgviewZoom.image
-                self.vwImage.contentMode = .scaleAspectFill
+                self.vwImage.contentMode = .scaleToFill
+                self.vwImage.cornerRadius = 15
+                self.vwImage.selectedCorners(radius: 15, [.topLeft,.topRight,.bottomLeft,.bottomRight])
                 self.vwBlur.isHidden = false
                 self.view.layoutIfNeeded()
             })

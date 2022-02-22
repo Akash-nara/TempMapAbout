@@ -16,9 +16,7 @@ class CarouselCollectionViewCell: UICollectionViewCell {
             self.tripImage.selectedCorners(radius: 15, [.topLeft,.topRight,.bottomLeft,.bottomRight])
         }
     }
-    
     @IBOutlet weak var sketonView: UIView!
-    
     static let identifier = "CarouselCollectionViewCell"
     
     override func awakeFromNib() {
@@ -34,7 +32,7 @@ class CarouselCollectionViewCell: UICollectionViewCell {
         sketonView.isHidden = false
         self.sketonView.showAnimatedSkeleton()
     }
-    
+
     func stopAnimating() {
         self.sketonView.hideSkeleton()
         sketonView.isHidden = true

@@ -21,13 +21,15 @@ class FeedHomeVC: UIViewController {
         
         configureTableView()
         getSocketTripData()
-        SHOW_CUSTOM_LOADER()
-        DispatchQueue.getMain(delay: 0.1) {
-            self.HIDE_CUSTOM_LOADER()
+        
+
+//        self.getTripListApi()
+//        SHOW_CUSTOM_LOADER()
+        DispatchQueue.getMain(delay: 0.2) {
             self.getTripListApi()
 
         }
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //mdafafasfasfasfafafafafafaasfasfasfsfafsasfasfasfasfddsfsdgdgssgsdgdsgsdgsdgsdgsgsdgsdgsdgsdgssdgsdgsgsgsdgsdgsdgdsgdsfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +43,7 @@ class FeedHomeVC: UIViewController {
     
     deinit{
         NotificationCenter.default.removeObserver(self)
-    }
+    }//dadasddasdasdsaddasdasdasdasdasdasdasasfdsfdsfsfsdfsdfdssdrwerwerwerwerwerwerwerwerwerwerwerwewerwegdfgdfgfdgdgfdgdfgdfgasdadasdsadasdadasdasdasdvdfsvfdvdffdvdvdffvdvdfvfdvxvzxczxcvxzvnzxvxzvzxvzvxzvadadsdwewqeeqeewqwqeqweewqeqwewqeweqwewqewqeqeweqwewe
     
     func configureTableView(){
         tableViewFeedList.registerCell(type: FeedTableViewCell.self, identifier: "FeedTableViewCell")
@@ -59,7 +61,7 @@ class FeedHomeVC: UIViewController {
         }
         tableViewFeedList.sayNoSection = .noFeedFound("Feed not found.")
 //        tableViewFeedList.figureOutAndShowNoResults()
-        
+        tableViewFeedList.reloadData()
         tableViewFeedList.addRefreshControlForPullToRefresh { [weak self] in
             self?.viewModel.isTripListFetched = false
             self?.stopLoaders()
