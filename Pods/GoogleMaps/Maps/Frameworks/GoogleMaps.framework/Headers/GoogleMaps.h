@@ -22,7 +22,6 @@
 #import "GMSCircle.h"
 #import "GMSGroundOverlay.h"
 #import "GMSMarker.h"
-#import "GMSMarkerAnimation.h"
 #import "GMSMarkerLayer.h"
 #import "GMSOverlay.h"
 #import "GMSOverlayLayer.h"

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Returns a texture stamp style with the given image.
  *
  * @param image A @c UIImage object to use as the stamp image.
- * @return An initialized texture stamp style.
+ * @return An initialized sprite stamp style.
  */
 + (instancetype)textureStyleWithImage:(UIImage *)image NS_SWIFT_UNAVAILABLE("Use initializer instead");
 
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Returns an initialized texture stamp style with the given image.
  *
  * @param image A @c UIImage object to use as the stamp image.
- * @return An initialized texture stamp style.
+ * @return An initialized sprite stamp style.
  */
 - (instancetype)initWithImage:(UIImage *)image NS_DESIGNATED_INITIALIZER;
 

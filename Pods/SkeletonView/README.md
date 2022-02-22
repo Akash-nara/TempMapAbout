@@ -261,19 +261,17 @@ The rest of the process is the same as ```UITableView```
 ![](Assets/multilines2.png)
 
 When using elements with text, ```SkeletonView``` draws lines to simulate text.
+Besides, you can decide how many lines you want. If  ```numberOfLines``` is set to zero, it will calculate how many lines needed to populate the whole skeleton and it will be drawn. Instead, if you set it to one, two or any number greater than zero, it will only draw this number of lines.
 
 You can set some properties for multilines elements.
 
-| Property | Type | Default | Preview
-| ------- | ------- |------- | -------
-| **lastLineFillPercent**  | `CGFloat` | `70`| ![](Assets/multiline_lastline.png)
-| **linesCornerRadius**  | `Int` | `0` | ![](Assets/multiline_corner.png)
-| **skeletonLineSpacing**  | `CGFloat` | `10` | ![](Assets/multiline_lineSpacing.png)
-| **skeletonPaddingInsets**  | `UIEdgeInsets` | `.zero` | ![](Assets/multiline_insets.png)
-| **skeletonTextLineHeight**  | `SkeletonTextLineHeight` | `.fixed(15)` | ![](Assets/multiline_lineHeight.png)
-| **skeletonTextNumberOfLines**  | `SkeletonTextNumberOfLines` | `.inherited` | ![](Assets/multiline_corner.png)
 
-<br />
+| Property | Values | Default | Preview
+| ------- | ------- |------- | -------
+| **Filling percent** of the last line.<br/>Please note that for views without multiple lines, the single line will be considered as the last line and **lastLineFillPercent** will be applied to that single line.  | `0...100` | `70%`| ![](Assets/multiline_lastline.png)
+| **Corner radius** of lines. (**NEW**) | `0...10` | `0` | ![](Assets/multiline_corner.png)
+
+
 
 To modify the percent or radius **using code**, set the properties:
 ```swift
@@ -285,55 +283,27 @@ Or, if you prefer use **IB/Storyboard**:
 
 ![](Assets/multiline_customize.png)
 
-<br />
-
-**How to define the number of lines?**
-
-
-By default, the number of lines is the same as the value of the `numberOfLines` property. And, if it's set to **zero**, it'll calculate how many lines are needed to populate the whole skeleton and draw it.
-
-However, if you want to set a specific number of skeleton lines you can do it by setting the `skeletonTextNumberOfLines` property. This property has two possible values, `inherited` which returns `numberOfLines` value and `custom(Int)` which returns the specific number of lines specified as the associated value. 
-
-For example:
-
-```swift
-label.skeletonTextNumberOfLines = 3   // .custom(3)
-``` 
-
-<br />
-
-> **⚠️ DEPRECATED!**
->
-> **useFontLineHeight** has been deprecated. You can use **skeletonTextLineHeight** instead:
-> ```swift
-> descriptionTextView.skeletonTextLineHeight = .relativeToFont
-> ```
-
-> **📣 IMPORTANT!**
->
-> Please note that for views without multiple lines, the single line will be considered 
-> as the last line.
-
-
 
 ### 🦋 Appearance
 
 The skeletons have a default appearance. So, when you don't specify the color, gradient or multilines properties, `SkeletonView` uses the default values.
 
 Default values:
-- **tintColor**: `UIColor`
+- **tintColor**: UIColor
     - *default: `.skeletonDefault` (same as `.clouds` but adaptive to dark mode)*
 - **gradient**: SkeletonGradient
   - *default: `SkeletonGradient(baseColor: .skeletonDefault)`*
-- **multilineHeight**: `CGFloat`
+- **multilineHeight**: CGFloat
   - *default: 15*
-- **multilineSpacing**: `CGFloat`
+- **useFontLineHeight**: Bool
+  - *default: true*
+- **multilineSpacing**: CGFloat
   - *default: 10*
-- **multilineLastLineFillPercent**: `Int`
+- **multilineLastLineFillPercent**: Int
   - *default: 70*
-- **multilineCornerRadius**: `Int`
+- **multilineCornerRadius**: Int
   - *default: 0*
-- **skeletonCornerRadius**: `CGFloat` (IBInspectable)  (Make your skeleton view with corner)
+- **skeletonCornerRadius**: CGFloat (IBInspectable)  (Make your skeleton view with corner)
   - *default: 0*
 
 To get these default values you can use `SkeletonAppearance.default`. Using this property you can set the values as well:
@@ -342,12 +312,12 @@ SkeletonAppearance.default.multilineHeight = 20
 SkeletonAppearance.default.tintColor = .green
 ```
 
-> **⚠️ DEPRECATED!**
->
-> **useFontLineHeight** has been deprecated. You can use **textLineHeight** instead:
-> ```swift
-> SkeletonAppearance.default.textLineHeight = .relativeToFont
-> ```
+You can also specifiy these line appearance properties on a per-label basis:
+- **lastLineFillPercent**: Int
+- **linesCornerRadius**: Int
+- **skeletonLineSpacing**: CGFloat
+- **skeletonPaddingInsets**: UIEdgeInsets
+- **useFontLineHeight**: Bool
 
 
 ### 🎨 Custom colors
@@ -491,6 +461,16 @@ view.showSkeleton()
 |<img src="Assets/all_skeletonables.jpg" width="350"/>| <img src="Assets/all_skeletonables_result.png" width="350"/>|
 |<img src="Assets/tableview_no_skeletonable.jpg" width="350"/> | <img src="Assets/tableview_no_skeletonable_result.png" height="350"/>|
 |<img src="Assets/tableview_skeletonable.jpg" width="350"/> | <img src="Assets/tableview_skeletonable_result.png" height="350"/>|
+
+  
+
+**Hierarchy in collections**
+
+Here is an illustration that shows how you should specify which elements are skeletonables when you are using an `UITableView`:
+
+<img src="Assets/tableview_scheme.png" width="700px">
+
+As you can see, we have to make skeletonable the tableview, the cell and the UI elements, but we don't need to set as skeletonable the `contentView`
 
   
 

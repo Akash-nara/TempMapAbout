@@ -1,6 +1,6 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - Alamofire (5.5.0)
+  - Alamofire (5.4.4)
   - BottomPopup (0.7.0)
   - CenteredCollectionView (2.2.2)
   - CHIPageControl (0.2):
@@ -71,10 +71,10 @@ PODS:
     - SDWebImage
     - SwiftyGif
   - ELWaterFallLayout (0.1.2)
-  - GoogleMaps (6.0.1):
-    - GoogleMaps/Maps (= 6.0.1)
-  - GoogleMaps/Base (6.0.1)
-  - GoogleMaps/Maps (6.0.1):
+  - GoogleMaps (5.2.0):
+    - GoogleMaps/Maps (= 5.2.0)
+  - GoogleMaps/Base (5.2.0)
+  - GoogleMaps/Maps (5.2.0):
     - GoogleMaps/Base
   - GooglePlaces (6.0.0)
   - IQKeyboardManagerSwift (6.5.9)
@@ -82,10 +82,10 @@ PODS:
   - NVActivityIndicatorView/Extended (5.1.1):
     - NVActivityIndicatorView/Base
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.12.2):
-    - SDWebImage/Core (= 5.12.2)
-  - SDWebImage/Core (5.12.2)
-  - SkeletonView (1.29.2)
+  - SDWebImage (5.12.1):
+    - SDWebImage/Core (= 5.12.1)
+  - SDWebImage/Core (5.12.1)
+  - SkeletonView (1.25.2)
   - SKPhotoBrowser (7.0.0)
   - Socket.IO-Client-Swift (15.2.0):
     - Starscream (~> 3.1)
@@ -152,7 +152,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   BottomPopup: fe3e284628532f99093ae68c592c6b9d392c972d
   CenteredCollectionView: a9217908a698c386cbb98af11b596da48900b908
   CHIPageControl: a787bf7205c9b7e7fbfc412be36c5e8636b68f86
@@ -161,13 +161,13 @@ SPEC CHECKSUMS:
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   ELWaterFallLayout: 12bf34e49aa39c4b0315f5da829a1705133cebeb
-  GoogleMaps: c213fc2334b7374144cede914da779b99be0ab74
+  GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
   GooglePlaces: c97d96ae68594acb64035c9ca9f26fbfc1d23af1
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
-  SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
+  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SkeletonView: 820b2bbd180d7408f3f03b6462cfc3cac39d2ef2
   SKPhotoBrowser: 6aaa8f232752e87c7e76bace183bead0a137097d
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0

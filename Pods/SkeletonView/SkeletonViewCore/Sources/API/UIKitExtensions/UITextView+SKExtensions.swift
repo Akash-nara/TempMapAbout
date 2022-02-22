@@ -15,36 +15,9 @@ import UIKit
 
 public extension UITextView {
 
-    /// Defines the skeleton paddings.
     var skeletonPaddingInsets: UIEdgeInsets {
-        get {
-            paddingInsets
-        }
-        set {
-            paddingInsets = newValue
-        }
-    }
-    
-    /// Defines the logic for calculating the height of the skeleton lines.
-    /// Default: `SkeletonAppearance.default.textLineHeight`
-    var skeletonTextLineHeight: SkeletonTextLineHeight {
-        get {
-            textLineHeight
-        }
-        set {
-            textLineHeight = newValue
-        }
-    }
-    
-    /// Defines the logic for calculating the number of lines of the skeleton.
-    /// Default: `inherited`
-    var skeletonTextNumberOfLines: SkeletonTextNumberOfLines {
-        get {
-            skeletonNumberOfLines
-        }
-        set {
-            skeletonNumberOfLines = newValue
-        }
+        get { return paddingInsets }
+        set { paddingInsets = newValue }
     }
     
 }

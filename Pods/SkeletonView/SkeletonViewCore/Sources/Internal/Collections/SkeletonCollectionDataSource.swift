@@ -51,13 +51,13 @@ extension SkeletonCollectionDataSource: UITableViewDataSource {
             let fakeCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
             originalTableViewDataSource?.collectionSkeletonView(tableView, prepareCellForSkeleton: fakeCell, at: indexPath)
-            skeletonizeViewIfContainerSkeletonIsActive(container: tableView, view: fakeCell)
+            skeletonViewIfContainerSkeletonIsActive(container: tableView, view: fakeCell)
             
             return fakeCell
         }
 
         originalTableViewDataSource?.collectionSkeletonView(tableView, prepareCellForSkeleton: cell, at: indexPath)
-        skeletonizeViewIfContainerSkeletonIsActive(container: tableView, view: cell)
+        skeletonViewIfContainerSkeletonIsActive(container: tableView, view: cell)
         return cell
     }
 }
@@ -88,13 +88,13 @@ extension SkeletonCollectionDataSource: UICollectionViewDataSource {
             let fakeCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
 
             originalCollectionViewDataSource?.collectionSkeletonView(collectionView, prepareCellForSkeleton: fakeCell, at: indexPath)
-            skeletonizeViewIfContainerSkeletonIsActive(container: collectionView, view: fakeCell)
+            skeletonViewIfContainerSkeletonIsActive(container: collectionView, view: fakeCell)
             
             return fakeCell
         }
 
         originalCollectionViewDataSource?.collectionSkeletonView(collectionView, prepareCellForSkeleton: cell, at: indexPath)
-        skeletonizeViewIfContainerSkeletonIsActive(container: collectionView, view: cell)
+        skeletonViewIfContainerSkeletonIsActive(container: collectionView, view: cell)
         return cell
     }
     
@@ -103,7 +103,7 @@ extension SkeletonCollectionDataSource: UICollectionViewDataSource {
                         at indexPath: IndexPath) -> UICollectionReusableView {
         if let viewIdentifier = originalCollectionViewDataSource?.collectionSkeletonView(collectionView, supplementaryViewIdentifierOfKind: kind, at: indexPath) {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: viewIdentifier, for: indexPath)
-            skeletonizeViewIfContainerSkeletonIsActive(container: collectionView, view: view)
+            skeletonViewIfContainerSkeletonIsActive(container: collectionView, view: view)
             return view
         }
         
@@ -113,15 +113,12 @@ extension SkeletonCollectionDataSource: UICollectionViewDataSource {
 }
 
 extension SkeletonCollectionDataSource {
-    private func skeletonizeViewIfContainerSkeletonIsActive(container: UIView, view: UIView) {
+    private func skeletonViewIfContainerSkeletonIsActive(container: UIView, view: UIView) {
         guard container.sk.isSkeletonActive,
               let skeletonConfig = container._currentSkeletonConfig else {
             return
         }
 
-        view.showSkeleton(
-            skeletonConfig: skeletonConfig,
-            notifyDelegate: false
-        )
+        view.showSkeleton(skeletonConfig: skeletonConfig)
     }
 }
