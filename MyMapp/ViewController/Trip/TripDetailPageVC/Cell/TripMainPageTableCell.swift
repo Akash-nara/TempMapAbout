@@ -61,10 +61,12 @@ class TripMainPageTableCell: UITableViewCell {
          */
     }
     
-    var collectionViewHeight:CGFloat{
-        return heightOfCollectionViewTrip.constant - 1
-    }
-    
+//    var collectionViewHeight:CGFloat{
+//        return heightOfCollectionViewTrip.constant - 1
+//    }
+    var collectionViewHeight:CGFloat = 0
+    var isMinimizeCollectionView = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -75,7 +77,8 @@ class TripMainPageTableCell: UITableViewCell {
         //1827 * 0.37
         
         heightOfCollectionViewTrip.constant  = UIScreen.main.bounds.size.height*0.75
-                
+        collectionViewHeight = heightOfCollectionViewTrip.constant - 5
+        
         // Initialization code
         self.backgroundColor = .white//.green
         configureCollectionView()
@@ -113,10 +116,44 @@ class TripMainPageTableCell: UITableViewCell {
 //        var longCellHeight = ((collectionViewHeight - 15 - 15)/5)*2 //231
 //        var smallCellHeight = (collectionViewHeight - 15 - 15)/5
         
-        let space:CGFloat = 5
-//       let space:CGFloat = 10
-        let smallCellHeight = (collectionViewHeight - space - space)*0.23
-        let longCellHeight = (collectionViewHeight - space - space - smallCellHeight)/2 //231
+        let space: CGFloat = 5
+        var smallCellHeight: CGFloat = 0
+        var longCellHeight: CGFloat = 0
+
+        func calculateSmallLongCell() {
+            smallCellHeight = (collectionViewHeight - space - space) * 0.23
+            longCellHeight = (collectionViewHeight - space - space - smallCellHeight) / 2 //231
+        }
+        
+        calculateSmallLongCell()
+        
+        func minimizeCollectionViewHightIfNeeded() {
+//            var verticleCount = 0
+//            var horizontalCount = 0
+//            arrayOfImageURL.forEach { obj in
+//                if obj.isVerticle {
+//                    verticleCount += 1
+//                } else {
+//                    horizontalCount += 1
+//                }
+//            }
+            
+            // 4 small cell max possibility
+            if arrayOfImageURL.count <= 4 {
+                var totalHeight: CGFloat = 0
+                arrayOfImageURL.forEach { obj in
+                    totalHeight += obj.isVerticle ? longCellHeight : smallCellHeight
+                }
+                totalHeight += CGFloat(arrayOfImageURL.count - 1) * space
+                if totalHeight < collectionViewHeight {
+                    heightOfCollectionViewTrip.constant = totalHeight
+                    isMinimizeCollectionView = true
+                }
+            }
+        }
+
+        minimizeCollectionViewHightIfNeeded()
+        
 
         
 //        /*
@@ -181,13 +218,17 @@ class TripMainPageTableCell: UITableViewCell {
                     // last item closed
                     // now check if in last vertical line is there any space ?
                     guard columHeight != 0 else { return }
-                    let itemHeight = collectionViewHeight
+                    let itemHeight = isMinimizeCollectionView ? heightOfCollectionViewTrip.constant : collectionViewHeight
                     arrayOfImageURL.append(
                         TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0))
                     dummyItemCount += 1
                 }
 
-                addLastDummyCellIfNeeded()
+                if isMinimizeCollectionView {
+                    noOfColumn += 1
+                } else {
+                    addLastDummyCellIfNeeded()
+                }
                 
                 print("noOfColumn: \(noOfColumn)")
                 if noOfColumn % 2 == 1 {
@@ -201,56 +242,8 @@ class TripMainPageTableCell: UITableViewCell {
             }
         }
         
-//        for i in 0..<(localArray.count + dummyItemCount) {
-//            if i == 2 {
-//                dummyItemCount = 2
-//            }
-//            print("i:\(i)")
-//        }
+    }
         
-//        for (i, _) in localArray.enumerated(){
-//
-//            var indexMain: Int { i + dummyItemCount }
-//            var itemHeight = arrayOfImageURL[indexMain].isVerticle ? longCellHeight : smallCellHeight
-//            print("columHeight Begin: \(columHeight)")
-//            if !columHeight.isZero {
-//                columHeight += verticalSpace
-//            }
-//            columHeight += itemHeight
-//
-//            if columHeight > collectionViewHeight{
-//                columHeight -= itemHeight
-//                itemHeight = collectionViewHeight - columHeight
-//                columHeight += itemHeight
-//                arrayOfImageURL.insert(
-//                    TripDataModel.TripPhotoDetails.TripImage(isDummyItem: true, itemHeight: itemHeight, image: "", height: itemHeight, width: 0),
-////                    TripDataModel.TripPhotoDetails.TripImage(isVerticle: false, image: "", isDummyItem: true, itemHeight: itemHeight),
-//                    at: indexMain)
-//                dummyItemCount += 1
-//                //                columHeight = 0
-//
-//            } else {
-//                arrayOfImageURL[indexMain].itemHeight = itemHeight
-//            }
-//            print("columHeight End: \(columHeight)")
-//            if columHeight == collectionViewHeight {
-//                columHeight = 0
-//            }
-//        }
-        //         */
-    }
-    
-    func minimizeCollectionViewHightIfNeeded() {
-        if arrayOfImageURL.count <= 3 {
-            var totalHeight: CGFloat = 0
-            arrayOfImageURL.forEach({ totalHeight += $0.itemHeight })
-            totalHeight += CGFloat((arrayOfImageURL.count - 1) * 5)
-            if totalHeight < collectionViewHeight {
-                heightOfCollectionViewTrip.constant = totalHeight
-            }
-        }
-    }
-    
     /*
      override func layoutSubviews() {
      super.layoutSubviews()
