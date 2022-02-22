@@ -10,7 +10,7 @@ import UIKit
 class ActivityHomeVC: UIViewController {
     
     //MARK: - OUTLETS
-    @IBOutlet weak var tblviewActivity:UITableView!{
+    @IBOutlet weak var tblviewActivity:SayNoForDataTableView!{
         didSet{
             tblviewActivity.setDefaultProperties(vc: self)
             tblviewActivity.registerCell(type: ActivityHeaderCell.self, identifier: ActivityHeaderCell.identifier)
@@ -25,7 +25,6 @@ class ActivityHomeVC: UIViewController {
             } else {
                 // Fallback on earlier versions
             }
-
         }
     }
     
@@ -34,6 +33,10 @@ class ActivityHomeVC: UIViewController {
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.arraySections.removeAll()
+        tblviewActivity.sayNoSection = .noDataFound("Coming soon")
+        tblviewActivity.figureOutAndShowNoResults()
+        tblviewActivity.reloadData()
         
     }
 }

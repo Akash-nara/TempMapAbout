@@ -416,38 +416,51 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
         cell.lblName.text = "INDEX : \(indexPath.row)"
         
         if arrayOfImageURL[indexPath.row].isDummyItem{
-            cell.contentView.backgroundColor = .red
+//            cell.contentView.backgroundColor = .red
 //            cell.contentView.alpha = 0
         }else{
-            cell.contentView.backgroundColor = .green
+//            cell.contentView.backgroundColor = .green
 //            cell.contentView.alpha = 1
         }
         
-        
-         let img = arrayOfImageURL[indexPath.row].image//photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].image
-        cell.imgviewZoom.sd_setImage(with: URL.init(string: img), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
-            cell.imgviewZoom.image = img
-            //            self.stopAnimating()
-            if let sizeOfImage = cell.imgviewZoom.image?.size, sizeOfImage.width > sizeOfImage.height {
-                //since the width > height we may fit it and we'll have bands on top/bottom
-                cell.imgviewZoom.contentMode = .scaleAspectFill
-                //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = true
-//                self.arrayOfImageURL[indexPath.row].isVerticle = true
-            } else {
-                //width < height we fill it until width is taken up and clipped on top/bottom
-                cell.imgviewZoom.contentMode = .scaleToFill
-//                self.arrayOfImageURL[indexPath.row].isVerticle = false
-                //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = false
-            }
+        if !arrayOfImageURL[indexPath.row].isDummyItem{
             
-            if self.arrayOfImageURL[indexPath.row].isVerticle{
-                cell.imgviewZoom.contentMode = .scaleAspectFill
-            }else{
-                cell.imgviewZoom.contentMode = .scaleToFill
+            let img = arrayOfImageURL[indexPath.row].image//photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].image
+            cell.configureSkelton()
+            cell.startAnimating()
+            cell.imgviewZoom.sd_setImage(with: URL.init(string: img), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                cell.imgviewZoom.image = img
+                //            self.stopAnimating()
+                if let sizeOfImage = cell.imgviewZoom.image?.size, sizeOfImage.width > sizeOfImage.height {
+                    //since the width > height we may fit it and we'll have bands on top/bottom
+                    cell.imgviewZoom.contentMode = .scaleAspectFill
+                    //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = true
+                    //                self.arrayOfImageURL[indexPath.row].isVerticle = true
+                } else {
+                    //width < height we fill it until width is taken up and clipped on top/bottom
+                    cell.imgviewZoom.contentMode = .scaleToFill
+                    //                self.arrayOfImageURL[indexPath.row].isVerticle = false
+                    //                self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle = false
+                }
+                
+                if self.arrayOfImageURL[indexPath.row].isVerticle{
+                    cell.imgviewZoom.contentMode = .scaleAspectFill
+                }else{
+                    cell.imgviewZoom.contentMode = .scaleToFill
+                }
+                
+                if let lodedImage = img{
+                    cell.stopAnimating()
+                    cell.imgviewZoom.cornerRadius = 15
+                    cell.imgviewZoom.image = lodedImage.withRoundedCorners(radius: 15)
+                    //                cell.imgviewZoom.image = cell.imgviewZoom.image?.drawOutlie()
+                }
+                
+                //            cell.imgviewZoom.clipsToBounds = true
+                collectionView.collectionViewLayout.invalidateLayout()
             }
-            
-            cell.imgviewZoom.clipsToBounds = true
-            collectionView.collectionViewLayout.invalidateLayout()
+        }else{
+            cell.imgviewZoom.image = nil
         }
                 
         

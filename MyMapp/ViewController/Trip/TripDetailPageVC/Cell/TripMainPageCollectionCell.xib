@@ -48,7 +48,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Tir-g8-DaJ" secondAttribute="bottom" id="4Ap-Iz-ZGn"/>
                                     <constraint firstAttribute="trailing" secondItem="Tir-g8-DaJ" secondAttribute="trailing" id="65X-3z-ELs"/>
@@ -110,18 +110,30 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARd-1A-d56">
+                        <rect key="frame" x="0.0" y="0.0" width="230" height="230"/>
+                        <color key="backgroundColor" red="0.16862745100000001" green="0.2156862745" blue="0.30980392159999998" alpha="0.19733205779999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="ARd-1A-d56" firstAttribute="top" secondItem="s6B-2L-i28" secondAttribute="top" id="27z-nS-B9U"/>
+                    <constraint firstItem="ARd-1A-d56" firstAttribute="leading" secondItem="s6B-2L-i28" secondAttribute="leading" id="5H3-L6-qPT"/>
+                    <constraint firstAttribute="trailing" secondItem="ARd-1A-d56" secondAttribute="trailing" id="CD4-zg-nZq"/>
                     <constraint firstAttribute="bottom" secondItem="EJh-aN-027" secondAttribute="bottom" constant="5" id="GIJ-nn-2aq"/>
                     <constraint firstItem="EJh-aN-027" firstAttribute="leading" secondItem="s6B-2L-i28" secondAttribute="leading" constant="5" id="b7o-fj-NqN"/>
                     <constraint firstAttribute="trailing" secondItem="EJh-aN-027" secondAttribute="trailing" constant="5" id="cW4-vI-Y87"/>
                     <constraint firstItem="EJh-aN-027" firstAttribute="top" secondItem="s6B-2L-i28" secondAttribute="top" constant="5" id="mVI-2l-dtH"/>
+                    <constraint firstAttribute="bottom" secondItem="ARd-1A-d56" secondAttribute="bottom" id="ph3-zl-bc6"/>
                 </constraints>
             </collectionViewCellContentView>
             <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="imgviewZoom" destination="Tir-g8-DaJ" id="6Fo-Yr-e7w"/>
                 <outlet property="lblName" destination="49A-js-g2A" id="zux-pj-ORY"/>
+                <outlet property="sketonView" destination="ARd-1A-d56" id="INI-M3-SZx"/>
                 <outlet property="viewBG" destination="EJh-aN-027" id="sRS-Xy-aAQ"/>
             </connections>
             <point key="canvasLocation" x="139" y="82"/>
@@ -132,9 +144,6 @@
         <namedColor name="App_Bg_Seafoamblue_Color">
             <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

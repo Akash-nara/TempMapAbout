@@ -25,6 +25,7 @@ class SayNoForDataTableView: PaginationTableView {
         case noInternetConnectionFound
         case genericNoResultsFound(String)
         case noFeedFound(String)
+        case noDataFound(String)
 
         case none
         
@@ -35,6 +36,8 @@ class SayNoForDataTableView: PaginationTableView {
             case .noInternetConnectionFound:
                 return "no_internet_connection"
             case .genericNoResultsFound(let title):
+                return title
+            case .noDataFound(let title):
                 return title
             default:
                 return ""
@@ -72,7 +75,7 @@ class SayNoForDataTableView: PaginationTableView {
         
         var getTitleTextColor: UIColor {
             switch self {
-            case .noSearchResultFound,.noFeedFound:
+            case .noSearchResultFound,.noFeedFound,.noDataFound:
                 return UIColor.App_BG_SeafoamBlue_Color
             default:
                 return UIColor.black
