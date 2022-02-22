@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import TagListView
 
 class FeedTableViewCell: UITableViewCell {
     
@@ -24,7 +25,8 @@ class FeedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var buttonBookmark: UIButton!
     @IBOutlet weak var buttonLike: UIButton!
-    
+//    @IBOutlet weak var tagListView: TagListView!
+
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     fileprivate var currentPage: Int = 0 {
         didSet {
@@ -69,7 +71,25 @@ class FeedTableViewCell: UITableViewCell {
         labelExpDescription.setTextFont = UIFont.Montserrat.Medium(12.7)
         labelExpDescription.seeMoreLessFont = UIFont.Montserrat.Medium(12.7)
         labelExpDescription.isNeedToUnderlineSeeMoreSeeLess = false
+        
+        
+//        tagListView.textFont = UIFont.Montserrat.SemiBold(9)
+//        tagListView.alignment = .center
+//        tagListView.enableRemoveButton = false
+//        tagListView.paddingX = 10
+//        tagListView.paddingY = 10
+        
+
+//        addTagsList(arrrayOfArray: ["Architecture","Landscape","Design"])
+        
     }
+    
+//    func addTagsList(arrrayOfArray:[String]){
+//        tagListView.removeAllTags()
+//        arrrayOfArray.forEach { str in
+//            tagListView.addTag(str)
+//        }
+//    }
     
     func configureCell(modelData:TripDataModel){
         postedDate.text = modelData.dateFromatedOftrip
@@ -106,6 +126,7 @@ class FeedTableViewCell: UITableViewCell {
                 self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: false)
             }
         }
+        
     }
 }
 

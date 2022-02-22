@@ -108,7 +108,8 @@ class ProfileHomeVC: UIViewController {
     }
     
     @objc func selectSecondTab(sender:UIButton){
-        self.selectedTab = .map([.map, .tripData])
+//        self.selectedTab = .map([.map, .tripData])
+        self.selectedTab = .map([.map])
         collectionviewProfile.collectionViewLayout.invalidateLayout()
         collectionviewProfile.reloadData()
     }

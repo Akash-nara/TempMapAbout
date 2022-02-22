@@ -268,7 +268,7 @@ class TripDataModel{
         photoArray.keys.forEach { jsonKey in
             let imageUrl = photoArray[jsonKey]?.arrayValue ?? []
             arraYOfPhotoCount.append(imageUrl.count)
-            let filterObj = locationList.filter({$0.locationHash == jsonKey}).first
+//            let filterObj = locationList.filter({$0.locationHash == jsonKey}).first
             self.photoUploadedArray.append(TripPhotoDetails.init(param: JSON(["hash":jsonKey,"imageArray":imageUrl,
 //                                                                              "cityName":filterObj.name,
 //                                                                              "countryName":filterObj,
