@@ -142,9 +142,6 @@
 		8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883546492729CB1900DAD2B5 /* AppDelegate.swift */; };
 		883546532729CB1B00DAD2B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 883546522729CB1B00DAD2B5 /* Assets.xcassets */; };
 		883546562729CB1B00DAD2B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883546542729CB1B00DAD2B5 /* LaunchScreen.storyboard */; };
-		883546612729CB1B00DAD2B5 /* MyMappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883546602729CB1B00DAD2B5 /* MyMappTests.swift */; };
-		8835466B2729CB1B00DAD2B5 /* MyMappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835466A2729CB1B00DAD2B5 /* MyMappUITests.swift */; };
-		8835466D2729CB1B00DAD2B5 /* MyMappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835466C2729CB1B00DAD2B5 /* MyMappUITestsLaunchTests.swift */; };
 		883651FE276647420047693F /* LatestTripVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883651FD276647410047693F /* LatestTripVC.swift */; };
 		88365206276660F20047693F /* TripImagesUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88365205276660F10047693F /* TripImagesUploadVC.swift */; };
 		8836520A276665B70047693F /* TripImagesUploadedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88365208276665B70047693F /* TripImagesUploadedCell.swift */; };
@@ -229,30 +226,10 @@
 		88ECE0F4273062F50000AEA3 /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ECE0F3273062F20000AEA3 /* SigninVC.swift */; };
 		88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 88F0ADFE276FAB69005C9657 /* MapStyle.json */; };
 		88F5DC1C272D5CD6003EEEAF /* FirstViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */; };
-		8D76DEC675A109D5DA833549 /* Pods_MyMapp_MyMappUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2721E41AA346C0461991F4E7 /* Pods_MyMapp_MyMappUITests.framework */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
-		FF3CD72A622566F38E2C0057 /* Pods_MyMappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77953CEDFCE26BC80C193FB /* Pods_MyMappTests.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8835465D2729CB1B00DAD2B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8835463E2729CB1800DAD2B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 883546452729CB1800DAD2B5;
-			remoteInfo = MyMapp;
-		};
-		883546672729CB1B00DAD2B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8835463E2729CB1800DAD2B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 883546452729CB1800DAD2B5;
-			remoteInfo = MyMapp;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		2721E41AA346C0461991F4E7 /* Pods_MyMapp_MyMappUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMapp_MyMappUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3802A30C278C281400A6E3C0 /* SSReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSReachabilityManager.swift; path = ReachabilitySwift/Sources/SSReachabilityManager.swift; sourceTree = "<group>"; };
 		3820A9D327AD4A0300933BE8 /* TripMainPageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripMainPageTableCell.swift; sourceTree = "<group>"; };
 		3820A9D727AD4D8F00933BE8 /* TripMainPageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripMainPageCollectionCell.xib; sourceTree = "<group>"; };
@@ -342,7 +319,6 @@
 		38ED7CC327BE73BF00794C43 /* ActivityHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHomeViewModel.swift; sourceTree = "<group>"; };
 		38ED7CC527BE7C6600794C43 /* ActivityFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFooterCell.swift; sourceTree = "<group>"; };
 		38ED7CC627BE7C6600794C43 /* ActivityFooterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityFooterCell.xib; sourceTree = "<group>"; };
-		52F359954BA2411B06E25F3A /* Pods-MyMappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMappTests.release.xcconfig"; path = "Target Support Files/Pods-MyMappTests/Pods-MyMappTests.release.xcconfig"; sourceTree = "<group>"; };
 		65226A10AD5E5D279F5AA5B1 /* Pods-MyMapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.release.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.release.xcconfig"; sourceTree = "<group>"; };
 		6906DA4F27464E4600B9F23A /* AddTripFavouriteAddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripFavouriteAddImage.swift; sourceTree = "<group>"; };
 		6906DA5027464E4600B9F23A /* AddTripFavouriteAddImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTripFavouriteAddImage.xib; sourceTree = "<group>"; };
@@ -359,7 +335,6 @@
 		69F436B4277495D000CC5F44 /* TripApiPassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripApiPassModel.swift; sourceTree = "<group>"; };
 		69F436B5277495D000CC5F44 /* TripLocationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripLocationList.swift; sourceTree = "<group>"; };
 		69F436B6277495D000CC5F44 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		824E7BEFEA1578030AD06BDE /* Pods-MyMapp-MyMappUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp-MyMappUITests.release.xcconfig"; path = "Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests.release.xcconfig"; sourceTree = "<group>"; };
 		88100B33272A3327008A01F7 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		88100B34272A3327008A01F7 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		88100B35272A3327008A01F7 /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -395,11 +370,6 @@
 		883546522729CB1B00DAD2B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		883546552729CB1B00DAD2B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		883546572729CB1B00DAD2B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8835465C2729CB1B00DAD2B5 /* MyMappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyMappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		883546602729CB1B00DAD2B5 /* MyMappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMappTests.swift; sourceTree = "<group>"; };
-		883546662729CB1B00DAD2B5 /* MyMappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyMappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8835466A2729CB1B00DAD2B5 /* MyMappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMappUITests.swift; sourceTree = "<group>"; };
-		8835466C2729CB1B00DAD2B5 /* MyMappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		883651FD276647410047693F /* LatestTripVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestTripVC.swift; sourceTree = "<group>"; };
 		88365205276660F10047693F /* TripImagesUploadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImagesUploadVC.swift; sourceTree = "<group>"; };
 		88365208276665B70047693F /* TripImagesUploadedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImagesUploadedCell.swift; sourceTree = "<group>"; };
@@ -485,10 +455,7 @@
 		88F0ADFE276FAB69005C9657 /* MapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
 		88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewVC.swift; sourceTree = "<group>"; };
 		99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA2D87D75C4F16F92BA591DE /* Pods-MyMappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMappTests.debug.xcconfig"; path = "Target Support Files/Pods-MyMappTests/Pods-MyMappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
-		E27EFE22402630E38AAD62C7 /* Pods-MyMapp-MyMappUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp-MyMappUITests.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		F77953CEDFCE26BC80C193FB /* Pods_MyMappTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMappTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,22 +464,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		883546592729CB1B00DAD2B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FF3CD72A622566F38E2C0057 /* Pods_MyMappTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		883546632729CB1B00DAD2B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8D76DEC675A109D5DA833549 /* Pods_MyMapp_MyMappUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,8 +792,6 @@
 			isa = PBXGroup;
 			children = (
 				883546482729CB1900DAD2B5 /* MyMapp */,
-				8835465F2729CB1B00DAD2B5 /* MyMappTests */,
-				883546692729CB1B00DAD2B5 /* MyMappUITests */,
 				883546472729CB1900DAD2B5 /* Products */,
 				D36E295DDDAA877AB62D6551 /* Pods */,
 				A4A1CC0FFBBBE0B484210754 /* Frameworks */,
@@ -853,8 +802,6 @@
 			isa = PBXGroup;
 			children = (
 				883546462729CB1900DAD2B5 /* MyMapp.app */,
-				8835465C2729CB1B00DAD2B5 /* MyMappTests.xctest */,
-				883546662729CB1B00DAD2B5 /* MyMappUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -876,23 +823,6 @@
 				883546572729CB1B00DAD2B5 /* Info.plist */,
 			);
 			path = MyMapp;
-			sourceTree = "<group>";
-		};
-		8835465F2729CB1B00DAD2B5 /* MyMappTests */ = {
-			isa = PBXGroup;
-			children = (
-				883546602729CB1B00DAD2B5 /* MyMappTests.swift */,
-			);
-			path = MyMappTests;
-			sourceTree = "<group>";
-		};
-		883546692729CB1B00DAD2B5 /* MyMappUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8835466A2729CB1B00DAD2B5 /* MyMappUITests.swift */,
-				8835466C2729CB1B00DAD2B5 /* MyMappUITestsLaunchTests.swift */,
-			);
-			path = MyMappUITests;
 			sourceTree = "<group>";
 		};
 		883651FC276645B30047693F /* LatestTripVC */ = {
@@ -1351,8 +1281,6 @@
 			isa = PBXGroup;
 			children = (
 				99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */,
-				2721E41AA346C0461991F4E7 /* Pods_MyMapp_MyMappUITests.framework */,
-				F77953CEDFCE26BC80C193FB /* Pods_MyMappTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1362,10 +1290,6 @@
 			children = (
 				C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */,
 				65226A10AD5E5D279F5AA5B1 /* Pods-MyMapp.release.xcconfig */,
-				E27EFE22402630E38AAD62C7 /* Pods-MyMapp-MyMappUITests.debug.xcconfig */,
-				824E7BEFEA1578030AD06BDE /* Pods-MyMapp-MyMappUITests.release.xcconfig */,
-				BA2D87D75C4F16F92BA591DE /* Pods-MyMappTests.debug.xcconfig */,
-				52F359954BA2411B06E25F3A /* Pods-MyMappTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1393,46 +1317,6 @@
 			productReference = 883546462729CB1900DAD2B5 /* MyMapp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8835465B2729CB1B00DAD2B5 /* MyMappTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 883546732729CB1C00DAD2B5 /* Build configuration list for PBXNativeTarget "MyMappTests" */;
-			buildPhases = (
-				E8E1FE147990FAC0644F36AC /* [CP] Check Pods Manifest.lock */,
-				883546582729CB1B00DAD2B5 /* Sources */,
-				883546592729CB1B00DAD2B5 /* Frameworks */,
-				8835465A2729CB1B00DAD2B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8835465E2729CB1B00DAD2B5 /* PBXTargetDependency */,
-			);
-			name = MyMappTests;
-			productName = MyMappTests;
-			productReference = 8835465C2729CB1B00DAD2B5 /* MyMappTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		883546652729CB1B00DAD2B5 /* MyMappUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 883546762729CB1C00DAD2B5 /* Build configuration list for PBXNativeTarget "MyMappUITests" */;
-			buildPhases = (
-				ECEB7CB35037F90842BD3BCA /* [CP] Check Pods Manifest.lock */,
-				883546622729CB1B00DAD2B5 /* Sources */,
-				883546632729CB1B00DAD2B5 /* Frameworks */,
-				883546642729CB1B00DAD2B5 /* Resources */,
-				6F8D283EC68F20B002F8ADDA /* [CP] Embed Pods Frameworks */,
-				D9216527C6B09D01FD4D6E87 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				883546682729CB1B00DAD2B5 /* PBXTargetDependency */,
-			);
-			name = MyMappUITests;
-			productName = MyMappUITests;
-			productReference = 883546662729CB1B00DAD2B5 /* MyMappUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1446,14 +1330,6 @@
 					883546452729CB1800DAD2B5 = {
 						CreatedOnToolsVersion = 13.1;
 						LastSwiftMigration = 1300;
-					};
-					8835465B2729CB1B00DAD2B5 = {
-						CreatedOnToolsVersion = 13.1;
-						TestTargetID = 883546452729CB1800DAD2B5;
-					};
-					883546652729CB1B00DAD2B5 = {
-						CreatedOnToolsVersion = 13.1;
-						TestTargetID = 883546452729CB1800DAD2B5;
 					};
 				};
 			};
@@ -1473,8 +1349,6 @@
 			projectRoot = "";
 			targets = (
 				883546452729CB1800DAD2B5 /* MyMapp */,
-				8835465B2729CB1B00DAD2B5 /* MyMappTests */,
-				883546652729CB1B00DAD2B5 /* MyMappUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1553,20 +1427,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8835465A2729CB1B00DAD2B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		883546642729CB1B00DAD2B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1590,23 +1450,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F8D283EC68F20B002F8ADDA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8B61728D5A56CF0EAE06360D /* [CP] Embed Pods Frameworks */ = {
@@ -1641,67 +1484,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyMapp/Pods-MyMapp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9216527C6B09D01FD4D6E87 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyMapp-MyMappUITests/Pods-MyMapp-MyMappUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E8E1FE147990FAC0644F36AC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyMappTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECEB7CB35037F90842BD3BCA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyMapp-MyMappUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1867,37 +1649,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		883546582729CB1B00DAD2B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				883546612729CB1B00DAD2B5 /* MyMappTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		883546622729CB1B00DAD2B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8835466D2729CB1B00DAD2B5 /* MyMappUITestsLaunchTests.swift in Sources */,
-				8835466B2729CB1B00DAD2B5 /* MyMappUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8835465E2729CB1B00DAD2B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 883546452729CB1800DAD2B5 /* MyMapp */;
-			targetProxy = 8835465D2729CB1B00DAD2B5 /* PBXContainerItemProxy */;
-		};
-		883546682729CB1B00DAD2B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 883546452729CB1800DAD2B5 /* MyMapp */;
-			targetProxy = 883546672729CB1B00DAD2B5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		883546542729CB1B00DAD2B5 /* LaunchScreen.storyboard */ = {
@@ -1962,7 +1714,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2017,7 +1769,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2046,13 +1798,12 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We would like to know your current location to get the near by feed based on your location.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location Manager would like to access your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Manager would like to access your location";
-				INFOPLIST_KEY_NSMainNibFile = Authentication;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "You can take photos to set a profile picture or trip photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You can take photos to set a profile picture or trip photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Authentication;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2092,13 +1843,12 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We would like to know your current location to get the near by feed based on your location.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location Manager would like to access your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Manager would like to access your location";
-				INFOPLIST_KEY_NSMainNibFile = Authentication;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "You can take photos to set a profile picture or trip photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You can take photos to set a profile picture or trip photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Authentication;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2114,102 +1864,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		883546742729CB1C00DAD2B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA2D87D75C4F16F92BA591DE /* Pods-MyMappTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.project.cp.MyMappTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyMapp.app/MyMapp";
-			};
-			name = Debug;
-		};
-		883546752729CB1C00DAD2B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52F359954BA2411B06E25F3A /* Pods-MyMappTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.project.cp.MyMappTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyMapp.app/MyMapp";
-			};
-			name = Release;
-		};
-		883546772729CB1C00DAD2B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E27EFE22402630E38AAD62C7 /* Pods-MyMapp-MyMappUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.project.cp.MyMappUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyMapp;
-			};
-			name = Debug;
-		};
-		883546782729CB1C00DAD2B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 824E7BEFEA1578030AD06BDE /* Pods-MyMapp-MyMappUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.project.cp.MyMappUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyMapp;
 			};
 			name = Release;
 		};
@@ -2230,24 +1884,6 @@
 			buildConfigurations = (
 				883546712729CB1C00DAD2B5 /* Debug */,
 				883546722729CB1C00DAD2B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		883546732729CB1C00DAD2B5 /* Build configuration list for PBXNativeTarget "MyMappTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				883546742729CB1C00DAD2B5 /* Debug */,
-				883546752729CB1C00DAD2B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		883546762729CB1C00DAD2B5 /* Build configuration list for PBXNativeTarget "MyMappUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				883546772729CB1C00DAD2B5 /* Debug */,
-				883546782729CB1C00DAD2B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

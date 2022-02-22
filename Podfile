@@ -38,14 +38,4 @@ target 'MyMapp' do
       end
     end
   end
-  
-  target 'MyMappTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-  
-  target 'MyMappUITests' do
-    # Pods for testing
-  end
-  
 end

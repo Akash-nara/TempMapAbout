@@ -39,7 +39,7 @@
                                                 <rect key="frame" x="25" y="12" width="270" height="35"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-25-KDg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="162" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="148.5" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_nature_image" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-Ru-jZA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -55,16 +55,16 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="72k-Fh-laL">
-                                                                <rect key="frame" x="45" y="0.0" width="117" height="35"/>
+                                                                <rect key="frame" x="45" y="0.0" width="103.5" height="35"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="follower name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdg-8x-Uwp">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="117" height="18.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="17.5"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Antwerp, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJn-ks-DwE">
-                                                                        <rect key="frame" x="0.0" y="20.5" width="117" height="14.5"/>
+                                                                        <rect key="frame" x="0.0" y="19.5" width="103.5" height="15.5"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                         <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQK-dI-XbA">
-                                                        <rect key="frame" x="255" y="0.0" width="15" height="17.5"/>
+                                                        <rect key="frame" x="253.5" y="0.0" width="16.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                                         <color key="textColor" red="0.69411764705882351" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -138,7 +138,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
                                                 <subviews>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fsdffs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn" customClass="LessMoreCustomizeLabel" customModule="MyMapp" customModuleProvider="target">
-                                                        <rect key="frame" x="25" y="10" width="205" height="16"/>
+                                                        <rect key="frame" x="25" y="10" width="205" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -279,7 +279,7 @@
     </objects>
     <designables>
         <designable name="nQL-YM-LUn">
-            <size key="intrinsicContentSize" width="36" height="16"/>
+            <size key="intrinsicContentSize" width="32.5" height="15.5"/>
         </designable>
     </designables>
     <resources>
