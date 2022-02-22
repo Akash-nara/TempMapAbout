@@ -154,7 +154,6 @@
                                                                             <constraint firstAttribute="bottom" secondItem="Fhk-ba-m5U" secondAttribute="bottom" id="X4c-Cb-8Z3"/>
                                                                             <constraint firstAttribute="bottom" secondItem="Dsq-2k-ps0" secondAttribute="bottom" constant="5" id="XcP-aL-sCU"/>
                                                                             <constraint firstItem="0vJ-U2-fd4" firstAttribute="top" secondItem="7bl-Da-he1" secondAttribute="top" id="fg3-If-Bd4"/>
-                                                                            <constraint firstAttribute="height" constant="50" id="nCo-tr-6Fh"/>
                                                                             <constraint firstItem="Fhk-ba-m5U" firstAttribute="top" secondItem="7bl-Da-he1" secondAttribute="top" id="v9P-wQ-etA"/>
                                                                             <constraint firstItem="Fhk-ba-m5U" firstAttribute="leading" secondItem="7bl-Da-he1" secondAttribute="leading" id="ybU-YY-ybe"/>
                                                                         </constraints>
@@ -265,9 +264,6 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </view>
                                                                                 </subviews>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" constant="80" id="TuF-oj-bqE"/>
-                                                                                </constraints>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-7L-aha">
                                                                                 <rect key="frame" x="0.0" y="110" width="300" height="50"/>
