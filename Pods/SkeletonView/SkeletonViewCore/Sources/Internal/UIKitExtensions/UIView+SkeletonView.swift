@@ -15,30 +15,16 @@ import UIKit
 
 extension UIView {
     
-    func showSkeleton(
-        skeletonConfig config: SkeletonConfig,
-        notifyDelegate: Bool = true
-    ) {
+    func showSkeleton(skeletonConfig config: SkeletonConfig) {
         _isSkeletonAnimated = config.animated
-        
-        if notifyDelegate {
-            _flowDelegate = SkeletonFlowHandler()
-            _flowDelegate?.willBeginShowingSkeletons(rootView: self)
-        }
-        
+        _flowDelegate = SkeletonFlowHandler()
+        _flowDelegate?.willBeginShowingSkeletons(rootView: self)
         recursiveShowSkeleton(skeletonConfig: config, root: self)
     }
 
-    func updateSkeleton(
-        skeletonConfig config: SkeletonConfig,
-        notifyDelegate: Bool = true
-    ) {
+    func updateSkeleton(skeletonConfig config: SkeletonConfig) {
         _isSkeletonAnimated = config.animated
-        
-        if notifyDelegate {
-            _flowDelegate?.willBeginUpdatingSkeletons(rootView: self)
-        }
-        
+        _flowDelegate?.willBeginUpdatingSkeletons(rootView: self)
         recursiveUpdateSkeleton(skeletonConfig: config, root: self)
     }
 

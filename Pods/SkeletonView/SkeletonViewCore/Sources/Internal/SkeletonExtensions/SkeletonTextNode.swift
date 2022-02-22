@@ -15,16 +15,15 @@ import UIKit
 
 protocol SkeletonTextNode {
     
-    var textLineHeight: SkeletonTextLineHeight { get }
-    var estimatedLineHeight: CGFloat { get }
-    var estimatedNumberOfLines: Int { get }
+    var lineHeight: CGFloat { get }
+    var numberOfLines: Int { get }
     var textAlignment: NSTextAlignment { get }
     var lastLineFillingPercent: Int { get }
     var multilineCornerRadius: Int { get }
     var multilineSpacing: CGFloat { get }
     var paddingInsets: UIEdgeInsets { get }
+    var usesTextHeightForLines: Bool { get }
     var shouldCenterTextVertically: Bool { get }
-    
 }
 
 enum SkeletonTextNodeAssociatedKeys {
@@ -34,46 +33,26 @@ enum SkeletonTextNodeAssociatedKeys {
     static var multilineSpacing = "multilineSpacing"
     static var paddingInsets = "paddingInsets"
     static var backupHeightConstraints = "backupHeightConstraints"
-    static var textLineHeight = "textLineHeight"
-    static var skeletonNumberOfLines = "skeletonNumberOfLines"
+    static var usesTextHeightForLines = "usesTextHeightForLines"
     
 }
 
 extension UILabel: SkeletonTextNode {
     
-    var estimatedLineHeight: CGFloat {
-        switch textLineHeight {
-        case .fixed(let height):
-            return height
-        case .relativeToFont:
-            return fontLineHeight ?? SkeletonAppearance.default.multilineHeight
-        case .relativeToConstraints:
-            guard let constraintsLineHeight = heightConstraints.first?.constant,
-                  estimatedNumberOfLines != 0 else {
-                return SkeletonAppearance.default.multilineHeight
-            }
-            
-            return constraintsLineHeight / CGFloat(estimatedNumberOfLines)
+    var lineHeight: CGFloat {
+        let constraintsLineHeight = backupHeightConstraints.first?.constant ?? SkeletonAppearance.default.multilineHeight
+        
+        if useFontLineHeight,
+           let fontLineHeight = font?.lineHeight {
+            return fontLineHeight > constraintsLineHeight ? constraintsLineHeight : fontLineHeight
+        } else {
+            return constraintsLineHeight
         }
     }
     
-    var textLineHeight: SkeletonTextLineHeight {
-        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.textLineHeight) as? SkeletonTextLineHeight ?? SkeletonAppearance.default.textLineHeight }
-        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.textLineHeight) }
-    }
-    
-    var skeletonNumberOfLines: SkeletonTextNumberOfLines {
-        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.skeletonNumberOfLines) as? SkeletonTextNumberOfLines ?? SkeletonTextNumberOfLines.inherited }
-        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.skeletonNumberOfLines) }
-    }
-    
-    var estimatedNumberOfLines: Int {
-        switch skeletonNumberOfLines {
-        case .inherited:
-            return numberOfLines
-        case .custom(let lines):
-            return lines >= 0 ? lines : 1
-        }
+    var usesTextHeightForLines: Bool {
+        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.usesTextHeightForLines) as? Bool ?? SkeletonAppearance.default.useFontLineHeight }
+        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.usesTextHeightForLines) }
     }
     
     var lastLineFillingPercent: Int {
@@ -104,50 +83,29 @@ extension UILabel: SkeletonTextNode {
     var shouldCenterTextVertically: Bool {
         true
     }
-    
-    var fontLineHeight: CGFloat? {
-        if let attributedText = attributedText,
-           attributedText.length > 0 {
-            let attributes = attributedText.attributes(at: 0, effectiveRange: nil)
-            let fontAttribute = attributes.first(where: { $0.key == .font })
-            return fontAttribute?.value as? CGFloat ?? font.lineHeight
-        } else {
-            return font.lineHeight
-        }
-    }
 
 }
 
 extension UITextView: SkeletonTextNode {
     
-    var estimatedLineHeight: CGFloat {
-        switch textLineHeight {
-        case .fixed(let height):
-            return height
-        case .relativeToFont:
-            return fontLineHeight ?? SkeletonAppearance.default.multilineHeight
-        case .relativeToConstraints:
-            return SkeletonAppearance.default.multilineHeight
+    var lineHeight: CGFloat {
+        let constraintsLineHeight = heightConstraints.first?.constant ?? SkeletonAppearance.default.multilineHeight
+        
+        if useFontLineHeight,
+           let fontLineHeight = font?.lineHeight {
+            return fontLineHeight > constraintsLineHeight ? constraintsLineHeight : fontLineHeight
+        } else {
+            return constraintsLineHeight
         }
     }
     
-    var textLineHeight: SkeletonTextLineHeight {
-        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.textLineHeight) as? SkeletonTextLineHeight ?? SkeletonAppearance.default.textLineHeight }
-        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.textLineHeight) }
+    var usesTextHeightForLines: Bool {
+        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.usesTextHeightForLines) as? Bool ?? SkeletonAppearance.default.useFontLineHeight }
+        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.usesTextHeightForLines) }
     }
     
-    var skeletonNumberOfLines: SkeletonTextNumberOfLines {
-        get { return ao_get(pkey: &SkeletonTextNodeAssociatedKeys.skeletonNumberOfLines) as? SkeletonTextNumberOfLines ?? SkeletonTextNumberOfLines.inherited }
-        set { ao_set(newValue, pkey: &SkeletonTextNodeAssociatedKeys.skeletonNumberOfLines) }
-    }
-    
-    var estimatedNumberOfLines: Int {
-        switch skeletonNumberOfLines {
-        case .inherited:
-            return -1
-        case .custom(let lines):
-            return lines >= -1 ? lines : 1
-        }
+    var numberOfLines: Int {
+        -1
     }
     
     var lastLineFillingPercent: Int {
@@ -179,16 +137,4 @@ extension UITextView: SkeletonTextNode {
     var shouldCenterTextVertically: Bool {
         false
     }
-    
-    var fontLineHeight: CGFloat? {
-        if let attributedText = attributedText,
-           attributedText.length > 0 {
-            let attributes = attributedText.attributes(at: 0, effectiveRange: nil)
-            let fontAttribute = attributes.first(where: { $0.key == .font })
-            return fontAttribute?.value as? CGFloat ?? font?.lineHeight
-        } else {
-            return font?.lineHeight
-        }
-    }
-    
 }
