@@ -15,7 +15,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var postedUserName: UILabel!
     @IBOutlet weak var postedUserAddress: UILabel!
     @IBOutlet weak var postedDate: UILabel!
-    @IBOutlet weak var labelExpDescription: UILabel!
+    @IBOutlet weak var labelExpDescription: LessMoreCustomizeLabel!
     @IBOutlet weak var labelTotalLikeCount: UILabel!
     @IBOutlet weak var labelTotaBookmarkCount: UILabel!
     @IBOutlet weak var textFieldComment: UITextField!
@@ -62,13 +62,16 @@ class FeedTableViewCell: UITableViewCell {
         self.collectionView.registerCellNib(identifier: CarouselCollectionViewCell.identifier)
         setupLayout()
         commentedUserPic.setImage(url: APP_USER?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
+        
+        labelExpDescription.textColor = UIColor.App_BG_SecondaryDark2_Color
+        labelExpDescription.numberOfLines = 0
+        labelExpDescription.seeMoreLessColor = UIColor.grayLightReadLessMore
+        labelExpDescription.setTextFont = UIFont.Montserrat.Medium(12.7)
+        labelExpDescription.seeMoreLessFont = UIFont.Montserrat.Medium(12.7)
+        labelExpDescription.isNeedToUnderlineSeeMoreSeeLess = false
     }
     
-    
     func configureCell(modelData:TripDataModel){
-        labelExpDescription.text = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//modelData.tripDescription
-        labelExpDescription.isHidden = labelExpDescription.text!.isEmpty
-
         postedDate.text = modelData.dateFromatedOftrip
         
         labelTotalLikeCount.text = "\(modelData.likedTotalCount)"

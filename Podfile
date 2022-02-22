@@ -28,7 +28,8 @@ target 'MyMapp' do
   pod 'ReachabilitySwift'
   pod 'SkeletonView'
   pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
-  
+  pod 'ActiveLabel'
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|

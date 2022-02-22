@@ -137,8 +137,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OM3-xN-nPU">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The city is very vibrant at night, especially in summer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn">
-                                                        <rect key="frame" x="25" y="10" width="205" height="32"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fsdffs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn" customClass="LessMoreCustomizeLabel" customModule="MyMapp" customModuleProvider="target">
+                                                        <rect key="frame" x="25" y="10" width="205" height="16"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -277,6 +277,11 @@
             <point key="canvasLocation" x="66.666666666666671" y="195.20089285714286"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="nQL-YM-LUn">
+            <size key="intrinsicContentSize" width="36" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <image name="ic_heart_with_Border" width="25" height="25"/>

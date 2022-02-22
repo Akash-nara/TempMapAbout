@@ -27,6 +27,7 @@
 		38857A2727A0004100AFAA1D /* AddTripFavouriteImageHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38857A2527A0004100AFAA1D /* AddTripFavouriteImageHeader.xib */; };
 		38857A2927A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38857A2827A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift */; };
 		38857A2B27A0174600AFAA1D /* TripImagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38857A2A27A0174600AFAA1D /* TripImagesModel.swift */; };
+		3893F16027C526EF005D8501 /* LessMoreCustomizeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3893F15F27C526EF005D8501 /* LessMoreCustomizeLabel.swift */; };
 		38A0D7CE27BFAA4E00CC5CD8 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7CB27BFAA4E00CC5CD8 /* iCarousel.m */; };
 		38A0D7D527BFC0B400CC5CD8 /* UPCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */; };
 		38A0D7D727BFC0D100CC5CD8 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A0D7D627BFC0D000CC5CD8 /* CarouselCollectionViewCell.swift */; };
@@ -272,6 +273,7 @@
 		38857A2527A0004100AFAA1D /* AddTripFavouriteImageHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTripFavouriteImageHeader.xib; sourceTree = "<group>"; };
 		38857A2827A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripFavouriteLocationDetail.swift; sourceTree = "<group>"; };
 		38857A2A27A0174600AFAA1D /* TripImagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImagesModel.swift; sourceTree = "<group>"; };
+		3893F15F27C526EF005D8501 /* LessMoreCustomizeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessMoreCustomizeLabel.swift; sourceTree = "<group>"; };
 		38A0D7CB27BFAA4E00CC5CD8 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		38A0D7CC27BFAA4E00CC5CD8 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		38A0D7D327BFAAC200CC5CD8 /* MyMapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyMapp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -941,6 +943,7 @@
 		8845433C2737F76500B52FED /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				3893F15F27C526EF005D8501 /* LessMoreCustomizeLabel.swift */,
 				38A0D7CA27BFAA4E00CC5CD8 /* iCarousel */,
 				38584D4127BE070200FACF6D /* SocketIOManager.swift */,
 				38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */,
@@ -1802,6 +1805,7 @@
 				3802A30D278C281400A6E3C0 /* SSReachabilityManager.swift in Sources */,
 				38ED7CC727BE7C6600794C43 /* ActivityFooterCell.swift in Sources */,
 				38AE15442782D6630016F80E /* UIButton+Extensions.swift in Sources */,
+				3893F16027C526EF005D8501 /* LessMoreCustomizeLabel.swift in Sources */,
 				38E6C0AD27859D5A00953D55 /* PaddingTextField.swift in Sources */,
 				88122D54273FEFEC003512C1 /* AddTripFavouriteLocationsVC.swift in Sources */,
 				88B596FB2740CC9000CBA48C /* ActivityHeaderCell.swift in Sources */,
@@ -2032,8 +2036,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T5Y544FW66;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2056,11 +2060,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
+				PROVISIONING_PROFILE_SPECIFIER = devProfivionProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2076,10 +2080,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T5Y544FW66;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2102,10 +2106,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
+				PROVISIONING_PROFILE_SPECIFIER = distriProProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

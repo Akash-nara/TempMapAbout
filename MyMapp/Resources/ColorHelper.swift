@@ -38,6 +38,11 @@ extension UIColor{
     class var RadioButtonPurpleColor:UIColor{
         return self.init(red: 98/255, green: 49/255, blue: 158/255, alpha: 1.0)
     }
+    
+    class var grayLightReadLessMore:UIColor{
+        return self.init(red: 177/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    }
+
 
     
 
