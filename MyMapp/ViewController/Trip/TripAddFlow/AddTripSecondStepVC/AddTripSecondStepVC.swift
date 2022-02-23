@@ -430,7 +430,6 @@ extension AddTripSecondStepVC{
         autocompletecontroller.delegate = self
         let filter = GMSAutocompleteFilter()
         filter.country = self.countryCode // here need to country code to pass
-        filter.type = .city
         autocompletecontroller.autocompleteFilter = filter
         autocompletecontroller.tintColor = .App_BG_SeafoamBlue_Color
         self.selectedAddDetailButtonTag = sender.tag
@@ -803,21 +802,22 @@ extension AddTripSecondStepVC{
     
     @IBAction func btnHandlerNext(sender:UIButton){
         
-        if self.arrayOfTripLocationListData.count == 1{
-            Utility.errorMessage(message: "Please fill the details of the location")
-            return
-        }
+//        if self.arrayOfTripLocationListData.count == 1{
+//            Utility.errorMessage(message: "Please fill the details of the location")
+//            return
+//        }
         
-        if totalGlobalTripPhotoCount == 21{
-            Utility.errorMessage(message: "Please select photo of favourite location to upload")
-            return
-        }
+//        if totalGlobalTripPhotoCount == 21{
+//            Utility.errorMessage(message: "Please select photo of favourite location to upload")
+//            return
+//        }
         
         guard let tripImagesUploadVC = UIStoryboard.trip.tripImagesUploadVC else {
             return
         }
         tripImagesUploadVC.arrayOfImageUpload = self.arrayOfTripLocationListData
         tripImagesUploadVC.paramDict = self.preparedParams()
+        tripImagesUploadVC.tripBucketHash = self.tripBucketHash
         self.navigationController?.pushViewController(tripImagesUploadVC, animated: true)
     }
 }

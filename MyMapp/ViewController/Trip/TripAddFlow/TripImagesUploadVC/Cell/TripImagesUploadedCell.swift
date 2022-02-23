@@ -6,29 +6,29 @@
 //
 
 import UIKit
+import SkeletonView
 
 class TripImagesUploadedCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var buttonRadioSelection: UIButton!
     @IBOutlet weak var imgTrip: UIImageView!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgTrip.isSkeletonable = true
     }
     
-//    func startAnimating() {
-//        self.skeletonView.isHidden = false
-//        self.skeletonView.showAnimatedSkeleton()
-//    }
-//
-//    func stopAnimating() {
-//        self.skeletonView.isHidden = true
-//        self.skeletonView.hideSkeleton()
-//    }
+    func startAnimating() {
+        self.imgTrip.showAnimatedSkeleton()
+    }
+    
+    func stopAnimating() {
+        self.imgTrip.hideSkeleton()
+    }
     
     func loadCellData(objTripModel:TripImagesModel) {
         
-//        self.startAnimating()
+        //        self.startAnimating()
         self.imgTrip.image = objTripModel.image
         if objTripModel.isVerticalImage {
             //since the width > height we may fit it and we'll have bands on top/bottom
@@ -39,30 +39,98 @@ class TripImagesUploadedCell: UICollectionViewCell {
         }
         
         /*
-        if let firstObject = URL.init(string: objTripModel.url){
-            
-            imgTrip.sd_setImage(with: firstObject, placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
-                self.imgTrip.image = img
-//                self.stopAnimating()
-                if let sizeOfImage = self.imgTrip.image?.size, sizeOfImage.width > sizeOfImage.height {
-                    
-                    //since the width > height we may fit it and we'll have bands on top/bottom
-                    self.imgTrip.contentMode = .scaleAspectFill
-                    completion?(true, self.imgTrip.tag, imgTrip.image?.getHeight ?? 0)
-                } else {
-                    //width < height we fill it until width is taken up and clipped on top/bottom
-                    self.imgTrip.contentMode = .scaleToFill
-                    completion?(false,self.imgTrip.tag, imgTrip.image?.getHeight ?? 0)
-                }
-            }
-            
-            self.imgTrip.clipsToBounds = true
-        }else{
-            self.imgTrip.contentMode = .scaleToFill
-            self.imgTrip.image = UIImage.init(named: "ic_Default_city_image_one")
-//            self.stopAnimating()
-            
-        }*/
+         if let firstObject = URL.init(string: objTripModel.url){
+         
+         imgTrip.sd_setImage(with: firstObject, placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
+         self.imgTrip.image = img
+         //                self.stopAnimating()
+         if let sizeOfImage = self.imgTrip.image?.size, sizeOfImage.width > sizeOfImage.height {
+         
+         //since the width > height we may fit it and we'll have bands on top/bottom
+         self.imgTrip.contentMode = .scaleAspectFill
+         completion?(true, self.imgTrip.tag, imgTrip.image?.getHeight ?? 0)
+         } else {
+         //width < height we fill it until width is taken up and clipped on top/bottom
+         self.imgTrip.contentMode = .scaleToFill
+         completion?(false,self.imgTrip.tag, imgTrip.image?.getHeight ?? 0)
+         }
+         }
+         
+         self.imgTrip.clipsToBounds = true
+         }else{
+         self.imgTrip.contentMode = .scaleToFill
+         self.imgTrip.image = UIImage.init(named: "ic_Default_city_image_one")
+         //            self.stopAnimating()
+         
+         }*/
     }
-
+    
+    
+    func uploadImageApi1(bucketTripHash:String, locationBucketHash:String, imageToUpload:UIImage, name:String, completion: (() -> Void)? = nil, failureCompletion: (() -> Void)? = nil){
+        
+        guard SSReachabilityManager.shared.isNetworkAvailable else {
+            DispatchQueue.main.async {
+                Utility.errorMessage(message: "No internet connection.")
+                failureCompletion?()
+            }
+            return
+        }
+        
+        self.startAnimating()
+        let param:[String:Any] = ["width":"\(imageToUpload.size.width)px",
+                                  "height":"\(imageToUpload.size.height)px",
+                                  "imageType":"image/jpeg",
+                                  "key":"\(bucketTripHash+"/"+locationBucketHash+"/"+name)",
+                                  "imageName":name,
+                                  "image":convertToBase64(image: imageToUpload)
+        ]
+        
+        
+        let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "")
+        var urlRequest = URLRequest(url: URL.init(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue(headerAuth, forHTTPHeaderField: "Authorization")
+        urlRequest.allowsCellularAccess = true
+        urlRequest.allowsConstrainedNetworkAccess = true
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
+            urlRequest.httpBody = postData
+        }
+        
+        //        let sessionConfig = URLSessionConfiguration.background(withIdentifier: "swiftlee.background.url.session")
+        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
+        let sessionConfig = URLSessionConfiguration.default
+        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
+        sessionConfig.timeoutIntervalForRequest = 240
+        sessionConfig.timeoutIntervalForResource = 240
+        //        sessionConfig.waitsForConnectivity = true
+        //        sessionConfig.allowsConstrainedNetworkAccess = false
+        //        sessionConfig.allowsCellularAccess = true
+        let session = URLSession(configuration: sessionConfig)
+        
+        session.uploadTask(with: urlRequest, from: nil, completionHandler: { responseData, response, error in
+            DispatchQueue.main.async {
+                self.stopAnimating()
+                guard let responseCode = (response as? HTTPURLResponse)?.statusCode, responseCode == 200  else {
+                    if let error = error {
+                        print(error)
+                    }
+                    print("failure image:- \(name)")
+                    failureCompletion?()
+                    return
+                }
+                print("status image Code:- \(name) \(responseCode)")
+                // do your work
+                completion?()
+            }
+        }).resume()
+    }
+    
+    func convertToBase64(image: UIImage) -> String {
+        return image.pngData()!
+            .base64EncodedString()
+    }
+    
+    
 }

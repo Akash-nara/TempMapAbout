@@ -666,7 +666,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 cell.uploadImageApi1(bucketTripHash: self.tripBucketHash, locationBucketHash: self.locationBucketHash, imageToUpload: self.tripImages[indexPath.row].image ?? UIImage(), name:self.tripImages[indexPath.row].nameOfImage){
                     
                     DispatchQueue.getMain {
-                        cell.activityIndicator.stopAnimating()
+                        cell.stopAnimating()
                         if let ids = self.tripImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
                             self.tripImages[indexPath.row].statusUpload = .done
                             cell.imgviewCity.backgroundColor = .white
@@ -675,7 +675,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                         }
                     }
                 } failureCompletion: {
-                    cell.activityIndicator.stopAnimating()
+                    cell.stopAnimating()
                     if let ids = self.tripImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
                         self.tripImages[indexPath.row].statusUpload = .fail
                         collectionView.reloadItems(at: [indexPath])
@@ -686,6 +686,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 }
                 
             case .progress:
+                cell.startAnimating()
                 cell.activityIndicator.startAnimating()
                 cell.imgviewCity.backgroundColor = .black.withAlphaComponent(0.5)
                 cell.btnTitleRemove.isHidden = true
@@ -703,16 +704,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             default:break
             }
             
-            cell.imgviewCity.contentMode = .scaleToFill
-
-//            if let sizeOfImage = (self.tripImages[indexPath.row].image )?.size, sizeOfImage.width > sizeOfImage.height{
-//                cell.imgviewCity.contentMode = .scaleAspectFit
-//                //since the width > height we may fit it and we'll have bands on top/bottom
-//            } else {
-//                cell.imgviewCity.contentMode = .scaleAspectFill
-//                //width < height we fill it until width is taken up and clipped on top/bottom
-//            }
-            
+            cell.imgviewCity.contentMode = .scaleToFill            
             return cell
         }
     }

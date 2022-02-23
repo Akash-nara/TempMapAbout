@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class AddTripFavouriteAddImage: UICollectionViewCell {
     
@@ -13,15 +14,23 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
     @IBOutlet weak var imgviewCity: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var reloadImageButton: UIButton!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         btnTitleRemove.imageView?.setImageTintColor(.App_BG_SeafoamBlue_Color)
         btnTitleRemove.tintColor = .App_BG_SeafoamBlue_Color
-
+        imgviewCity.isSkeletonable = true
         imgviewCity.contentMode = .scaleAspectFit
     }
-
+    
+    func startAnimating() {
+        self.imgviewCity.showAnimatedSkeleton()
+    }
+    
+    func stopAnimating() {
+        self.imgviewCity.hideSkeleton()
+    }
+    
     func uploadImageApi1(bucketTripHash:String, locationBucketHash:String, imageToUpload:UIImage, name:String, completion: (() -> Void)? = nil, failureCompletion: (() -> Void)? = nil){
         
         guard SSReachabilityManager.shared.isNetworkAvailable else {
@@ -31,14 +40,7 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
             }
             return
         }
-        
-        //        guard let imageData = imageToUpload.jpegData(compressionQuality: 0.50), let url = URL.init(string: Routing.uploadTripImage.getPath+bucketTripHash+"/"+locationBucketHash+"/\(name)") else {
-        //            return
-        //        }
-        
-        activityIndicator.startAnimating()
-        //       {"width":"100px","height":"200px","imageType":"image/jpeg","key":"95ee271c-8ac4-4007-b298-9c32ef795d0a/1/PassportImage1.jpeg","imageName":"file2.jpg","image":"base64-string"}
-        
+        startAnimating()
         let param:[String:Any] = ["width":"\(imageToUpload.size.width)px",
                                   "height":"\(imageToUpload.size.height)px",
                                   "imageType":"image/jpeg",
@@ -54,20 +56,23 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         urlRequest.setValue(headerAuth, forHTTPHeaderField: "Authorization")
         urlRequest.allowsCellularAccess = true
         urlRequest.allowsConstrainedNetworkAccess = true
-        //        urlRequest.setValue("\(self.tag)", forHTTPHeaderField: "id")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
         
         if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
-            urlRequest.httpBody = postData//NSKeyedArchiver.archivedData(withRootObject: param)//JSON.init(param).stringValue.data(using: .utf8)
+            urlRequest.httpBody = postData
         }
-        //          urlRequest.httpBody = param.map { key, value in
-        //            let keyString = key.addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)!
-        //            let valueString = (value as AnyObject).addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)!
-        //            return keyString + "=" + valueString
-        //            }.joined(separator: "&").data(using: .utf8)
         
-        
-        URLSession.shared.uploadTask(with: urlRequest, from: nil, completionHandler: { responseData, response, error in
+        //        let sessionConfig = URLSessionConfiguration.background(withIdentifier: "swiftlee.background.url.session")
+        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
+        let sessionConfig = URLSessionConfiguration.default
+        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
+        sessionConfig.timeoutIntervalForRequest = 240
+        sessionConfig.timeoutIntervalForResource = 240
+        //        sessionConfig.waitsForConnectivity = true
+        //        sessionConfig.allowsConstrainedNetworkAccess = false
+        //        sessionConfig.allowsCellularAccess = true
+        let session = URLSession(configuration: sessionConfig)
+        session.uploadTask(with: urlRequest, from: nil, completionHandler: { responseData, response, error in
             DispatchQueue.main.async {
                 guard let responseCode = (response as? HTTPURLResponse)?.statusCode, responseCode == 200  else {
                     if let error = error {
@@ -88,34 +93,4 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         return image.pngData()!
             .base64EncodedString()
     }
-}
-
-
-extension CharacterSet {
-
-    /// Character set containing characters allowed in query value as outlined in RFC 3986.
-    ///
-    /// RFC 3986 states that the following characters are "reserved" characters.
-    ///
-    /// - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
-    /// - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
-    ///
-    /// In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
-    /// query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
-    /// should be percent-escaped in the query string.
-    ///
-    /// - parameter string: The string to be percent-escaped.
-    ///
-    /// - returns: The percent-escaped string.
-
-    static var urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: generalDelimitersToEncode + subDelimitersToEncode)
-
-        return allowed
-    }()
-
 }

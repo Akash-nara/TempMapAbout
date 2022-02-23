@@ -2298,7 +2298,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-pC-6Jo">
                                         <rect key="frame" x="0.0" y="0.0" width="364" height="17.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Add Photos" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFw-1W-kPU">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Add Photos" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFw-1W-kPU">
                                                 <rect key="frame" x="0.0" y="0.0" width="120.5" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
@@ -2925,6 +2925,14 @@
             <point key="canvasLocation" x="4589.8550724637689" y="88.392857142857139"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="0Tb-Sr-MFx">
+            <size key="intrinsicContentSize" width="374" height="32"/>
+        </designable>
+        <designable name="uxx-tO-DEr">
+            <size key="intrinsicContentSize" width="268" height="8"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_Heart_unselected" width="25" height="25"/>
         <image name="ic_SavedUnselected" width="20" height="20"/>
