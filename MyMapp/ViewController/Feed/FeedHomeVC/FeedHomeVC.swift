@@ -26,8 +26,7 @@ class FeedHomeVC: UIViewController {
 //        self.getTripListApi()
 //        SHOW_CUSTOM_LOADER()
         DispatchQueue.getMain(delay: 0.2) {
-            self.getTripListApi()
-
+            self.getTagData()
         }
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //mdafafasfasfasfafafafafafaasfasfasfsfafsasfasfasfasfddsfsdgdgssgsdgdsgsdgsdgsdgsgsdgsdgsdgsdgssdgsdgsgsgsdgsdgsdgdsgdsfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs
     }
@@ -180,6 +179,7 @@ extension FeedHomeVC{
         self.tableViewFeedList.isAPIstillWorking = true
         viewModel.getTripListApi(paramDict: ["status":"C", "pager":param], success: { response in
             self.stopLoaders()
+            self.loadTagArray()
         })
     }
     
@@ -190,6 +190,49 @@ extension FeedHomeVC{
         self.tableViewFeedList.reloadData()
         self.tableViewFeedList.figureOutAndShowNoResults()
     }
+    
+    func loadTagArray() {
+        self.viewModel.arrayOfTripList.forEach { objTrip in
+            objTrip.locationList.forEach { objLocation in
+                let primaryTags = objLocation.firstTagFeed.components(separatedBy: ",").map({ Int($0) })
+                let secondaryTags = objLocation.secondTagFeed.components(separatedBy: ",").map({ Int($0) })
+                appDelegateShared.tagsData.forEach { parentTag in
+                    if primaryTags.contains(parentTag.id) {
+                        objLocation.arrayTagsFeed.append(parentTag.name)
+
+                        parentTag.subTagsList.forEach { subTag in
+                            if secondaryTags.contains(subTag.id) {
+                                objLocation.arrayTagsFeed.append(subTag.name)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func getTagData(){
+        API_SERVICES.callAPI([:], path: .getTags, method: .get) { [weak self] dataResponce in
+            
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200, let listArray =  dataResponce?["responseJson"]?["tagList"].arrayObject else {
+                return
+            }
+            
+            appDelegateShared.tagsData.removeAll()
+            listArray.forEach { (singleObj) in
+                let sampleModel = TagListModel(fromJson: JSON(singleObj))
+                appDelegateShared.tagsData.append(sampleModel)
+            }
+            
+            self?.getTripListApi()
+        }  internetFailure: {
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+
 }
 
 // MARK: - UIScrollViewDelegate

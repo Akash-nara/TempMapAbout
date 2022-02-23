@@ -30,6 +30,9 @@ class AddTripFavouriteLocationDetail{
     var notes = ""
     var firstTag = ""
     var secondTag = ""
+    var firstTagFeed = ""
+    var secondTagFeed = ""
+    var arrayTagsFeed = [String]()
     var arrayOfImages = [TripImagesModel]()
     var indexOfObject = 0
     var id = 0
@@ -61,5 +64,18 @@ class AddTripFavouriteLocationDetail{
         self.notes = param["notes"].stringValue
         
         locationFav = TripFavLocations.init(param: param["location"])
+        
+        var tags = param["tags"].stringValue.components(separatedBy: ")")
+        if let lastTag = tags.last, lastTag.isEmpty {
+            tags.removeLast()
+        }
+        if var primaryTagString = tags.first {
+            primaryTagString.removeAll(where: { $0 == "(" || $0 == ")" })
+            firstTagFeed = primaryTagString
+        }
+        if var secondaryTagString = tags.last {
+            secondaryTagString.removeAll(where: { $0 == "(" || $0 == ")" })
+            secondTagFeed = secondaryTagString.trimmingCharacters(in: CharacterSet.init(charactersIn: ","))
+        }
     }
 }

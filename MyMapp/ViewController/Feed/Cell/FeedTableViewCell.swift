@@ -26,8 +26,11 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonBookmark: UIButton!
     @IBOutlet weak var buttonLike: UIButton!
 //    @IBOutlet weak var tagListView: TagListView!
+    @IBOutlet weak var collectionviewTags: UICollectionView!
 
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
+    var arrayTagName = [String]()
+    
     fileprivate var currentPage: Int = 0 {
         didSet {
             pageControll.currentPage = currentPage
@@ -72,6 +75,7 @@ class FeedTableViewCell: UITableViewCell {
         labelExpDescription.seeMoreLessFont = UIFont.Montserrat.Medium(12.7)
         labelExpDescription.isNeedToUnderlineSeeMoreSeeLess = false
         
+        configureCollectionView()
         
 //        tagListView.textFont = UIFont.Montserrat.SemiBold(9)
 //        tagListView.alignment = .center
@@ -82,6 +86,12 @@ class FeedTableViewCell: UITableViewCell {
 
 //        addTagsList(arrrayOfArray: ["Architecture","Landscape","Design"])
         
+    }
+    
+    func configureCollectionView(){
+        collectionviewTags.register(UINib(nibName: "LocationDescriptionCell", bundle: nil), forCellWithReuseIdentifier: "LocationDescriptionCell")
+        collectionviewTags.dataSource = self
+        collectionviewTags.delegate = self
     }
     
 //    func addTagsList(arrrayOfArray:[String]){
@@ -127,24 +137,65 @@ class FeedTableViewCell: UITableViewCell {
             }
         }
         
+        arrayTagName.removeAll()
+        modelData.locationList.forEach({ arrayTagName += $0.arrayTagsFeed })
+        collectionviewTags.isHidden = arrayTagName.count.isZero()
+        collectionviewTags.reloadData()
     }
 }
 
 // MARK: - Card Collection Delegate & DataSource
-extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource{
+extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayOfImageURL.count
+        switch collectionView{
+        case self.collectionView:
+            return arrayOfImageURL.count
+        case collectionviewTags:
+            return arrayTagName.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
-        
-        cell.configureCell(model: arrayOfImageURL[indexPath.row])
-        return cell
+        switch collectionView{
+        case self.collectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
+            cell.configureCell(model: arrayOfImageURL[indexPath.row])
+            return cell
+            
+        case collectionviewTags:
+            let cell = collectionviewTags.dequeueReusableCell(withReuseIdentifier: "LocationDescriptionCell", for: indexPath ) as! LocationDescriptionCell
+            cell.lblTItle.text = arrayTagName[indexPath.row]
+            cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
+            return cell
+            
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
+            
+            cell.configureCell(model: arrayOfImageURL[indexPath.row])
+            return cell
+        }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch collectionView{
+        case self.collectionView:
+            return CGSize(width: 200, height: 200)
+        case collectionviewTags:
+            let label = UILabel(frame: CGRect.zero)
+            label.text = arrayTagName[indexPath.row]
+            label.sizeToFit()
+            return CGSize(width: label.frame.width + 30, height: 40)
+        default:
+            return CGSize(width: 200, height: 200)
+        }
+    }
+
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView == self.collectionView else { return }
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y

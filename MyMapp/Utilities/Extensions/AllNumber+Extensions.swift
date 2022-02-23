@@ -58,3 +58,11 @@ extension Array where Element == String {
     }
 }
 
+
+extension String {
+    func replace(from:String, with:String) -> String {
+        guard NSString(string: self).contains(from) else { return self }
+        let range = NSString(string: self).range(of: from)
+        return NSString(string: self).replacingCharacters(in: range, with: with)
+    }
+}

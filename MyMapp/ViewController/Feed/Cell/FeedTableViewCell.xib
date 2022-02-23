@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -39,7 +40,7 @@
                                                 <rect key="frame" x="25" y="12" width="270" height="35"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-25-KDg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="162" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="148.5" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_nature_image" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-Ru-jZA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -55,16 +56,16 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="72k-Fh-laL">
-                                                                <rect key="frame" x="45" y="0.0" width="117" height="35"/>
+                                                                <rect key="frame" x="45" y="0.0" width="103.5" height="35"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="follower name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdg-8x-Uwp">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="117" height="18.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="17.5"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Antwerp, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJn-ks-DwE">
-                                                                        <rect key="frame" x="0.0" y="20.5" width="117" height="14.5"/>
+                                                                        <rect key="frame" x="0.0" y="19.5" width="103.5" height="15.5"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                         <nil key="highlightedColor"/>
@@ -74,7 +75,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQK-dI-XbA">
-                                                        <rect key="frame" x="255" y="0.0" width="15" height="17.5"/>
+                                                        <rect key="frame" x="253.5" y="0.0" width="16.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                                         <color key="textColor" red="0.69411764705882351" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -137,12 +138,36 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OM3-xN-nPU">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
                                                 <subviews>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fsdffs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn" customClass="LessMoreCustomizeLabel" customModule="MyMapp" customModuleProvider="target">
-                                                        <rect key="frame" x="25" y="10" width="205" height="16"/>
-                                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="13"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-hq-GQL">
+                                                        <rect key="frame" x="25" y="10" width="205" height="40"/>
+                                                        <subviews>
+                                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KG8-7M-Wmz">
+                                                                <rect key="frame" x="0.0" y="0.0" width="205" height="40"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="CRM-IV-1rk"/>
+                                                                </constraints>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4RH-YZ-2LR">
+                                                                    <size key="itemSize" width="128" height="128"/>
+                                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                </collectionViewFlowLayout>
+                                                                <cells/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="20"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </collectionView>
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fsdffs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn" customClass="LessMoreCustomizeLabel" customModule="MyMapp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="40" width="205" height="0.0"/>
+                                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="13"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6VK-58-6dA">
                                                         <rect key="frame" x="240" y="8" width="60" height="55"/>
                                                         <subviews>
@@ -195,11 +220,11 @@
                                                 <constraints>
                                                     <constraint firstItem="6VK-58-6dA" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="8" id="EQ2-KA-w1I"/>
                                                     <constraint firstAttribute="bottom" secondItem="6VK-58-6dA" secondAttribute="bottom" constant="5" id="Gt9-oy-dZq"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nQL-YM-LUn" secondAttribute="bottom" id="KSx-rZ-uuC"/>
-                                                    <constraint firstItem="nQL-YM-LUn" firstAttribute="leading" secondItem="OM3-xN-nPU" secondAttribute="leading" constant="25" id="LhJ-Nn-Kn0"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cIR-hq-GQL" secondAttribute="bottom" id="HJH-b5-oQj"/>
+                                                    <constraint firstItem="6VK-58-6dA" firstAttribute="leading" secondItem="cIR-hq-GQL" secondAttribute="trailing" constant="10" id="M2X-l7-lfw"/>
+                                                    <constraint firstItem="cIR-hq-GQL" firstAttribute="leading" secondItem="OM3-xN-nPU" secondAttribute="leading" constant="25" id="Rxv-11-GGd"/>
                                                     <constraint firstAttribute="trailing" secondItem="6VK-58-6dA" secondAttribute="trailing" constant="20" id="S0B-OX-kTE"/>
-                                                    <constraint firstItem="nQL-YM-LUn" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="10" id="WXx-bb-a19"/>
-                                                    <constraint firstItem="6VK-58-6dA" firstAttribute="leading" secondItem="nQL-YM-LUn" secondAttribute="trailing" constant="10" id="ruQ-zZ-Eei"/>
+                                                    <constraint firstItem="cIR-hq-GQL" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="10" id="jSD-PL-J4y"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -222,7 +247,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Comment.." minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-9x-fUi">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Comment.." minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-9x-fUi">
                                                         <rect key="frame" x="60" y="0.0" width="235" height="40"/>
                                                         <color key="tintColor" red="0.69411764710000001" green="0.68627450980000004" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -263,6 +288,7 @@
                 <outlet property="buttonBookmark" destination="Xef-Tm-g90" id="gbY-hQ-Y7f"/>
                 <outlet property="buttonLike" destination="7A7-EC-FkV" id="naY-Ly-fCR"/>
                 <outlet property="collectionView" destination="qJl-1r-TJR" id="aDZ-bL-vpV"/>
+                <outlet property="collectionviewTags" destination="KG8-7M-Wmz" id="tQd-W4-wiO"/>
                 <outlet property="commentedUserPic" destination="2gm-oy-WQp" id="BcJ-rx-ni4"/>
                 <outlet property="labelExpDescription" destination="nQL-YM-LUn" id="ed5-pR-OPq"/>
                 <outlet property="labelTotaBookmarkCount" destination="I8z-Iv-94Q" id="hcF-GC-psH"/>
@@ -277,6 +303,11 @@
             <point key="canvasLocation" x="66.666666666666671" y="195.20089285714286"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="nQL-YM-LUn">
+            <size key="intrinsicContentSize" width="32.5" height="15.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <image name="ic_heart_with_Border" width="25" height="25"/>
@@ -290,5 +321,8 @@
         <namedColor name="App_BG_silver_Color">
             <color red="0.84313725490196079" green="0.85490196078431369" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
