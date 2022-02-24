@@ -58,8 +58,6 @@ class TripImagesUploadVC: UIViewController {
     
     func loadData(){
         
-        
-        
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleGetureOfAddPhotoLabel))
         tap.numberOfTapsRequired = 1
         labelAddPhotoTitle.addGestureRecognizer(tap)
@@ -80,6 +78,7 @@ class TripImagesUploadVC: UIViewController {
         arrayJsonFilterImages.removeAll()
         arrayOfImageUpload.forEach { objDetail in
             objDetail?.arrayOfImages.forEach({ img in
+                img.statusUpload = .done
                 arrayJsonFilterImages.append(img)
             })
         }
