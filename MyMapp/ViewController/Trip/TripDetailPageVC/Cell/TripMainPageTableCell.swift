@@ -128,15 +128,6 @@ class TripMainPageTableCell: UITableViewCell {
         calculateSmallLongCell()
         
         func minimizeCollectionViewHightIfNeeded() {
-//            var verticleCount = 0
-//            var horizontalCount = 0
-//            arrayOfImageURL.forEach { obj in
-//                if obj.isVerticle {
-//                    verticleCount += 1
-//                } else {
-//                    horizontalCount += 1
-//                }
-//            }
             
             // 4 small cell max possibility
             if arrayOfImageURL.count <= 4 {
@@ -243,80 +234,7 @@ class TripMainPageTableCell: UITableViewCell {
         }
         
     }
-        
-    /*
-     override func layoutSubviews() {
-     super.layoutSubviews()
-     //          layoutIfNeeded()
-     }
-     
-     func addObserver() {
-     
-     collectionViewObserver = collectionViewTrip.observe(\.contentSize, changeHandler: { [weak self] (collectionViewTrip, change) in
-     self?.collectionViewTrip.invalidateIntrinsicContentSize()
-     self?.heightOfCollectionViewTrip.constant = collectionViewTrip.contentSize.height
-     self?.setNeedsLayout()
-     self?.layoutIfNeeded()
-     debugPrint(collectionViewTrip.contentSize.height)
-     })
-     }
-     
-     deinit {
-     collectionViewObserver = nil
-     }
-     
-     
-     //    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-     //        return collectionViewTrip.frame.size
-     //    }
-     
-     func layoutConfigure1(){
-     let layout = WaterfallLayout()
-     //        layout.delegate = self
-     layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-     layout.minimumLineSpacing = 8.0
-     layout.minimumInteritemSpacing = 8.0
-     layout.headerHeight = 50.0
-     collectionViewTrip.registerCellNib(identifier: "TripMainPageCollectionCell", commonSetting: true)
-     collectionViewTrip.backgroundColor = .white//UIColor.red
-     collectionViewTrip.collectionViewLayout = layout
-     collectionViewTrip.delegate = self
-     collectionViewTrip.dataSource = self
-     }
-     
-     func layoutConfigure(){
-     var flowLayout  = ELWaterFlowLayout()
-     flowLayout.scrollDirection = .horizontal //.vertical
-     collectionViewTrip.backgroundColor = .white//UIColor.red
-     collectionViewTrip.collectionViewLayout = flowLayout
-     //        collectionViewTrip.delegate = self
-     //        collectionViewTrip.dataSource = self
-     //
-     collectionViewTrip.registerCellNib(identifier: "TripMainPageCollectionCell", commonSetting: true)
-     flowLayout.totalNumber = 1
-     //        flowLayout.delegate = self
-     flowLayout.lineCount = 2//十列
-     flowLayout.vItemSpace = 5//垂直间距10
-     flowLayout.hItemSpace = 5//水平间距10
-     flowLayout.edge = UIEdgeInsets.zero
-     flowLayout.collectionView?.isPagingEnabled = true
-     
-     //        let layout = CHTCollectionViewWaterfallLayout()
-     //        layout.minimumColumnSpacing = 4.0
-     //        layout.minimumInteritemSpacing = 4.0
-     ////        layout.headerHeight = 0
-     //        collectionViewTrip.collectionViewLayout = layout
-     }
-     //    var arrayOfImageURL:[TripDataModel.TripPhotoDetails.TripImage]{
-     //        var array = [TripDataModel.TripPhotoDetails.TripImage]()
-     //        photoUploadedArray.forEach { obj in
-     //            obj.arrayOfImageURL.forEach { obj1 in
-     //                array.append(obj1)
-     //            }
-     //        }
-     //        return array
-     //    }*/
-    
+            
     func configureCollectionView(){
         //        layoutConfigure()
         
@@ -330,9 +248,6 @@ class TripMainPageTableCell: UITableViewCell {
         collectionViewTrip.delegate = self
         collectionViewTrip.dataSource = self
 //        collectionViewTrip.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
         
         collectionViewTrip.isPagingEnabled = true
         setTotalPageNo()
@@ -353,13 +268,13 @@ extension TripMainPageTableCell {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setTotalPageNo()
         if scrollView == collectionViewTrip{
-            let pageNumber = scrollView.contentOffset.x / (cueSize.screen.width - 20)
+            let pageNumber = scrollView.contentOffset.x / collectionviewWidth
             pageCtrl.currentPage = (startX < scrollView.contentOffset.x) ? Int(floor(pageNumber)) : Int(ceil(pageNumber))
         }
     }
 
     func setTotalPageNo() {
-        var totalPage = Int(ceil(collectionViewTrip.contentSize.width / (cueSize.screen.width - 20)))
+        var totalPage = Int(ceil(collectionViewTrip.contentSize.width / collectionviewWidth))
         if totalPage == 0 {
             totalPage = 1
         }
@@ -399,11 +314,7 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrayOfImageURL.count//photoUploadedArray[section].arrayOfImageURL.count
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
-//        pageCtrl.currentPage = indexPath.section
-//    }
-    
+        
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = self.collectionViewTrip.dequeueReusableCell(withReuseIdentifier: "TripMainPageCollectionCell", for: indexPath) as! TripMainPageCollectionCell
         cell.lblName.text = "INDEX : \(indexPath.row)"
@@ -488,57 +399,21 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
             }
         }
     }
-    
-    
-    // func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-    //
-    //        //            return CGSize(width: collectionView.frame.size.width/2 - 16 , height: collectionView.frame.size.width/2 )
-    //
-    //        if self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle {
-    //            return CGSize(width: 155, height: 231)
-    //        }else{
-    //            return CGSize(width: 155, height: 140)
-    //        }
-    //
-    //        //            let randomInt = Int.random(in: 1...100)
-    //        //            if indexPath.row % 2 == 0{
-    //        //                return CGSize(width: 155, height: 140)
-    //        //            }else{
-    //        //                return CGSize(width: 155, height: 231)
-    //        //            }
-    //    }
 }
 
 // UICollectionViewDelegateFlowLayout
 extension TripMainPageTableCell: UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
     
+    var collectionviewWidth: CGFloat {
+        return cueSize.screen.width - 20 - 40
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        //                let randomInt = Int.random(in: 1...100)
-        //        if randomInt%2 == 0{
-        //            arrayHeight.append(231)
-        //            return CGSize(width: widthPerItem, height: 231)
-        //        }else{
-        //            arrayHeight.append(140)
-        //            return CGSize(width: widthPerItem, height:  140)
-        //        }
-        
-        //        if self.photoUploadedArray[indexPath.section].arrayOfImageURL[indexPath.row].isVerticle{
-        
-        let widthPerItem = collectionView.frame.width / 2 - 20
-//        let widthPerItem = (cueSize.screen.width - 5 - 20) / 2
-
-//        let space:CGFloat = 5
-//        let smallCellHeight = (collectionViewHeight - space - space)*0.23
-//        let longCellHeight = (collectionViewHeight - space - space - smallCellHeight)/2 //231
+//        let widthPerItem = collectionView.frame.width / 2 - 20
+        let widthPerItem = (collectionviewWidth - 5) / 2
 
         return CGSize(width: widthPerItem, height:  arrayOfImageURL[indexPath.row].itemHeight)
-        
-//        if arrayOfImageURL[indexPath.row].isVerticle{//arrayOfImageURL[indexPath.section+indexPath.row].isVerticle{
-//            return CGSize(width: widthPerItem, height: longCellHeight)
-//        }else{
-//            return CGSize(width: widthPerItem, height:  smallCellHeight)
-//        }
     }
     
     
@@ -548,46 +423,5 @@ extension TripMainPageTableCell: UICollectionViewDelegateFlowLayout,UIScrollView
             return photoUploadedArray[section].arrayOfImageURL.count == 0 ? 1 : 2 //2
         }
         return 1//self.viewModel.arrayOfTripList.count == 0 ? 1 : 2
-    }
-    
-//        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//            let pageWidth = scrollView.frame.size.width
-//            let page = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1)
-//            print("page = \(page)")
-//            pageCtrl.currentPage = page+1
-//        }
-    
-    // MARK: UIScrollViewDelegate
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
-//        if decelerate == false {
-//            let currentPage = scrollView.currentPage
-//            // Do something with your page update
-//            print("scrollViewDidEndDragging: \(currentPage)")
-//            pageCtrl.currentPage = currentPage
-//        }
-//    }
-//
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let currentPage = scrollView.currentPage
-//        // Do something with your page update
-//        print("scrollViewDidEndDecelerating: \(currentPage)")
-//        pageCtrl.currentPage = currentPage
-//    }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if pageCtrl.currentPage != scrollView.currentPage {
-//            pageCtrl.currentPage = scrollView.currentPage
-//            // Do something with your page update
-//            print("scrollViewDidEndDecelerating: \(pageCtrl.currentPage)")
-////            pageCtrl.currentPage = scrollViewPage
-//        }
-//    }
-
-    
-}
-
-extension UIScrollView {
-    var currentPage: Int {
-        return Int((self.contentOffset.x+(0.5*self.frame.size.width))/self.frame.width)+1
     }
 }
