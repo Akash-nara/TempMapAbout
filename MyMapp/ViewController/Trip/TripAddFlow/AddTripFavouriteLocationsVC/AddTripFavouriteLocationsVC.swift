@@ -662,7 +662,10 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                     cell.stopAnimating()
                     if let ids = self.tripImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
                         self.tripImages[indexPath.row].statusUpload = .fail
-                        collectionView.reloadItems(at: [indexPath])
+                        
+                        DispatchQueue.getMain {
+                            collectionView.reloadItems(at: [indexPath])
+                        }
                     }
                     cell.imgviewCity.backgroundColor = .black.withAlphaComponent(0.5)
                     cell.btnTitleRemove.isHidden = true

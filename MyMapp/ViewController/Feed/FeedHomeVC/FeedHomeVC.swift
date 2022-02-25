@@ -22,13 +22,13 @@ class FeedHomeVC: UIViewController {
         configureTableView()
         getSocketTripData()
         
-
+        API_LOADER.SHOW_CUSTOM_LOADER()
 //        self.getTripListApi()
 //        SHOW_CUSTOM_LOADER()
         DispatchQueue.getMain(delay: 0.2) {
             self.getTagData()
         }
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //mdafafasfasfasfafafafafafaasfasfasfsfafsasfasfasfasfddsfsdgdgssgsdgdsgsdgsdgsdgsgsdgsdgsdgsdgssdgsdgsgsgsdgsdgsdgdsgdsfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,7 @@ class FeedHomeVC: UIViewController {
     
     deinit{
         NotificationCenter.default.removeObserver(self)
-    }//dadasddasdasdsaddasdasdasdasdasdasdasasfdsfdsfsfsdfsdfdssdrwerwerwerwerwerwerwerwerwerwerwerwewerwegdfgdfgfdgdgfdgdfgdfgasdadasdsadasdadasdasdasdvdfsvfdvdffdvdvdffvdvdfvfdvxvzxczxcvxzvnzxvxzvzxvzvxzvadadsdwewqeeqeewqwqeqweewqeqwewqeweqwewqewqeqeweqwewe
+    }//
     
     func configureTableView(){
         tableViewFeedList.registerCell(type: FeedTableViewCell.self, identifier: "FeedTableViewCell")
@@ -58,6 +58,8 @@ class FeedHomeVC: UIViewController {
         } else {
             // Fallback on earlier versions
         }
+        
+        self.viewModel.isTripListFetched = true
         tableViewFeedList.sayNoSection = .noFeedFound("Feed not found.")
 //        tableViewFeedList.figureOutAndShowNoResults()
         tableViewFeedList.reloadData()
@@ -97,8 +99,8 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.buttonLike.tag = indexPath.row
         
         cell.configureCell(modelData:viewModel.arrayOfTripList[indexPath.row])
-        let str = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//viewModel.arrayOfTripList[indexPath.row].tripDescription
-//        let str = viewModel.arrayOfTripList[indexPath.row].tripDescription//fsfsfsffsfffsfsdfsdfsdfsdfsdfsdfsdfdsfsdfsdfdsfsdfsddsfsfsfsfsfsfsfssdfsfsfsfsfssdfsdfsdfsdfsdfsdfsdfsdfdsfsdfsdfsdfsdfsdfsdfsdfsdsdfssdfsdfsdfsdfsdfdgggfgdggdgfgdgfgdfgdfgdgfgdfgdgdfgdfgdfgdfgdfgdfgdfgdgdfgdfgdfgdgdgfddfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgfdgdfgdfgdfgdfgdfgdfgdfgdfggfgfgddfgdfgdfgdfgdfgdgdfdfgdfgdfgdfggfddgdgdggdgdgdgdgdgdgdfgdgdfgdfgdfgdgdfgddfgtryyryrtyryryrtyryrtyryrtyryrtyrtytryrtyrtyrtyrtyrtyrtyrtyrtyrtyrtygdfgdfgdgdfgdfggdgdgdgfggfdgfgdfgfgfgfsdfsdfdsfsdfsfsdfsdfsfsfdfsdfsfsdfsfdfsfdfsdfsfsdgdfgdgdfgdgfdgfgdfgdggfhgfhfhbfbfgbfbfbbbfbfbfgbgbfbfgbfgbfgbfgbfbfgbfbfbfgbfbgbfbfgnjjghjghjgjgjgjghjjghjgjghjgjgjghjgjgjgjghjghjgjgghjgghjggjghjghjghjghjghghjghjghjghjghjghjghjghjghjghjghjghjghjfycuuycguyguguyguyguyguyguyguyuiguyyiviufyjgdjygdjfgkjkujgfhgfghjfhjgfhjfghgghdhgfdfghdghfdfgdgfdgfhhgfgffhfhfghfhgfcjyjgjgjugujgujgjugjgjugujhgjugjgjghgjhgjhgjhgjhffsdfsfssfsdfsfsfsdfsfsfsdfdssfsdfsdfsfsdfsdfsdfsdfsdfsdfssffssdfsfdsfsdfsdsfsdfsdfsfsdftertretertrttertertertertertertertertertertertertertertertertfssfsfsfssfsfsfsfsfsfsdfsdfsdfsfsdfsdfsfsdfsfsdfsfsdfsdfsdfsfsfsdfsfsdfsdfsdfsdfsdfdsfsdfsdfsdfsdfdsfsdfsdfsdfsdffsdfsdfsfsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsfsdfdfsfsdfsdfsdretrtertertertertertertertetetertertertetetetrterterterttettetettetertetertetetertrteterterterterterterterterterteetertertertertetertertertertetertertertdfgdfgdgggdgdggdgdfgdgdgyrytyrtytyrtyrrtyrtyrtyrtyrtyrtyrtyrtyrtyrtyrtyrtyrtyrtyrrtyrtyrrtrytryrrtgdfgdggdggfggdfgdfgdfgdfgdfgdfgdfgdfgdfggdgdfgfdgdfgdfgdfgdgdfgdfgdfgdfgdfgdfgdfgffsdfsfsfssffsfsfsfsfsdfsdfsfsfsdfsfsdfsfsdfsdfsdfsdfsdfssdfsffdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfdfsdfsdfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdffsfsfsfsfsfsfsdfsdfsfdfdssffsfsfsfsfsfsfsdfsdfdgrtetrtertetetetetetetertertertrterteterterterterterterterterterteteertetertertetterterteterterterteergdfgfgdgdfgdgdgdgdfgdfgvcxbvcbcvbvcbcbbccvbcvbcvbcvbcvbcvbcvbvcbcvbcvbcbcvbccvbcvbcsfdffsfsfsfssfsffsfsfsdfsfsdfsdfsdfsdfsfsfffsfsfsfsfsdfsfsdfsdfsdfsdfsdetettetetetrtertertetertertertertertertertertertetertreteeqweweweqeqweqeqeqweqeqeqweqwekfnsfsggsgsgsgsfsfsdfsdfsfsfsdffdfdfvxvvxcvxcvxcvxcdasdasdasdasdasdhfghfghfghfghfghfghfghyrttyrtyrtyrtyrtysddfdfdfddfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfdsfsdfsdfsdfdsfsdfrewrwererwrwrewrewrwerwerwerwerwerwerdfgdfgdfgdfgdfgdfgdfgdfgfdgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgvxvvdfgfdgfdgdfgdfgdfgdfgdfgdfgfsfsdfsfsfsfsfsfssdfdsfsdfdsfsdfsdfsdfsfsfsdfsdferwrweerwrwrwrwerwerwrwerwrwrwrwerwerwerwerwerwerwerwerwerwerwerwerwerwrfsffsdfsfsfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdfsdfsdfsdffsfsfsfsfsdfsdrereterterterterterterterterterter
+//        let str = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//viewModel.arrayOfTripList[indexPath.row].tripDescription
+        let str = viewModel.arrayOfTripList[indexPath.row].tripDescription//
 
         if str.isEmpty {
             cell.labelExpDescription.isHidden = true
@@ -167,9 +169,9 @@ extension FeedHomeVC{
         
         if !isNextPageRequest && !isPullToRefresh{
             // API_LOADER.show(animated: true)
-            self.viewModel.isTripListFetched = false // show skeleton
-            self.tableViewFeedList.reloadData() // show skeleton
-            self.tableViewFeedList.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
+//            self.viewModel.isTripListFetched = false // show skeleton
+//            self.tableViewFeedList.reloadData() // show skeleton
+//            self.tableViewFeedList.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
         }
         
         var param = viewModel.getPageDict(isPullToRefresh)
@@ -184,6 +186,7 @@ extension FeedHomeVC{
     }
     
     func stopLoaders() {
+        API_LOADER.HIDE_CUSTOM_LOADER()
         self.viewModel.isTripListFetched = true
         self.tableViewFeedList.isAPIstillWorking = false
         self.tableViewFeedList.stopPullToRefresh()
@@ -214,7 +217,7 @@ extension FeedHomeVC{
     func getTagData(){
         API_SERVICES.callAPI([:], path: .getTags, method: .get) { [weak self] dataResponce in
             
-            self?.HIDE_CUSTOM_LOADER()
+//            self?.HIDE_CUSTOM_LOADER()
             guard let status = dataResponce?["status"]?.intValue, status == 200, let listArray =  dataResponce?["responseJson"]?["tagList"].arrayObject else {
                 return
             }
@@ -227,9 +230,11 @@ extension FeedHomeVC{
             
             self?.getTripListApi()
         }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
             debugPrint("internetFailure")
         } failureInform: {
-            self.HIDE_CUSTOM_LOADER()
+            API_LOADER.HIDE_CUSTOM_LOADER()
+//            self.HIDE_CUSTOM_LOADER()
         }
     }
 
