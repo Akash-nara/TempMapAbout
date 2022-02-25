@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A10-ng-2YE">
-                        <rect key="frame" x="30" y="30" width="350" height="150"/>
+                        <rect key="frame" x="30" y="10" width="350" height="190"/>
                         <color key="backgroundColor" name="blueHeadingAlpha20"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="A10-ng-2YE" secondAttribute="bottom" constant="30" id="ISL-hD-7aQ"/>
-                    <constraint firstItem="A10-ng-2YE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="NO8-4N-4UA"/>
+                    <constraint firstAttribute="bottom" secondItem="A10-ng-2YE" secondAttribute="bottom" constant="10" id="ISL-hD-7aQ"/>
+                    <constraint firstItem="A10-ng-2YE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="NO8-4N-4UA"/>
                     <constraint firstItem="A10-ng-2YE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="oti-3N-dgT"/>
                     <constraint firstAttribute="trailing" secondItem="A10-ng-2YE" secondAttribute="trailing" constant="30" id="pzz-yc-uCd"/>
                 </constraints>
