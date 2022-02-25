@@ -60,8 +60,8 @@ class ProfileImagesCellXIB: UICollectionViewCell {
             let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
             imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
                 self.stopAnimating()
-
                 self.imgviewBG.image = img
+                
                 if let image = img, image.isImageVerticle{
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     self.imgviewBG.contentMode = .scaleAspectFill
@@ -74,9 +74,10 @@ class ProfileImagesCellXIB: UICollectionViewCell {
             }
             self.imgviewBG.clipsToBounds = true
         }else{
-            self.stopAnimating()
+            startAnimating()
+            self.imgviewBG.backgroundColor = .clear
             self.imgviewBG.contentMode = .scaleToFill
-            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
+//            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
         }
     }
 }

@@ -52,7 +52,7 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         ]
         
         
-        
+    
         let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "")
         var urlRequest = URLRequest(url: URL.init(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!)
         urlRequest.httpMethod = "POST"
@@ -60,9 +60,11 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         urlRequest.allowsCellularAccess = true
         urlRequest.allowsConstrainedNetworkAccess = true
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
-        urlRequest.networkServiceType = .responsiveData
-        urlRequest.timeoutInterval = 120
-        
+//        urlRequest.networkServiceType = .responsiveData
+        urlRequest.timeoutInterval = 120 // 120 secs
+        urlRequest.networkServiceType = .background
+
+        /*
         if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
             urlRequest.httpBody = postData
         }
@@ -71,8 +73,8 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
         let sessionConfig = URLSessionConfiguration.default
         //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-//        sessionConfig.timeoutIntervalForRequest = 240
-//        sessionConfig.timeoutIntervalForResource = 240
+        sessionConfig.timeoutIntervalForRequest = 240
+        sessionConfig.timeoutIntervalForResource = 240
         //        sessionConfig.waitsForConnectivity = true
 //                sessionConfig.allowsConstrainedNetworkAccess = true
 //                sessionConfig.allowsCellularAccess = true
@@ -93,25 +95,38 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
             //            }
         }).resume()
         
+        */
         
-        /*
-         let realURL: URL = URL(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!
-         let url: Alamofire.URLConvertible = realURL
-                  
-         guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) else {
-         return
-         }
-         AF.upload(postData, to: url, method:.post,headers: urlRequest.headers).response { response in
-         switch response.result{
-         case .success:
-         debugPrint("status image Code:- \(name)")
-         // do your work
-         completion?()
-         case .failure(let erro):
-         debugPrint("failure image:- \(name), \(erro.localizedDescription)")
-         failureCompletion?()
-         }
-         }*/
+//         let realURL: URL = URL(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!
+         let req: Alamofire.URLRequestConvertible = urlRequest
+        guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: []))else{
+            return
+        }
+        
+        AF.upload(postData, with: req).response { response in
+            switch response.result{
+            case .success:
+                debugPrint("status image Code:- \(name)")
+                // do your work
+                completion?()
+            case .failure(let erro):
+                debugPrint("failure image:- \(name), \(erro.localizedDescription)")
+                failureCompletion?()
+            }
+        }
+        
+//        AF.request(url, method:.post, parameters: param, encoding: JSONEncoding.prettyPrinted, headers: urlRequest.headers).response { response in
+//            switch response.result{
+//            case .success:
+//                debugPrint("status image Code:- \(name)")
+//                // do your work
+//                completion?()
+//            case .failure(let erro):
+//                debugPrint("failure image:- \(name), \(erro.localizedDescription)")
+//                failureCompletion?()
+//            }
+//        }
+        
         /*
          AF.upload(multipartFormData: { multipartFormData in
          //             let imageData = imageToUpload.pngData()!.base64EncodedData()

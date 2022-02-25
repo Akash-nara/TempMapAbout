@@ -129,19 +129,37 @@ class TripImagesUploadedCell: UICollectionViewCell {
         urlRequest.allowsCellularAccess = true
         urlRequest.allowsConstrainedNetworkAccess = true
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
-        urlRequest.networkServiceType = .responsiveData
-        urlRequest.timeoutInterval = 120
-
+//        urlRequest.networkServiceType = .responsiveData
+        urlRequest.timeoutInterval = 120 // 120 secs
+        urlRequest.networkServiceType = .background
         if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
             urlRequest.httpBody = postData
         }
         
+        let req: Alamofire.URLRequestConvertible = urlRequest
+       guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: []))else{
+           return
+       }
+       
+       AF.upload(postData, with: req).response { response in
+           switch response.result{
+           case .success:
+               debugPrint("status image Code:- \(name)")
+               // do your work
+               completion?()
+           case .failure(let erro):
+               debugPrint("failure image:- \(name), \(erro.localizedDescription)")
+               failureCompletion?()
+           }
+       }
+        
+       /*
         //        let sessionConfig = URLSessionConfiguration.background(withIdentifier: "swiftlee.background.url.session")
         //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
         let sessionConfig = URLSessionConfiguration.default
         //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-//        sessionConfig.timeoutIntervalForRequest = 240
-//        sessionConfig.timeoutIntervalForResource = 240
+        sessionConfig.timeoutIntervalForRequest = 240
+        sessionConfig.timeoutIntervalForResource = 240
 //                sessionConfig.waitsForConnectivity = true
         sessionConfig.allowsConstrainedNetworkAccess = true
         sessionConfig.allowsCellularAccess = true
@@ -162,7 +180,7 @@ class TripImagesUploadedCell: UICollectionViewCell {
             completion?()
             //            }
         }).resume()
-        //        }
+        //        }*/
     }
     
     func convertToBase64(image: UIImage) -> String {
