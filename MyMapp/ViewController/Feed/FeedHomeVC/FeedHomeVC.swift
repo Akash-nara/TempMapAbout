@@ -138,7 +138,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !viewModel.isTripListFetched ? 150 : UITableView.automaticDimension
+        return !viewModel.isTripListFetched ? 210 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
