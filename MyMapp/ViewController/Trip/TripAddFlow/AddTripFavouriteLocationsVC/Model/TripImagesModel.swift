@@ -12,6 +12,8 @@ class TripImagesModel:NSObject {
     enum EnumUploadStatus:Equatable {
         case none, progress, done, fail, notStarted, pause
     }
+    
+    var isCityUploadeImage = false
     var type:String = ""
     var url:String = ""
     var isEdit:String = ""

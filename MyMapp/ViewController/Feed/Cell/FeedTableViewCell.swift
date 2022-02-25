@@ -141,6 +141,8 @@ class FeedTableViewCell: UITableViewCell {
         modelData.locationList.forEach({ arrayTagName += $0.arrayTagsFeed })
         collectionviewTags.isHidden = arrayTagName.count.isZero()
         collectionviewTags.reloadData()
+        pageControll.isHidden = arrayOfImageURL.count == 0
+        collectionView.isHidden = arrayOfImageURL.count == 0
     }
 }
 

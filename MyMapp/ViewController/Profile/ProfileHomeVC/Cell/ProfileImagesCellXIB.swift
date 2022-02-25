@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class ProfileImagesCellXIB: UICollectionViewCell {
     
@@ -29,16 +30,19 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         imgviewBG.borderColor = .App_BG_SecondaryDark2_Color
         imgviewBG.borderWidth = 0.1
         imgviewBG.contentMode = .scaleAspectFit
+        imgviewBG.isSkeletonable = true
+        self.skeletonView.isHidden = true
+
         
     }
     func startAnimating() {
-        self.skeletonView.isHidden = false
-        self.skeletonView.showAnimatedSkeleton()
+//        self.skeletonView.isHidden = false
+        self.imgviewBG.showAnimatedSkeleton()
     }
     
     func stopAnimating() {
-        self.skeletonView.isHidden = true
-        self.skeletonView.hideSkeleton()
+//        self.skeletonView.isHidden = true
+        self.imgviewBG.hideSkeleton()
     }
     
     func loadCellData(objTripModel:TripDataModel, completion: ((Bool,Int, CGFloat) -> Void)? = nil) {
@@ -55,7 +59,8 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         if let firstObject = objTripModel.photoUploadedArray.first?.arrayOfImageURL.first{
             let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
             imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
-                
+                self.stopAnimating()
+
                 self.imgviewBG.image = img
                 if let image = img, image.isImageVerticle{
                     //since the width > height we may fit it and we'll have bands on top/bottom
@@ -66,14 +71,12 @@ class ProfileImagesCellXIB: UICollectionViewCell {
                     self.imgviewBG.contentMode = .scaleToFill
                     completion?(false,self.imgviewBG.tag, imgviewBG.image?.getHeight ?? 0)
                 }
-                self.stopAnimating()
             }
-            
             self.imgviewBG.clipsToBounds = true
         }else{
+            self.stopAnimating()
             self.imgviewBG.contentMode = .scaleToFill
             self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
-            self.stopAnimating()
         }
     }
 }

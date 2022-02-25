@@ -334,7 +334,7 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
             cell.startAnimating()
             cell.imgviewZoom.sd_setImage(with: URL.init(string: img), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
                 cell.imgviewZoom.image = img
-                //            self.stopAnimating()
+                //            self.stopAnimating()fsfsfsfsfsfsfsfsfsfsfkmsfkslmfslkfmsfsfsfsfsfsfsfsdfgretetertettgfdgdgdgdgdgdgsdsdfssdfsfsfsdfsfsfsfsfsdfwrerwetwttwetwtwetrfgdgdfdfhhdfhdhdhdfhdfhdhdhdfhdfhdfhdfhdfghdfhgdfhdhtretetertetetertertertertertertertertertertertertertertertfgdghdfggfdgdfgdgdgdfgdfgdfgdfggdfgdgdfgdfgdfgdgdgdgdfweteerrwrwrwrwrrwerwerwerwerwerewrwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerewrwerwerwerwerwerwerwefgdggdfgdgdfgdfgdfgdfgdfgdfgreewrwrwerwerwerwerwerewrwerwerweffsdfsdgsgsdgsdgsdgsgfsdfsdfsdfsdfsdfsdfdsfsdfds
                 if let sizeOfImage = cell.imgviewZoom.image?.size, sizeOfImage.width > sizeOfImage.height {
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     cell.imgviewZoom.contentMode = .scaleAspectFill

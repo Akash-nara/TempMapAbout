@@ -520,8 +520,8 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
             UIView.animate(withDuration: 0.01, animations: { () -> Void in
                 self.vwImage.alpha = 1
-                self.consWidth.constant = cell.frame.size.width * 1.9
-                self.consHeight.constant = cell.frame.size.height * 1.9
+                self.consWidth.constant = cell.frame.size.width * 3
+                self.consHeight.constant = cell.frame.size.height * 2.1
                 self.vwImage.isHidden = false
                 self.vwImage.image = cell.imgviewZoom.image
                 self.vwImage.contentMode = .scaleToFill

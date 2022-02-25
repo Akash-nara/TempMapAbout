@@ -40,12 +40,24 @@
                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="5" maxY="10"/>
                                 <state key="normal" image="ic_selected_purple"/>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtQ-uH-Uhj">
+                                <rect key="frame" x="20" y="20" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RtQ-uH-Uhj" secondAttribute="height" multiplier="1:1" id="FWd-nh-FZn"/>
+                                    <constraint firstAttribute="height" constant="70" id="s1d-nH-yrc"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" image="reloadIcon"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="W3I-fe-oRx" firstAttribute="leading" secondItem="Sno-ds-Vza" secondAttribute="leading" id="0tq-75-GWs"/>
                             <constraint firstItem="W3I-fe-oRx" firstAttribute="top" secondItem="Sno-ds-Vza" secondAttribute="top" id="W2E-rD-vw7"/>
                             <constraint firstItem="6eE-6Z-JO5" firstAttribute="top" secondItem="Sno-ds-Vza" secondAttribute="top" id="Yrj-9D-vRU"/>
+                            <constraint firstItem="RtQ-uH-Uhj" firstAttribute="centerY" secondItem="Sno-ds-Vza" secondAttribute="centerY" id="lUm-4Y-e5Q"/>
+                            <constraint firstItem="RtQ-uH-Uhj" firstAttribute="centerX" secondItem="Sno-ds-Vza" secondAttribute="centerX" id="oKP-vt-ZAw"/>
                             <constraint firstAttribute="trailing" secondItem="W3I-fe-oRx" secondAttribute="trailing" id="pF3-NV-4zi"/>
                             <constraint firstAttribute="bottom" secondItem="W3I-fe-oRx" secondAttribute="bottom" id="t3L-gT-0mL"/>
                             <constraint firstAttribute="trailing" secondItem="6eE-6Z-JO5" secondAttribute="trailing" id="uX3-3g-w8B"/>
@@ -62,6 +74,7 @@
             </constraints>
             <connections>
                 <outlet property="buttonRadioSelection" destination="6eE-6Z-JO5" id="dtL-he-CBS"/>
+                <outlet property="buttonRetry" destination="RtQ-uH-Uhj" id="nUU-2l-oeL"/>
                 <outlet property="imgTrip" destination="W3I-fe-oRx" id="wag-Kt-ANF"/>
             </connections>
             <point key="canvasLocation" x="132" y="116"/>
@@ -70,6 +83,7 @@
     <resources>
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <image name="ic_selected_purple" width="48" height="48"/>
+        <image name="reloadIcon" width="64" height="64"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
             <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

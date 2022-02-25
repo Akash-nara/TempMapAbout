@@ -11,15 +11,6 @@ import IQKeyboardManagerSwift
 import DKImagePickerController
 import CropViewController
 import Photos
-import Alamofire
-
-class TripTags{
-    var dict = [Int:[Int]]()
-    var id = 0
-    var subIdArrray = [SubCategoryListModel]()
-    init() {
-    }
-}
 
 class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegate, UITextViewDelegate{
     
@@ -49,7 +40,6 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
             checkRecomandationButtonsTap()
         }
     }
-    var arrayOfTags = [TripTags]()
     
     let mainHeight = UIScreen.main.bounds.size.height -  150//700
     let mainSubHeight = UIScreen.main.bounds.size.height -  200//700
@@ -60,7 +50,6 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     override var popupDismissDuration: Double { return dismissDuration ?? 1.0 }
     override var popupShouldDismissInteractivelty: Bool { return shouldDismissInteractivelty ?? true }
     
-//    var newImageAllowed = 21
     var selectedAddTripFavouriteLocationDetail: AddTripFavouriteLocationDetail?
     var selectedTripDetailCallBackBlock: ((AddTripFavouriteLocationDetail?) -> Void)?
     var tripBucketHash = ""
@@ -68,7 +57,8 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var tripId = 0
     var arrayParentTags = [TagListModel]()
     var arraySubTags = [SubCategoryListModel]()
-    
+    var arrayUploadedOnTripCityOnly = [TripDataModel.TripPhotoDetails.TripImage]()
+
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,12 +80,6 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
         self.txtviewNotes.placeholder = "A bit pricy but worth it! Try the cheeseburger"
         
         self.arrayParentTags.removeAll()
-//        appDelegateShared.tagsData.forEach { tag in
-//            let abc = tag
-//            abc.subTagsList.forEach({ $0.isSelected = false })
-////            let sampleModel = TagListModel(fromJson: JSON(tag.toDictionary()))
-//            self.arrayParentTags.append(tag)
-//        }
 
         self.arrayParentTags = appDelegateShared.tagsData
         self.arrayParentTags.forEach { parentTag in
@@ -275,9 +259,9 @@ extension  AddTripFavouriteLocationsVC{
         let filterArrray = tripImages.filter({$0.statusUpload == .done})
         if filterArrray.count > 0{
             objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
-        }else{
-            totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         }
+        
+        totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         
         if filterArrray.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty, filterArrray.count == 0{
 //            selectedAddTripFavouriteLocationDetail?.notes = txtviewNotes.text
@@ -695,7 +679,6 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 cell.reloadImageButton.isHidden = false
                 cell.imgviewCity.backgroundColor = .black.withAlphaComponent(0.5)
                 cell.btnTitleRemove.isHidden = true
-                
             case .done:
                 cell.imgviewCity.backgroundColor = .white
                 cell.btnTitleRemove.isHidden = false
@@ -927,7 +910,6 @@ class CustomGroupDetailImageCell: DKAssetGroupDetailBaseCell {
     fileprivate lazy var checkView: UIImageView = {
         let checkView = UIImageView(image: UIImage(named: "ic_selectGallery"))
         checkView.contentMode = .center
-        //        checkView.tintColor = UIColor(red: 183 / 255.0, green: 65 / 255.0, blue: 14 / 255.0, alpha: 1.0)
         checkView.tintColor = UIColor.App_BG_SecondaryDark2_Color
         return checkView
     }()
@@ -966,49 +948,6 @@ extension AddTripFavouriteLocationsVC {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
-    /*
-    func uploadImageApi1(bucketTripHash:String, locationBucketHash:String, imageToUpload:UIImage, name:String, completion: ((String) -> Void)? = nil, failureCompletion: (() -> Void)? = nil){
-        
-        guard SSReachabilityManager.shared.isNetworkAvailable else {
-            DispatchQueue.main.async {
-                Utility.errorMessage(message: "No internet connection.")
-                failureCompletion?()
-            }
-            return
-        }
-        
-        guard let imageData = imageToUpload.jpegData(compressionQuality: 0.50), let url = URL.init(string: Routing.uploadTripImage.getPath+bucketTripHash+"/"+locationBucketHash+"/\(name)") else {
-            return
-        }
-        
-        //        "https://pv80m0iz3f.execute-api.us-east-1.amazonaws.com/dev/v1/d0f30768-3bd2-42ac-8179-da36d0032bdc/1"
-        let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "").replacingOccurrences(of: "Bearer ", with: "")
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "PUT"
-        urlRequest.setValue("image/jpeg", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue(headerAuth, forHTTPHeaderField: "Authorization")
-        urlRequest.allowsCellularAccess = true
-        urlRequest.allowsConstrainedNetworkAccess = true
-        
-        URLSession.shared.uploadTask(with: urlRequest, from: imageData, completionHandler: { responseData, response, error in
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                guard let responseCode = (response as? HTTPURLResponse)?.statusCode, responseCode == 200  else {
-                    if let error = error {
-                        print(error)
-                    }
-                    debugPrint("failure image:- \(name)")
-                    failureCompletion?()
-                    return
-                }
-                debugPrint("status image Code:- \(name) \(responseCode)")
-                // do your work
-                completion?((response as? HTTPURLResponse)?.url?.lastPathComponent ?? "")
-            }
-        }).resume()
-    }*/
     
     
     func deleteImageApi(index:Int){

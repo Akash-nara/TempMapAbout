@@ -40,7 +40,7 @@ class TripImagesUploadVC: UIViewController {
     }
     var keyForDafultImageSelected = ""
     var tripBucketHash = ""
-    var locationBucketHash = ""
+   weak var objTripSecondVC:AddTripSecondStepVC? = nil
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -54,7 +54,6 @@ class TripImagesUploadVC: UIViewController {
     func setPhotoCount(){
         self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count)" + "/\(totalGlobalTripPhotoCount)"
     }
-    
     
     func loadData(){
         
@@ -87,6 +86,11 @@ class TripImagesUploadVC: UIViewController {
         if arrayJsonFilterImages.count > 0{
             keyForDafultImageSelected = arrayJsonFilterImages.first?.keyToSubmitServer ?? ""
         }
+        
+        objTripSecondVC?.arrayCityLevelImageUpload.forEach({ imgModel in
+            imgModel.statusUpload = .done
+            arrayJsonFilterImages.append(imgModel)
+        })
         
         labelImageUploadedCount.text = "\(arrayJsonFilterImages.count)/\(totalGlobalTripPhotoCount)"
     }
@@ -181,36 +185,7 @@ class TripImagesUploadVC: UIViewController {
                     pickerController.didSelectAssets = { (assets: [DKAsset]) in
                         DispatchQueue.main.async {
                             if !assets.isEmpty {
-                                
-                                let options = PHImageRequestOptions()
-                                options.deliveryMode = .highQualityFormat
-                                options.resizeMode = .none
-                                options.isSynchronous = true
-                                options.isNetworkAccessAllowed = true
-                                print(assets.count)
-                                for asset in assets {
-                                    asset.fetchOriginalImage(options: options, completeBlock:  { (imageSelected, info) in DispatchQueue.main.async{
-                                        
-                                        var objectModel = TripImagesModel.init(image: UIImage(data: imageSelected!.jpeg(.highest)!)!, type: "", url: "")
-                                        let name = "Test-\(self.arrayJsonFilterImages.count).jpeg"
-                                        let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/"+self.locationBucketHash+"/\(name)"
-                                        objectModel.url = str
-                                        objectModel.keyToSubmitServer = self.tripBucketHash+"/"+self.locationBucketHash+"/\(name)"
-                                        objectModel.statusUpload = .notStarted
-                                        self.arrayJsonFilterImages.append(objectModel)
-                                        totalGlobalTripPhotoCount -= 1
-                                        self.setPhotoCount()
-                                    }
-                                    })
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    if self.arrayJsonFilterImages.count > 1 {
-                                        self.collectionviewPhotos.reloadData()
-                                        self.setPhotoCount()
-                                    }
-                                }
-                                
+                                self.addImageToOurArray(assets: assets)
                             }
                         }
                     }
@@ -222,8 +197,43 @@ class TripImagesUploadVC: UIViewController {
         }
     }
     
-    func showPermisionAlert(type: String) {
+    func addImageToOurArray(assets:[DKAsset]){
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .none
+        options.isSynchronous = true
+        options.isNetworkAccessAllowed = true
+        debugPrint(assets.count)
+    
+        for asset in assets {
+            asset.fetchOriginalImage(options: options, completeBlock:  { (imageSelected, info) in DispatchQueue.main.async{
+                let img  = UIImage(data: imageSelected!.jpeg(.highest)!)!
+                img.accessibilityHint = "\(self.arrayJsonFilterImages.count)"
+                let objectModel = TripImagesModel.init(image: img, type: "", url: "")
+                let name = "Test-\(self.arrayJsonFilterImages.count).jpeg"
+                let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/\(name)"
+                objectModel.url = str
+                objectModel.keyToSubmitServer = self.tripBucketHash+"/\(name)"
+                objectModel.isCityUploadeImage = true
+                objectModel.statusUpload = .notStarted
+                objectModel.nameOfImage = name
+                self.arrayJsonFilterImages.append(objectModel)
+                self.objTripSecondVC?.arrayCityLevelImageUpload.append(objectModel)
+                totalGlobalTripPhotoCount -= 1
+                self.setPhotoCount()
+            }
+            })
+        }
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if self.arrayJsonFilterImages.count > 1 {
+                self.collectionviewPhotos.reloadData()
+                self.setPhotoCount()
+            }
+        }
+    }
+    
+    func showPermisionAlert(type: String) {
         let alert = UIAlertController(title: "", message: "Please allow your " + type, preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
             
@@ -265,7 +275,8 @@ class TripImagesUploadVC: UIViewController {
             pickerController.didSelectAssets = { (assets: [DKAsset]) in
                 DispatchQueue.main.async {
                     if !assets.isEmpty {
-                        
+                        self.addImageToOurArray(assets: assets)
+                        /*
                         let options = PHImageRequestOptions()
                         options.deliveryMode = .highQualityFormat
                         options.resizeMode = .none
@@ -281,9 +292,9 @@ class TripImagesUploadVC: UIViewController {
                                 let name = "Test-\(self.arrayJsonFilterImages.count).jpeg"
                                 let objTripImagesModel = TripImagesModel.init(image: img, type: "", url: "")
                                 objTripImagesModel.statusUpload = .notStarted
-                                let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/"+self.locationBucketHash+"/\(name)"
+                                let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/\(name)"
                                 objTripImagesModel.url = str
-                                objTripImagesModel.keyToSubmitServer = self.tripBucketHash+"/"+self.locationBucketHash+"/\(name)"
+                                objTripImagesModel.keyToSubmitServer = self.tripBucketHash+"/\(name)"
                                 objTripImagesModel.nameOfImage = name
                                 self.arrayJsonFilterImages.append(objTripImagesModel)
                                 totalGlobalTripPhotoCount -= 1
@@ -295,7 +306,7 @@ class TripImagesUploadVC: UIViewController {
                         if self.arrayJsonFilterImages.count > 0 {
                             self.collectionviewPhotos.reloadData()
                             self.setPhotoCount()
-                        }
+                        }*/
                     }
                 }
             }
@@ -378,6 +389,10 @@ class TripImagesUploadVC: UIViewController {
     
     @IBAction func buttonAddToFeedTap(sender:UIButton){
         isPublicTrip = true
+        if totalGlobalTripPhotoCount == 21{
+            Utility.errorMessage(message: "Please select photo for trip")
+            return
+        }
         callUpdateTripApi()
     }
 }
@@ -399,42 +414,62 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
         cell.imgTrip.tag = indexPath.row
         cell.buttonRadioSelection.tag = indexPath.row
         cell.buttonRadioSelection.addTarget(self, action: #selector(buttonRadioClicked), for: .touchUpInside)
+        
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_nonselected_purple"), for: .normal)
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_selected_purple"), for: .selected)
         cell.buttonRadioSelection.isSelected = selectedImageRow == indexPath.row
         cell.buttonRadioSelection.tintColor = selectedImageRow == indexPath.row ? UIColor.RadioButtonPurpleColor : UIColor.App_BG_SecondaryDark2_Color
+        cell.buttonRetry.isHidden = true
+        cell.buttonRetry.addTarget(self, action: #selector(reloadUploadApi), for: .touchUpInside)
+        cell.buttonRetry.tag = indexPath.row
+
         cell.layoutIfNeeded()
-        
         
         switch self.arrayJsonFilterImages[indexPath.row].statusUpload {
         case .notStarted:
             cell.buttonRadioSelection.isHidden = true
             self.arrayJsonFilterImages[indexPath.row].statusUpload = .progress
-            cell.uploadImageApi1(bucketTripHash: self.tripBucketHash, locationBucketHash: self.locationBucketHash, imageToUpload: self.arrayJsonFilterImages[indexPath.row].image ?? UIImage(), name:self.arrayJsonFilterImages[indexPath.row].nameOfImage){
+            cell.uploadImageApi1(bucketTripHash: self.tripBucketHash, imageToUpload: self.arrayJsonFilterImages[indexPath.row].image ?? UIImage(), name:self.arrayJsonFilterImages[indexPath.row].nameOfImage){
                 
                 DispatchQueue.getMain {
                     cell.stopAnimating()
                     if let ids = self.arrayJsonFilterImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
+                        cell.buttonRetry.isHidden = true
                         cell.buttonRadioSelection.isHidden = false
                         self.arrayJsonFilterImages[indexPath.row].statusUpload = .done
                         cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image )
                     }
                 }
             } failureCompletion: {
-                cell.stopAnimating()
-                if let ids = self.arrayJsonFilterImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
-                    self.arrayJsonFilterImages[indexPath.row].statusUpload = .fail
-                    collectionView.reloadItems(at: [indexPath])
+//                cell.stopAnimating()
+                DispatchQueue.getMain {
+                    if let ids = self.arrayJsonFilterImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
+                        self.arrayJsonFilterImages[indexPath.row].statusUpload = .fail
+                        collectionView.reloadItems(at: [indexPath])
+                    }
                 }
             }
         case .done:
+            cell.buttonRetry.isHidden = true
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
+        case .fail:
+            cell.startAnimating()
+            cell.buttonRetry.isHidden = false
+            cell.buttonRadioSelection.isHidden = true
         default:
+            cell.buttonRetry.isHidden = true
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         }
         return cell
+    }
+    
+    @objc func reloadUploadApi(_ sender:UIButton){
+        if self.arrayJsonFilterImages[sender.tag].statusUpload == .fail{
+            self.arrayJsonFilterImages[sender.tag].statusUpload = .notStarted
+            collectionviewPhotos.reloadItems(at: [IndexPath.init(row: sender.tag, section: 0)])
+        }
     }
     
     @objc func buttonRadioClicked(sender:UIButton){

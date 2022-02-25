@@ -88,6 +88,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
     
     var objTirpDatModel:TripDataModel? = nil
     var editFlow = false
+    var arrayCityLevelImageUpload = [TripImagesModel]()
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -342,9 +343,11 @@ extension AddTripSecondStepVC{
         
         let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        
+        let removedArrrayLocationIamgeCount = self.arrayOfTripLocationListData[index]?.arrayOfImages.count ?? 0
         API_SERVICES.callAPI(param, path: .deleteTripLocation, method: .post) { [weak self] dict in
             debugPrint(dict)
+            
+            totalGlobalTripPhotoCount += removedArrrayLocationIamgeCount  // here global count update location delete
             if self?.arrayOfTripLocationListData.count ?? 0 == 1{
                 self?.arrayOfTripLocationListData[index] = AddTripFavouriteLocationDetail()
             }else{
@@ -815,6 +818,7 @@ extension AddTripSecondStepVC{
         guard let tripImagesUploadVC = UIStoryboard.trip.tripImagesUploadVC else {
             return
         }
+        tripImagesUploadVC.objTripSecondVC = self
         tripImagesUploadVC.arrayOfImageUpload = self.arrayOfTripLocationListData
         tripImagesUploadVC.paramDict = self.preparedParams()
         tripImagesUploadVC.tripBucketHash = self.tripBucketHash
