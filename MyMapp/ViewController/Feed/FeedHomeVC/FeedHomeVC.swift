@@ -22,7 +22,7 @@ class FeedHomeVC: UIViewController {
         configureTableView()
         getSocketTripData()
         
-        API_LOADER.SHOW_CUSTOM_LOADER()
+//        API_LOADER.SHOW_CUSTOM_LOADER()
 //        self.getTripListApi()
 //        SHOW_CUSTOM_LOADER()
         DispatchQueue.getMain(delay: 0.2) {
@@ -59,7 +59,7 @@ class FeedHomeVC: UIViewController {
             // Fallback on earlier versions
         }
         
-        self.viewModel.isTripListFetched = true
+//        self.viewModel.isTripListFetched = true
         tableViewFeedList.sayNoSection = .noFeedFound("Feed not found.")
 //        tableViewFeedList.figureOutAndShowNoResults()
         tableViewFeedList.reloadData()
@@ -138,7 +138,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !viewModel.isTripListFetched ? 210 : UITableView.automaticDimension
+        return !viewModel.isTripListFetched ? 150 : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -169,9 +169,9 @@ extension FeedHomeVC{
         
         if !isNextPageRequest && !isPullToRefresh{
             // API_LOADER.show(animated: true)
-//            self.viewModel.isTripListFetched = false // show skeleton
-//            self.tableViewFeedList.reloadData() // show skeleton
-//            self.tableViewFeedList.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
+            self.viewModel.isTripListFetched = false // show skeleton
+            self.tableViewFeedList.reloadData() // show skeleton
+            self.tableViewFeedList.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
         }
         
         var param = viewModel.getPageDict(isPullToRefresh)
@@ -230,10 +230,10 @@ extension FeedHomeVC{
             
             self?.getTripListApi()
         }  internetFailure: {
-            API_LOADER.HIDE_CUSTOM_LOADER()
+//            API_LOADER.HIDE_CUSTOM_LOADER()
             debugPrint("internetFailure")
         } failureInform: {
-            API_LOADER.HIDE_CUSTOM_LOADER()
+//            API_LOADER.HIDE_CUSTOM_LOADER()
 //            self.HIDE_CUSTOM_LOADER()
         }
     }
