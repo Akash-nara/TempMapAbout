@@ -370,7 +370,7 @@ extension AddTripSecondStepVC{
                     var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()
                     objectLocation.latitude = place.coordinate.latitude
                     objectLocation.longitude = place.coordinate.longitude
-                    objectLocation.name = place.formattedAddress!
+                    objectLocation.name = place.name!
                     objectLocation.lastRecord = false
 //                    let objectLocation = Keylocation.init(name: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
                     let obj = AddTripFavouriteLocationDetail()
@@ -388,7 +388,7 @@ extension AddTripSecondStepVC{
             var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()
             objectLocation.latitude = place.coordinate.latitude
             objectLocation.longitude = place.coordinate.longitude
-            objectLocation.name = place.formattedAddress!
+            objectLocation.name = place.name!
             objectLocation.lastRecord = false
             self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav = objectLocation
             

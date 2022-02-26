@@ -41,6 +41,7 @@ class TripImagesUploadVC: UIViewController {
     var keyForDafultImageSelected = ""
     var tripBucketHash = ""
    weak var objTripSecondVC:AddTripSecondStepVC? = nil
+   private var locationLevelUploadCount = 0
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -52,7 +53,8 @@ class TripImagesUploadVC: UIViewController {
     }
     
     func setPhotoCount(){
-        self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count)" + "/\(totalGlobalTripPhotoCount)"
+//        self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count+locationLevelUploadCount)" + "/\(totalGlobalTripPhotoCount)"
+        self.labelImageUploadedCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadData(){
@@ -75,10 +77,12 @@ class TripImagesUploadVC: UIViewController {
         hideAndShowSubmitPopUp(isHidden: true)
         
         arrayJsonFilterImages.removeAll()
+        
         arrayOfImageUpload.forEach { objDetail in
             objDetail?.arrayOfImages.forEach({ img in
                 img.statusUpload = .done
-                arrayJsonFilterImages.append(img)
+                locationLevelUploadCount += 1
+//                arrayJsonFilterImages.append(img)
             })
         }
         
@@ -225,8 +229,8 @@ class TripImagesUploadVC: UIViewController {
             })
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if self.arrayJsonFilterImages.count > 1 {
+        DispatchQueue.getMain {
+            if self.arrayJsonFilterImages.count > 0 {
                 self.collectionviewPhotos.reloadData()
                 self.setPhotoCount()
             }
@@ -414,7 +418,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
         cell.imgTrip.tag = indexPath.row
         cell.buttonRadioSelection.tag = indexPath.row
         cell.buttonRadioSelection.addTarget(self, action: #selector(buttonRadioClicked), for: .touchUpInside)
-        
+
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_nonselected_purple"), for: .normal)
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_selected_purple"), for: .selected)
         cell.buttonRadioSelection.isSelected = selectedImageRow == indexPath.row
@@ -422,9 +426,15 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
         cell.buttonRetry.isHidden = true
         cell.buttonRetry.addTarget(self, action: #selector(reloadUploadApi), for: .touchUpInside)
         cell.buttonRetry.tag = indexPath.row
-
+        
         cell.layoutIfNeeded()
         
+        
+        func setLongGeture(){
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+            longPress.accessibilityHint = "\(indexPath.row)"
+            cell.addGestureRecognizer(longPress)
+        }
         switch self.arrayJsonFilterImages[indexPath.row].statusUpload {
         case .notStarted:
             cell.buttonRadioSelection.isHidden = true
@@ -434,6 +444,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
                 DispatchQueue.getMain {
                     cell.stopAnimating()
                     if let ids = self.arrayJsonFilterImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
+                        setLongGeture()
                         cell.buttonRetry.isHidden = true
                         cell.buttonRadioSelection.isHidden = false
                         self.arrayJsonFilterImages[indexPath.row].statusUpload = .done
@@ -450,6 +461,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
                 }
             }
         case .done:
+            setLongGeture()
             cell.buttonRetry.isHidden = true
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
@@ -458,11 +470,29 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             cell.buttonRetry.isHidden = false
             cell.buttonRadioSelection.isHidden = true
         default:
+            setLongGeture()
             cell.buttonRetry.isHidden = true
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         }
         return cell
+    }
+    
+    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
+        let refreshAlert = UIAlertController(title: "Alert", message: "Are you sure want to delete this image?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            if let index = sender.accessibilityHint, let row = Int(index){
+                self.deleteImageApi(index: row)
+            }
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+
     }
     
     @objc func reloadUploadApi(_ sender:UIButton){
@@ -471,6 +501,11 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             collectionviewPhotos.reloadItems(at: [IndexPath.init(row: sender.tag, section: 0)])
         }
     }
+    
+    @objc func removeImage(sender:UIButton){
+        deleteImageApi(index: sender.tag)
+    }
+
     
     @objc func buttonRadioClicked(sender:UIButton){
         selectedImageRow = sender.tag
@@ -527,6 +562,39 @@ extension  TripImagesUploadVC{
             Utility.successMessage(message: msg)
             NotificationCenter.default.post(name: Notification.Name("reloadUserTripList"), object: nil)
             self?.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func deleteImageApi(index:Int){
+        /*{
+         "id":3,
+         "s3Key":"d0f30768-3bd2-42ac-8179-da36d0032bdc/1/sachin.jpeg",
+         "s3Url":"https://mapabouts-trip-images.s3.amazonaws.com/01419ed7-17c2-42d4-91e6-cc04b95255d5/1/sachin.jpeg"
+         }*/
+        //https://mapabouts-trip-images.s3.amazonaws.com//c77b99a8-8333-4195-861f-1dcffc4447f8//OHCA9R//Test-1.jpe
+        //https://mapabouts-trip-images.s3.amazonaws.com
+        let name = self.arrayJsonFilterImages[index].nameOfImage
+        let s3Key = tripBucketHash+"/"+name
+        let s3Url = "https://mapabouts-trip-images.s3.amazonaws.com/"+s3Key
+        var paramDict:[String:Any] = ["s3Key":s3Key,"s3Url":s3Url]
+        
+        if objTripSecondVC?.tripId != 0{
+            paramDict["id"] = objTripSecondVC?.tripId ?? 0
+        }
+        
+        let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .deleteUploadedPhoto, method: .post) { [weak self] dict in
+            debugPrint(dict)
+            self?.arrayJsonFilterImages.remove(at: index)
+            self?.objTripSecondVC?.arrayCityLevelImageUpload.remove(at: index)
+            self?.collectionviewPhotos.reloadData()
+            totalGlobalTripPhotoCount += 1
+            self?.setPhotoCount()
+        } failure: { str in
+            debugPrint(str)
+            self.collectionviewPhotos.reloadData()
         }
     }
 }

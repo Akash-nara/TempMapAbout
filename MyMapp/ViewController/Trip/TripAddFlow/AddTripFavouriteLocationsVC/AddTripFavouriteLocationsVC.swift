@@ -130,7 +130,9 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     }
     
     func setPhotoCount(){
-        self.lblCount.text = "\(self.tripImages.count)" + "/\(totalGlobalTripPhotoCount)"
+//        self.lblCount.text = "\(self.tripImages.count)" + "/\(totalGlobalTripPhotoCount)"
+        self.lblCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
+
     }
     
     func loadEditData(){
@@ -256,12 +258,12 @@ extension  AddTripFavouriteLocationsVC{
             objAddTripFavouriteLocationDetail.secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))" //arrayParentTags[self.activeIndexOfParenttag].subTagsList[activeIndexOfChildTag].name!
         }
         
-        let filterArrray = tripImages.filter({$0.statusUpload == .done})
-        if filterArrray.count > 0{
-            objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
-        }
-        
-        totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
+        let filterArrray = tripImages//tripImages.filter({$0.statusUpload == .done})
+//        if filterArrray.count > 0{
+//            objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
+//        }
+        objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
+//        totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         
         if filterArrray.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty, filterArrray.count == 0{
 //            selectedAddTripFavouriteLocationDetail?.notes = txtviewNotes.text
@@ -396,10 +398,11 @@ extension AddTripFavouriteLocationsVC{
                             })
                         }
                         
-                        
-                        if self.tripImages.count > 0 {
-                            self.collectionViewPhotos.reloadData()
-                            self.setPhotoCount()
+                        DispatchQueue.getMain {
+                            if self.tripImages.count > 0 {
+                                self.collectionViewPhotos.reloadData()
+                                self.setPhotoCount()
+                            }
                         }
                     }
                 }
@@ -451,13 +454,12 @@ extension AddTripFavouriteLocationsVC{
                                     })
                                 }
 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    if self.tripImages.count > 1 {
+                                DispatchQueue.getMain {
+                                    if self.tripImages.count > 0 {
                                         self.collectionViewPhotos.reloadData()
                                         self.setPhotoCount()
                                     }
                                 }
-                                
                             }
                         }
                     }
@@ -643,6 +645,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
 
             switch self.tripImages[indexPath.row].statusUpload {
             case .notStarted:
+                
                 self.tripImages[indexPath.row].statusUpload = .progress
                 cell.imgviewCity.backgroundColor = .black.withAlphaComponent(0.5)
                 cell.btnTitleRemove.isHidden = true
@@ -656,6 +659,10 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                             cell.imgviewCity.backgroundColor = .white
                             cell.imgviewCity.image = (self.tripImages[indexPath.row].image )
                             cell.btnTitleRemove.isHidden = false
+                            DispatchQueue.getMain {
+                                collectionView.reloadItems(at: [indexPath])
+                            }
+
                         }
                     }
                 } failureCompletion: {

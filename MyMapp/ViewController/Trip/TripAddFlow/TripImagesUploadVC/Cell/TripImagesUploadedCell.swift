@@ -13,11 +13,11 @@ class TripImagesUploadedCell: UICollectionViewCell {
     
     @IBOutlet weak var buttonRadioSelection: UIButton!
     @IBOutlet weak var buttonRetry: UIButton!
-    
     @IBOutlet weak var imgTrip: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         imgTrip.isSkeletonable = true
     }
     
@@ -68,7 +68,6 @@ class TripImagesUploadedCell: UICollectionViewCell {
          }*/
     }
     
-    
     func uploadImageApi1(bucketTripHash:String, imageToUpload:UIImage, name:String, completion: (() -> Void)? = nil, failureCompletion: (() -> Void)? = nil){
         
         guard SSReachabilityManager.shared.isNetworkAvailable else {
@@ -85,11 +84,9 @@ class TripImagesUploadedCell: UICollectionViewCell {
                                   "imageType":"image/jpeg",
                                   "key":"\(bucketTripHash+"/"+name)",
                                   "imageName":name,
-                                  "image":self.convertToBase64(image: imageToUpload)
+                                  "image":imageToUpload.convertToBase64()//convertToBase64(image: imageToUpload)
         ]
         
-        
-        /*
         let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "")
         var urlRequest = URLRequest(url: URL.init(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!)
         urlRequest.httpMethod = "POST"
@@ -97,96 +94,30 @@ class TripImagesUploadedCell: UICollectionViewCell {
         urlRequest.allowsCellularAccess = true
         urlRequest.allowsConstrainedNetworkAccess = true
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
+        urlRequest.timeoutInterval = 120 // 120 secs
         urlRequest.networkServiceType = .responsiveData
-        urlRequest.timeoutInterval = 120
         
-        let realURL: URL = URL(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!
+        let req: Alamofire.URLRequestConvertible = urlRequest
+        guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: []))else{
+            return
+        }
         
-        let url: Alamofire.URLConvertible = realURL
-        AF.upload(multipartFormData: { multipartFormData in
-            for (key, value) in param {
-                if let data = (value as AnyObject).data(using: String.Encoding.utf8.rawValue) {
-                    multipartFormData.append(data, withName: key)
-                }
+        AF.upload(postData, with: req).response { response in
+            
+            // fail image reject server it return
+            if let code = (response.response)?.statusCode, code != 200{
+                debugPrint("failure status code: \(code)")
+                failureCompletion?()
             }
-        }, to: url,method:.post,headers: urlRequest.headers).response { response in
+            
             switch response.result{
             case .success:
                 debugPrint("status image Code:- \(name)")
-                // do your work
                 completion?()
             case .failure(let erro):
                 debugPrint("failure image:- \(name), \(erro.localizedDescription)")
                 failureCompletion?()
             }
-        }*/
-        
-        
-        let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "")
-        var urlRequest = URLRequest(url: URL.init(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue(headerAuth, forHTTPHeaderField: "Authorization")
-        urlRequest.allowsCellularAccess = true
-        urlRequest.allowsConstrainedNetworkAccess = true
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
-//        urlRequest.networkServiceType = .responsiveData
-        urlRequest.timeoutInterval = 120 // 120 secs
-        urlRequest.networkServiceType = .background
-        if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
-            urlRequest.httpBody = postData
         }
-        
-        let req: Alamofire.URLRequestConvertible = urlRequest
-       guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: []))else{
-           return
-       }
-       
-       AF.upload(postData, with: req).response { response in
-           switch response.result{
-           case .success:
-               debugPrint("status image Code:- \(name)")
-               // do your work
-               completion?()
-           case .failure(let erro):
-               debugPrint("failure image:- \(name), \(erro.localizedDescription)")
-               failureCompletion?()
-           }
-       }
-        
-       /*
-        //        let sessionConfig = URLSessionConfiguration.background(withIdentifier: "swiftlee.background.url.session")
-        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-        let sessionConfig = URLSessionConfiguration.default
-        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-        sessionConfig.timeoutIntervalForRequest = 240
-        sessionConfig.timeoutIntervalForResource = 240
-//                sessionConfig.waitsForConnectivity = true
-        sessionConfig.allowsConstrainedNetworkAccess = true
-        sessionConfig.allowsCellularAccess = true
-        let session = URLSession(configuration: sessionConfig)
-        session.uploadTask(with: urlRequest, from: nil, completionHandler: { responseData, response, error in
-            //            DispatchQueue.main.async {
-            //                self.stopAnimating()
-            guard let responseCode = (response as? HTTPURLResponse)?.statusCode, responseCode == 200  else {
-                if let error = error {
-                    print(error)
-                }
-                print("failure image:- \(name)")
-                failureCompletion?()
-                return
-            }
-            print("status image Code:- \(name) \(responseCode)")
-            // do your work
-            completion?()
-            //            }
-        }).resume()
-        //        }*/
     }
-    
-    func convertToBase64(image: UIImage) -> String {
-        return image.pngData()!
-            .base64EncodedString()
-    }
-    
-    
 }

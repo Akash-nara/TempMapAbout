@@ -38,6 +38,9 @@ class AddTripInfoVC: UIViewController,UITextFieldDelegate{
     
     var tripDateStartTimeStamps:Int64 = 0
     var tripDateEndTimeStamps:Int64 = 0
+//    var tripStartDateString  = ""
+//    var tripEndDateString  = ""
+  //    var tripDateEndTimeStamps:Int64 = 0
     var selectedCityID = 0
     var countryCode = ""
     
@@ -109,13 +112,13 @@ class AddTripInfoVC: UIViewController,UITextFieldDelegate{
             txtCity.text = objTrip.city.cityName
             selectedCityID = objTrip.city.id
             
-            self.tripDateStartTimeStamps = objTrip.tripDate
+//            self.tripDateStartTimeStamps = objTrip.tripDate
             let startDateStr = getFormatedDate(timeStamp: objTrip.tripDate)
             self.txtDate.text = startDateStr
             self.selectedStartDate = startDateStr ?? ""
 
             
-            self.tripDateEndTimeStamps = objTrip.tripEndDate
+//            self.tripDateEndTimeStamps = objTrip.tripEndDate
             let tripEndDateStr = getFormatedDate(timeStamp: objTrip.tripEndDate)
             self.txtDate.text = tripEndDateStr
             self.selectedEndDate = tripEndDateStr ?? ""
@@ -185,10 +188,11 @@ extension AddTripInfoVC{
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yyyy"
+                dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
                 let startDateStr = dateFormatter.string(from: date!)
-                self.tripDateStartTimeStamps = date?.currentTimeStamp ?? 0
+                self.tripDateStartTimeStamps = date?.currentTimeStamp ?? 0//date?.currentTimeStamp ?? 0
                 self.txtDate.text = startDateStr
-                self.selectedStartDate = startDateStr
+                self.selectedStartDate = self.localToUTC(date: date!, toFormat: "dd-MM-yyyy")
                 self.selectedEndDate = ""
                 self.tripDateEndTimeStamps = 0
                 
@@ -197,10 +201,12 @@ extension AddTripInfoVC{
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
+                        dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
+//                        dateFormatter.timeZone = TimeZone.current
                         let endDateStr = dateFormatter.string(from: date!)
                         self.txtDate.text = startDateStr + " - " + endDateStr
-                        self.selectedEndDate = endDateStr
-                        self.tripDateEndTimeStamps = date?.currentTimeStamp ?? 0
+                        self.selectedEndDate = self.localToUTC(date: date!, toFormat: "dd-MM-yyyy")
+                        self.tripDateEndTimeStamps = self.convertToUTC(dateToConvert: endDateStr) ?? 0//date?.currentTimeStamp ?? 0
                         
                         if self.txtDate.text!.count == 0{
                             self.txtDate.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
@@ -225,6 +231,21 @@ extension AddTripInfoVC{
                 self.tripDateEndTimeStamps = 0
             }
         }
+    }
+    
+    func convertToUTC(dateToConvert:String) -> Int64? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        let convertedDate = formatter.date(from: dateToConvert)
+        formatter.timeZone = TimeZone(identifier: "UTC")
+       return convertedDate?.currentTimeStamp
+    }
+
+    
+    func localToUTC(date:Date, toFormat: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = toFormat
+        return dateFormatter.string(from: date)
     }
 }
 
@@ -404,10 +425,11 @@ extension AddTripInfoVC{
     
     func addTripApi(){
 //        SHOW_CUSTOM_LOADER()
-        var dictParam:[String:Any] =  ["city":selectedCityID, "tripDate":tripDateStartTimeStamps]
-        if tripDateStartTimeStamps != tripDateEndTimeStamps{
-            dictParam["tripEndDate"] = tripDateEndTimeStamps
-        }
+        var dictParam:[String:Any] =  ["city":"\(selectedCityID)", "tripDate":selectedStartDate] //tripDateStartTimeStamps
+        dictParam["tripEndDate"] = selectedEndDate
+     //   if tripDateStartTimeStamps != tripDateEndTimeStamps{
+//        if selectedStartDate != selectedEndDate{
+//        }
         
         let strJson = JSON(dictParam).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]

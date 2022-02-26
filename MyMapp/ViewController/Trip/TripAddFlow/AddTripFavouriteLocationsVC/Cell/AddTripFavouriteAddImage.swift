@@ -48,11 +48,9 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
                                   "imageType":"image/jpeg",
                                   "key":"\(bucketTripHash+"/"+locationBucketHash+"/"+name)",
                                   "imageName":name,
-                                  "image":convertToBase64(image: imageToUpload)
+                                  "image":imageToUpload.convertToBase64()//convertToBase64(image: imageToUpload)
         ]
         
-        
-    
         let headerAuth = (API_SERVICES.headerForNetworking["Authorization"] ?? "")
         var urlRequest = URLRequest(url: URL.init(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!)
         urlRequest.httpMethod = "POST"
@@ -60,97 +58,110 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
         urlRequest.allowsCellularAccess = true
         urlRequest.allowsConstrainedNetworkAccess = true
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")  // not necessary, but best practice
-//        urlRequest.networkServiceType = .responsiveData
         urlRequest.timeoutInterval = 120 // 120 secs
-        urlRequest.networkServiceType = .background
-
-        /*
-        if let postData = (try? JSONSerialization.data(withJSONObject: param, options: [])) {
-            urlRequest.httpBody = postData
-        }
+        urlRequest.networkServiceType = .responsiveData
         
-        //        let sessionConfig = URLSessionConfiguration.background(withIdentifier: "swiftlee.background.url.session")
-        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-        let sessionConfig = URLSessionConfiguration.default
-        //        sessionConfig.sharedContainerIdentifier = "group.swiftlee.apps"
-        sessionConfig.timeoutIntervalForRequest = 240
-        sessionConfig.timeoutIntervalForResource = 240
-        //        sessionConfig.waitsForConnectivity = true
-//                sessionConfig.allowsConstrainedNetworkAccess = true
-//                sessionConfig.allowsCellularAccess = true
-        let session = URLSession(configuration: sessionConfig)
-        session.uploadTask(with: urlRequest, from: nil, completionHandler: { responseData, response, error in
-            //                self.stopAnimating()
-            guard let responseCode = (response as? HTTPURLResponse)?.statusCode, responseCode == 200  else {
-                if let error = error {
-                    print(error)
-                }
-                print("failure image:- \(name)")
-                failureCompletion?()
-                return
-            }
-            print("status image Code:- \(name) \(responseCode)")
-            // do your work
-            completion?()
-            //            }
-        }).resume()
-        
-        */
-        
-//         let realURL: URL = URL(string: "https://g133dvu4m1.execute-api.us-east-1.amazonaws.com/dev/upload")!
-         let req: Alamofire.URLRequestConvertible = urlRequest
+        let req: Alamofire.URLRequestConvertible = urlRequest
         guard let postData = (try? JSONSerialization.data(withJSONObject: param, options: []))else{
             return
         }
         
         AF.upload(postData, with: req).response { response in
+            if let code = (response.response)?.statusCode, code != 200{
+                debugPrint("failure status code: \(code)")
+                failureCompletion?()
+            }
+            
             switch response.result{
             case .success:
                 debugPrint("status image Code:- \(name)")
                 // do your work
+                
                 completion?()
             case .failure(let erro):
                 debugPrint("failure image:- \(name), \(erro.localizedDescription)")
                 failureCompletion?()
             }
         }
-        
-//        AF.request(url, method:.post, parameters: param, encoding: JSONEncoding.prettyPrinted, headers: urlRequest.headers).response { response in
-//            switch response.result{
-//            case .success:
-//                debugPrint("status image Code:- \(name)")
-//                // do your work
-//                completion?()
-//            case .failure(let erro):
-//                debugPrint("failure image:- \(name), \(erro.localizedDescription)")
-//                failureCompletion?()
-//            }
-//        }
-        
-        /*
-         AF.upload(multipartFormData: { multipartFormData in
-         //             let imageData = imageToUpload.pngData()!.base64EncodedData()
-         //            multipartFormData.append(imageData, withName: "image", fileName: name, mimeType: "image/png")
-         for (key, value) in param {
-         if let data = (value as AnyObject).data(using: String.Encoding.utf8.rawValue) {
-         multipartFormData.append(data, withName: key)
-         }
-         }
-         }, to: url,method:.post,headers: urlRequest.headers).response { response in
-         switch response.result{
-         case .success:
-         debugPrint("status image Code:- \(name)")
-         // do your work
-         completion?()
-         case .failure(let erro):
-         debugPrint("failure image:- \(name), \(erro.localizedDescription)")
-         failureCompletion?()
-         }
-         }*/
+    }
+}
+
+
+extension UIImage {
+    
+    func convertToBase64() -> String {
+        return self.compressImage()?.pngData()!.base64EncodedString() ?? ""
+        //        return self.compressTo(5)?.pngData()!.base64EncodedString() ?? ""
+        //        return image.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? ""
+        //        return image.pngData()!
+        //            .base64EncodedString()
     }
     
-    func convertToBase64(image: UIImage) -> String {
-        return image.pngData()!
-            .base64EncodedString()
+    // MARK: - UIImage+Resize
+    func compressTo(_ expectedSizeInMb:Int) -> UIImage? {
+        let sizeInBytes = expectedSizeInMb * 1024 * 1024
+        var needCompress:Bool = true
+        var imgData:Data?
+        var compressingValue:CGFloat = 1.0
+        while (needCompress && compressingValue > 0.0) {
+            if let data:Data = self.jpegData(compressionQuality: compressingValue) {
+                if data.count < sizeInBytes {
+                    needCompress = false
+                    imgData = data
+                } else {
+                    compressingValue -= 0.1
+                }
+            }
+        }
+        
+        if let data = imgData {
+            if (data.count < sizeInBytes) {
+                return UIImage(data: data)
+            }
+        }
+        return nil
+    }
+}
+
+extension UIImage {
+    
+    func compressImage() -> UIImage? {
+        // Reducing file size to a 10th
+        var actualHeight: CGFloat = self.size.height
+        var actualWidth: CGFloat = self.size.width
+        let maxHeight: CGFloat = 1136.0
+        let maxWidth: CGFloat = 640.0
+        var imgRatio: CGFloat = actualWidth/actualHeight
+        let maxRatio: CGFloat = maxWidth/maxHeight
+        var compressionQuality: CGFloat = 0.5
+        
+        if actualHeight > maxHeight || actualWidth > maxWidth {
+            if imgRatio < maxRatio {
+                //adjust width according to maxHeight
+                imgRatio = maxHeight / actualHeight
+                actualWidth = imgRatio * actualWidth
+                actualHeight = maxHeight
+            } else if imgRatio > maxRatio {
+                //adjust height according to maxWidth
+                imgRatio = maxWidth / actualWidth
+                actualHeight = imgRatio * actualHeight
+                actualWidth = maxWidth
+            } else {
+                actualHeight = maxHeight
+                actualWidth = maxWidth
+                compressionQuality = 1
+            }
+        }
+        let rect = CGRect(x: 0.0, y: 0.0, width: actualWidth, height: actualHeight)
+        UIGraphicsBeginImageContext(rect.size)
+        self.draw(in: rect)
+        guard let img = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        guard let imageData = img.jpegData(compressionQuality: compressionQuality) else {
+            return nil
+        }
+        return UIImage(data: imageData)
     }
 }

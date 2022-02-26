@@ -60,6 +60,10 @@ class NetworkingManager {
     // Networking stuff using Alamofire...
     private var defaultSession = Session.default
     
+    
+    func getSession() -> Session {
+        return self.defaultSession
+    }
 
     init() {
         
@@ -701,5 +705,95 @@ extension NetworkingManager{
                 }
             })
     }
+    
+    
+    
+    func callUploadWithSIngleImage(_ params: [String: Any] = [:],
+                           req: URLRequestConvertible,
+                           method: HTTPMethod = .post,
+                           withProgress progressBlock: @escaping (_ progressValue: Double) -> Void,
+                           success: (([String: JSON]?) -> ())? = nil,
+                           failure: ((String?) -> ())? = nil,
+                           internetFailure: (() -> ())? = nil,
+                           failureInform: (() -> ())? = nil) {
+        
+        debugPrint("API Call ----------------------------")
+        debugPrint("Header: \(self.headerForNetworking) -------\n")
+        debugPrint("Params: \(params) -------\n")
+        debugPrint("API Call ----------------------------")
+        
+        guard SSReachabilityManager.shared.isNetworkAvailable else {
+            // SceneDelegate.findOutUIAndShowNoInternetConnectionPopup() // default alert, show from anywhere.
+            failureInform?()
+            if let internetFailureClosure = internetFailure {
+                DispatchQueue.main.async {
+                    internetFailureClosure()
+                }
+            }else{
+                DispatchQueue.main.async {
+                    Utility.errorMessage(message: "internet_failure")
+                }
+            }
+            // Stop loader if working
+            DispatchQueue.main.async {
+                API_LOADER.HIDE_CUSTOM_LOADER()
+            }
+            return
+        }
+        
+        guard let postData = (try? JSONSerialization.data(withJSONObject: params, options: []))else{
+            return
+        }
+
+        self.defaultSession.upload(postData, with: req).response { (dataResponse) in
+            switch dataResponse.result {
+            case .success:
+                success?(nil) // closure call
+            case .failure(let error):
+                failure?(nil) // closure call
+            }
+        }
+        /*
+        self.defaultSession.upload(postData, to: req,
+                                   usingThreshold: UInt64.init(),
+                                   method: method,
+                                   headers: HTTPHeaders.init(self.headerForNetworking))
+            .uploadProgress(closure: { (progress) in
+                progressBlock(progress.fractionCompleted)
+            })
+            .responseJSON { (dataResponse) in
+                switch dataResponse.result {
+                case .success(let value):
+                    let parsingJSON = JSON.init(value).dictionaryValue
+                    
+                    let verifyErrorPolicy = self.verifyErrorPossiblities(dataResponse, parsingJSON, isHandleFailure: (failure == nil))
+                    if verifyErrorPolicy.isClearForSuccess {
+                        debugPrint("Go ahead with success!")
+                        success?(parsingJSON) // closure call
+                    }else{
+                        if verifyErrorPolicy.customErrorMessage.count != 0 {
+                            failure?(verifyErrorPolicy.customErrorMessage) // closure call
+                        }else{
+                            failure?(nil) // closure call
+                        }
+                        failureInform?()
+                    }
+                case .failure(let error):
+                    // manually cancelled
+                    guard !error.localizedDescription.contains("cancelled") else { return }
+                    
+                    switch error {
+                    case .explicitlyCancelled:
+                        break // Ignore: these are manually cancelled requests
+                    default:
+                        debugPrint("Networking error message: \(String(describing: error.errorDescription))")
+                        self.verifyErrorPossiblities(dataResponse, isHandleFailure: (failure == nil)) // if failure part not handled manually
+                        failure?(nil) // closure call
+                    }
+                    failureInform?()
+                }
+            }*/
+    }
+
     
 }

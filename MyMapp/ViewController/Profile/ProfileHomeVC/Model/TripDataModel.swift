@@ -190,9 +190,24 @@ class TripDataModel{
 
     }*/
     
+    func UTCToLocal(date:Date) -> Date? {
+        let localDateFormatter = DateFormatter()
+        // No timeZone configuration is required to obtain the
+        // local time from DateFormatter.
+
+        // Printing a Date
+        let date = date
+        print(localDateFormatter.string(from: date))
+        // Parsing a string representing a date
+        let dateString = "May 30, 2020"
+        guard let localDate = localDateFormatter.date(from: dateString) else { return nil }
+       return localDate
+    }
+
     var dateFromatedOftrip:String{
-        let date = Date(timeIntervalSince1970: TimeInterval(tripDate == tripEndDate ? tripDate : tripEndDate))
-        let diffInDays = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 0
+        let date = Date(timeIntervalSince1970: TimeInterval(tripDate/1000))
+        let endDate = Date(timeIntervalSince1970: TimeInterval(tripEndDate/1000))
+        let diffInDays = Calendar.current.dateComponents([.day], from: date, to: endDate).day ?? 0
         if diffInDays == 0{
             return "Today"
         }else{
@@ -200,7 +215,6 @@ class TripDataModel{
         }
 //        return "\(diffInDays) days"//self.setTimestamp(epochTime: tripDate == tripEndDate ? "\(tripDate)" : "\(tripEndDate)")//self.relativeDate(for: tripDate == tripEndDate ? startDate : endDate) //relativeDate
     }
-    
     
     func relativeDate(for date:Date) -> String {
          let components = Calendar.current.dateComponents([.day, .year, .month, .weekOfYear], from: date, to: Date())
@@ -237,7 +251,7 @@ class TripDataModel{
     var arraYOfPhotoCount = [Int]()
     
     var userCreatedTrip:UserCreatedTrip? = nil
-    
+
     init(){}
     init(param:JSON) {
         
@@ -247,19 +261,18 @@ class TripDataModel{
         self.city = TripCity.init(param: param["city"])
 
         self.tripDate = param["tripDate"].int64Value
-        if let endTrip = param["tripEndDate"].int64, endTrip != 0{
-            self.tripEndDate = param["tripEndDate"].int64Value
-        }else{
-            self.tripEndDate = self.tripDate
-        }
+        self.tripEndDate = param["tripEndDate"].int64Value
+//        if let endTrip = param["tripEndDate"].int64, endTrip != 0{
+//            self.tripEndDate = param["tripEndDate"].int64Value
+//        }else{
+//        }
+        
+//        let startStrDate  = UTCToLocal(date: param["tripDate"].stringValue, fromFormat: "dd-MM-yyyy", toFormat: "dd-MM-yyyy")
+//        let endStrDate  = UTCToLocal(date: param["tripEndDate"].stringValue, fromFormat: "dd-MM-yyyy", toFormat: "dd-MM-yyyy")
+        
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
         
-        locationList.removeAll()
-        let arrayOfLocation = param["locationList"].arrayValue
-        arrayOfLocation.forEach { jsonLocation in
-            locationList.append(AddTripFavouriteLocationDetail.init(param: jsonLocation))
-        }
         
         userCreatedTrip = UserCreatedTrip.init(param: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
@@ -274,6 +287,19 @@ class TripDataModel{
 //                                                                              "countryName":filterObj,
                                                                              ])))
         }
+        
+        
+        locationList.removeAll()
+        let arrayOfLocation = param["locationList"].arrayValue
+        arrayOfLocation.forEach { jsonLocation in
+            let firstObject = photoUploadedArray.filter({$0.hash == jsonLocation["hash"].stringValue}).first
+            let imageFirstObjectOfLocation = firstObject?.arrayOfImageURL.first?.image ?? ""
+            
+            let objModel = AddTripFavouriteLocationDetail.init(param: jsonLocation)
+            objModel.firstLocationImage = imageFirstObjectOfLocation
+            locationList.append(objModel)
+        }
+
                 
         if let adviceArray = param["additionalInfo"].dictionary?["advice"]?.arrayValue{
             adviceArray.forEach { jsonObject in
@@ -368,5 +394,15 @@ class TripDataModel{
         default:
             return ""
         }
+    }
+}
+
+extension Date {
+    func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
+        return calendar.dateComponents(Set(components), from: self)
+    }
+
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
     }
 }

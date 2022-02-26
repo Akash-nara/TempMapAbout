@@ -29,17 +29,22 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eE-6Z-JO5">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A9d-pv-3Wx">
                                 <rect key="frame" x="70" y="0.0" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="3Hb-ju-6gR"/>
-                                    <constraint firstAttribute="width" secondItem="6eE-6Z-JO5" secondAttribute="height" multiplier="1:1" id="5D2-wv-qPu"/>
-                                </constraints>
-                                <color key="tintColor" name="App_BG_SecondaryDark2_Color"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="5" maxY="10"/>
-                                <state key="normal" image="ic_selected_purple"/>
-                            </button>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eE-6Z-JO5">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3Hb-ju-6gR"/>
+                                            <constraint firstAttribute="width" secondItem="6eE-6Z-JO5" secondAttribute="height" multiplier="1:1" id="5D2-wv-qPu"/>
+                                        </constraints>
+                                        <color key="tintColor" name="App_BG_SecondaryDark2_Color"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="10" minY="10" maxX="5" maxY="10"/>
+                                        <state key="normal" image="ic_selected_purple"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtQ-uH-Uhj">
                                 <rect key="frame" x="20" y="20" width="70" height="70"/>
                                 <constraints>
@@ -54,13 +59,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="W3I-fe-oRx" firstAttribute="leading" secondItem="Sno-ds-Vza" secondAttribute="leading" id="0tq-75-GWs"/>
+                            <constraint firstItem="A9d-pv-3Wx" firstAttribute="top" secondItem="Sno-ds-Vza" secondAttribute="top" id="SjF-SB-8T3"/>
                             <constraint firstItem="W3I-fe-oRx" firstAttribute="top" secondItem="Sno-ds-Vza" secondAttribute="top" id="W2E-rD-vw7"/>
-                            <constraint firstItem="6eE-6Z-JO5" firstAttribute="top" secondItem="Sno-ds-Vza" secondAttribute="top" id="Yrj-9D-vRU"/>
                             <constraint firstItem="RtQ-uH-Uhj" firstAttribute="centerY" secondItem="Sno-ds-Vza" secondAttribute="centerY" id="lUm-4Y-e5Q"/>
                             <constraint firstItem="RtQ-uH-Uhj" firstAttribute="centerX" secondItem="Sno-ds-Vza" secondAttribute="centerX" id="oKP-vt-ZAw"/>
                             <constraint firstAttribute="trailing" secondItem="W3I-fe-oRx" secondAttribute="trailing" id="pF3-NV-4zi"/>
+                            <constraint firstAttribute="trailing" secondItem="A9d-pv-3Wx" secondAttribute="trailing" id="r3f-cE-tfJ"/>
                             <constraint firstAttribute="bottom" secondItem="W3I-fe-oRx" secondAttribute="bottom" id="t3L-gT-0mL"/>
-                            <constraint firstAttribute="trailing" secondItem="6eE-6Z-JO5" secondAttribute="trailing" id="uX3-3g-w8B"/>
                         </constraints>
                     </view>
                 </subviews>
