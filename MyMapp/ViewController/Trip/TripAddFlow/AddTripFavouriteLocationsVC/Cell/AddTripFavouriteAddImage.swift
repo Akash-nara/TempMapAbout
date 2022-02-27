@@ -90,11 +90,30 @@ class AddTripFavouriteAddImage: UICollectionViewCell {
 extension UIImage {
     
     func convertToBase64() -> String {
-        return self.compressImage()?.pngData()!.base64EncodedString() ?? ""
-        //        return self.compressTo(5)?.pngData()!.base64EncodedString() ?? ""
-        //        return image.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? ""
-        //        return image.pngData()!
-        //            .base64EncodedString()
+        let imageData = self.pngData()!
+        let size = Float(Double(imageData.count)/1024/1024)
+      //For Kb just remove single 1024 from size
+      // I am checking 5 MB size here you check as you want
+        var comparessedImageData:Data? = nil
+        
+        if size <= 6.00{
+            // Here your image
+            comparessedImageData = imageData
+        }else{
+            comparessedImageData = self.compressImage()?.pngData()! // frist time 0.50 compreddes
+            
+            // here still more than 6
+            if Float(Double(comparessedImageData!.count)/1024/1024) >= 6.00{ // more compraeed
+                comparessedImageData = self.compressImage(compressQuality: 0.25)?.pngData()! // frist time 0.25 compreddes
+            }
+            
+            // here still more than 6
+            if Float(Double(comparessedImageData!.count)/1024/1024) >= 6.00{ // more compraeed
+                comparessedImageData = self.compressImage(compressQuality: 0.20)?.pngData()!// frist time 0.20 compreddes
+            }
+        }
+        
+        return comparessedImageData?.base64EncodedString() ?? ""
     }
     
     // MARK: - UIImage+Resize
@@ -125,7 +144,7 @@ extension UIImage {
 
 extension UIImage {
     
-    func compressImage() -> UIImage? {
+    func compressImage(compressQuality:Float=0.5) -> UIImage? {
         // Reducing file size to a 10th
         var actualHeight: CGFloat = self.size.height
         var actualWidth: CGFloat = self.size.width
@@ -133,7 +152,7 @@ extension UIImage {
         let maxWidth: CGFloat = 640.0
         var imgRatio: CGFloat = actualWidth/actualHeight
         let maxRatio: CGFloat = maxWidth/maxHeight
-        var compressionQuality: CGFloat = 0.5
+        var compressionQuality = compressQuality
         
         if actualHeight > maxHeight || actualWidth > maxWidth {
             if imgRatio < maxRatio {
@@ -159,7 +178,7 @@ extension UIImage {
             return nil
         }
         UIGraphicsEndImageContext()
-        guard let imageData = img.jpegData(compressionQuality: compressionQuality) else {
+        guard let imageData = img.jpegData(compressionQuality: CGFloat(compressionQuality)) else {
             return nil
         }
         return UIImage(data: imageData)

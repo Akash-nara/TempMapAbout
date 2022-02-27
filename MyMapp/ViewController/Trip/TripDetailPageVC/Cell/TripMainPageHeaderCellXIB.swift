@@ -33,7 +33,7 @@ class TripMainPageHeaderCellXIB: UITableViewCell {
         userImage.setImage(url: model.userCreatedTrip?.profilePic ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
         cityName.text = model.city.cityName
         cityAddress.text = model.city.cityName+", "+model.city.countryName
-        tripDate.text = model.dateFromatedOftrip
+        tripDate.text = model.monthYearOfTrip//model.dateFromatedOftrip
         tripDescription.text = "This city is beautiful during summer. The weather is so pleasant with the summer breeze. I would not recommend more than 5 days to see the whole city. "//model.tripDescription
         tripDescription.text = model.tripDescription
         tripDescription.isHidden = model.tripDescription.isEmpty

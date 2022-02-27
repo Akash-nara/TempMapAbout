@@ -65,7 +65,6 @@ class TripDetailVC: UIViewController {
                 // Fallback on earlier versions
             }
             tblviewTrip.sayNoSection = .noSearchResultFound("Trip detail not found.")
-            
         }
     }
     

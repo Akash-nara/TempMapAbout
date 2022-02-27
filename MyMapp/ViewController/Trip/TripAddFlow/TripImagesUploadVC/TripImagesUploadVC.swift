@@ -31,7 +31,7 @@ class TripImagesUploadVC: UIViewController {
     var arrayOfImageUpload = [AddTripFavouriteLocationDetail?]()
     var arrayJsonFilterImages = [TripImagesModel]()
     //    var totalImage = 21
-    var selectedImageRow = -1
+    var selectedImageRow = 0
     var paramDict:[String:Any]? = nil
     var isPublicTrip:Bool = true{
         didSet{

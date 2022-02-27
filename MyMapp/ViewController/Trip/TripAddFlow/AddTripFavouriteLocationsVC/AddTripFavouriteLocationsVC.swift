@@ -194,7 +194,6 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
                 collectionviewSecond.isHidden = false
                 updatePopupHeight(to: mainHeight)
             }
-
         }
     }
 }

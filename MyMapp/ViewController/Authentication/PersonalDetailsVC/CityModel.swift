@@ -5,8 +5,11 @@
 import Foundation 
 import SwiftyJSON
 
-class CityModel{
-
+class CityModel:Equatable{
+    static func == (lhs: CityModel, rhs: CityModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     var countryName:String!
     var countryCode:String = "IND"
     var cityName:String!

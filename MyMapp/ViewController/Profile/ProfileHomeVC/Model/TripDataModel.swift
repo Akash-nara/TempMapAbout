@@ -251,7 +251,16 @@ class TripDataModel{
     var arraYOfPhotoCount = [Int]()
     
     var userCreatedTrip:UserCreatedTrip? = nil
-
+    
+    var monthYearOfTrip:String{
+        let date = Date(timeIntervalSince1970: TimeInterval(tripDate/1000))
+        
+        let localDateFormatter = DateFormatter()
+        localDateFormatter.dateFormat = "MMM, YYYY"
+        localDateFormatter.timeZone = .current
+        return localDateFormatter.string(from: date)
+    }
+    
     init(){}
     init(param:JSON) {
         
@@ -262,6 +271,7 @@ class TripDataModel{
 
         self.tripDate = param["tripDate"].int64Value
         self.tripEndDate = param["tripEndDate"].int64Value
+        
 //        if let endTrip = param["tripEndDate"].int64, endTrip != 0{
 //            self.tripEndDate = param["tripEndDate"].int64Value
 //        }else{
@@ -272,6 +282,7 @@ class TripDataModel{
         
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
+        
         
         
         userCreatedTrip = UserCreatedTrip.init(param: param["user"])
@@ -287,7 +298,6 @@ class TripDataModel{
 //                                                                              "countryName":filterObj,
                                                                              ])))
         }
-        
         
         locationList.removeAll()
         let arrayOfLocation = param["locationList"].arrayValue

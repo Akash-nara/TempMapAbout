@@ -155,17 +155,28 @@ extension AddTripInfoVC{
                 cityOfArray.append(obj.name)
             }
             
+            
+            if let index = self.cityData.firstIndex(where: {$0.name == self.txtCity.text!}){
+                let cityObject  = self.cityData[index]
+                self.selectedCityID = cityObject.id
+                paramCity["id"] = cityObject.id
+                paramCity["cityName"] = cityObject.name
+                paramCity["country"] = cityObject.countryCode
+            }else{
+                Utility.errorMessage(message: "City must be select or enter from the list")
+                return
+            }
+            /*
             if cityOfArray.contains(self.txtCity.text!){
                 for obj in self.cityData{
+                    
                     self.selectedCityID = obj.id
                     paramCity["id"] = obj.id
                     paramCity["cityName"] = obj.name
                     paramCity["country"] = obj.countryCode
                 }
-            }else{
-                Utility.errorMessage(message: "City must be select or enter from the list")
-                return
-            }
+            }*/
+            
         }
         
         if isEditFlow{
@@ -188,7 +199,7 @@ extension AddTripInfoVC{
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yyyy"
-                dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
+//                dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
                 let startDateStr = dateFormatter.string(from: date!)
                 self.tripDateStartTimeStamps = date?.currentTimeStamp ?? 0//date?.currentTimeStamp ?? 0
                 self.txtDate.text = startDateStr
@@ -201,7 +212,7 @@ extension AddTripInfoVC{
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
+//                        dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
 //                        dateFormatter.timeZone = TimeZone.current
                         let endDateStr = dateFormatter.string(from: date!)
                         self.txtDate.text = startDateStr + " - " + endDateStr
@@ -276,7 +287,6 @@ extension AddTripInfoVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.txtCity.text = cityData[indexPath.row].name
         countryCode = cityData[indexPath.row].countryCode
-        
         self.viewSuggestions.isHidden = true
         self.viewSuggestionHeightConstraint.constant = 0
         sortField = "cityName"
@@ -354,10 +364,8 @@ extension AddTripInfoVC{
                 self.sortOrder = "1"
                 self.pageSize = 50
                 self.currentPage = 1
-                self.cityData.removeAll()
                 self.viewSuggestions.isHidden = true
                 self.viewSuggestionHeightConstraint.constant = 0
-                self.cityData.removeAll()
                 self.tblviewSuggestion.reloadData()
                 self.HIDE_CUSTOM_LOADER()
                 Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
@@ -379,6 +387,7 @@ extension AddTripInfoVC{
                 self.cityData.removeAll()
             }
             
+            self.cityData.removeDuplicates()
             if self.cityData.count > 0 {
                 self.viewSuggestions.isHidden = false
                 
@@ -396,9 +405,12 @@ extension AddTripInfoVC{
                 self.cityData.removeAll()
                 self.viewSuggestionHeightConstraint.constant = 0
             }
-            
-            self.tblviewSuggestion.reloadData()
-            self.HIDE_CUSTOM_LOADER()
+
+            debugPrint("Count City \(self.cityData.count)")
+            DispatchQueue.getMain {
+                self.tblviewSuggestion.reloadData()
+                self.HIDE_CUSTOM_LOADER()
+            }
         } failure: { jsonObject in
         }
     }
@@ -490,5 +502,17 @@ extension Dictionary {
 extension Date {
      var currentTimeStamp: Int64{
         return Int64(self.timeIntervalSince1970)
+    }
+}
+
+extension Array where Element: Equatable {
+    mutating func removeDuplicates() {
+        var result = [Element]()
+        for value in self {
+            if !result.contains(value) {
+                result.append(value)
+            }
+        }
+        self = result
     }
 }
