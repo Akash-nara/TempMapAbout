@@ -135,9 +135,9 @@ class TripDetailVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        SDImageCache.shared.clear(with: .all) {
-            print("Disk & memory data cleared")
-        }
+//        SDImageCache.shared.clear(with: .all) {
+//            print("Disk & memory data cleared")
+//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -250,8 +250,8 @@ class TripDetailVC: UIViewController {
     
     //MARK: - OTHER FUNCTIONS
     @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
-        
-        switch arrayOfSections[(Int(sender.accessibilityHint ?? "") ?? 0)] {
+        let section = (Int(sender.accessibilityHint ?? "") ?? 0)
+        switch arrayOfSections[section] {
         case .topTips:
             self.isTopTipExpand = !isTopTipExpand
         case .travelStory:
@@ -261,7 +261,9 @@ class TripDetailVC: UIViewController {
         default:
             break
         }
-        self.tblviewTrip.reloadSections(IndexSet(integer: Int(sender.accessibilityHint ?? "") ?? 0), with: .automatic)
+//        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+//        self.tblviewTrip.reloadRows(at: [IndexPath.init(row: 0, section: section)], with: .automatic)
+        self.tblviewTrip.reloadData()
     }
 }
 
@@ -404,7 +406,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         tap.accessibilityHint = "\(indexPath.section)"
         cell.viewExpand.addGestureRecognizer(tap)
         
-        
         cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
         cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
@@ -428,6 +429,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         nil
@@ -463,33 +465,12 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
         case .travelAdvice:
             // title section only
-            guard let cell = self.tblviewTrip.dequeueCell(
-                withType: TripMainPageHeaderNameXIB.self,
-                for: IndexPath.init(row: 0, section: section)) as? TripMainPageHeaderNameXIB else {
-                    return UITableViewCell()
-                }
+            let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderNameXIB", for: IndexPath.init(row: 0, section: section)) as! TripMainPageHeaderNameXIB
             cell.lblHeader.text = "Travel Advice"
+            
             return cell
         default:
             return nil
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch arrayOfSections[indexPath.section]{
-        case.tripImages:
-            //            if let cell = cellCollectionView{
-            //                return cell.heioght ?? 0//cell.collectionViewTrip.contentSize.height
-            //            }
-            return UITableView.automaticDimension//323+30+30//UITableView.automaticDimension//self.collectionPhotos?.contentSize.height ?? 0.0
-        case .topTips:
-            return UITableView.automaticDimension
-        case .travelStory:
-            return UITableView.automaticDimension
-        case .logisticsRoute:
-            return UITableView.automaticDimension
-        default:
-            return UITableView.automaticDimension
         }
     }
     
