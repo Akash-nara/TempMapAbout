@@ -22,7 +22,6 @@ class TripImagesUploadVC: UIViewController {
     @IBOutlet weak var labelAddPhotoTitle:UILabel!
     @IBOutlet weak var labelImageUploadedCount:UILabel!
     
-    
     @IBOutlet weak var buttonAddToFeed: UIButton!
     @IBOutlet weak var buttonMakePrivate: UIButton!
     @IBOutlet weak var labelSubmitingText: UILabel!
@@ -185,7 +184,9 @@ class TripImagesUploadVC: UIViewController {
                     pickerController.maxSelectableCount = totalGlobalTripPhotoCount
                     pickerController.UIDelegate = CustomUIDelegate()
                     pickerController.modalPresentationStyle = .fullScreen
-                    
+                    pickerController.view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
+                    pickerController.navigationBar.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
+
                     pickerController.didSelectAssets = { (assets: [DKAsset]) in
                         DispatchQueue.main.async {
                             if !assets.isEmpty {
@@ -275,46 +276,16 @@ class TripImagesUploadVC: UIViewController {
             pickerController.showsEmptyAlbums = false
             pickerController.showsCancelButton = true
             pickerController.modalPresentationStyle = .fullScreen
-            
+            pickerController.view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
+            pickerController.navigationBar.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
             pickerController.didSelectAssets = { (assets: [DKAsset]) in
                 DispatchQueue.main.async {
                     if !assets.isEmpty {
                         self.addImageToOurArray(assets: assets)
-                        /*
-                        let options = PHImageRequestOptions()
-                        options.deliveryMode = .highQualityFormat
-                        options.resizeMode = .none
-                        options.isSynchronous = true
-                        options.isNetworkAccessAllowed = true
-                        print(assets.count)
-                        for asset in assets {
-                            asset.fetchOriginalImage(options: options, completeBlock:  { (imageSelected, info) in
-                                
-                                let img  = UIImage(data: imageSelected!.jpeg(.highest)!)!
-                                img.accessibilityHint = "\(self.arrayJsonFilterImages.count)"
-                                
-                                let name = "Test-\(self.arrayJsonFilterImages.count).jpeg"
-                                let objTripImagesModel = TripImagesModel.init(image: img, type: "", url: "")
-                                objTripImagesModel.statusUpload = .notStarted
-                                let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/\(name)"
-                                objTripImagesModel.url = str
-                                objTripImagesModel.keyToSubmitServer = self.tripBucketHash+"/\(name)"
-                                objTripImagesModel.nameOfImage = name
-                                self.arrayJsonFilterImages.append(objTripImagesModel)
-                                totalGlobalTripPhotoCount -= 1
-                                self.setPhotoCount()
-                            })
-                        }
-                        
-                        
-                        if self.arrayJsonFilterImages.count > 0 {
-                            self.collectionviewPhotos.reloadData()
-                            self.setPhotoCount()
-                        }*/
                     }
                 }
             }
-            self.present(pickerController, animated: true) {}
+            self.present(pickerController, animated: true, completion: nil)
         }
     }
     

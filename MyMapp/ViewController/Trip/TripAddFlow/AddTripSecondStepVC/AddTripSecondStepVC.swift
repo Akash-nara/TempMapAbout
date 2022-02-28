@@ -799,8 +799,14 @@ extension AddTripSecondStepVC{
     }
     
     @IBAction func btnHandlerback(sender:UIButton){
-        URLSession.shared.invalidateAndCancel()
-        self.navigationController?.popViewController(animated: true)
+        let refreshAlert = UIAlertController(title: "Alert", message: "Are you sure want to go back? filled trip detail will be discard.", preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+                self.navigationController?.popViewController(animated: true)
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
     }
     
     @IBAction func btnHandlerNext(sender:UIButton){

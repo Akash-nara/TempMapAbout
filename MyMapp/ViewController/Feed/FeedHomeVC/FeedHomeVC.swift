@@ -266,6 +266,9 @@ extension FeedHomeVC{
             }
             self?.viewModel.addNewTripInArray(objTripModel: tripDataModel)
             self?.tableViewFeedList.reloadData()
+            DispatchQueue.getMain {
+                self?.tableViewFeedList.setContentOffset(.zero, animated:false)
+            }
             self?.tableViewFeedList.figureOutAndShowNoResults()
         }
     }
