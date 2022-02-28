@@ -77,7 +77,7 @@ class TripMainPageTableCell: UITableViewCell {
         //1827 * 0.37
         
         heightOfCollectionViewTrip.constant  = UIScreen.main.bounds.size.height*0.75
-        collectionViewHeight = heightOfCollectionViewTrip.constant - 5
+        collectionViewHeight = heightOfCollectionViewTrip.constant - 1
         
         // Initialization code
         self.backgroundColor = .white//.green
@@ -137,7 +137,7 @@ class TripMainPageTableCell: UITableViewCell {
                 }
                 totalHeight += CGFloat(arrayOfImageURL.count - 1) * space
                 if totalHeight < collectionViewHeight {
-                    heightOfCollectionViewTrip.constant = totalHeight
+                    heightOfCollectionViewTrip.constant = totalHeight + 1
                     isMinimizeCollectionView = true
                 }
             }
