@@ -271,15 +271,7 @@ class TripDataModel{
 
         self.tripDate = param["tripDate"].int64Value
         self.tripEndDate = param["tripEndDate"].int64Value
-        
-//        if let endTrip = param["tripEndDate"].int64, endTrip != 0{
-//            self.tripEndDate = param["tripEndDate"].int64Value
-//        }else{
-//        }
-        
-//        let startStrDate  = UTCToLocal(date: param["tripDate"].stringValue, fromFormat: "dd-MM-yyyy", toFormat: "dd-MM-yyyy")
-//        let endStrDate  = UTCToLocal(date: param["tripEndDate"].stringValue, fromFormat: "dd-MM-yyyy", toFormat: "dd-MM-yyyy")
-        
+                
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
         
@@ -322,6 +314,12 @@ class TripDataModel{
                 }
             }
         }
+        
+//        advicesOfArray.removeAll()
+//        advicesOfArray.append(.topTips("Top Tip", "adajddjanalkdadljkadnadljkandajldkandadda"))
+//        advicesOfArray.append(.travelStory("Favorite Travel Story", "dmadndlkjndalkdjnadlajdnadljkadnaldjdnadlajkdnaldjaksnas"))
+//        advicesOfArray.append(.logisticsRoute("Logistics & Tips", "damdakldmadlakdmadlkamdaldkamdalkdmadlakdmadlkdmadlkdmd"))
+
     }
     
     func setTimestamp(epochTime: String) -> String {
