@@ -83,6 +83,7 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
 
         self.arrayParentTags = appDelegateShared.tagsData
         self.arrayParentTags.forEach { parentTag in
+            parentTag.isSelected = false
             parentTag.subTagsList.forEach({ $0.isSelected = false })
         }
         
@@ -243,9 +244,9 @@ extension  AddTripFavouriteLocationsVC{
         let objAddTripFavouriteLocationDetail = AddTripFavouriteLocationDetail.init()
         objAddTripFavouriteLocationDetail.notes = txtviewNotes.text
         
+        arrayParentTags.removeAll(where: { !$0.isSelected })
+        let arrayParentIDs = arrayParentTags.map({ $0.id! })
         arraySubTags.removeAll(where: { !$0.isSelected })
-        var arrayParentIDs = arraySubTags.map({ $0.parentId! })
-        arrayParentIDs = Array(Set(arrayParentIDs))
         let arrayChildIDs = arraySubTags.map({ $0.id! })
 //        if activeIndexOfParenttag > 0{
         if arrayParentIDs.count > 0{
@@ -750,14 +751,14 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             } else {
                 //subtags: remove unselected tags
                 arraySubTags.removeAll(where: { !$0.isSelected })
-                //parenttags: unselect parent tag if no subtags selected
-                arrayParentTags.forEach({ parentTag in
-                    if parentTag.isSelected {
-                        if !arraySubTags.contains(where: { $0.parentId == parentTag.id }) {
-                            parentTag.isSelected = false
-                        }
-                    }
-                })
+//                //parenttags: unselect parent tag if no subtags selected
+//                arrayParentTags.forEach({ parentTag in
+//                    if parentTag.isSelected {
+//                        if !arraySubTags.contains(where: { $0.parentId == parentTag.id }) {
+//                            parentTag.isSelected = false
+//                        }
+//                    }
+//                })
                 //parenttags: select current parent tag
                 arrayParentTags[indexPath.row].isSelected = true
                 //parenttags: add all submtags which belogs to current parent tag
