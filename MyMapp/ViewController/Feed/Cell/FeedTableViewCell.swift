@@ -30,6 +30,7 @@ class FeedTableViewCell: UITableViewCell {
 
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
+    var cellSize: CGFloat = 275
     
     fileprivate var currentPage: Int = 0 {
         didSet {
@@ -52,10 +53,11 @@ class FeedTableViewCell: UITableViewCell {
     
     func setupLayout() {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -50)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -(cellSize * 0.4))
+//        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: -250)
         layout.sideItemAlpha = 0.6
         layout.sideItemScale = 0.6
-        //        layout.sideItemShift = 0.8
+//        layout.sideItemShift = 1
     }
     
     override func awakeFromNib() {
@@ -183,7 +185,7 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView{
         case self.collectionView:
-            return CGSize(width: 200, height: 200)
+            return CGSize(width: cellSize, height: cellSize)
         case collectionviewTags:
             let label = UILabel(frame: CGRect.zero)
             label.text = arrayTagName[indexPath.row]
