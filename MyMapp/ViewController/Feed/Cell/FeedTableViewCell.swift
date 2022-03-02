@@ -140,10 +140,8 @@ class FeedTableViewCell: UITableViewCell {
             if let index = self.arrayOfImageURL.firstIndex(where: {$0.isDefaultImage}){
                 self.currentPage = index
                 self.collectionView.scrollToItem(at: IndexPath.init(row: index, section: 0), at: .centeredHorizontally, animated: false)
-            }else if self.arrayOfImageURL.count > 3{
-                self.collectionView.scrollToItem(at: IndexPath.init(row: 2, section: 0), at: .right, animated: false)
-            }else if self.arrayOfImageURL.count > 4{
-                self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: false)
+            } else if self.arrayOfImageURL.count > 0 {
+                self.collectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
         
