@@ -37,8 +37,9 @@ class TripImagesUploadVC: UIViewController {
             checkTripAddPrivateOrPublicButtonsTap()
         }
     }
-    var keyForDafultImageSelected = ""
-    var tripBucketHash = ""
+    
+   var keyForDafultImageSelected = ""
+   var tripBucketHash = ""
    weak var objTripSecondVC:AddTripSecondStepVC? = nil
    private var locationLevelUploadCount = 0
     
@@ -53,7 +54,8 @@ class TripImagesUploadVC: UIViewController {
     
     func setPhotoCount(){
 //        self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count+locationLevelUploadCount)" + "/\(totalGlobalTripPhotoCount)"
-        self.labelImageUploadedCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
+//        self.labelImageUploadedCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
+        self.labelImageUploadedCount.text = "\(21 - totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadData(){
@@ -63,7 +65,7 @@ class TripImagesUploadVC: UIViewController {
         labelAddPhotoTitle.addGestureRecognizer(tap)
         let example = NSAttributedString(string: "By submitting, you are making this trip public and adding it to your feed for other travelers to see!").withLineSpacing(0.5)
         labelSubmitingText.attributedText = example
-        
+        //
         labelSubmitingText.font = .Montserrat.Medium(16)
         labelSubmitingText.numberOfLines = 0
         labelSubmitingText.textAlignment = .center
@@ -100,6 +102,20 @@ class TripImagesUploadVC: UIViewController {
     
     @objc  func handleGetureOfAddPhotoLabel(){
         notifyDoneForImages()
+    }
+    
+    func searchIndexOfdeleteLocationImage(image:String){
+        guard let vc = objTripSecondVC else {
+            return
+        }
+        
+        for (index, obj) in vc.arrayOfTripLocationListData.enumerated(){
+            if let imageIndex = obj?.arrayOfImages.firstIndex(where: {$0.keyToSubmitServer == image}){
+                vc.arrayOfTripLocationListData[index]?.arrayOfImages.remove(at: imageIndex)
+                self.paramDict = vc.preparedParams()
+                debugPrint("location deleted image index:-\(imageIndex)")
+            }
+        }
     }
     
     func openGallery(){
@@ -454,14 +470,17 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
 
         refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
             if let index = sender.accessibilityHint, let row = Int(index){
-                self.deleteImageApi(index: row)
+                if self.arrayJsonFilterImages[row].isCityUploadeImage{
+                    self.deleteImageApi(index: row)
+                }else{
+                    self.deleteLocationFavouriteImageApi(index: row)
+                }
             }
         }))
 
         refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
-
         present(refreshAlert, animated: true, completion: nil)
 
     }
@@ -537,13 +556,7 @@ extension  TripImagesUploadVC{
     }
     
     func deleteImageApi(index:Int){
-        /*{
-         "id":3,
-         "s3Key":"d0f30768-3bd2-42ac-8179-da36d0032bdc/1/sachin.jpeg",
-         "s3Url":"https://mapabouts-trip-images.s3.amazonaws.com/01419ed7-17c2-42d4-91e6-cc04b95255d5/1/sachin.jpeg"
-         }*/
-        //https://mapabouts-trip-images.s3.amazonaws.com//c77b99a8-8333-4195-861f-1dcffc4447f8//OHCA9R//Test-1.jpe
-        //https://mapabouts-trip-images.s3.amazonaws.com
+
         let name = self.arrayJsonFilterImages[index].nameOfImage
         let s3Key = tripBucketHash+"/"+name
         let s3Url = "https://mapabouts-trip-images.s3.amazonaws.com/"+s3Key
@@ -557,9 +570,45 @@ extension  TripImagesUploadVC{
         let param: [String: Any] = ["requestJson" : strJson]
         
         API_SERVICES.callAPI(param, path: .deleteUploadedPhoto, method: .post) { [weak self] dict in
-            debugPrint(dict)
+
+            let keyServerName = self?.arrayJsonFilterImages[index].keyToSubmitServer ?? ""
+            if let indexofImage = self?.objTripSecondVC?.arrayCityLevelImageUpload.firstIndex(where: {$0.keyToSubmitServer == keyServerName}){
+                self?.objTripSecondVC?.arrayCityLevelImageUpload.remove(at: indexofImage)
+            }
             self?.arrayJsonFilterImages.remove(at: index)
-            self?.objTripSecondVC?.arrayCityLevelImageUpload.remove(at: index)
+            self?.collectionviewPhotos.reloadData()
+            totalGlobalTripPhotoCount += 1
+            self?.setPhotoCount()
+        } failure: { str in
+            debugPrint(str)
+            self.collectionviewPhotos.reloadData()
+        }
+    }
+    
+    func deleteLocationFavouriteImageApi(index:Int){
+        /*{
+         "id":3,
+         "s3Key":"d0f30768-3bd2-42ac-8179-da36d0032bdc/1/sachin.jpeg",
+         "s3Url":"https://mapabouts-trip-images.s3.amazonaws.com/01419ed7-17c2-42d4-91e6-cc04b95255d5/1/sachin.jpeg"
+         }*/
+        //https://mapabouts-trip-images.s3.amazonaws.com//c77b99a8-8333-4195-861f-1dcffc4447f8//OHCA9R//Test-1.jpe
+        //https://mapabouts-trip-images.s3.amazonaws.com
+        let name = self.arrayJsonFilterImages[index].nameOfImage
+        let s3Key = self.arrayJsonFilterImages[index].keyToSubmitServer//tripBucketHash+"/"+locationBucketHash+"/"+name
+        let s3Url = "https://mapabouts-trip-images.s3.amazonaws.com/"+s3Key
+        var paramDict:[String:Any] = ["s3Key":s3Key,"s3Url":s3Url]
+        
+        if objTripSecondVC?.tripId != 0{
+            paramDict["id"] = objTripSecondVC?.tripId ?? 0
+        }
+        
+        let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .deleteUploadedPhoto, method: .post) { [weak self] dict in
+            debugPrint(dict)
+            self?.searchIndexOfdeleteLocationImage(image: s3Key)
+            self?.arrayJsonFilterImages.remove(at: index)
             self?.collectionviewPhotos.reloadData()
             totalGlobalTripPhotoCount += 1
             self?.setPhotoCount()

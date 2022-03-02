@@ -133,7 +133,6 @@ class FeedTableViewCell: UITableViewCell {
             }
         }
         
-        
         pageControll.numberOfPages = arrayOfImageURL.count
         //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
@@ -146,8 +145,6 @@ class FeedTableViewCell: UITableViewCell {
                 self.collectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
-        
-        
 
         DispatchQueue.getMain {
             self.arrayTagName.removeAll()

@@ -138,11 +138,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OM3-xN-nPU">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-hq-GQL">
-                                                        <rect key="frame" x="25" y="10" width="205" height="50"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-hq-GQL">
+                                                        <rect key="frame" x="25" y="0.0" width="205" height="40"/>
                                                         <subviews>
-                                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KG8-7M-Wmz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="205" height="50"/>
+                                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KG8-7M-Wmz">
+                                                                <rect key="frame" x="0.0" y="0.0" width="205" height="40"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="CRM-IV-1rk"/>
@@ -161,7 +161,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </collectionView>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fsdffs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQL-YM-LUn" customClass="LessMoreCustomizeLabel" customModule="MyMapp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="205" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="40" width="205" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -169,7 +169,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6VK-58-6dA">
-                                                        <rect key="frame" x="240" y="8" width="60" height="62"/>
+                                                        <rect key="frame" x="240" y="5" width="60" height="65"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qg8-bL-RoU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="62"/>
@@ -218,13 +218,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="6VK-58-6dA" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="8" id="EQ2-KA-w1I"/>
+                                                    <constraint firstItem="6VK-58-6dA" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="5" id="EQ2-KA-w1I"/>
                                                     <constraint firstAttribute="bottom" secondItem="6VK-58-6dA" secondAttribute="bottom" constant="5" id="Gt9-oy-dZq"/>
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cIR-hq-GQL" secondAttribute="bottom" id="HJH-b5-oQj"/>
                                                     <constraint firstItem="6VK-58-6dA" firstAttribute="leading" secondItem="cIR-hq-GQL" secondAttribute="trailing" constant="10" id="M2X-l7-lfw"/>
                                                     <constraint firstItem="cIR-hq-GQL" firstAttribute="leading" secondItem="OM3-xN-nPU" secondAttribute="leading" constant="25" id="Rxv-11-GGd"/>
                                                     <constraint firstAttribute="trailing" secondItem="6VK-58-6dA" secondAttribute="trailing" constant="20" id="S0B-OX-kTE"/>
-                                                    <constraint firstItem="cIR-hq-GQL" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" constant="10" id="jSD-PL-J4y"/>
+                                                    <constraint firstItem="cIR-hq-GQL" firstAttribute="top" secondItem="OM3-xN-nPU" secondAttribute="top" id="jSD-PL-J4y"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

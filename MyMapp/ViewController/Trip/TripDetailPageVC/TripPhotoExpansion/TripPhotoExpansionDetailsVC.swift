@@ -131,12 +131,15 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate{
             labelTripName.text = obj.city.cityName
             labelTripDescription.text = obj.tripDescription
         }
+        
+        tagListView.isHidden = true
+        buttonSaveUnSavedTrip.isHidden = true
         labelTripDescription.isHidden = labelTripDescription.text!.isEmpty
     }
     
     func scrollToIndex(index:Int) {
         let rect = self.collectionviewImages.layoutAttributesForItem(at:IndexPath(row: index, section: 0))?.frame
-        self.collectionviewImages.scrollRectToVisible(rect!, animated: true)
+        self.collectionviewImages.scrollRectToVisible(rect!, animated: false)
     }
     
     //MARK: - BUTTON ACTIONS

@@ -277,6 +277,7 @@ extension TripMainPageTableCell {
             totalPage = 1
         }
         pageCtrl.numberOfPages = pages == 0 ? totalPage : pages
+        pageCtrl.hidesForSinglePage = false
     }
 
 }
