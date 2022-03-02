@@ -731,7 +731,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             label.sizeToFit()
             return CGSize(width: label.frame.width + 30, height: 40)
         }else{
-            return CGSize(width: 95, height: 85 )
+            return CGSize(width: 100, height: 85 )
         }
     }
     

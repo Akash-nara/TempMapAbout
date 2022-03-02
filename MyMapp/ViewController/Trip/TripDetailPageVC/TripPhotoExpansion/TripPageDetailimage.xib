@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,8 +27,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="q84-OJ-azT" firstAttribute="top" secondItem="OOY-bU-WfL" secondAttribute="top" constant="5" id="R1f-ff-CBp"/>
+                            <constraint firstItem="q84-OJ-azT" firstAttribute="height" secondItem="OOY-bU-WfL" secondAttribute="height" multiplier="0.969231" id="XyE-vi-eI5"/>
                             <constraint firstItem="q84-OJ-azT" firstAttribute="leading" secondItem="OOY-bU-WfL" secondAttribute="leading" constant="5" id="Y4t-jz-jUN"/>
                             <constraint firstAttribute="bottom" secondItem="q84-OJ-azT" secondAttribute="bottom" constant="5" id="fJ3-4l-8pJ"/>
+                            <constraint firstItem="q84-OJ-azT" firstAttribute="width" secondItem="OOY-bU-WfL" secondAttribute="width" multiplier="0.969231" id="hZa-Gp-XS5"/>
                             <constraint firstAttribute="trailing" secondItem="q84-OJ-azT" secondAttribute="trailing" constant="5" id="p5f-n3-zIY"/>
                         </constraints>
                     </view>

@@ -13,5 +13,6 @@ class TripPageDetailimage: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgviewBG.contentMode = .scaleToFill
     }
 }

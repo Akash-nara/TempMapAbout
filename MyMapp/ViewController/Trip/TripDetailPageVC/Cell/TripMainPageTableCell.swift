@@ -18,7 +18,7 @@ class TripMainPageTableCell: UITableViewCell {
     
     var callbackAfterReload: ((CGFloat) -> Void)?
     var callbackImageZoom: ((TripMainPageCollectionCell,UIGestureRecognizer.State) -> Void)?
-    var didTap: ((IndexPath) -> Void)?
+    var didTap: ((IndexPath, String, Bool) -> Void)?
     var collectionViewObserver: NSKeyValueObservation?
     
     var photoUploadedArray = [TripDataModel.TripPhotoDetails]()
@@ -247,8 +247,6 @@ class TripMainPageTableCell: UITableViewCell {
         collectionViewTrip.backgroundColor = .white//UIColor.red
         collectionViewTrip.delegate = self
         collectionViewTrip.dataSource = self
-//        collectionViewTrip.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
-        
         collectionViewTrip.isPagingEnabled = true
         setTotalPageNo()
     }
@@ -284,7 +282,7 @@ extension TripMainPageTableCell {
 }
 
 //MARK: - COLLECTIONVIEW METHODS
-extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDelegate {
+extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
@@ -318,6 +316,12 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = self.collectionViewTrip.dequeueReusableCell(withReuseIdentifier: "TripMainPageCollectionCell", for: indexPath) as! TripMainPageCollectionCell
         cell.lblName.text = "INDEX : \(indexPath.row)"
+        
+        let tapgesture = UITapGestureRecognizer.init(target: self, action: #selector(handleTapGeture(recognizer:)))
+        tapgesture.numberOfTapsRequired = 1
+        tapgesture.accessibilityHint = "\(indexPath.row)"
+        cell.contentView.addGestureRecognizer(tapgesture)
+        
         
         if arrayOfImageURL[indexPath.row].isDummyItem{
 //            cell.contentView.backgroundColor = .red
@@ -385,8 +389,14 @@ extension TripMainPageTableCell: UICollectionViewDataSource,UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !arrayOfImageURL[indexPath.row].isDummyItem{
             debugPrint("didTap\(indexPath.row)")
-            didTap?(indexPath)
+//            didTap?(indexPath, arrayOfImageURL[indexPath.row].image, arrayOfImageURL[indexPath.row].isLocationImage)
         }
+    }
+    
+    @objc func handleTapGeture(recognizer: UITapGestureRecognizer) {
+        guard let row = Int(recognizer.accessibilityHint ?? "0") else { return }
+        let indexpath = IndexPath.init(row: row, section: 0)
+        didTap?(indexpath, arrayOfImageURL[indexpath.row].image, arrayOfImageURL[indexpath.row].isLocationImage)
     }
     
     @objc func longPressGestureHandler(recognizer: UILongPressGestureRecognizer) {

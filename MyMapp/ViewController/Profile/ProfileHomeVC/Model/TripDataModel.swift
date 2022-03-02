@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 import MapKit
 
-class TripDataModel{
+struct TripDataModel{
     
     
     struct UserCreatedTrip{
@@ -65,12 +65,14 @@ class TripDataModel{
             var image = ""
             var height:Double = 0
             var width:Double = 0
+            var isDefaultImage:Bool=false
+            var isLocationImage = false
+
         }
         var hash = ""
         var arrayOfImageURL = [TripImage]()
-        
         init() {}
-        init(param:JSON) {
+        init(param:JSON, deafultImageName:String = "", isLocationImage:Bool=false) {
             self.hash = param["hash"].stringValue
             param["imageArray"].arrayValue.forEach { objJson in
                 let arraySplited = objJson.stringValue.components(separatedBy: ",")
@@ -85,6 +87,12 @@ class TripDataModel{
                 if arraySplited.indices.contains(2){
                     objTripImage.height = Double(arraySplited[2].replacingOccurrences(of: "px", with: "")) ?? 0
                 }
+                debugPrint(deafultImageName)
+                if deafultImageName == objTripImage.image{
+                    objTripImage.isDefaultImage = true
+                }
+                
+                objTripImage.isLocationImage = isLocationImage
                 self.arrayOfImageURL.append(objTripImage)
 
             }
@@ -115,7 +123,7 @@ class TripDataModel{
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
 
-    func increaeeDecreaseBookmarkCount(){
+    mutating func increaeeDecreaseBookmarkCount(){
         if isBookmarked{
             bookmarkedTotalCount += 1
         }else{
@@ -125,7 +133,7 @@ class TripDataModel{
         }
     }
     
-    func increaeeDecreaseLikeUNLIkeCount(){
+    mutating func increaeeDecreaseLikeUNLIkeCount(){
         if isLiked{
             likedTotalCount += 1
         }else{
@@ -251,7 +259,6 @@ class TripDataModel{
     var arraYOfPhotoCount = [Int]()
     
     var userCreatedTrip:UserCreatedTrip? = nil
-    
     var monthYearOfTrip:String{
         let date = Date(timeIntervalSince1970: TimeInterval(tripDate/1000))
         
@@ -288,7 +295,7 @@ class TripDataModel{
             self.photoUploadedArray.append(TripPhotoDetails.init(param: JSON(["hash":jsonKey,"imageArray":imageUrl,
 //                                                                              "cityName":filterObj.name,
 //                                                                              "countryName":filterObj,
-                                                                             ])))
+                                                                             ]), deafultImageName:defaultImageKey, isLocationImage:jsonKey != "default"))
         }
         
         locationList.removeAll()
@@ -369,7 +376,7 @@ class TripDataModel{
         }
     }
     
-    func setCityData(json:JSON){
+    mutating func setCityData(json:JSON){
         self.city = TripCity.init(param: json)
     }
 

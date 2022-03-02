@@ -25,12 +25,14 @@ class FeedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var buttonBookmark: UIButton!
     @IBOutlet weak var buttonLike: UIButton!
-//    @IBOutlet weak var tagListView: TagListView!
+    //    @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var collectionviewTags: UICollectionView!
-
+    
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
     var cellSize: CGFloat = 275
+    var didTap: ((TripDataModel.TripPhotoDetails.TripImage) -> Void)?
+
     
     fileprivate var currentPage: Int = 0 {
         didSet {
@@ -46,7 +48,7 @@ class FeedTableViewCell: UITableViewCell {
         } else {
             pageSize.height += layout.minimumLineSpacing
         }
-         
+        
         return pageSize//CGSize.init(width: arrayOfImageURL.count == 1 ? collectionView.frame.size.width : pageSize.width, height: pageSize.height)
     }
     
@@ -79,14 +81,14 @@ class FeedTableViewCell: UITableViewCell {
         
         configureCollectionView()
         
-//        tagListView.textFont = UIFont.Montserrat.SemiBold(9)
-//        tagListView.alignment = .center
-//        tagListView.enableRemoveButton = false
-//        tagListView.paddingX = 10
-//        tagListView.paddingY = 10
+        //        tagListView.textFont = UIFont.Montserrat.SemiBold(9)
+        //        tagListView.alignment = .center
+        //        tagListView.enableRemoveButton = false
+        //        tagListView.paddingX = 10
+        //        tagListView.paddingY = 10
         
-
-//        addTagsList(arrrayOfArray: ["Architecture","Landscape","Design"])
+        
+        //        addTagsList(arrrayOfArray: ["Architecture","Landscape","Design"])
         
     }
     
@@ -96,14 +98,15 @@ class FeedTableViewCell: UITableViewCell {
         collectionviewTags.delegate = self
     }
     
-//    func addTagsList(arrrayOfArray:[String]){
-//        tagListView.removeAllTags()
-//        arrrayOfArray.forEach { str in
-//            tagListView.addTag(str)
-//        }
-//    }
+    //    func addTagsList(arrrayOfArray:[String]){
+    //        tagListView.removeAllTags()
+    //        arrrayOfArray.forEach { str in
+    //            tagListView.addTag(str)
+    //        }
+    //    }
     
     func configureCell(modelData:TripDataModel){
+        
         postedDate.text = modelData.dateFromatedOftrip
         
         labelTotalLikeCount.text = "\(modelData.likedTotalCount)"
@@ -111,7 +114,7 @@ class FeedTableViewCell: UITableViewCell {
         
         labelTotaBookmarkCount.text = "\(modelData.bookmarkedTotalCount)"
         labelTotaBookmarkCount.isHidden = modelData.bookmarkedTotalCount == 0
-
+        
         buttonBookmark.isSelected = modelData.isBookmarked
         buttonLike.isSelected = modelData.isLiked
         
@@ -120,7 +123,7 @@ class FeedTableViewCell: UITableViewCell {
         
         postedUserAddress.text = modelData.userCreatedTrip?.region ?? "-"
         postedUserAddress.isHidden = (modelData.userCreatedTrip?.region ?? "").isEmpty
-
+        
         arrayOfImageURL.removeAll()
         modelData.photoUploadedArray.forEach { obj in
             obj.arrayOfImageURL.forEach { obj1 in
@@ -128,21 +131,34 @@ class FeedTableViewCell: UITableViewCell {
             }
         }
         
+        
         pageControll.numberOfPages = arrayOfImageURL.count
-//        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
+        //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
         collectionView.reloadData {
-            if self.arrayOfImageURL.count > 3{
+            
+            if let index = self.arrayOfImageURL.firstIndex(where: {$0.isDefaultImage}){
+                self.currentPage = index
+                self.collectionView.scrollToItem(at: IndexPath.init(row: index, section: 0), at: .centeredHorizontally, animated: false)
+            }else if self.arrayOfImageURL.count > 3{
                 self.collectionView.scrollToItem(at: IndexPath.init(row: 2, section: 0), at: .right, animated: false)
             }else if self.arrayOfImageURL.count > 4{
                 self.collectionView.scrollToItem(at: IndexPath.init(row: 3, section: 0), at: .right, animated: false)
             }
         }
         
-        arrayTagName.removeAll()
-        modelData.locationList.forEach({ arrayTagName += $0.arrayTagsFeed })
-        collectionviewTags.isHidden = arrayTagName.count.isZero()
-        collectionviewTags.reloadData()
+        
+
+        DispatchQueue.getMain {
+            self.arrayTagName.removeAll()
+            modelData.locationList.forEach({ self.arrayTagName += $0.arrayTagsFeed })
+            if self.arrayTagName.count == 0{
+                self.collectionviewTags.isHidden = true
+            }else{
+                self.collectionviewTags.isHidden = false
+                self.collectionviewTags.reloadData()
+            }
+        }
         pageControll.isHidden = arrayOfImageURL.count == 0
         collectionView.isHidden = arrayOfImageURL.count == 0
     }
@@ -195,7 +211,15 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             return CGSize(width: 200, height: 200)
         }
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView{
+        case self.collectionView:
+            didTap?(arrayOfImageURL[indexPath.row])
+        default:break
+        }
+    }
+    
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -81,7 +81,7 @@ class TripImagesUploadVC: UIViewController {
             objDetail?.arrayOfImages.forEach({ img in
                 img.statusUpload = .done
                 locationLevelUploadCount += 1
-//                arrayJsonFilterImages.append(img)
+                arrayJsonFilterImages.append(img)
             })
         }
         

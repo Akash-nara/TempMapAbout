@@ -333,16 +333,16 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             //            cell.collectionViewTrip.reloadData()
             //            cell.layoutIfNeeded()
             
-            cell.didTap = { [weak self] indexPath in
+            cell.didTap = { [weak self] (indexPath, url, isLocationImage) in
                 guard let detailVC = UIStoryboard.trip.tripPhotoExpansionDetailsVC else {
                     return
                 }
-                //                self.navigationController?.pushViewController(detailVC, animated: true)
+                detailVC.imageName = url
+                detailVC.isLcoationImage = isLocationImage
+                detailVC.tripDataModel = self?.detailTripDataModel
+                self?.navigationController?.pushViewController(detailVC, animated: true)
             }
-            
-            cell.callbackAfterReload = { [weak self] height in
-            }
-            
+                    
             cell.callbackImageZoom = { [weak self] (cell, state) in
                 self?.longPressGestureHandler(state: state,cell: cell)
             }
