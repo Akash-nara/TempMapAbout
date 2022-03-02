@@ -249,24 +249,23 @@ extension  AddTripFavouriteLocationsVC{
         arraySubTags.removeAll(where: { !$0.isSelected })
         let arrayChildIDs = arraySubTags.map({ $0.id! })
 //        if activeIndexOfParenttag > 0{
-        if arrayParentIDs.count > 0{
-            objAddTripFavouriteLocationDetail.firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayParentTags[self.activeIndexOfParenttag].name
-        }
-        
-        if arrayChildIDs.count > 0{
-//        if activeIndexOfChildTag > 0 && activeIndexOfParenttag > 0{
-            objAddTripFavouriteLocationDetail.secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))" //arrayParentTags[self.activeIndexOfParenttag].subTagsList[activeIndexOfChildTag].name!
-        }
-        
-        let filterArrray = tripImages//tripImages.filter({$0.statusUpload == .done})
-//        if filterArrray.count > 0{
-//            objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
+//        if arrayParentIDs.count > 0{
+        let firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayParentTags[self.activeIndexOfParenttag].name
+        objAddTripFavouriteLocationDetail.firstTag = firstTag
+        selectedAddTripFavouriteLocationDetail?.firstTag = firstTag
 //        }
-        objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
-//        totalGlobalTripPhotoCount += tripImages.filter({$0.statusUpload != .done}).count
         
-        if filterArrray.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty, filterArrray.count == 0{
-//            selectedAddTripFavouriteLocationDetail?.notes = txtviewNotes.text
+//        if arrayChildIDs.count > 0{
+//        if activeIndexOfChildTag > 0 && activeIndexOfParenttag > 0{
+        let secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))"
+        objAddTripFavouriteLocationDetail.secondTag = secondTag
+        selectedAddTripFavouriteLocationDetail?.secondTag = secondTag
+//        }
+        
+        let filterArrray = tripImages
+        objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
+        
+        if filterArrray.count == 0, arrayParentIDs.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty{
             selectedAddTripFavouriteLocationDetail?.notes = ""
             selectedAddTripFavouriteLocationDetail?.isEdited = false
             selectedTripDetailCallBackBlock?(selectedAddTripFavouriteLocationDetail)
