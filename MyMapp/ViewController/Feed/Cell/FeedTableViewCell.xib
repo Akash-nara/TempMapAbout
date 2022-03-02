@@ -290,6 +290,7 @@
                 <outlet property="collectionView" destination="qJl-1r-TJR" id="aDZ-bL-vpV"/>
                 <outlet property="collectionviewTags" destination="KG8-7M-Wmz" id="tQd-W4-wiO"/>
                 <outlet property="commentedUserPic" destination="2gm-oy-WQp" id="BcJ-rx-ni4"/>
+                <outlet property="constraintHeightCollectionView" destination="sgb-Zf-UdW" id="UfW-nF-WEX"/>
                 <outlet property="labelExpDescription" destination="nQL-YM-LUn" id="ed5-pR-OPq"/>
                 <outlet property="labelTotaBookmarkCount" destination="I8z-Iv-94Q" id="hcF-GC-psH"/>
                 <outlet property="labelTotalLikeCount" destination="Xds-v7-LhJ" id="EJe-ht-iTV"/>

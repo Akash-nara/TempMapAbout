@@ -11,6 +11,8 @@ import SkeletonView
 
 class CarouselCollectionViewCell: UICollectionViewCell {
     
+    static let cellSize: CGFloat = cueSize.screen.width * 0.644//275
+
     @IBOutlet weak var tripImage: UIImageView!{
         didSet{
             self.tripImage.selectedCorners(radius: 15, [.topLeft,.topRight,.bottomLeft,.bottomRight])

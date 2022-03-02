@@ -27,10 +27,10 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonLike: UIButton!
     //    @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var collectionviewTags: UICollectionView!
+    @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
     
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
-    var cellSize: CGFloat = 275
     var didTap: ((TripDataModel.TripPhotoDetails.TripImage) -> Void)?
 
     
@@ -55,7 +55,7 @@ class FeedTableViewCell: UITableViewCell {
     
     func setupLayout() {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -(cellSize * 0.4))
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -(CarouselCollectionViewCell.cellSize * 0.4))
 //        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: -250)
         layout.sideItemAlpha = 0.6
         layout.sideItemScale = 0.6
@@ -64,6 +64,8 @@ class FeedTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        constraintHeightCollectionView.constant = CarouselCollectionViewCell.cellSize + 25
         
         postedDate.textColor = UIColor.App_BG_silver_Color
         collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
@@ -199,7 +201,7 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView{
         case self.collectionView:
-            return CGSize(width: cellSize, height: cellSize)
+            return CGSize(width: CarouselCollectionViewCell.cellSize, height: CarouselCollectionViewCell.cellSize)
         case collectionviewTags:
             let label = UILabel(frame: CGRect.zero)
             label.text = arrayTagName[indexPath.row]
