@@ -282,8 +282,6 @@ struct TripDataModel{
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
         
-        
-        
         userCreatedTrip = UserCreatedTrip.init(param: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()
