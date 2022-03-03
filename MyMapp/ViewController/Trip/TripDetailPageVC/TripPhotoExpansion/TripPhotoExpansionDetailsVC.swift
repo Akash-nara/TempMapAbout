@@ -196,11 +196,12 @@ extension TripPhotoExpansionDetailsVC:UICollectionViewDelegate,UICollectionViewD
         
         cell.viewBG.backgroundColor = .white
         cell.backgroundColor = .white
+        cell.imgviewZoom.contentMode = .scaleToFill
         cell.imgviewZoom.sd_setImage(with: URL.init(string: arrayOfImageURL[indexPath.row].image), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
             DispatchQueue.getMain {
                 cell.imgviewZoom.layer.cornerRadius = 15.0
-//                cell.imgviewZoom.image = img?.withRoundedCorners(radius: 15)
-//                cell.imgviewZoom.image = cell.imgviewZoom.image?.drawOutlie()
+                cell.imgviewZoom.image = img?.withRoundedCorners(radius: 15)
+                cell.imgviewZoom.image = cell.imgviewZoom.image?.drawOutlie()
             }
         }
         return cell
