@@ -378,7 +378,8 @@ extension AddTripSecondStepVC{
                     obj.locationHash = hashStr
                     
 //                    self.arrayOfTripLocationListData.append(obj)
-                    self.arrayOfTripLocationListData.insert(obj, at: 0)
+                    let lastBeforeIndex = self.arrayOfTripLocationListData.count - 1
+                    self.arrayOfTripLocationListData.insert(obj, at: lastBeforeIndex)
                     self.tblviewCity.reloadSections([1], with: .none)
                     self.dismiss(animated: true, completion: nil)
                 }

@@ -1763,13 +1763,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="scA-XH-8Wq">
-                                                <rect key="frame" x="25" y="0.0" width="364" height="770"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hnl-PI-EbY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="364" height="363"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="363"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hAA-SC-9yx">
-                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="345"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="345"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="345" id="zHE-vw-jnQ"/>
@@ -1792,7 +1792,7 @@
                                                                 </cells>
                                                             </collectionView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxx-tO-DEr" customClass="CHIPageControlPuya" customModule="CHIPageControl">
-                                                                <rect key="frame" x="0.0" y="355" width="364" height="8"/>
+                                                                <rect key="frame" x="0.0" y="355" width="414" height="8"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="8" id="Tmj-xo-Dgc"/>
@@ -1815,10 +1815,10 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utv-CD-je6">
-                                                        <rect key="frame" x="0.0" y="393" width="364" height="377"/>
+                                                        <rect key="frame" x="0.0" y="393" width="414" height="377"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="fO9-A8-vqs">
-                                                                <rect key="frame" x="0.0" y="25" width="364" height="327"/>
+                                                                <rect key="frame" x="25" y="25" width="364" height="327"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EZ0-wf-fOl">
                                                                         <rect key="frame" x="0.0" y="0.0" width="364" height="157"/>
@@ -1909,10 +1909,10 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="fO9-A8-vqs" secondAttribute="trailing" id="CeP-Jk-kGu"/>
+                                                            <constraint firstAttribute="trailing" secondItem="fO9-A8-vqs" secondAttribute="trailing" constant="25" id="CeP-Jk-kGu"/>
                                                             <constraint firstAttribute="bottom" secondItem="fO9-A8-vqs" secondAttribute="bottom" constant="25" id="RlE-V4-gIj"/>
                                                             <constraint firstItem="fO9-A8-vqs" firstAttribute="top" secondItem="utv-CD-je6" secondAttribute="top" constant="25" id="cJH-im-fIX"/>
-                                                            <constraint firstItem="fO9-A8-vqs" firstAttribute="leading" secondItem="utv-CD-je6" secondAttribute="leading" id="eBG-PP-TYV"/>
+                                                            <constraint firstItem="fO9-A8-vqs" firstAttribute="leading" secondItem="utv-CD-je6" secondAttribute="leading" constant="25" id="eBG-PP-TYV"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1920,9 +1920,9 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="scA-XH-8Wq" firstAttribute="leading" secondItem="u8i-8d-0ti" secondAttribute="leading" constant="25" id="32r-ta-Lt2"/>
+                                            <constraint firstItem="scA-XH-8Wq" firstAttribute="leading" secondItem="u8i-8d-0ti" secondAttribute="leading" id="32r-ta-Lt2"/>
                                             <constraint firstAttribute="bottom" secondItem="scA-XH-8Wq" secondAttribute="bottom" id="EnG-wE-ko1"/>
-                                            <constraint firstAttribute="trailing" secondItem="scA-XH-8Wq" secondAttribute="trailing" constant="25" id="KWh-Pn-Fbh"/>
+                                            <constraint firstAttribute="trailing" secondItem="scA-XH-8Wq" secondAttribute="trailing" id="KWh-Pn-Fbh"/>
                                             <constraint firstItem="scA-XH-8Wq" firstAttribute="top" secondItem="u8i-8d-0ti" secondAttribute="top" id="spF-8L-QY1"/>
                                         </constraints>
                                     </view>

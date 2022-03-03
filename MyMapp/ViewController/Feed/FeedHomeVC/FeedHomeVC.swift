@@ -92,6 +92,10 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
 
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         
+        
+        cell.didTap = { cellIndexPath in
+            self.redirecttripPageDetail(indexPath: indexPath)
+        }
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         
@@ -150,6 +154,11 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        redirecttripPageDetail(indexPath: indexPath)
+    }
+    
+    
+    func redirecttripPageDetail(indexPath:IndexPath) {
         if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
             tripPageDetailVC.hidesBottomBarWhenPushed = true
             tripPageDetailVC.enumCurrentFlow = .otherUser
@@ -190,7 +199,10 @@ extension FeedHomeVC{
         self.viewModel.isTripListFetched = true
         self.tableViewFeedList.isAPIstillWorking = false
         self.tableViewFeedList.stopPullToRefresh()
+//        self.tableViewFeedList.reloadData()
+        UIView.setAnimationsEnabled(false)
         self.tableViewFeedList.reloadData()
+        UIView.setAnimationsEnabled(true)
         self.tableViewFeedList.figureOutAndShowNoResults()
     }
     
@@ -265,7 +277,11 @@ extension FeedHomeVC{
                 return
             }
             self?.viewModel.addNewTripInArray(objTripModel: tripDataModel)
-            self?.tableViewFeedList.reloadData()
+            UIView.performWithoutAnimation {
+                self?.tableViewFeedList.reloadData()
+                self?.tableViewFeedList.beginUpdates()
+                self?.tableViewFeedList.endUpdates()
+            }
             DispatchQueue.getMain {
                 self?.tableViewFeedList.setContentOffset(.zero, animated:false)
             }

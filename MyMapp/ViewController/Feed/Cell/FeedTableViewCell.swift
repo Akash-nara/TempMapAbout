@@ -217,7 +217,6 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
     
-    
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard scrollView == self.collectionView else { return }

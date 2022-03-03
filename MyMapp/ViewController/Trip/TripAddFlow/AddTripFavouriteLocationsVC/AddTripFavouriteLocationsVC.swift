@@ -737,6 +737,11 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.collectionviewFirst{
+            
+            guard arrayParentTags.indices.contains(indexPath.row) else {
+                return
+            }
+            
             let parentId = arrayParentTags[indexPath.row].id
             if arrayParentTags[indexPath.row].isSelected {
                 arrayParentTags[indexPath.row].isSelected = false

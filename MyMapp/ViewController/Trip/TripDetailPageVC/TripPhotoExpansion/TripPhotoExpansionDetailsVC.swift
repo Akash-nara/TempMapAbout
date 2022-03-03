@@ -45,11 +45,12 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate{
         self.collectionviewImages.decelerationRate = UIScrollView.DecelerationRate.fast
         
         centeredCollectionViewFlowLayout.itemSize = CGSize(
-            width: collectionviewImages.bounds.width * cellPercentWidth,
+            width: (collectionviewImages.bounds.width * cellPercentWidth) - 30,
             height: collectionviewImages.bounds.height
         )
         centeredCollectionViewFlowLayout.minimumLineSpacing = 0
-
+        collectionviewImages.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
+        
         collectionviewImages.register(UINib(nibName: "TripPageDetailimage", bundle: nil), forCellWithReuseIdentifier: "TripPageDetailimage")
         self.collectionviewImages.delegate = self
         self.collectionviewImages.dataSource = self
@@ -132,8 +133,6 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate{
             labelTripDescription.text = obj.tripDescription
         }
         
-        tagListView.isHidden = true
-        buttonSaveUnSavedTrip.isHidden = true
         labelTripDescription.isHidden = labelTripDescription.text!.isEmpty
     }
     
