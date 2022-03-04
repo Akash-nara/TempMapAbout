@@ -56,6 +56,7 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var locationBucketHash = ""
     var tripId = 0
     var arrayParentTags = [TagListModel]()
+    var defaultParentTag: TagListModel?
     var arraySubTags = [SubCategoryListModel]()
     var arrayUploadedOnTripCityOnly = [TripDataModel.TripPhotoDetails.TripImage]()
 
@@ -173,17 +174,20 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
 //                }
 //            }
             
-            var lastSeletedParentTagId = 0
+            var firstSeletedParentTagId = 0
             arrayParentTags.forEach { parentTag in
                 parentTag.isSelected = arrayParentIDs.contains(parentTag.id)
                 if parentTag.isSelected {
                     arraySubTags += parentTag.subTagsList.filter({ arrayChildIDs.contains($0.id) })
-                    lastSeletedParentTagId = parentTag.id
+                    if firstSeletedParentTagId.isZero() {
+                        firstSeletedParentTagId = parentTag.id
+                        defaultParentTag = parentTag
+                    }
                 }
             }
             arraySubTags.forEach({ $0.isSelected = true })
             
-            if let lastSeletedParentTag = arrayParentTags.first(where: { $0.id == lastSeletedParentTagId } ) {
+            if let lastSeletedParentTag = arrayParentTags.first(where: { $0.id == firstSeletedParentTagId } ) {
                 let unselctedTags = lastSeletedParentTag.subTagsList.filter({ !arrayChildIDs.contains($0.id) })
                 arraySubTags += unselctedTags
             }
@@ -541,33 +545,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
         switch collectionView{
         case self.collectionviewFirst:
             let cell = collectionviewFirst.dequeueReusableCell(withReuseIdentifier: "LocationDescriptionCell", for: indexPath ) as! LocationDescriptionCell
-            
-//            if arrayOfTags.contains(where: {$0.id == arrayParentTags[indexPath.row].id}){
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-            
-//            if arrayParentIDs.contains(arrayParentTags[indexPath.row].id){
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-//
-//            if arrayParentTags[indexPath.row].isSelected{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-            
-            /*
-            if self.isSelectedFirstIndex == indexPath.row{
-                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-            }else{
-                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-            }*/
-            
-            if !arrayParentTags.count.isZero() {
+            if indexPath.row < arrayParentTags.count {
                 cell.lblTItle.text = arrayParentTags[indexPath.row].name!
                 cell.viewBG.backgroundColor = getTagColor(arrayParentTags[indexPath.row].isSelected)
             }
@@ -576,56 +554,12 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
         case self.collectionviewSecond:
             // sub tag list collection view
             let cell = collectionviewSecond.dequeueReusableCell(withReuseIdentifier: "LocationDescriptionCell", for: indexPath ) as! LocationDescriptionCell
-            
-            cell.lblTItle.text = arraySubTags[indexPath.row].name!
-            cell.viewBG.backgroundColor = getTagColor(arraySubTags[indexPath.row].isSelected)
-
-            /*
-            if self.isSelctedSecondIndex == indexPath.row{
-                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-            }else{
-                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-            }*/
-            
-//            let currentId = arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].id
-            
-//            if let indexParentId = arrayOfTags.firstIndex(where: {$0.id == arrayParentTags[self.isSelectedFirstIndex].id}){
-//                if arrayOfTags[indexParentId].subIdArrray.contains(where: {$0.id == currentId}){
-//                    cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//                }else{
-//                    cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//                }
-//            }
-            
-//            if self.activeIndexOfParenttag != -1{
-//                if arrayParentTags[self.activeIndexOfParenttag].subTagsList.count > 0{
-//                    cell.lblTItle.text = arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].name!
-//                }
-//            }
-            
-
-            
-//            let firstObj = arrayOfTags.filter({$0.subIdArrray.contains(where: {$0 == })})
-//            arrayOfTags.firstIndex(where: {$0.id == })
-//            if let index = array{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-        
-//            if arrayChildIDs.contains(arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].id){
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-            
-//            if arrayParentTags[self.activeIndexOfParenttag].subTagsList[indexPath.row].isSelected{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_SeafoamBlue_Color
-//            }else{
-//                cell.viewBG.backgroundColor = UIColor.App_BG_App_BG_colorsNeutralLightDark2
-//            }
-            
+            if indexPath.row < arraySubTags.count {
+                cell.lblTItle.text = arraySubTags[indexPath.row].name!
+                cell.viewBG.backgroundColor = getTagColor(arraySubTags[indexPath.row].isSelected)
+            }
             return cell
+
         default:
             
             // photo selected collection
@@ -752,6 +686,21 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                     }
                     return false
                 })
+                
+                //if only one parent tag remains selected. So for Subtag -> fill that parent's sub tag.
+                let arraySelected = arrayParentTags.filter({ $0.isSelected })
+                if arraySelected.count.isZero() {
+                    defaultParentTag = nil
+                    arraySubTags.removeAll()
+                } else if let defaultParentTagStrong = defaultParentTag {
+                    let selectedParentTags = arrayParentTags.filter({ $0.isSelected })
+                    if !selectedParentTags.contains(where: { $0.id == defaultParentTagStrong.id }) {
+                        if let firstSelectedTag = selectedParentTags.first{
+                            defaultParentTag = firstSelectedTag
+                        }
+                    }
+                }
+                
             } else {
                 //subtags: remove unselected tags
                 arraySubTags.removeAll(where: { !$0.isSelected })
@@ -767,8 +716,27 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 arrayParentTags[indexPath.row].isSelected = true
                 //parenttags: add all submtags which belogs to current parent tag
                 arraySubTags += arrayParentTags[indexPath.row].subTagsList
+                
+                let arraySelected = arrayParentTags.filter({ $0.isSelected })
+                if arraySelected.isCount(1) {
+                    defaultParentTag = arraySelected[0]
+                }
             }
 
+            //add first selected parent's sub tag at last
+            if let defaultParentTagStrong = defaultParentTag,
+                let fistSubTag = defaultParentTagStrong.subTagsList.first {
+               
+                let subTagsSelectedIds = arraySubTags.filter({ $0.parentId == fistSubTag.parentId }).map({ $0.id! })
+                
+                if subTagsSelectedIds.count.isZero() {
+                    arraySubTags += defaultParentTagStrong.subTagsList
+                } else if defaultParentTagStrong.subTagsList.count != subTagsSelectedIds.count{
+                    //means only few selected tags available
+                    arraySubTags += defaultParentTagStrong.subTagsList.filter({ !subTagsSelectedIds.contains($0.id) })
+                }
+            }
+            
             collectionviewFirst.reloadData()
             collectionviewSecond.reloadData()
 
