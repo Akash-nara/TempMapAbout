@@ -343,8 +343,8 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 self?.navigationController?.pushViewController(detailVC, animated: true)
             }
                     
-            cell.callbackImageZoom = { [weak self] (cell, state) in
-                self?.longPressGestureHandler(state: state,cell: cell)
+            cell.callbackImageZoom = { [weak self] (data, state) in
+                self?.longPressGestureHandler(state: state, data: data)
             }
             
             cellCollectionView = cell
@@ -487,7 +487,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    @objc func longPressGestureHandler(state:UIGestureRecognizer.State, cell:TripMainPageCollectionCell) {
+    func longPressGestureHandler(state:UIGestureRecognizer.State, data: TripDataModel.TripPhotoDetails.TripImage) {
         switch state {
         case .began:
             //            let attributes = self.cellCollectionView?.collectionViewTrip?.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))
@@ -501,10 +501,12 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
             UIView.animate(withDuration: 0.01, animations: { () -> Void in
                 self.vwImage.alpha = 1
-                self.consWidth.constant = cell.frame.size.width * 3
-                self.consHeight.constant = cell.frame.size.height * 2.1
+                self.consWidth.constant = data.width * 3
+                self.consHeight.constant = data.itemHeight * 2.1
                 self.vwImage.isHidden = false
-                self.vwImage.image = cell.imgviewZoom.image
+                self.vwImage.sd_setImage(with: URL.init(string: data.image), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                }
+//                self.vwImage.image = cell.imgviewZoom.image
                 self.vwImage.contentMode = .scaleToFill
                 self.vwImage.cornerRadius = 15
                 self.vwImage.selectedCorners(radius: 15, [.topLeft,.topRight,.bottomLeft,.bottomRight])
@@ -516,7 +518,9 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             UIView.animate(withDuration: 0.01, animations: { () -> Void in
                 self.vwImage.alpha = 0
                 self.vwImage.isHidden = true
-                self.vwImage.image = cell.imgviewZoom.image
+//                self.vwImage.image = cell.imgviewZoom.image
+                self.vwImage.sd_setImage(with: URL.init(string: data.image), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                }
                 self.consWidth.constant = 0
                 self.consHeight.constant = 0
                 self.tblviewTrip.alpha = 1

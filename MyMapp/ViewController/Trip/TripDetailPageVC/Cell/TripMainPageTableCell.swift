@@ -15,9 +15,12 @@ class TripMainPageTableCell: UITableViewCell {
     @IBOutlet weak var pageCtrl: UIPageControl!
     @IBOutlet weak var collectionViewTrip: UICollectionView!
     @IBOutlet weak var heightOfCollectionViewTrip: NSLayoutConstraint!
-    
+    @IBOutlet weak var stackViewSinglePage: UIStackView!
+    @IBOutlet weak var stackViewLeftColumn: UIStackView!
+    @IBOutlet weak var stackViewRightColumn: UIStackView!
+
     var callbackAfterReload: ((CGFloat) -> Void)?
-    var callbackImageZoom: ((TripMainPageCollectionCell,UIGestureRecognizer.State) -> Void)?
+    var callbackImageZoom: ((TripDataModel.TripPhotoDetails.TripImage, UIGestureRecognizer.State) -> Void)?
     var didTap: ((IndexPath, String, Bool) -> Void)?
     var collectionViewObserver: NSKeyValueObservation?
     
@@ -127,8 +130,84 @@ class TripMainPageTableCell: UITableViewCell {
         
         calculateSmallLongCell()
         
-        func minimizeCollectionViewHightIfNeeded() {
+        
+        func minimizeCollectionViewHightForVerticle() {
             
+            // 8 small cell max possibility
+            if arrayOfImageURL.count <= 8 {
+                var leftColumnHeight: CGFloat = 0
+                var rightColumnHeight: CGFloat = 0
+                var leftColumnCount = 0
+                var rightColumnCount = 0
+                for (i, obj) in arrayOfImageURL.enumerated() {
+                    if i % 2 == 0 {
+                        leftColumnHeight += obj.isVerticle ? longCellHeight : smallCellHeight
+                        leftColumnCount += 1
+                    } else {
+                        rightColumnHeight += obj.isVerticle ? longCellHeight : smallCellHeight
+                        rightColumnCount += 1
+                    }
+                }
+                leftColumnHeight += CGFloat(leftColumnCount - 1) * space
+                rightColumnHeight += CGFloat(rightColumnCount - 1) * space
+                let maxHeight = max(leftColumnHeight, rightColumnHeight)
+                if maxHeight < collectionViewHeight {
+                    heightOfCollectionViewTrip.constant = maxHeight + 1
+                    isMinimizeCollectionView = true
+                }
+            }
+        }
+
+        //minimizeCollectionViewHightForVerticle()
+        
+        func removeAllStackViewData() {
+            stackViewLeftColumn.arrangedSubviews.forEach { subview in
+                subview.removeFromSuperview()
+            }
+            stackViewRightColumn.arrangedSubviews.forEach { subview in
+                subview.removeFromSuperview()
+            }
+        }
+
+        if isMinimizeCollectionView {
+            
+            removeAllStackViewData()
+            
+            for (i, obj) in arrayOfImageURL.enumerated() {
+                arrayOfImageURL[i].itemHeight = obj.isVerticle ? longCellHeight : smallCellHeight
+                let tripImageView = TripImageView()
+                tripImageView.cellConfig(obj: obj)
+                tripImageView.addHeight(constant: arrayOfImageURL[i].itemHeight)
+                
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGestureHandler))
+                longPressGesture.accessibilityHint = "\(0)" // section
+                longPressGesture.accessibilityLabel = "\(i)" // row
+                tripImageView.addGestureRecognizer(longPressGesture)
+
+                let tapgesture = UITapGestureRecognizer.init(target: self, action: #selector(handleTapGeture(recognizer:)))
+                tapgesture.numberOfTapsRequired = 1
+                tapgesture.accessibilityHint = "\(i)"
+                tripImageView.addGestureRecognizer(tapgesture)
+               
+                if i % 2 == 0 {
+                    stackViewLeftColumn.addArrangedSubview(tripImageView)
+                } else {
+                    stackViewRightColumn.addArrangedSubview(tripImageView)
+                }
+            }
+            stackViewSinglePage.isHidden = false
+            collectionViewTrip.isHidden = !stackViewSinglePage.isHidden
+            pages = 1
+            return
+        }
+
+        removeAllStackViewData()
+        stackViewSinglePage.isHidden = true
+        collectionViewTrip.isHidden = !stackViewSinglePage.isHidden
+        isMinimizeCollectionView = false
+
+        func minimizeCollectionViewHightForHorizontal() {
+
             // 4 small cell max possibility
             if arrayOfImageURL.count <= 4 {
                 var totalHeight: CGFloat = 0
@@ -143,9 +222,7 @@ class TripMainPageTableCell: UITableViewCell {
             }
         }
 
-        minimizeCollectionViewHightIfNeeded()
-        
-
+        minimizeCollectionViewHightForHorizontal()
         
 //        /*
 //        let collectionViewHeight:CGFloat = 500
@@ -248,9 +325,10 @@ class TripMainPageTableCell: UITableViewCell {
         collectionViewTrip.delegate = self
         collectionViewTrip.dataSource = self
         collectionViewTrip.isPagingEnabled = true
+
         setTotalPageNo()
     }
-
+    
     var startX = CGFloat(0)
 
 }
@@ -401,13 +479,15 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
     }
     
     @objc func longPressGestureHandler(recognizer: UILongPressGestureRecognizer) {
-        let section = Int(recognizer.accessibilityHint ?? "0") ?? 0
+//        let section = Int(recognizer.accessibilityHint ?? "0") ?? 0
         let row = Int(recognizer.accessibilityLabel ?? "0") ?? 0
         
         if !arrayOfImageURL[row].isDummyItem{
-            if let cell: TripMainPageCollectionCell = self.collectionViewTrip.cellForItem(at: IndexPath(item: row, section: section)) as? TripMainPageCollectionCell {
-                callbackImageZoom?(cell, recognizer.state)
-            }
+            callbackImageZoom?(arrayOfImageURL[row], recognizer.state)
+
+//            if let cell: TripMainPageCollectionCell = self.collectionViewTrip.cellForItem(at: IndexPath(item: row, section: section)) as? TripMainPageCollectionCell {
+//                callbackImageZoom?(cell, recognizer.state)
+//            }
         }
     }
 }

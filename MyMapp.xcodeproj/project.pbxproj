@@ -226,6 +226,8 @@
 		88ECE0F4273062F50000AEA3 /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ECE0F3273062F20000AEA3 /* SigninVC.swift */; };
 		88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 88F0ADFE276FAB69005C9657 /* MapStyle.json */; };
 		88F5DC1C272D5CD6003EEEAF /* FirstViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */; };
+		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
+		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -455,6 +457,8 @@
 		88F0ADFE276FAB69005C9657 /* MapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
 		88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewVC.swift; sourceTree = "<group>"; };
 		99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
+		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1230,6 +1234,7 @@
 		88B81B02275BA3BC00F95934 /* TripDetailPageVC */ = {
 			isa = PBXGroup;
 			children = (
+				A4FD5AB527D38DEC007C8FCF /* Views */,
 				38E9563D27BB996F002276BD /* model */,
 				88A7C0C7275CA2BF001DFBDB /* Cell */,
 				88B81B03275BA3DD00F95934 /* TripDetailVC.swift */,
@@ -1283,6 +1288,15 @@
 				99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4FD5AB527D38DEC007C8FCF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */,
+				A4FD5AB827D38E38007C8FCF /* TripImageView.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		D36E295DDDAA877AB62D6551 /* Pods */ = {
@@ -1378,6 +1392,7 @@
 				38D06E0727A50AAE0022C2C0 /* SkeletonTripCVCell.xib in Resources */,
 				88100B56272A3328008A01F7 /* Montserrat-Black.ttf in Resources */,
 				88ACE2FA275CF50000229162 /* TripMainPageCommentsCellXIB.xib in Resources */,
+				A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */,
 				88100B52272A3328008A01F7 /* Montserrat-SemiBold.ttf in Resources */,
 				38584D4627BE1A4400FACF6D /* SkeletonTripTVCell.xib in Resources */,
 				88100B55272A3328008A01F7 /* Montserrat-LightItalic.ttf in Resources */,
@@ -1592,6 +1607,7 @@
 				88122D54273FEFEC003512C1 /* AddTripFavouriteLocationsVC.swift in Sources */,
 				88B596FB2740CC9000CBA48C /* ActivityHeaderCell.swift in Sources */,
 				8853FBE7272E80A900787059 /* ProfilePhotoUploadVC.swift in Sources */,
+				A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */,
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
 				38D06DFE27A5063A0022C2C0 /* SayNoForDataTableView.swift in Sources */,
 				38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */,

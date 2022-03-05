@@ -31,6 +31,17 @@
                         </collectionViewFlowLayout>
                         <cells/>
                     </collectionView>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8dv-uH-Ugi">
+                        <rect key="frame" x="20" y="0.0" width="332" height="447"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="nxh-tL-oNK">
+                                <rect key="frame" x="0.0" y="0.0" width="163.5" height="50"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zJc-XX-sBs">
+                                <rect key="frame" x="168.5" y="0.0" width="163.5" height="67"/>
+                            </stackView>
+                        </subviews>
+                    </stackView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBN-ZP-ZY2">
                         <rect key="frame" x="108.5" y="462" width="155.5" height="30"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,9 +55,13 @@
                 <constraints>
                     <constraint firstItem="x7z-cJ-teR" firstAttribute="top" secondItem="3NM-kk-VIg" secondAttribute="top" id="1hp-G0-3Q7"/>
                     <constraint firstAttribute="bottom" secondItem="bBN-ZP-ZY2" secondAttribute="bottom" id="1jL-vp-C5g"/>
+                    <constraint firstItem="8dv-uH-Ugi" firstAttribute="bottom" secondItem="x7z-cJ-teR" secondAttribute="bottom" id="CJD-ia-beK"/>
                     <constraint firstItem="bBN-ZP-ZY2" firstAttribute="centerX" secondItem="x7z-cJ-teR" secondAttribute="centerX" id="DHU-Ee-ZTr"/>
+                    <constraint firstItem="8dv-uH-Ugi" firstAttribute="leading" secondItem="x7z-cJ-teR" secondAttribute="leading" id="FG9-G3-vMo"/>
                     <constraint firstAttribute="trailing" secondItem="x7z-cJ-teR" secondAttribute="trailing" constant="20" id="UZJ-sP-ymA"/>
                     <constraint firstItem="x7z-cJ-teR" firstAttribute="leading" secondItem="3NM-kk-VIg" secondAttribute="leading" constant="20" id="lMa-jx-Gb4"/>
+                    <constraint firstItem="8dv-uH-Ugi" firstAttribute="top" secondItem="x7z-cJ-teR" secondAttribute="top" id="oiT-wK-D2P"/>
+                    <constraint firstItem="8dv-uH-Ugi" firstAttribute="trailing" secondItem="x7z-cJ-teR" secondAttribute="trailing" id="sqx-dP-AeE"/>
                     <constraint firstItem="bBN-ZP-ZY2" firstAttribute="top" secondItem="x7z-cJ-teR" secondAttribute="bottom" constant="15" id="ydU-27-Lqz"/>
                 </constraints>
             </tableViewCellContentView>
@@ -55,6 +70,9 @@
                 <outlet property="collectionViewTrip" destination="x7z-cJ-teR" id="94Y-rv-xe0"/>
                 <outlet property="heightOfCollectionViewTrip" destination="wO5-gR-BDW" id="Cfa-Xc-zu0"/>
                 <outlet property="pageCtrl" destination="bBN-ZP-ZY2" id="chs-5F-98s"/>
+                <outlet property="stackViewLeftColumn" destination="nxh-tL-oNK" id="uzF-yT-8kg"/>
+                <outlet property="stackViewRightColumn" destination="zJc-XX-sBs" id="pdd-Kx-Chs"/>
+                <outlet property="stackViewSinglePage" destination="8dv-uH-Ugi" id="HLw-Hx-pP0"/>
             </connections>
             <point key="canvasLocation" x="-133.33333333333334" y="17.075892857142858"/>
         </tableViewCell>
