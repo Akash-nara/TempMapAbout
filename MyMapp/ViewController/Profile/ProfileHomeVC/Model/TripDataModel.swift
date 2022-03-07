@@ -12,18 +12,18 @@ import MapKit
 struct TripDataModel{
     
     
-    struct UserCreatedTrip{
-        var username = ""
-        var profilePic = ""
-        var region = ""
-        
-        init() {}
-        init(param:JSON) {
-            self.username = param["username"].stringValue
-            self.profilePic = param["profilePic"].stringValue
-            self.region = param["region"].stringValue
-        }
-    }
+//    struct UserCreatedTrip{
+//        var username = ""
+//        var profilePic = ""
+//        var region = ""
+//        
+//        init() {}
+//        init(param:JSON) {
+//            self.username = param["username"].stringValue
+//            self.profilePic = param["profilePic"].stringValue
+//            self.region = param["region"].stringValue
+//        }
+//    }
     struct TripCity{
         var cityName = ""
         var countryName = ""
@@ -258,7 +258,7 @@ struct TripDataModel{
     var defaultImageKey = ""
     var arraYOfPhotoCount = [Int]()
     
-    var userCreatedTrip:UserCreatedTrip? = nil
+    var userCreatedTrip:AppUser? = nil
     var monthYearOfTrip:String{
         let date = Date(timeIntervalSince1970: TimeInterval(tripDate/1000))
         
@@ -282,7 +282,7 @@ struct TripDataModel{
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
         
-        userCreatedTrip = UserCreatedTrip.init(param: param["user"])
+        userCreatedTrip = AppUser.init(parameterProfile: param["user"])
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()
         arraYOfPhotoCount.removeAll()

@@ -75,26 +75,51 @@
                                                                             </label>
                                                                         </subviews>
                                                                     </stackView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DwX-W0-wW2">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MSG-aQ-bzb">
                                                                         <rect key="frame" x="0.0" y="55" width="190" height="35"/>
-                                                                        <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="35" id="KZN-4k-3zp"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
-                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                        <state key="normal" title="Edit Profile">
-                                                                            <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
-                                                                        </state>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="20"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                                <real key="value" value="0.0"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </button>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DwX-W0-wW2">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="190" height="35"/>
+                                                                                <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="35" id="KZN-4k-3zp"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="Edit Profile">
+                                                                                    <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="20"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="0.0"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIf-JR-fkA">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                                                                <color key="backgroundColor" name="App_BG_App_BG_colorsNeutralLightDark2"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="35" id="2eL-PU-VL8"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="Message">
+                                                                                    <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="20"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="0.0"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -377,7 +402,8 @@
                 <outlet property="btnHandlerAlbums" destination="5sp-Wj-jgo" id="kaP-Cr-0Xb"/>
                 <outlet property="btnHandlerMaps" destination="czd-jr-dkq" id="d4G-5L-xHr"/>
                 <outlet property="btnHandlerSaved" destination="P24-dJ-xcX" id="ksD-yH-cFR"/>
-                <outlet property="buttonEditProfile" destination="DwX-W0-wW2" id="NIN-Ep-lRb"/>
+                <outlet property="buttonEditAndFollowingProfile" destination="DwX-W0-wW2" id="VJR-s3-iia"/>
+                <outlet property="buttonMessage" destination="qIf-JR-fkA" id="7qi-JL-q31"/>
                 <outlet property="labelUserAddress" destination="C4W-zE-PUA" id="kn8-kH-KsT"/>
                 <outlet property="labelUserDescription" destination="0vJ-U2-fd4" id="JUr-jd-gDf"/>
                 <outlet property="labelUserFollowerCounts" destination="jae-mm-lbg" id="wm4-mJ-2Ya"/>

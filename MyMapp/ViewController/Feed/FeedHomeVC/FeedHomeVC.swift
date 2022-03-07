@@ -92,6 +92,10 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
 
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         
+        let tap  = UITapGestureRecognizer.init(target: self, action: #selector(handleRedirectProfileScreen(sender:)))
+        tap.numberOfTapsRequired = 1
+        tap.accessibilityHint = "\(indexPath.row)"
+        cell.stackViewPostedUser.addGestureRecognizer(tap)
         
         cell.didTap = { cellIndexPath in
             self.redirecttripPageDetail(indexPath: indexPath)
@@ -123,6 +127,16 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
             }
         }
         return cell
+    }
+    
+    @objc func handleRedirectProfileScreen(sender:UITapGestureRecognizer){
+        if let row = Int(sender.accessibilityHint ?? "0"){
+            guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
+                return
+            }
+            otherProfileHomeVC.objTripDataModel = self.viewModel.arrayOfTripList[row]
+            self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
+        }
     }
     
     @objc func buttonLikeUnLikedClicked(sender:UIButton){
@@ -167,7 +181,6 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         }
     }
 }
-
 
 extension FeedHomeVC{
     /*

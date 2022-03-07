@@ -30,7 +30,7 @@ class TripMainPageHeaderCellXIB: UITableViewCell {
         }
         labelUserName.text = model.userCreatedTrip?.username
         labelAddress.text = model.userCreatedTrip?.region
-        userImage.setImage(url: model.userCreatedTrip?.profilePic ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
+        userImage.setImage(url: model.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
         cityName.text = model.city.cityName
         cityAddress.text = model.city.cityName+", "+model.city.countryName
         tripDate.text = model.monthYearOfTrip//model.dateFromatedOftrip

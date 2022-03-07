@@ -11,8 +11,6 @@ import MapKit
 import CoreLocation
 import SwiftyJSON
 
-
-
 class ProfileHomeVC: UIViewController {
     enum EnumMap {
         case map, tripData
@@ -363,6 +361,8 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
         cell.searchtextField.clearButtonMode = .whileEditing
         cell.searchtextField.clearsOnInsertion = false
         cell.searchtextField.clearsOnBeginEditing = false
+        cell.configureUserObject()
+        
         switch self.selectedTab {
             
             // albums

@@ -152,7 +152,7 @@ class TripImagesUploadVC: UIViewController {
             
             // Add the actions
             alert.view.tintColor = UIColor.black
-            alert.addAction(cameraAction)
+//            alert.addAction(cameraAction)
             alert.addAction(galleryAction)
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)

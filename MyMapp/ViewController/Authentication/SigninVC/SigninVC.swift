@@ -42,8 +42,8 @@ class SigninVC: UIViewController,UITextFieldDelegate{
         self.txtEmailAddress.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         self.txtPassword.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
 //        
-//        txtEmailAddress.text = "akashnara123@gmail.com"
-//        txtPassword.text = "Smart@123"
+        txtEmailAddress.text = "akashnara123@gmail.com"
+        txtPassword.text = "Smart@123"
     }
     
     //MARK: - BUTTON ACTIONS

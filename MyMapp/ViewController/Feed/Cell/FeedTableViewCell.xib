@@ -299,6 +299,7 @@
                 <outlet property="postedUserAddress" destination="VJn-ks-DwE" id="LNq-lz-cfa"/>
                 <outlet property="postedUserName" destination="kdg-8x-Uwp" id="R7i-s5-0Ox"/>
                 <outlet property="postedUserPic" destination="0ht-Ru-jZA" id="uOJ-9m-J1B"/>
+                <outlet property="stackViewPostedUser" destination="AMZ-25-KDg" id="H80-U8-TKf"/>
                 <outlet property="textFieldComment" destination="g7X-9x-fUi" id="rjK-1w-P8b"/>
             </connections>
             <point key="canvasLocation" x="66.666666666666671" y="195.20089285714286"/>

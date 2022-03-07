@@ -322,7 +322,7 @@ extension AddTripFavouriteLocationsVC{
         
         // Add the actions
         alert.view.tintColor = UIColor.black
-        alert.addAction(cameraAction)
+//        alert.addAction(cameraAction)
         alert.addAction(galleryAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
@@ -450,6 +450,7 @@ extension AddTripFavouriteLocationsVC{
                                         objectModel.url = str
                                         objectModel.keyToSubmitServer = self.tripBucketHash+"/"+self.locationBucketHash+"/\(name)"
                                         objectModel.statusUpload = .notStarted
+                                        objectModel.nameOfImage = name
                                         self.tripImages.append(objectModel)
                                         totalGlobalTripPhotoCount -= 1
                                         self.setPhotoCount()

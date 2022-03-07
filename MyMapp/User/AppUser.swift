@@ -58,6 +58,7 @@ class AppUser : NSObject, NSCoding {
         }
     }
     
+    
     required init(loginResponse: JSON, authToken: String) {
         super.init()
         if loginResponse.isEmpty != true {
@@ -65,7 +66,9 @@ class AppUser : NSObject, NSCoding {
             self.update(profileResponse: loginResponse)
         }
     }
-    
+
+    var username = ""
+    var region = ""
     func update(profileResponse: JSON) {
         self.userId = profileResponse["id"].intValue
         self.emailId = profileResponse["emailId"].stringValue
@@ -76,11 +79,17 @@ class AppUser : NSObject, NSCoding {
         self.emailVerified = profileResponse["emailVerified"].boolValue
         
         self.loggedin = profileResponse["loggedin"].boolValue
-        self.profilePicPath = profileResponse["profilePicPath"].stringValue
+        if let path = profileResponse["profilePicPath"].string{
+            self.profilePicPath = path
+        }else if let path = profileResponse["profilePic"].string{
+            self.profilePicPath = path
+        }
+        self.username = profileResponse["username"].stringValue
         
         self.userLocationCity = profileResponse["city"].stringValue
         self.userDescription = profileResponse["personalDescription"].stringValue
         self.followersCount = profileResponse["followers"].intValue
+        self.region = profileResponse["region"].stringValue
         
         if self.followersCount == 0{
             self.followersCount = Int(arc4random_uniform(3))
@@ -90,6 +99,11 @@ class AppUser : NSObject, NSCoding {
     required init(accessToken: String, refreshToken: String) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
+    }
+    
+    required init(parameterProfile: JSON) {
+        super.init()
+        self.update(profileResponse: parameterProfile)
     }
     
     required init(coder decoder: NSCoder) {

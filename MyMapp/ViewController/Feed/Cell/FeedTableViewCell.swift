@@ -28,7 +28,8 @@ class FeedTableViewCell: UITableViewCell {
     //    @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var collectionviewTags: UICollectionView!
     @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
-    
+    @IBOutlet weak var stackViewPostedUser: UIStackView!
+
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
     var didTap: ((TripDataModel.TripPhotoDetails.TripImage) -> Void)?
@@ -120,7 +121,7 @@ class FeedTableViewCell: UITableViewCell {
         buttonBookmark.isSelected = modelData.isBookmarked
         buttonLike.isSelected = modelData.isLiked
         
-        postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePic ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
+        postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
         postedUserName.text = modelData.userCreatedTrip?.username ?? "-"
         
         postedUserAddress.text = modelData.userCreatedTrip?.region ?? "-"
@@ -148,7 +149,17 @@ class FeedTableViewCell: UITableViewCell {
 
         DispatchQueue.getMain {
             self.arrayTagName.removeAll()
-            modelData.locationList.forEach({ self.arrayTagName += $0.arrayTagsFeed })
+            
+            modelData.locationList.forEach { obj in
+                obj.arrayTagsFeed.forEach { strTag in
+                    self.arrayTagName.append(strTag)
+                }
+            }
+            
+//            modelData.locationList.forEach(
+////                self.arrayTagName +=
+////                                            self.arrayTagName.append(str.)
+//            })
             if self.arrayTagName.count == 0{
                 self.collectionviewTags.isHidden = true
             }else{

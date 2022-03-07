@@ -24,10 +24,11 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
     @IBOutlet weak var labelUserAddress: UILabel!
     @IBOutlet weak var labelUserFollowerTitle: UILabel!
     @IBOutlet weak var labelUserFollowerCounts: UILabel!
-    @IBOutlet weak var buttonEditProfile: UIButton!
+    @IBOutlet weak var buttonEditAndFollowingProfile: UIButton!
     @IBOutlet weak var viewOnlineOfflineStatus: UIView!
     @IBOutlet weak var segmentControll: UISegmentedControl!
     @IBOutlet weak var searchtextField: UITextField!
+    @IBOutlet weak var buttonMessage: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,33 +36,66 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
         viewOnlineOfflineStatus.isHidden = true
         profilePic.cornerRadius = profilePic.frame.size.width/2
         profilePic.clipsToBounds = true
-        buttonEditProfile.addAction(for: .touchUpInside) { [weak self] in
+        buttonEditAndFollowingProfile.addAction(for: .touchUpInside) { [weak self] in
             CustomAlertView.init(title: "Coming soon.",forPurpose: .success).showForWhile(animated: true)
         }
-        configureUserObject()
+        
+        buttonMessage.addAction(for: .touchUpInside) { [weak self] in
+            CustomAlertView.init(title: "Coming soon.",forPurpose: .success).showForWhile(animated: true)
+        }
+        
+        buttonMessage.backgroundColor = .App_BG_SeafoamBlue_Color
     }
     
-    func configureUserObject(){
-        if let name = APP_USER?.displayName, !name.isEmpty{
-            labelUsername.text = name.capitalized
+    func configureUserObject(tripObj:TripDataModel? = nil){
+        var userName = ""
+        var userDescription = ""
+        var address = ""
+        var followerCount = 0
+        var profilePicPath = ""
+        
+        if let tripDataModel = tripObj{
+            userName = tripDataModel.userCreatedTrip?.displayName ?? "NA"
+            userDescription = tripDataModel.userCreatedTrip?.userDescription ?? "NA"
+            address = tripDataModel.userCreatedTrip?.userLocationCity ?? "NA"
+            followerCount = tripDataModel.userCreatedTrip?.followersCount ?? 1
+            profilePicPath = tripDataModel.userCreatedTrip?.profilePicPath ?? "NA"
+            self.buttonMessage.isHidden = false
+            self.buttonMessage.setTitle("Message", for: .normal)
+            buttonEditAndFollowingProfile.setTitle("Following", for: .normal)
+            
         }else{
-            labelUsername.text = "NA"
+            self.buttonMessage.isHidden = true
+            buttonEditAndFollowingProfile.setTitle("Edit Profile", for: .normal)
+            
+            if let name = APP_USER?.displayName, !name.isEmpty{
+                userName = name.capitalized
+                labelUsername.text = name.capitalized
+            }else{
+                userName = "NA"
+            }
+            
+            if let userDes = APP_USER?.userDescription, !userDes.isEmpty{
+                userDescription = userDes
+            }else{
+                userDescription = "I love to share my travel discoveries with the people who share this passion."
+            }
+            
+            if let userLocationCity = APP_USER?.userLocationCity, !userLocationCity.isEmpty{
+                address = userLocationCity
+            }else{
+                address = "London, United Kingdom"
+            }
+            
+            profilePicPath = APP_USER?.profilePicPath ?? ""
+            followerCount = APP_USER?.followersCount ?? 0
         }
         
-        if let userDescription = APP_USER?.userDescription, !userDescription.isEmpty{
-            labelUserDescription.text = userDescription
-        }else{
-            labelUserDescription.text = "I love to share my travel discoveries with the people who share this passion."
-        }
-
-        if let userLocationCity = APP_USER?.userLocationCity, !userLocationCity.isEmpty{
-            labelUserAddress.text = userLocationCity
-        }else{
-            labelUserAddress.text = "London, United Kingdom"
-        }
-        
-        labelUserFollowerCounts.text = "\(APP_USER?.followersCount ?? 0)"
-        profilePic.setImage(url: APP_USER?.profilePicPath ?? "", placeholder: UIImage(named: "ic_user_image_defaulut_one"))
+        labelUsername.text = userName
+        labelUserDescription.text = userDescription
+        labelUserAddress.text = address
+        labelUserFollowerCounts.text = "\(followerCount)"
+        profilePic.setImage(url: profilePicPath, placeholder: UIImage(named: "ic_user_image_defaulut_one"))
     }
 
 }

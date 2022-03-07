@@ -31,7 +31,6 @@ class ProfileHomeViewModel{
     
     
     var isTripListFetched: Bool = false
-    
     // Pagination work for Binding Rule
     private var totalElements = 0
     var getAvailableElements: Int { return arrayOfTripList.count }
@@ -49,5 +48,19 @@ class ProfileHomeViewModel{
             }
         }
         return ["currentPage": getPageNo(), "pageSize": pageSize,"sortOrder":2]
-    }    
+    }
+    
+    
+    func getOtherUserDetail(success: ((AppUser?) -> ())? = nil){
+        API_SERVICES.callAPI(path: .getUserDetail, method: .get) { response in
+            guard let feedList = response?["responseJson"] else {
+                return
+            }
+            let objUser:AppUser? = AppUser.init(parameterProfile: feedList)
+            success?(objUser)
+        } failureInform: {
+            HIDE_CUSTOM_LOADER()
+        }
+    }
 }
+

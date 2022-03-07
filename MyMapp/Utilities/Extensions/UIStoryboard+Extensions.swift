@@ -25,6 +25,11 @@ extension UIStoryboard {
     static var search: UIStoryboard {
         return UIStoryboard(name: "Search", bundle: nil)
     }
+    
+    static var profile: UIStoryboard {
+        return UIStoryboard(name: "Profile", bundle: nil)
+    }
+
 }
 
 extension UIStoryboard {
@@ -102,7 +107,17 @@ extension UIStoryboard {
     var testTableViewUseCase: TestTableViewUseCase? {
         return getViewController(vcClass: TestTableViewUseCase.self)
     }
-
+    
+    var profileHomeVC: ProfileHomeVC? {
+        return getViewController(vcClass: ProfileHomeVC.self)
+    }
+    
+    var otherProfileHomeVC: OtherProfileHomeVC? {
+        return getViewController(vcClass: OtherProfileHomeVC.self)
+    }
+    
+    
+    
     
     
     

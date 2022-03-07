@@ -34,7 +34,7 @@
                                 <rect key="frame" x="25" y="80" width="364" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1v-ha-4xv">
-                                        <rect key="frame" x="0.0" y="0.0" width="92.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110.5" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="Cir-99-h24"/>
                                         </constraints>
@@ -132,7 +132,7 @@
                                 <rect key="frame" x="25" y="152" width="364" height="82"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sM-04-GaX">
-                                        <rect key="frame" x="0.0" y="0.0" width="64.5" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="74.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="j9O-nk-d8b"/>
                                         </constraints>
@@ -206,7 +206,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYb-Xn-pH9">
-                                <rect key="frame" x="25" y="274" width="101" height="24.5"/>
+                                <rect key="frame" x="25" y="274" width="120.5" height="24.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24.5" id="OWm-eD-Ks3"/>
                                 </constraints>
@@ -218,7 +218,7 @@
                                 <rect key="frame" x="25" y="323.5" width="364" height="82"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM3-7Q-yvX">
-                                        <rect key="frame" x="0.0" y="0.0" width="40.5" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="dfr-IK-JHQ"/>
                                         </constraints>
@@ -428,7 +428,7 @@
                                 <rect key="frame" x="25" y="80" width="364" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFH-84-FoH">
-                                        <rect key="frame" x="0.0" y="0.0" width="132" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="sDp-GI-a6Q"/>
                                         </constraints>
@@ -619,7 +619,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="251"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfh-wi-CQX">
-                                                        <rect key="frame" x="354" y="0.0" width="60" height="88"/>
+                                                        <rect key="frame" x="354" y="0.0" width="60" height="87"/>
                                                         <color key="tintColor" name="App_BG_SecondaryDark2_Color"/>
                                                         <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -631,7 +631,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RN-lc-jay">
-                                                        <rect key="frame" x="25" y="103" width="364" height="20"/>
+                                                        <rect key="frame" x="25" y="102" width="364" height="21"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -961,7 +961,7 @@
                                                                 <rect key="frame" x="0.0" y="155" width="364" height="220"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Upload" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkc-rS-kaf">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="19"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="142" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="19" id="V0B-zR-UZg"/>
                                                                         </constraints>
@@ -970,7 +970,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXA-FD-nj8">
-                                                                        <rect key="frame" x="331.5" y="0.0" width="32.5" height="19"/>
+                                                                        <rect key="frame" x="332.5" y="0.0" width="31.5" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="19" id="Ko6-KI-1RU"/>
                                                                         </constraints>
@@ -1120,7 +1120,7 @@
                                 <rect key="frame" x="25" y="80" width="364" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Uploads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCq-b0-Leh">
-                                        <rect key="frame" x="0.0" y="0.0" width="150.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="169" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="t4j-cP-zxi"/>
                                         </constraints>
@@ -1218,7 +1218,7 @@
                                 <rect key="frame" x="25" y="143" width="364" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnO-Kk-jJD">
-                                        <rect key="frame" x="0.0" y="0.0" width="106" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="Fjn-uO-7CZ"/>
                                         </constraints>
@@ -1247,13 +1247,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your favorite three photos or videos to be featured on the feed!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="za6-N2-UPJ">
-                                <rect key="frame" x="25" y="203" width="364" height="37.5"/>
+                                <rect key="frame" x="25" y="203" width="364" height="39.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nBK-bb-E6z">
-                                <rect key="frame" x="15" y="260.5" width="384" height="559.5"/>
+                                <rect key="frame" x="15" y="262.5" width="384" height="557.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="JSP-iS-4RP">
                                     <size key="itemSize" width="128" height="128"/>
@@ -1427,7 +1427,7 @@
                                     <rect key="frame" x="25" y="65" width="325" height="101"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By submitting, you are making this trip public and adding it to your feed for other travelers to see! " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNE-ba-WSp">
-                                            <rect key="frame" x="0.0" y="0.0" width="325" height="56"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="325" height="59"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                             <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                             <nil key="highlightedColor"/>
@@ -1566,7 +1566,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSN-MK-Sk8">
-                                    <rect key="frame" x="25" y="181" width="82" height="40"/>
+                                    <rect key="frame" x="25" y="181" width="92" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="bez-lS-ofh"/>
                                     </constraints>
@@ -1668,7 +1668,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your trip is now posted on the feed for other travelers to see and explore" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9y-OU-BhX">
-                                        <rect key="frame" x="0.0" y="288" width="364" height="35"/>
+                                        <rect key="frame" x="0.0" y="288" width="364" height="37"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                         <nil key="highlightedColor"/>
@@ -1815,10 +1815,10 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="364" height="157"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NaL-by-RrC">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="97"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="95.5"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Triple Living" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFP-vI-PFb">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="90.5" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="107.5" height="21"/>
                                                                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                                         <nil key="highlightedColor"/>
@@ -1839,7 +1839,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Newly built housing block in the suburbs of Antwerp by the office Atelier Kempe Thil" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBG-Fz-Cx4">
-                                                                                <rect key="frame" x="0.0" y="117" width="364" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="115.5" width="364" height="41.5"/>
                                                                                 <fontDescription key="fontDescription" name="Montserrat-LightItalic" family="Montserrat" pointSize="17"/>
                                                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2017,7 +2017,7 @@
                                 <rect key="frame" x="25" y="140" width="364" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnV-RH-piY">
-                                        <rect key="frame" x="0.0" y="0.0" width="134.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="IC5-t1-nSS"/>
                                         </constraints>
@@ -2116,7 +2116,7 @@
                                     <rect key="frame" x="25" y="70" width="325" height="91"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are importing the selected photos to “Barcelona, Spain”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt4-Z5-DOc">
-                                            <rect key="frame" x="0.0" y="0.0" width="325" height="37.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="325" height="39.5"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                             <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                             <nil key="highlightedColor"/>
@@ -2135,7 +2135,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8IF-Vp-2kR">
-                                    <rect key="frame" x="25" y="181" width="96" height="40"/>
+                                    <rect key="frame" x="25" y="181" width="110" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="7LM-st-KIX"/>
                                     </constraints>
@@ -2216,10 +2216,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UDI-kZ-T9P">
-                                <rect key="frame" x="25" y="44" width="364" height="48"/>
+                                <rect key="frame" x="25" y="44" width="364" height="45"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJw-5o-T9z">
-                                        <rect key="frame" x="0.0" y="0.0" width="58" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="45"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="10" maxY="5"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -2229,7 +2229,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywn-6S-vl6">
-                                        <rect key="frame" x="316" y="0.0" width="48" height="48"/>
+                                        <rect key="frame" x="313" y="0.0" width="51" height="45"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                         <inset key="contentEdgeInsets" minX="15" minY="8" maxX="5" maxY="8"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2243,7 +2243,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBX-Qv-OoL" userLabel="CityUploadView">
-                                <rect key="frame" x="25" y="100" width="364" height="32"/>
+                                <rect key="frame" x="25" y="97" width="364" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Uploads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCw-19-7C2">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="32"/>
@@ -2342,19 +2342,19 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="AuM-yf-a1l">
-                                <rect key="frame" x="25" y="162" width="364" height="649"/>
+                                <rect key="frame" x="25" y="159" width="364" height="652"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-pC-6Jo">
-                                        <rect key="frame" x="0.0" y="0.0" width="364" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="17.5"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Add Photos" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFw-1W-kPU">
-                                                <rect key="frame" x="0.0" y="0.0" width="106" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="120.5" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz2-8T-qHh">
-                                                <rect key="frame" x="329.5" y="0.0" width="34.5" height="16.5"/>
+                                                <rect key="frame" x="325" y="0.0" width="39" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>
@@ -2362,13 +2362,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click above to add more photos or videos to your trip! " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsh-Pg-dTt">
-                                        <rect key="frame" x="0.0" y="46.5" width="364" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="47.5" width="364" height="39.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nv8-K9-KJa">
-                                        <rect key="frame" x="0.0" y="114" width="364" height="535"/>
+                                        <rect key="frame" x="0.0" y="117" width="364" height="535"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gHX-qf-eAf">
                                             <size key="itemSize" width="128" height="128"/>
@@ -2483,7 +2483,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="251"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Cj-ys-mx3">
-                                                        <rect key="frame" x="354" y="0.0" width="60" height="88"/>
+                                                        <rect key="frame" x="354" y="0.0" width="60" height="87"/>
                                                         <color key="tintColor" name="App_BG_SecondaryDark2_Color"/>
                                                         <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2495,7 +2495,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gG1-wo-zgB">
-                                                        <rect key="frame" x="25" y="103" width="364" height="20"/>
+                                                        <rect key="frame" x="25" y="102" width="364" height="21"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2633,7 +2633,7 @@
                                     <rect key="frame" x="25" y="70" width="325" height="91"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is this album a part of an existing trip or is it a new one?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eo-uU-RoX">
-                                            <rect key="frame" x="0.0" y="0.0" width="325" height="37.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="325" height="39.5"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                             <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                             <nil key="highlightedColor"/>
@@ -2652,7 +2652,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfE-Qc-Q3u">
-                                    <rect key="frame" x="25" y="181" width="93" height="40"/>
+                                    <rect key="frame" x="25" y="181" width="106" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="x75-Ac-MZa"/>
                                     </constraints>
@@ -2967,6 +2967,14 @@
             <point key="canvasLocation" x="4589.8550724637689" y="88.392857142857139"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="0Tb-Sr-MFx">
+            <size key="intrinsicContentSize" width="364" height="32"/>
+        </designable>
+        <designable name="uxx-tO-DEr">
+            <size key="intrinsicContentSize" width="268" height="8"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_Heart_unselected" width="25" height="25"/>
         <image name="ic_Trip_Added" width="215" height="188"/>
