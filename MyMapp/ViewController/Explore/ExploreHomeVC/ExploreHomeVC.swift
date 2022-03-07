@@ -9,12 +9,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class exploreTableDataCell:UITableViewCell{
-    @IBOutlet weak var collectionviewPlace: UICollectionView!
-}
-
-class exploreCollectionDataCell:UICollectionViewCell { }
-
 class ExploreHomeVC: UIViewController,UITextFieldDelegate{
     
     //MARK: - OUTLETS
@@ -22,6 +16,8 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
             tblviewData.registerCell(type: SearchHeaderXIB.self, identifier: SearchHeaderXIB.identifier)
+            tblviewData.registerCell(type: ExploreTableDataCell.self, identifier: ExploreTableDataCell.identifier)
+            tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
@@ -35,6 +31,21 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         }
     }
     
+    enum EnumTripType {
+        case mostLiked, mostSaved, thisMonthPopuler
+        
+        var title:String{
+            switch self{
+            case .mostLiked:
+                return "Most Liked"
+            case .mostSaved:
+                return "Most Saved"
+            case .thisMonthPopuler:
+                return "Popular this month"
+            }
+        }
+    }
+    
     //MARK: - VARIABLES
     var isSelectedTab = 0
     var collectionviewSearch:UICollectionView?
@@ -45,6 +56,8 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
     var sortField = String()
     var sortOrder = String()
     var isPageRefreshing:Bool = false
+    var arrayOfSections:[EnumTripType] = [.mostLiked,.mostSaved,.thisMonthPopuler]
+    
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -62,15 +75,17 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         
         self.txtCity.placeholder = "Search for places"
         self.isSelectedTab = 0
-        
         self.placeSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.uiSetup()
     }
+}
+
+//MARK: - OTHER FUNCTIONS
+extension ExploreHomeVC {
     
-    //MARK: - OTHER FUNCTIONS
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.txtCity.text != ""{
             if(self.tblviewSuggestion.contentOffset.y >= (self.tblviewSuggestion.contentSize.height - self.tblviewSuggestion.bounds.size.height)) {
@@ -114,6 +129,193 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         }
     }
     
+    func uiSetup() {
+        
+        self.viewSuggestions.layer.cornerRadius = 25
+        self.viewSuggestions.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
+        self.viewSuggestions.layer.borderWidth = 2.0
+        self.viewSuggestionsHeight.constant = 0
+        self.viewSuggestions.isHidden = true
+        self.viewSuggestions.backgroundColor = UIColor.white
+        self.tblviewSuggestion.backgroundColor = UIColor.white
+        self.txtCity.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
+        self.txtCity.text = ""
+        sortField = "cityName"
+        sortOrder = "1"
+        pageSize = 50
+        currentPage = 1
+        self.cityData.removeAll()
+    }
+    
+    func placeSearch() {
+        self.tblviewSuggestion.layoutIfNeeded()
+        self.tblviewSuggestion.layoutSubviews()
+        txtCity?.addTarget(self, action: #selector(textFieldDidChange(textField:)),for: .editingChanged)
+        self.tblviewSuggestion.separatorStyle = .none
+        tblviewSuggestion.delegate = self
+        tblviewSuggestion.dataSource = self
+        
+        self.tblviewSuggestion.reloadData()
+    }
+}
+
+//MARK: - TABLEVIEW METHODS
+extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.tblviewSuggestion{
+            return cityData.count
+        }else{
+            switch arrayOfSections[section] {
+            default:
+                return 1
+            }
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int{
+        if tableView == self.tblviewSuggestion{
+            return 1
+        }else{
+            return arrayOfSections.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.tblviewSuggestion{
+            guard let cell = self.tblviewSuggestion.dequeueCell(
+                withType: CityListCell.self,
+                for: indexPath) as? CityListCell else {
+                    return UITableViewCell()
+                }
+            
+            cell.lblCity.textAlignment = NSTextAlignment.left
+            cell.lblCity.text = cityData[indexPath.row].name
+            return cell
+        }else{
+            
+            switch arrayOfSections[indexPath.section]{
+            case .mostLiked:
+                guard let cell = self.tblviewData.dequeueCell(
+                    withType: ExploreTableDataCell.self,
+                    for: indexPath) as? ExploreTableDataCell else {
+                        return UITableViewCell()
+                    }
+                
+                cell.collectionviewPlace.delegate = self
+                cell.collectionviewPlace.dataSource = self
+                self.collectionviewSearch = cell.collectionviewPlace
+                
+                return cell
+            case .mostSaved:
+                guard let cell = self.tblviewData.dequeueCell(
+                    withType: ExploreTableDataCell.self,
+                    for: indexPath) as? ExploreTableDataCell else {
+                        return UITableViewCell()
+                    }
+                
+                cell.collectionviewPlace.delegate = self
+                cell.collectionviewPlace.dataSource = self
+                self.collectionviewSearch = cell.collectionviewPlace
+                
+                return cell
+            case .thisMonthPopuler:
+                guard let cell = self.tblviewData.dequeueCell(
+                    withType: ExploreTableDataCell.self,
+                    for: indexPath) as? ExploreTableDataCell else {
+                        return UITableViewCell()
+                    }
+                
+                cell.collectionviewPlace.delegate = self
+                cell.collectionviewPlace.dataSource = self
+                self.collectionviewSearch = cell.collectionviewPlace
+                return cell
+            }
+            
+            /*
+             if indexPath.section == 0{
+             }else if indexPath.section == 1{
+             
+             }else if indexPath.section == 2{
+             guard let cell = self.tblviewData.dequeueCell(
+             withType: SearchHeaderXIB.self,
+             for: indexPath) as? SearchHeaderXIB else {
+             return UITableViewCell()
+             }
+             return cell
+             
+             }else if indexPath.section == 3{
+             }else if indexPath.section == 4{
+             guard let cell = self.tblviewData.dequeueCell(
+             withType: SearchHeaderXIB.self,
+             for: indexPath) as? SearchHeaderXIB else {
+             return UITableViewCell()
+             }
+             return cell
+             }else{
+             }*/
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if tableView == self.tblviewSuggestion{
+            self.txtCity.text = cityData[indexPath.row].name
+            
+            self.viewSuggestions.isHidden = true
+            self.viewSuggestionsHeight.constant = 0
+            sortField = "cityName"
+            sortOrder = "1"
+            pageSize = 50
+            currentPage = 1
+        }
+        else{
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let indexPath = IndexPath.init(row: 0, section: section)
+        switch arrayOfSections[section] {
+        default:
+            guard let cell = self.tblviewData.dequeueCell(
+                withType: SearchHeaderXIB.self,
+                for: indexPath) as? SearchHeaderXIB else {
+                    return UITableViewCell()
+                }
+            cell.labelTitle.text = arrayOfSections[section].title
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch arrayOfSections[section] {
+        default:
+            return  60
+        }
+    }
+}
+
+//MARK: - COLLECTIONVIEW METHODS
+extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = self.collectionviewSearch?.dequeueReusableCell(withReuseIdentifier: "ExploreCollectionDataCell", for: indexPath) as! ExploreCollectionDataCell
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 225, height: 270 )
+    }
+}
+
+//MARK: - Services
+extension ExploreHomeVC{
     func getCityName(text:String){
         let param1: [String: Any] = ["pager" : [kpageSize: "\(pageSize)",
                                              kcurrentPage:"\(currentPage)","sortField":sortField,"sortOrder":sortOrder,"searchValue":text] ]
@@ -180,166 +382,5 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         } failure: { jsonObject in
             
         }
-    }
-    
-    func uiSetup() {
-        
-        self.viewSuggestions.layer.cornerRadius = 25
-        self.viewSuggestions.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
-        self.viewSuggestions.layer.borderWidth = 2.0
-        self.viewSuggestionsHeight.constant = 0
-        self.viewSuggestions.isHidden = true
-        self.viewSuggestions.backgroundColor = UIColor.white
-        self.tblviewSuggestion.backgroundColor = UIColor.white
-        self.txtCity.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
-        self.txtCity.text = ""
-        sortField = "cityName"
-        sortOrder = "1"
-        pageSize = 50
-        currentPage = 1
-        self.cityData.removeAll()
-    }
-    
-    func placeSearch() {
-        self.tblviewSuggestion.layoutIfNeeded()
-        self.tblviewSuggestion.layoutSubviews()
-        txtCity?.addTarget(self, action: #selector(textFieldDidChange(textField:)),for: .editingChanged)
-        self.tblviewSuggestion.separatorStyle = .none
-        tblviewSuggestion.delegate = self
-        tblviewSuggestion.dataSource = self
-        
-        self.tblviewSuggestion.reloadData()
-    }
-}
-
-//MARK: - TABLEVIEW METHODS
-extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView == self.tblviewSuggestion{
-            return cityData.count
-        }else{
-            return 1
-        }
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int{
-        if tableView == self.tblviewSuggestion{
-            return 1
-        }else{
-            return 6
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == self.tblviewSuggestion{
-            guard let cell = self.tblviewSuggestion.dequeueCell(
-                withType: CityListCell.self,
-                for: indexPath) as? CityListCell else {
-                    return UITableViewCell()
-                }
-            
-            cell.lblCity.textAlignment = NSTextAlignment.left
-            cell.lblCity.text = cityData[indexPath.row].name
-            return cell
-        }else{
-            
-            if indexPath.section == 0{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: SearchHeaderXIB.self,
-                    for: indexPath) as? SearchHeaderXIB else {
-                        return UITableViewCell()
-                    }
-                return cell
-            }else if indexPath.section == 1{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: exploreTableDataCell.self,
-                    for: indexPath) as? exploreTableDataCell else {
-                        return UITableViewCell()
-                    }
-                
-                cell.collectionviewPlace.delegate = self
-                cell.collectionviewPlace.dataSource = self
-                self.collectionviewSearch = cell.collectionviewPlace
-                
-                return cell
-                
-            }else if indexPath.section == 2{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: SearchHeaderXIB.self,
-                    for: indexPath) as? SearchHeaderXIB else {
-                        return UITableViewCell()
-                    }
-                return cell
-                
-            }else if indexPath.section == 3{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: exploreTableDataCell.self,
-                    for: indexPath) as? exploreTableDataCell else {
-                        return UITableViewCell()
-                    }
-                
-                cell.collectionviewPlace.delegate = self
-                cell.collectionviewPlace.dataSource = self
-                self.collectionviewSearch = cell.collectionviewPlace
-                
-                return cell
-            }else if indexPath.section == 4{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: SearchHeaderXIB.self,
-                    for: indexPath) as? SearchHeaderXIB else {
-                        return UITableViewCell()
-                    }
-                return cell
-            }else{
-                guard let cell = self.tblviewData.dequeueCell(
-                    withType: exploreTableDataCell.self,
-                    for: indexPath) as? exploreTableDataCell else {
-                        return UITableViewCell()
-                    }
-                
-                cell.collectionviewPlace.delegate = self
-                cell.collectionviewPlace.dataSource = self
-                self.collectionviewSearch = cell.collectionviewPlace
-                return cell
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
-        if tableView == self.tblviewSuggestion{
-            self.txtCity.text = cityData[indexPath.row].name
-            
-            self.viewSuggestions.isHidden = true
-            self.viewSuggestionsHeight.constant = 0
-            sortField = "cityName"
-            sortOrder = "1"
-            pageSize = 50
-            currentPage = 1
-        }
-        else{
-        }
-    }
-}
-
-//MARK: - COLLECTIONVIEW METHODS
-extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionviewSearch?.dequeueReusableCell(withReuseIdentifier: "exploreCollectionDataCell", for: indexPath) as! exploreCollectionDataCell
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 225, height: 270 )
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,7 +28,7 @@
                         <rect key="frame" x="10" y="5" width="300" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Most Liked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zr0-39-1Hi">
-                                <rect key="frame" x="10" y="15" width="280" height="40"/>
+                                <rect key="frame" x="10" y="10" width="280" height="40"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                 <nil key="highlightedColor"/>
@@ -36,11 +36,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Zr0-39-1Hi" secondAttribute="bottom" constant="5" id="9R5-Mj-SJu"/>
+                            <constraint firstAttribute="bottom" secondItem="Zr0-39-1Hi" secondAttribute="bottom" constant="10" id="9R5-Mj-SJu"/>
                             <constraint firstAttribute="height" constant="60" id="Euv-FK-1Kv"/>
                             <constraint firstAttribute="trailing" secondItem="Zr0-39-1Hi" secondAttribute="trailing" constant="10" id="V8e-eV-wRo"/>
                             <constraint firstItem="Zr0-39-1Hi" firstAttribute="leading" secondItem="jIx-Vf-GNB" secondAttribute="leading" constant="10" id="anS-4G-dqY"/>
-                            <constraint firstItem="Zr0-39-1Hi" firstAttribute="top" secondItem="jIx-Vf-GNB" secondAttribute="top" constant="15" id="xud-GR-W4e"/>
+                            <constraint firstItem="Zr0-39-1Hi" firstAttribute="top" secondItem="jIx-Vf-GNB" secondAttribute="top" constant="10" id="xud-GR-W4e"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -52,6 +52,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="labelTitle" destination="Zr0-39-1Hi" id="NV6-TB-aSM"/>
+            </connections>
             <point key="canvasLocation" x="132" y="116"/>
         </tableViewCell>
     </objects>

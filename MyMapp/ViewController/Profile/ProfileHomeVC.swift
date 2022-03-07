@@ -355,16 +355,15 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
         
         cell.viewSearchStack.isHidden = true
         cell.segmentControll.isHidden = false
-        cell.segmentControll.addTarget(self, action: #selector(segmentValueChanged), for: .valueChanged)
+        cell.segmentControll.addTarget(self, action: #selector(segmentValueChanged), for: .valueChanged)//
         cell.searchtextField.delegate = self
         cell.searchtextField.addTarget(self, action: #selector(didChangeTextField(textField:)), for: .editingChanged)
         cell.searchtextField.clearButtonMode = .whileEditing
         cell.searchtextField.clearsOnInsertion = false
         cell.searchtextField.clearsOnBeginEditing = false
         cell.configureUserObject()
-        
         switch self.selectedTab {
-            
+
             // albums
         case .albums:
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
