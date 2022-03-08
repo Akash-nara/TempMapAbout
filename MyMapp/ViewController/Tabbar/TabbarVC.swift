@@ -20,7 +20,6 @@ class TabbarVC: UITabBarController,UITabBarControllerDelegate{
     let kPresentDurationMaxValue = 3.0
     let kDismissDurationMaxValue = 3.0
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -13,40 +13,45 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExploreTableDataCell" rowHeight="280" id="6Pl-JO-tCP" customClass="ExploreTableDataCell" customModule="MyMapp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Pl-JO-tCP" id="9UY-WG-GQg">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Pl-JO-tCP" id="9UY-WG-GQg">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BvQ-Uv-ziR">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mng-fc-9HR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="phN-aR-Kif">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BvQ-Uv-ziR">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="phN-aR-Kif">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="hmw-Jc-4BV">
+                                            <size key="itemSize" width="250" height="270"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="hmw-Jc-4BV">
-                                    <size key="itemSize" width="250" height="270"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                                <constraints>
+                                    <constraint firstItem="phN-aR-Kif" firstAttribute="top" secondItem="BvQ-Uv-ziR" secondAttribute="top" id="7aL-iM-Wd8"/>
+                                    <constraint firstItem="phN-aR-Kif" firstAttribute="leading" secondItem="BvQ-Uv-ziR" secondAttribute="leading" id="COU-Co-e78"/>
+                                    <constraint firstAttribute="bottom" secondItem="phN-aR-Kif" secondAttribute="bottom" id="bvd-9O-rCl"/>
+                                    <constraint firstAttribute="height" constant="280" id="iTd-iM-T0A"/>
+                                    <constraint firstAttribute="trailing" secondItem="phN-aR-Kif" secondAttribute="trailing" id="pGE-Dv-WVr"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="240" id="13I-vP-TBL"/>
-                            <constraint firstItem="phN-aR-Kif" firstAttribute="top" secondItem="BvQ-Uv-ziR" secondAttribute="top" id="7aL-iM-Wd8"/>
-                            <constraint firstItem="phN-aR-Kif" firstAttribute="leading" secondItem="BvQ-Uv-ziR" secondAttribute="leading" id="COU-Co-e78"/>
-                            <constraint firstAttribute="bottom" secondItem="phN-aR-Kif" secondAttribute="bottom" id="bvd-9O-rCl"/>
-                            <constraint firstAttribute="trailing" secondItem="phN-aR-Kif" secondAttribute="trailing" id="pGE-Dv-WVr"/>
-                        </constraints>
-                    </view>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BvQ-Uv-ziR" firstAttribute="top" secondItem="9UY-WG-GQg" secondAttribute="top" id="6D8-j1-fLG"/>
-                    <constraint firstItem="BvQ-Uv-ziR" firstAttribute="leading" secondItem="9UY-WG-GQg" secondAttribute="leading" id="TSi-O2-6ro"/>
-                    <constraint firstAttribute="bottom" secondItem="BvQ-Uv-ziR" secondAttribute="bottom" id="spc-vS-we6"/>
-                    <constraint firstAttribute="trailing" secondItem="BvQ-Uv-ziR" secondAttribute="trailing" id="uS5-xk-qNo"/>
+                    <constraint firstAttribute="trailing" secondItem="Mng-fc-9HR" secondAttribute="trailing" id="BTM-Cz-qrb"/>
+                    <constraint firstAttribute="bottom" secondItem="Mng-fc-9HR" secondAttribute="bottom" id="F6H-t6-VrC"/>
+                    <constraint firstItem="Mng-fc-9HR" firstAttribute="top" secondItem="9UY-WG-GQg" secondAttribute="top" id="gro-I2-db3"/>
+                    <constraint firstItem="Mng-fc-9HR" firstAttribute="leading" secondItem="9UY-WG-GQg" secondAttribute="leading" id="kw1-OY-AFz"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

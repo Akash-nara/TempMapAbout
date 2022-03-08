@@ -117,6 +117,11 @@ extension UIStoryboard {
     }
     
     
+    var exploreHomeVC: ExploreHomeVC? {
+        return getViewController(vcClass: ExploreHomeVC.self)
+    }
+
+    
     
     
     

@@ -31,8 +31,8 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         }
     }
     
-    enum EnumTripType {
-        case mostLiked, mostSaved, thisMonthPopuler
+    enum EnumTripType:Int {
+        case mostLiked = 0, mostSaved, thisMonthPopuler
         
         var title:String{
             switch self{
@@ -200,11 +200,10 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
                     for: indexPath) as? ExploreTableDataCell else {
                         return UITableViewCell()
                     }
-                
+                cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
                 cell.collectionviewPlace.delegate = self
                 cell.collectionviewPlace.dataSource = self
                 self.collectionviewSearch = cell.collectionviewPlace
-                
                 return cell
             case .mostSaved:
                 guard let cell = self.tblviewData.dequeueCell(
@@ -213,6 +212,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
                         return UITableViewCell()
                     }
                 
+                cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
                 cell.collectionviewPlace.delegate = self
                 cell.collectionviewPlace.dataSource = self
                 self.collectionviewSearch = cell.collectionviewPlace
@@ -225,34 +225,12 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
                         return UITableViewCell()
                     }
                 
+                cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
                 cell.collectionviewPlace.delegate = self
                 cell.collectionviewPlace.dataSource = self
                 self.collectionviewSearch = cell.collectionviewPlace
                 return cell
             }
-            
-            /*
-             if indexPath.section == 0{
-             }else if indexPath.section == 1{
-             
-             }else if indexPath.section == 2{
-             guard let cell = self.tblviewData.dequeueCell(
-             withType: SearchHeaderXIB.self,
-             for: indexPath) as? SearchHeaderXIB else {
-             return UITableViewCell()
-             }
-             return cell
-             
-             }else if indexPath.section == 3{
-             }else if indexPath.section == 4{
-             guard let cell = self.tblviewData.dequeueCell(
-             withType: SearchHeaderXIB.self,
-             for: indexPath) as? SearchHeaderXIB else {
-             return UITableViewCell()
-             }
-             return cell
-             }else{
-             }*/
         }
     }
     
@@ -266,9 +244,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             sortOrder = "1"
             pageSize = 50
             currentPage = 1
-        }
-        else{
-        }
+        }else{}
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -302,6 +278,26 @@ extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionviewSearch?.dequeueReusableCell(withReuseIdentifier: "ExploreCollectionDataCell", for: indexPath) as! ExploreCollectionDataCell
         
+        if let sectionEnum:EnumTripType = EnumTripType.init(rawValue: collectionView.tag){
+            switch sectionEnum {
+            case .mostLiked:
+                cell.buttonSavedBooked.isHidden = true
+                cell.buttonLikeUnLike.isHidden = false
+            case .mostSaved:
+                cell.buttonSavedBooked.isHidden = false
+                cell.buttonLikeUnLike.isHidden = true
+            case .thisMonthPopuler:
+                cell.buttonSavedBooked.isHidden = false
+                cell.buttonLikeUnLike.isHidden = true
+            }
+        }
+        
+        //        cell.labelCityName.text = ""
+                cell.labelLikedCount.text = "\(indexPath.row)"
+        //        cell.labelUserName.text = ""
+        //        cell.labelCountryName.text = ""
+        //        cell.imgUser.setImage(url: "", placeholder: UIImage.init(imageName: "")!)
+        //        cell.imgTripThumnail.setImage(url: "", placeholder: UIImage.init(imageName: "")!)
         return cell
     }
     
@@ -309,9 +305,9 @@ extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
         return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 225, height: 270 )
-    }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: 225, height: 280)
+        }
 }
 
 //MARK: - Services
@@ -326,7 +322,7 @@ extension ExploreHomeVC{
         print(param)
         
         self.personalViewModel.getCityListAPI(param: param) { response in
-            print(response)
+            debugPrint(response)
             
             guard let cityList = response?["responseJson"]?["cityList"].arrayObject, let totalRecord = response?["responseJson"]?["totalRecord"].intValue else {
                 
