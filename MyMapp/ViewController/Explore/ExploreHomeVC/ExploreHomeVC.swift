@@ -307,8 +307,8 @@ extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = 225
-//        let cell = collectionView.cellForItem(at: indexPath) as! ExploreCollectionDataCell
-        let cellHeight = ExploreCollectionDataCell().getCellHeight(data: "", cellWidth: cellWidth)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExploreCollectionDataCell", for: indexPath) as! ExploreCollectionDataCell
+        let cellHeight = cell.getCellHeight(data: "", cellWidth: cellWidth)
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
