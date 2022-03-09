@@ -305,9 +305,12 @@ extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
         return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     }
     
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 225, height: 280)
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth: CGFloat = 225
+//        let cell = collectionView.cellForItem(at: indexPath) as! ExploreCollectionDataCell
+        let cellHeight = ExploreCollectionDataCell().getCellHeight(data: "", cellWidth: cellWidth)
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
 }
 
 //MARK: - Services

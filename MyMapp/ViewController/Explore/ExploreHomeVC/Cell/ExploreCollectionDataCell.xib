@@ -41,14 +41,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karl Jansen Jansen Jansen Jansen Jansen Jansen Jansen Jansen" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya5-HY-WuT">
-                                <rect key="frame" x="50" y="15" width="195" height="49"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karl Ja" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya5-HY-WuT">
+                                <rect key="frame" x="50" y="15" width="195" height="25"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Default_city_image_one" translatesAutoresizingMaskIntoConstraints="NO" id="Oee-Sa-jVE">
-                                <rect key="frame" x="15" y="79" width="230" height="140"/>
+                                <rect key="frame" x="15" y="55" width="230" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="3a3-ZP-b0y"/>
                                 </constraints>
@@ -59,10 +59,10 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMZ-Tq-nFO">
-                                <rect key="frame" x="0.0" y="234" width="250" height="81"/>
+                                <rect key="frame" x="0.0" y="210" width="250" height="53"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="rwe-TB-GmW">
-                                        <rect key="frame" x="15" y="0.0" width="230" height="81"/>
+                                        <rect key="frame" x="15" y="0.0" width="230" height="53"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3qX-Gq-25t">
                                                 <rect key="frame" x="0.0" y="0.0" width="230" height="53"/>
@@ -71,7 +71,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="230" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcelona" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFF-7k-1tA">
-                                                                <rect key="frame" x="0.0" y="0.0" width="72" height="19"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82" height="20"/>
                                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -103,7 +103,7 @@
                                                         <rect key="frame" x="0.0" y="35" width="230" height="18"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGA-Dj-rTi">
-                                                                <rect key="frame" x="0.0" y="0.0" width="29" height="18"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="32.5" height="18"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="2jW-3k-LWe"/>
                                                                 </constraints>
@@ -150,7 +150,7 @@
                             <constraint firstItem="HMZ-Tq-nFO" firstAttribute="top" secondItem="Oee-Sa-jVE" secondAttribute="bottom" constant="15" id="lqk-Wz-wxy"/>
                             <constraint firstAttribute="trailing" secondItem="Ya5-HY-WuT" secondAttribute="trailing" constant="5" id="nnB-Ga-1UA"/>
                             <constraint firstItem="Fsd-hV-aSA" firstAttribute="top" secondItem="oWh-3L-Dzv" secondAttribute="top" constant="15" id="wGV-3v-PlG"/>
-                            <constraint firstAttribute="bottom" secondItem="HMZ-Tq-nFO" secondAttribute="bottom" constant="15" id="x9h-mf-ESs"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HMZ-Tq-nFO" secondAttribute="bottom" constant="15" id="x9h-mf-ESs"/>
                             <constraint firstItem="Fsd-hV-aSA" firstAttribute="leading" secondItem="oWh-3L-Dzv" secondAttribute="leading" constant="15" id="yXt-O7-bv1"/>
                         </constraints>
                     </view>
