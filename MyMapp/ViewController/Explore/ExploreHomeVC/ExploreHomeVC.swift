@@ -248,6 +248,14 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             sortOrder = "1"
             pageSize = 50
             currentPage = 1
+            
+            guard let exploreTripDetailVC = UIStoryboard.tabbar.exploreTripDetailVC else {
+                return
+            }
+            exploreTripDetailVC.hidesBottomBarWhenPushed = true
+            exploreTripDetailVC.cityName = cityData[indexPath.row].name
+            exploreTripDetailVC.cityId = cityData[indexPath.row].id
+            self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
         }else{}
     }
     

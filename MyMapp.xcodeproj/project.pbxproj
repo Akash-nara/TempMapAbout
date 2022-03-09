@@ -80,6 +80,8 @@
 		38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B14C6D27ABF2CF001D21D4 /* MapScrollCell.swift */; };
 		38B14C7027ABF2EC001D21D4 /* mapinsideScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B14C6F27ABF2EC001D21D4 /* mapinsideScrollCell.swift */; };
 		38C684D827D90BEA008ACD05 /* ExploreTripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */; };
+		38C684DC27D920F9008ACD05 /* MapExploreTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */; };
+		38C684DD27D920F9008ACD05 /* MapExploreTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38C684DB27D920F8008ACD05 /* MapExploreTVCell.xib */; };
 		38CC20CB27D65193008E952B /* ExploreTableDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC20C927D65193008E952B /* ExploreTableDataCell.swift */; };
 		38CC20CC27D65193008E952B /* ExploreTableDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38CC20CA27D65193008E952B /* ExploreTableDataCell.xib */; };
 		38CC20CF27D651CD008E952B /* ExploreCollectionDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC20CD27D651CD008E952B /* ExploreCollectionDataCell.swift */; };
@@ -313,6 +315,8 @@
 		38B14C6D27ABF2CF001D21D4 /* MapScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollCell.swift; sourceTree = "<group>"; };
 		38B14C6F27ABF2EC001D21D4 /* mapinsideScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapinsideScrollCell.swift; sourceTree = "<group>"; };
 		38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTripDetailViewController.swift; sourceTree = "<group>"; };
+		38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapExploreTVCell.swift; sourceTree = "<group>"; };
+		38C684DB27D920F8008ACD05 /* MapExploreTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapExploreTVCell.xib; sourceTree = "<group>"; };
 		38CC20C927D65193008E952B /* ExploreTableDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableDataCell.swift; sourceTree = "<group>"; };
 		38CC20CA27D65193008E952B /* ExploreTableDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreTableDataCell.xib; sourceTree = "<group>"; };
 		38CC20CD27D651CD008E952B /* ExploreCollectionDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionDataCell.swift; sourceTree = "<group>"; };
@@ -665,9 +669,19 @@
 		38C684D627D90BB0008ACD05 /* ExploreTripDetail */ = {
 			isa = PBXGroup;
 			children = (
+				38C684D927D920D6008ACD05 /* Cell */,
 				38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */,
 			);
 			path = ExploreTripDetail;
+			sourceTree = "<group>";
+		};
+		38C684D927D920D6008ACD05 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */,
+				38C684DB27D920F8008ACD05 /* MapExploreTVCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		38D06DFA27A5063A0022C2C0 /* Tableview */ = {
@@ -1406,6 +1420,7 @@
 				88B597002740CD2300CBA48C /* ActivityInfoCellXIB.xib in Resources */,
 				88A00B42275CE7C7008B23E9 /* TripMainPageTopCellXIB.xib in Resources */,
 				88A7C0CB275CAB26001DFBDB /* TripMainPageHeaderCellXIB.xib in Resources */,
+				38C684DD27D920F9008ACD05 /* MapExploreTVCell.xib in Resources */,
 				88100B4D272A3328008A01F7 /* Montserrat-MediumItalic.ttf in Resources */,
 				88B31C75273F7C060011BF59 /* AddTripFavouriteCollpaseXIB.xib in Resources */,
 				38CC20D027D651CD008E952B /* ExploreCollectionDataCell.xib in Resources */,
@@ -1642,6 +1657,7 @@
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
 				38D06DFE27A5063A0022C2C0 /* SayNoForDataTableView.swift in Sources */,
 				38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */,
+				38C684DC27D920F9008ACD05 /* MapExploreTVCell.swift in Sources */,
 				8885DFB12733A71D00AE698B /* ResetPasswordVC.swift in Sources */,
 				384046042784074000BF206D /* UserLocationDataSetModel.swift in Sources */,
 				889C74CF27410C8400B2123C /* ProfileHeaderCellXIB.swift in Sources */,

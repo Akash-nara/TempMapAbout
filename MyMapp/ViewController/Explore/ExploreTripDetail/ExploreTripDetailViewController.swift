@@ -9,38 +9,48 @@ import UIKit
 
 class ExploreTripDetailViewController: UIViewController {
     
-    var cityId = 0
     //MARK: - OUTLETS
+    var cityId = 0
+    var cityName = "Spain"
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelToSaved: UILabel!
-
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
             tblviewData.registerCell(type: SearchHeaderXIB.self, identifier: SearchHeaderXIB.identifier)
             tblviewData.registerCell(type: ExploreTableDataCell.self, identifier: ExploreTableDataCell.identifier)
+            tblviewData.registerCell(type: MapExploreTVCell.self, identifier: MapExploreTVCell.identifier)
+            tblviewData.registerCell(type: AddTripTopExpandXIB.self, identifier: AddTripTopExpandXIB.identifier)
+            
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
     enum EnumTripType:Int {
-        case mostLiked = 0, mostSaved, thisMonthPopuler
-        
+        case map = 0, popularCities, featuredPlaces, topTips, fromMyFeed
         var title:String{
             switch self{
-            case .mostLiked:
-                return "Most Liked"
-            case .mostSaved:
-                return "Most Saved"
-            case .thisMonthPopuler:
-                return "Popular this month"
+            case .map:
+                return ""
+            case .popularCities:
+                return "Most Popular Cities"
+            case .featuredPlaces:
+                return "Featured Places"
+            case .topTips:
+                return "Top Tips"
+            case .fromMyFeed:
+                return "From my Feed"
             }
         }
     }
     
-    var arrayOfSections:[EnumTripType] = [.mostLiked,.mostSaved,.thisMonthPopuler]
+    var arrayOfSections:[EnumTripType] = [.map,.topTips]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        labelTitle.text = cityName
+        labelTitle.numberOfLines = 2
+        labelToSaved.isHidden = true
     }
 }
 
@@ -48,64 +58,46 @@ class ExploreTripDetailViewController: UIViewController {
 extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch arrayOfSections[section] {
-        default:
+        case .topTips,.map:
             return 1
+        default:
+            return 0
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int{
-        return 0//arrayOfSections.count
+        return arrayOfSections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch arrayOfSections[indexPath.section]{
-        case .mostLiked:
+        case .map:
             guard let cell = self.tblviewData.dequeueCell(
-                withType: ExploreTableDataCell.self,
-                for: indexPath) as? ExploreTableDataCell else {
+                withType: MapExploreTVCell.self,
+                for: indexPath) as? MapExploreTVCell else {
                     return UITableViewCell()
                 }
-            cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
-            //            cell.collectionviewPlace.delegate = self
-            //            cell.collectionviewPlace.dataSource = self
-            //            self.collectionviewSearch = cell.collectionviewPlace
             return cell
-        case .mostSaved:
+        case .topTips:
             guard let cell = self.tblviewData.dequeueCell(
-                withType: ExploreTableDataCell.self,
-                for: indexPath) as? ExploreTableDataCell else {
+                withType: AddTripTopExpandXIB.self,
+                for: indexPath) as? AddTripTopExpandXIB else {
                     return UITableViewCell()
                 }
-            
-            cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
-            //            cell.collectionviewPlace.delegate = self
-            //            cell.collectionviewPlace.dataSource = self
-            //            self.collectionviewSearch = cell.collectionviewPlace
-            
             return cell
-        case .thisMonthPopuler:
-            guard let cell = self.tblviewData.dequeueCell(
-                withType: ExploreTableDataCell.self,
-                for: indexPath) as? ExploreTableDataCell else {
-                    return UITableViewCell()
-                }
-            
-            cell.collectionviewPlace.tag = arrayOfSections[indexPath.section].rawValue
-            //            cell.collectionviewPlace.delegate = self
-            //            cell.collectionviewPlace.dataSource = self
-            ////            self.collectionviewSearch = cell.collectionviewPlace
-            return cell
+        default:
+            return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+        
         let indexPath = IndexPath.init(row: 0, section: section)
         switch arrayOfSections[section] {
-        default:
+        case.topTips,.map:
             guard let cell = self.tblviewData.dequeueCell(
                 withType: SearchHeaderXIB.self,
                 for: indexPath) as? SearchHeaderXIB else {
@@ -113,13 +105,17 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
                 }
             cell.labelTitle.text = arrayOfSections[section].title
             return cell
+        default:
+            return nil
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch arrayOfSections[section] {
+        case .topTips:
+            return 60
         default:
-            return  60
+            return  0.01
         }
     }
 }
