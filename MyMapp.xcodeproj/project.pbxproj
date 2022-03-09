@@ -79,6 +79,7 @@
 		38AE1579278301470016F80E /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE1578278301470016F80E /* UIFont+Extensions.swift */; };
 		38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B14C6D27ABF2CF001D21D4 /* MapScrollCell.swift */; };
 		38B14C7027ABF2EC001D21D4 /* mapinsideScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B14C6F27ABF2EC001D21D4 /* mapinsideScrollCell.swift */; };
+		38C684D827D90BEA008ACD05 /* ExploreTripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */; };
 		38CC20CB27D65193008E952B /* ExploreTableDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC20C927D65193008E952B /* ExploreTableDataCell.swift */; };
 		38CC20CC27D65193008E952B /* ExploreTableDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38CC20CA27D65193008E952B /* ExploreTableDataCell.xib */; };
 		38CC20CF27D651CD008E952B /* ExploreCollectionDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC20CD27D651CD008E952B /* ExploreCollectionDataCell.swift */; };
@@ -311,6 +312,7 @@
 		38AE1578278301470016F80E /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		38B14C6D27ABF2CF001D21D4 /* MapScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollCell.swift; sourceTree = "<group>"; };
 		38B14C6F27ABF2EC001D21D4 /* mapinsideScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapinsideScrollCell.swift; sourceTree = "<group>"; };
+		38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTripDetailViewController.swift; sourceTree = "<group>"; };
 		38CC20C927D65193008E952B /* ExploreTableDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableDataCell.swift; sourceTree = "<group>"; };
 		38CC20CA27D65193008E952B /* ExploreTableDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreTableDataCell.xib; sourceTree = "<group>"; };
 		38CC20CD27D651CD008E952B /* ExploreCollectionDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionDataCell.swift; sourceTree = "<group>"; };
@@ -660,6 +662,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		38C684D627D90BB0008ACD05 /* ExploreTripDetail */ = {
+			isa = PBXGroup;
+			children = (
+				38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */,
+			);
+			path = ExploreTripDetail;
+			sourceTree = "<group>";
+		};
 		38D06DFA27A5063A0022C2C0 /* Tableview */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +910,7 @@
 		8845433E2737F77700B52FED /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				38C684D627D90BB0008ACD05 /* ExploreTripDetail */,
 				884543432737FA9000B52FED /* ExploreHomeVC */,
 			);
 			path = Explore;
@@ -1659,6 +1670,7 @@
 				884543482737FAC100B52FED /* AddTripHomeVC.swift in Sources */,
 				38584D4527BE1A4400FACF6D /* SkeletonTripTVCell.swift in Sources */,
 				38AE154D2782D6630016F80E /* UIStoryboard+Extensions.swift in Sources */,
+				38C684D827D90BEA008ACD05 /* ExploreTripDetailViewController.swift in Sources */,
 				88100B9B272A348B008A01F7 /* DPPickerManager.swift in Sources */,
 				38AE15462782D6630016F80E /* String+Extensions.swift in Sources */,
 				38E9563F27BB997E002276BD /* TripCommmnets.swift in Sources */,

@@ -121,7 +121,9 @@ extension UIStoryboard {
         return getViewController(vcClass: ExploreHomeVC.self)
     }
 
-    
+    var exploreTripDetailVC: ExploreTripDetailViewController? {
+        return getViewController(vcClass: ExploreTripDetailViewController.self)
+    }    
     
     
     
