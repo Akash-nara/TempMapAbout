@@ -28,6 +28,9 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         didSet{
             tblviewSuggestion.setDefaultProperties(vc: self)
             tblviewSuggestion.registerCell(type: CityListCell.self, identifier: CityListCell.identifier)
+            self.tblviewSuggestion.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tblviewSuggestion.bounds.size.width, height: .leastNonzeroMagnitude))
+            tblviewSuggestion.clipsToBounds = true
+
         }
     }
     
@@ -154,7 +157,6 @@ extension ExploreHomeVC {
         self.tblviewSuggestion.separatorStyle = .none
         tblviewSuggestion.delegate = self
         tblviewSuggestion.dataSource = self
-        
         self.tblviewSuggestion.reloadData()
     }
 }
@@ -363,9 +365,10 @@ extension ExploreHomeVC{
                 self.cityData.removeAll()
             }
             
+            self.cityData.removeDuplicates()
             if self.cityData.count > 0 {
                 self.viewSuggestions.isHidden = false
-                
+                self.viewSuggestionsHeight.constant = 50
                 if self.cityData.count > 4{
                     self.viewSuggestionsHeight.constant = 200
                 }else{
@@ -380,8 +383,11 @@ extension ExploreHomeVC{
                 self.currentPage = 1
                 self.cityData.removeAll()
             }
-            self.tblviewSuggestion.reloadData()
-            self.HIDE_CUSTOM_LOADER()
+
+            DispatchQueue.getMain {
+                self.tblviewSuggestion.reloadData()
+                self.HIDE_CUSTOM_LOADER()
+            }
         } failure: { jsonObject in
             
         }
