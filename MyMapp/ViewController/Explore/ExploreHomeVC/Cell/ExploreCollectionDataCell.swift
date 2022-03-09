@@ -22,25 +22,25 @@ class ExploreCollectionDataCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        labelUserName.text = "ZdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlX"
-        labelCityName.text = "ZdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlX"
-        labelCountryName.text = "JdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlZ"
+        labelUserName.text = "Karl Jansen"
+        labelCityName.text = "Barcelona"
+        labelCountryName.text = "Spain"
         labelLikedCount.text = "100"
     }
     
     func getCellHeight(data: Any, cellWidth: CGFloat) -> CGFloat {
 //        let cellObj = ExploreCollectionDataCell(frame: CGRect.zero)
 
-        let username = "ZdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlX"
-        let cityname = "ZdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlX"
-        let countryname = "JdmakdlalkjnsljkfnfjlkFnfljfkn fljfk fljF fljkf fjlZ"
+        let username = "Karl Jansen"
+        let cityname = "Barcelona"
+        let countryname = "Spain"
         let likedCount = "100"
 
         let usernameWidth = cellWidth - 53 //(13 + 25 + 10 + 5) = 53
         let cityWidth = cellWidth - 85 // (15 + 5 + 30 + 30 + 5) = 85
         
-//        let likedCountWidth = likedCount.sized(labelLikedCount.font!).width
-        let likedCountWidth = likedCount.sized(UIFont.systemFont(ofSize: 15)).width
+        let likedCountWidth = likedCount.sized(labelLikedCount.font!).width
+//        let likedCountWidth = likedCount.sized(UIFont.systemFont(ofSize: 15)).width
         let countryWidth = cellWidth - (15 + 10 + likedCountWidth + 5)
 
         let usernameHeight = Utility.heightForView(username, font: labelUserName.font!, width: usernameWidth)

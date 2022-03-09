@@ -165,10 +165,12 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
         if tableView == self.tblviewSuggestion{
             return cityData.count
         }else{
+            return 0
+            /*
             switch arrayOfSections[section] {
             default:
                 return 1
-            }
+            }*/
         }
     }
     
@@ -176,7 +178,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
         if tableView == self.tblviewSuggestion{
             return 1
         }else{
-            return arrayOfSections.count
+            return 0//arrayOfSections.count
         }
     }
     
@@ -248,6 +250,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
         let indexPath = IndexPath.init(row: 0, section: section)
         switch arrayOfSections[section] {
         default:
@@ -262,6 +265,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
         switch arrayOfSections[section] {
         default:
             return  60
