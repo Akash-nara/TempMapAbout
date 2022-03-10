@@ -33,6 +33,9 @@ class FeedTableViewCell: UITableViewCell {
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
     var didTap: ((TripDataModel.TripPhotoDetails.TripImage) -> Void)?
+    var centerFlowLayout:SJCenterFlowLayout? {
+        return self.collectionView.collectionViewLayout as? SJCenterFlowLayout
+    }
 
     
     fileprivate var currentPage: Int = 0 {
@@ -42,7 +45,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     fileprivate var pageSize: CGSize {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        let layout = self.collectionView.collectionViewLayout as! SJCenterFlowLayout
         var pageSize = layout.itemSize
         pageSize.width += layout.minimumLineSpacing
         if layout.scrollDirection == .horizontal {
@@ -55,11 +58,11 @@ class FeedTableViewCell: UITableViewCell {
     
     
     func setupLayout() {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -(CarouselCollectionViewCell.cellSize * 0.4))
+        let layout = self.collectionView.collectionViewLayout as! SJCenterFlowLayout
+        layout.spacingMode = SJCenterFlowLayoutSpacingMode.fixed(spacing: -(CarouselCollectionViewCell.cellSize * 0.4))
 //        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: -250)
-        layout.sideItemAlpha = 0.6
-        layout.sideItemScale = 0.6
+//        layout.al = 0.6
+//        layout.sideItemScale = 0.6
 //        layout.sideItemShift = 1
     }
     
@@ -138,12 +141,13 @@ class FeedTableViewCell: UITableViewCell {
         //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
         collectionView.reloadData {
-            
             if let index = self.arrayOfImageURL.firstIndex(where: {$0.isDefaultImage}){
                 self.currentPage = index
+                self.centerFlowLayout?.scrollToPage(atIndex: index, animated: true)
                 self.collectionView.scrollToItem(at: IndexPath.init(row: index, section: 0), at: .centeredHorizontally, animated: false)
             } else if self.arrayOfImageURL.count > 0 {
-                self.collectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: .centeredHorizontally, animated: false)
+                self.centerFlowLayout?.scrollToPage(atIndex: 0, animated: true)
+//                self.collectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
 
@@ -229,11 +233,32 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     // MARK: - UIScrollViewDelegate
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        guard scrollView == self.collectionView else { return }
+//        let layout = self.collectionView.collectionViewLayout as! SJCenterFlowLayout
+//        let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
+//        let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
+//        currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+//    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard scrollView == self.collectionView else { return }
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
-        let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
-        currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+        if let indexPath = centerFlowLayout?.currentCenteredIndexPath {
+            print("Current IndexPath: \(indexPath)")
+        }
+        if let page = centerFlowLayout?.currentCenteredPage {
+            print("Current Page: \(page)")
+            currentPage = page
+        }
+        
+//        switch currentPage {
+//        case 0:
+//            centerFlowLayout?.scrollToPage(atIndex: arrayOfImageURL.count, animated: false)
+//        case arrayOfImageURL.count - 1:
+//            centerFlowLayout?.scrollToPage(atIndex: 0, animated: false)
+//        default:
+//            break
+//        }
+
     }
+
 }
