@@ -123,8 +123,11 @@ extension UIStoryboard {
 
     var exploreTripDetailVC: ExploreTripDetailViewController? {
         return getViewController(vcClass: ExploreTripDetailViewController.self)
-    }    
+    }
     
+    var travelAdviceListVC: TravelAdviceListViewController? {
+        return getViewController(vcClass: TravelAdviceListViewController.self)
+    }
     
     
     

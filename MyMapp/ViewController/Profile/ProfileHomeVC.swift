@@ -44,8 +44,8 @@ class ProfileHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
         
         configureCollectionView()
         getTripListApi()
@@ -441,7 +441,7 @@ extension ProfileHomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
-            locationManager.startUpdatingLocation()
+//            locationManager.startUpdatingLocation()
         }
     }
 }

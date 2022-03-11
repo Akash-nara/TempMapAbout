@@ -29,6 +29,8 @@ target 'MyMapp' do
   pod 'SkeletonView'
   pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
   pod 'ActiveLabel'
+  pod 'SwiftSVG'
+  pod 'DKPhotoGallery'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

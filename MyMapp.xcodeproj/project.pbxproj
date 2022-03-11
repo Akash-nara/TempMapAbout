@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		38003B6D27D5BD54009BACE1 /* OtherProfileHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38003B6C27D5BD54009BACE1 /* OtherProfileHomeVC.swift */; };
 		3802A30D278C281400A6E3C0 /* SSReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802A30C278C281400A6E3C0 /* SSReachabilityManager.swift */; };
+		38152A4727DB37F50077BDB5 /* ExploreTripTopCellXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38152A4527DB37F50077BDB5 /* ExploreTripTopCellXIB.swift */; };
+		38152A4827DB37F50077BDB5 /* ExploreTripTopCellXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38152A4627DB37F50077BDB5 /* ExploreTripTopCellXIB.xib */; };
+		38152A4A27DB38800077BDB5 /* world-low.svg in Resources */ = {isa = PBXBuildFile; fileRef = 38152A4927DB38800077BDB5 /* world-low.svg */; };
+		38152A4D27DB66A00077BDB5 /* TravelAdviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */; };
 		3820A9D527AD4A0300933BE8 /* TripMainPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3820A9D327AD4A0300933BE8 /* TripMainPageTableCell.swift */; };
 		3820A9D827AD4D8F00933BE8 /* TripMainPageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3820A9D727AD4D8F00933BE8 /* TripMainPageCollectionCell.xib */; };
 		384046042784074000BF206D /* UserLocationDataSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384046032784074000BF206D /* UserLocationDataSetModel.swift */; };
@@ -242,6 +246,10 @@
 /* Begin PBXFileReference section */
 		38003B6C27D5BD54009BACE1 /* OtherProfileHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileHomeVC.swift; sourceTree = "<group>"; };
 		3802A30C278C281400A6E3C0 /* SSReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSReachabilityManager.swift; path = ReachabilitySwift/Sources/SSReachabilityManager.swift; sourceTree = "<group>"; };
+		38152A4527DB37F50077BDB5 /* ExploreTripTopCellXIB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreTripTopCellXIB.swift; sourceTree = "<group>"; };
+		38152A4627DB37F50077BDB5 /* ExploreTripTopCellXIB.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExploreTripTopCellXIB.xib; sourceTree = "<group>"; };
+		38152A4927DB38800077BDB5 /* world-low.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "world-low.svg"; sourceTree = "<group>"; };
+		38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdviceListViewController.swift; sourceTree = "<group>"; };
 		3820A9D327AD4A0300933BE8 /* TripMainPageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripMainPageTableCell.swift; sourceTree = "<group>"; };
 		3820A9D727AD4D8F00933BE8 /* TripMainPageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripMainPageCollectionCell.xib; sourceTree = "<group>"; };
 		384046032784074000BF206D /* UserLocationDataSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationDataSetModel.swift; sourceTree = "<group>"; };
@@ -268,6 +276,7 @@
 		38A0D7D427BFC0B300CC5CD8 /* UPCarouselFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		38A0D7D627BFC0D000CC5CD8 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		38A0D7D827BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
+		38A742EA27DB6CC10069D016 /* DKPhotoGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DKPhotoGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A7F51E27A79FD300423250 /* PlaceHolderTripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTripCell.swift; sourceTree = "<group>"; };
 		38A7F51F27A79FD300423250 /* PlaceHolderTripCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceHolderTripCell.xib; sourceTree = "<group>"; };
 		38AE14FD2782D6630016F80E /* CustomAlertHelpingUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertHelpingUtility.swift; sourceTree = "<group>"; };
@@ -490,6 +499,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38152A4B27DB66830077BDB5 /* TravelAdviceList */ = {
+			isa = PBXGroup;
+			children = (
+				38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */,
+			);
+			path = TravelAdviceList;
+			sourceTree = "<group>";
+		};
 		3840460527840EB000BF206D /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +686,7 @@
 		38C684D627D90BB0008ACD05 /* ExploreTripDetail */ = {
 			isa = PBXGroup;
 			children = (
+				38152A4927DB38800077BDB5 /* world-low.svg */,
 				38C684D927D920D6008ACD05 /* Cell */,
 				38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */,
 			);
@@ -678,6 +696,8 @@
 		38C684D927D920D6008ACD05 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				38152A4527DB37F50077BDB5 /* ExploreTripTopCellXIB.swift */,
+				38152A4627DB37F50077BDB5 /* ExploreTripTopCellXIB.xib */,
 				38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */,
 				38C684DB27D920F8008ACD05 /* MapExploreTVCell.xib */,
 			);
@@ -924,6 +944,7 @@
 		8845433E2737F77700B52FED /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				38152A4B27DB66830077BDB5 /* TravelAdviceList */,
 				38C684D627D90BB0008ACD05 /* ExploreTripDetail */,
 				884543432737FA9000B52FED /* ExploreHomeVC */,
 			);
@@ -1325,6 +1346,7 @@
 		A4A1CC0FFBBBE0B484210754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38A742EA27DB6CC10069D016 /* DKPhotoGallery.framework */,
 				99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */,
 			);
 			name = Frameworks;
@@ -1438,6 +1460,7 @@
 				88100B52272A3328008A01F7 /* Montserrat-SemiBold.ttf in Resources */,
 				38584D4627BE1A4400FACF6D /* SkeletonTripTVCell.xib in Resources */,
 				88100B55272A3328008A01F7 /* Montserrat-LightItalic.ttf in Resources */,
+				38152A4A27DB38800077BDB5 /* world-low.svg in Resources */,
 				88100B53272A3328008A01F7 /* Montserrat-Regular.ttf in Resources */,
 				88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */,
 				88100B49272A3328008A01F7 /* OFL.txt in Resources */,
@@ -1473,6 +1496,7 @@
 				8881FE192740AFE000063CCC /* SearchHeaderXIB.xib in Resources */,
 				38D06E0B27A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib in Resources */,
 				38A7F52127A79FD300423250 /* PlaceHolderTripCell.xib in Resources */,
+				38152A4827DB37F50077BDB5 /* ExploreTripTopCellXIB.xib in Resources */,
 				88B31C79273F7F360011BF59 /* AddTripLogisticsCollpaseXIB.xib in Resources */,
 				88100B4E272A3328008A01F7 /* Montserrat-Italic.ttf in Resources */,
 				8864737E272D103B00B5CA54 /* Pacifico-Regular.ttf in Resources */,
@@ -1593,6 +1617,7 @@
 				3820A9D527AD4A0300933BE8 /* TripMainPageTableCell.swift in Sources */,
 				88B31C7C273F81DC0011BF59 /* AddTripTopExpandXIB.swift in Sources */,
 				88B31C84273F91A40011BF59 /* AddTripLogisticsExpandXIB.swift in Sources */,
+				38152A4D27DB66A00077BDB5 /* TravelAdviceListViewController.swift in Sources */,
 				883EDE072761D736009491F0 /* TripPageDetailimage.swift in Sources */,
 				88A00B41275CE7C7008B23E9 /* TripMainPageTopCellXIB.swift in Sources */,
 				38584CE127BD080A00FACF6D /* FeedHomeViewModel.swift in Sources */,
@@ -1625,6 +1650,7 @@
 				8885DFB42733B88500AE698B /* ImagePickerManager.swift in Sources */,
 				886A0C9527366E5600DC0B30 /* CityListCell.swift in Sources */,
 				38AE152F2782D6630016F80E /* CustomAlertHelpingUtility.swift in Sources */,
+				38152A4727DB37F50077BDB5 /* ExploreTripTopCellXIB.swift in Sources */,
 				88122D51273FD935003512C1 /* LoginViewModel.swift in Sources */,
 				38AE15562782D6630016F80E /* GlobalConstants.swift in Sources */,
 				38AE153E2782D6630016F80E /* GlobalProtocols.swift in Sources */,

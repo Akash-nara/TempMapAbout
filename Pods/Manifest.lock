@@ -91,6 +91,7 @@ PODS:
     - Starscream (~> 3.1)
   - Starscream (3.1.1)
   - SVPinView (1.0.11)
+  - SwiftSVG (2.3.2)
   - SwiftyGif (5.4.2)
   - SwiftyJSON (5.0.1)
   - TagListView (1.4.1)
@@ -105,6 +106,7 @@ DEPENDENCIES:
   - CHIPageControl
   - CropViewController
   - DKImagePickerController
+  - DKPhotoGallery
   - ELWaterFallLayout
   - GoogleMaps
   - GooglePlaces
@@ -116,6 +118,7 @@ DEPENDENCIES:
   - SKPhotoBrowser
   - Socket.IO-Client-Swift (~> 15.2.0)
   - SVPinView (~> 1.0)
+  - SwiftSVG
   - SwiftyJSON
   - TagListView
   - WaterfallLayout (~> 0.1)
@@ -144,6 +147,7 @@ SPEC REPOS:
     - Socket.IO-Client-Swift
     - Starscream
     - SVPinView
+    - SwiftSVG
     - SwiftyGif
     - SwiftyJSON
     - TagListView
@@ -172,12 +176,13 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
+  SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
   SwiftyGif: dec758a9dd3d278e5a855dbf279bf062c923c387
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   WaterfallLayout: 030e04b041e5c6c47ae2c1eaa685c60289fab0b1
   WXImageCompress: 86c7a4d028c7fc9c74181468c318a9ec688fcdac
 
-PODFILE CHECKSUM: fff7883e497aeff3c616dcb7e31e956ce7e9bb9e
+PODFILE CHECKSUM: 789d9183b3e0f446ed6e0ce1a34d03c4f76a17ad
 
 COCOAPODS: 1.11.2

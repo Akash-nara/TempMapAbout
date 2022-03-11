@@ -138,21 +138,11 @@ class AddTripStepVC: UIViewController,BottomPopupDelegate{
                         options.isNetworkAccessAllowed = true
                         print(assets.count)
                         for asset in assets {
-                            asset.fetchOriginalImage(options: options, completeBlock:  { (imageSelected, info) in DispatchQueue.main.async
-                                {
+                            asset.fetchOriginalImage(options: options, completeBlock:  { (imageSelected, info) in DispatchQueue.main.async{
                                     
                                     let Object = TripImagesModel.init(image: UIImage(data: imageSelected!.jpeg(.highest)!)!, type: "image", url: "")
                                     self.TripImages.append(Object)
                                     self.newImageAllowed =  self.newImageAllowed - 1
-                                    //self.CollectionviewPhotos.reloadData()
-                                    
-                                    //                                    let imageSelected : UIImage = UIImage(data: imageSelected!.jpeg(.highest)!)!
-                                    //                                    let imageModel = EventImagesModel()
-                                    //                                    imageModel.isOldImage = false
-                                    //                                    imageModel.image = imageSelected
-                                    //                                    self.dataForCreateEvent.product_gallery.append(imageModel)
-                                    //                                    self.newImageAllowed =  self.newImageAllowed - 1
-                                    //                                    print("resultObj:--- ",imageSelected.size)
                                 }
                             })
                         }

@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import TagListView
 
-class FeedTableViewCell: UITableViewCell {
+class FeedTableViewCell: UITableViewCell{
     
     @IBOutlet weak var postedUserPic: UIImageView!
     @IBOutlet weak var commentedUserPic: UIImageView!
