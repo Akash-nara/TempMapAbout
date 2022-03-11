@@ -6,16 +6,32 @@
 //
 
 import UIKit
+import RESegmentedControl
 
 class TravelAdviceListViewController: UIViewController {
     
     //MARK: - OUTLETS
     enum EnumTravelType:Int {
-        case topTips,stories, logistics
+        case topTips = 0,stories, logistics
+        
+        var title:String{
+            switch self {
+            case .topTips:
+                return "Top Tips"
+                
+            case .stories:
+                return "Stories"
+                
+            case .logistics:
+                return "Logistics"
+                
+            }
+        }
     }
     var cityId = 0
     var cityName = "Spain"
-    
+    /// Segmented Control
+    @IBOutlet weak var segmentedControl: RESegmentedControl!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
@@ -49,6 +65,34 @@ class TravelAdviceListViewController: UIViewController {
         arrayOfLogistics.append(false)
         arrayOfLogistics.append(false)
         arrayOfLogistics.append(false)
+        
+        
+        // Specify a list of string that will be shown
+        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
+        
+        // Map a list of string to the [SegmentModel]
+        var segmentItems: [SegmentModel] {
+            return titles.map({ SegmentModel(title: $0.title) })
+        }
+        // Create a preset to style the segmentedControl
+        var preset = BootstapPreset(backgroundColor: .white, selectedBackgroundColor: .white)
+        preset.selectedTextColor = UIColor.App_BG_SeafoamBlue_Color
+        preset.selectedTintColor = UIColor.App_BG_SeafoamBlue_Color
+        preset.textColor = UIColor.App_BG_SecondaryDark2_Color
+        preset.textFont = UIFont.Montserrat.Medium(15)
+        preset.segmentItemSeparator?.color = UIColor.App_BG_SeafoamBlue_Color
+        preset.selectedTextFont = UIFont.Montserrat.Medium(15)
+        
+        // segmentedControl configuration method
+        segmentedControl.configure(segmentItems: segmentItems, preset: preset)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlTap), for: .valueChanged)
+    }
+    
+    @objc func segmentedControlTap(_ sender:RESegmentedControl){
+        debugPrint(sender.selectedSegmentIndex)
+        self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
+        tblviewData.reloadData()
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -67,9 +111,9 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         case .topTips:
             return arrayOfToolTips.count
         case .stories:
-            return arrayOfStories.count
+            return arrayOfStories.count - 1
         case .logistics:
-            return arrayOfLogistics.count
+            return arrayOfLogistics.count - 2
         }
     }
     

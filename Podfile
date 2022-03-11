@@ -31,6 +31,7 @@ target 'MyMapp' do
   pod 'ActiveLabel'
   pod 'SwiftSVG'
   pod 'DKPhotoGallery'
+  pod 'RESegmentedControl'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
