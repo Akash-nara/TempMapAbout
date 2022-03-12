@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="384" height="217"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIx-Vf-GNB" customClass="SVGView" customModule="SwiftSVG">
+                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIx-Vf-GNB">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="217"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.82745098039215681" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -36,6 +36,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imgSVGMap" destination="jIx-Vf-GNB" id="wOG-lL-IS2"/>
+            </connections>
             <point key="canvasLocation" x="178.2608695652174" y="165.06696428571428"/>
         </tableViewCell>
     </objects>

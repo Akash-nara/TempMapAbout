@@ -10,12 +10,22 @@ import SwiftSVG
 class MapExploreTVCell: UITableViewCell {
     
     @IBOutlet weak var labelTitle: UILabel!
-    
+    @IBOutlet weak var imgSVGMap: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-//        // Initialization code
-//        var path: String = Bundle.main.path(forResource: "world-low", ofType: "svg")!
-//        var url: URL = URL.init(fileURLWithPath: path)  //Creating a URL which points towards our path
+                
+        let svgURL = Bundle.main.url(forResource: "world-low", withExtension: "svg")!
+        let pizza = CALayer(SVGURL: svgURL) { (svgLayer) in
+            // Set the fill color
+//            svgLayer.fillColor = UIColor(red:0.94, green:0.37, blue:0.00, alpha:1.00).cgColor
+            // Aspect fit the layer to self.view
+            svgLayer.fillColor = UIColor.App_BG_silver_Color.cgColor
+            svgLayer.resizeToFit(self.imgSVGMap.bounds)
+
+            // Add the layer to self.view's sublayers
+            self.imgSVGMap.layer.addSublayer(svgLayer)
+        }
+
     }
 }
