@@ -131,7 +131,7 @@ open class MaterialSegmentedControl: UIControl {
                             textColor: UIColor?, font: UIFont? = nil, rippleColor: UIColor,
                             cornerRadius: CGFloat = 12.0) {
         let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: cornerRadius)
-        button.rippleLayerAlpha = 0.15
+        button.rippleLayerAlpha = 0
         self.segments.append(button)
     }
     
@@ -155,14 +155,14 @@ open class MaterialSegmentedControl: UIControl {
         
         selector = UIView(frame: .zero)
         if let first = segments.first {
-//            selector.setCornerBorder(cornerRadius: first.layer.cornerRadius)
+            selector.setCornerBorder(cornerRadius: first.layer.cornerRadius)
         }
         
         switch selectorStyle {
         case .fill, .line:
             selector.backgroundColor = selectorColor
         case .outline:break
-//            selector.setCornerBorder(color: selectorColor, cornerRadius: selector.layer.cornerRadius, borderWidth: 1.5)
+            selector.setCornerBorder(color: selectorColor, cornerRadius: selector.layer.cornerRadius, borderWidth: 1.5)
         }
         
         subviews.forEach { (view) in
@@ -207,14 +207,11 @@ open class MaterialSegmentedControl: UIControl {
     
     @objc func buttonTapped(button: UIButton) {
         for (idx, btn) in segments.enumerated() {
-            let image = btn.image(for: .normal)
             btn.setTitleColor(foregroundColor, for: .normal)
-//            btn.setImage(preserveIconColor ? image : image?.colored(foregroundColor))
             
             if btn.tag == button.tag {
                 selectedSegmentIndex = idx
-//                btn.setImage(preserveIconColor ? image : image?.colored(selectedForegroundColor))
-                btn.setTitleColor(selectorStyle == .line ? foregroundColor : selectedForegroundColor, for: .normal)
+                btn.setTitleColor(selectedForegroundColor, for: .normal)
                 moveView(selector, toX: btn.frame.origin.x)
             }
         }

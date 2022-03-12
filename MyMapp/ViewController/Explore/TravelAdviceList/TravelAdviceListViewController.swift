@@ -79,16 +79,19 @@ class TravelAdviceListViewController: UIViewController {
     
     func setSampleSegments() {
         let segmentCn = MaterialSegmentedControl.init()
-        segmentCn.frame = segmentedControl.frame
-        segmentedControl.addSubview(segmentCn)
+        segmentCn.preserveIconColor = false
+        segmentCn.frame = CGRect.init(x: 20, y: segmentedControl.frame.origin.y, width: segmentedControl.frame.width - 60, height: segmentedControl.frame.height)
+//        segmentCn.frame = segmentedControl.frame
+//        segmentCn.backgroundColor = .red
         segmentCn.selectorStyle = .line
         segmentCn.foregroundColor = UIColor.App_BG_SecondaryDark2_Color
         segmentCn.selectorColor = UIColor.App_BG_SeafoamBlue_Color
         segmentCn.selectedForegroundColor = UIColor.App_BG_SeafoamBlue_Color
-        
+        segmentedControl.addSubview(segmentCn)
+
         let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
         titles.forEach { enmType in
-            segmentCn.appendTextSegment(text: enmType.title, textColor: .gray, rippleColor: .lightGray)
+            segmentCn.appendTextSegment(text: enmType.title, textColor: .gray, font: UIFont.Montserrat.Medium(13), rippleColor: .lightGray)
         }
         segmentCn.addTarget(self, action: #selector(segmentedControlTap(_:)), for: .valueChanged)
     }
