@@ -100,6 +100,15 @@
 		38D06E0A27A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D06E0827A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift */; };
 		38D06E0B27A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D06E0927A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib */; };
 		38D7722727B5100300346B6D /* TripMainPageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D7722627B5100300346B6D /* TripMainPageTableCell.xib */; };
+		38DE30E327DC4F060048563E /* TravelAdviceDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */; };
+		38DE30EE27DC93070048563E /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E527DC93070048563E /* MaterialTableViewCell.swift */; };
+		38DE30EF27DC93070048563E /* MaterialSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E727DC93070048563E /* MaterialSegmentedControl.swift */; };
+		38DE30F027DC93070048563E /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E827DC93070048563E /* MaterialTextField.swift */; };
+		38DE30F127DC93070048563E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E927DC93070048563E /* Extensions.swift */; };
+		38DE30F227DC93070048563E /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30EA27DC93070048563E /* MaterialButton.swift */; };
+		38DE30F327DC93070048563E /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30EB27DC93070048563E /* RippleLayer.swift */; };
+		38DE30F427DC93070048563E /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30EC27DC93070048563E /* MaterialLoadingIndicator.swift */; };
+		38DE30F527DC93070048563E /* MaterialVerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30ED27DC93070048563E /* MaterialVerticalButton.swift */; };
 		38E6C0AA2785963300953D55 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E6C0A92785963300953D55 /* UIApplication+Extensions.swift */; };
 		38E6C0AD27859D5A00953D55 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E6C0AC27859D5A00953D55 /* PaddingTextField.swift */; };
 		38E9563F27BB997E002276BD /* TripCommmnets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E9563E27BB997E002276BD /* TripCommmnets.swift */; };
@@ -346,6 +355,16 @@
 		38D06E0827A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingActivityIndicatorMoreCVCell.swift; sourceTree = "<group>"; };
 		38D06E0927A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingActivityIndicatorMoreCVCell.xib; sourceTree = "<group>"; };
 		38D7722627B5100300346B6D /* TripMainPageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripMainPageTableCell.xib; sourceTree = "<group>"; };
+		38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdviceDataModel.swift; sourceTree = "<group>"; };
+		38DE30E527DC93070048563E /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
+		38DE30E627DC93070048563E /* MaterialDesignWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialDesignWidgets.h; sourceTree = "<group>"; };
+		38DE30E727DC93070048563E /* MaterialSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSegmentedControl.swift; sourceTree = "<group>"; };
+		38DE30E827DC93070048563E /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
+		38DE30E927DC93070048563E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		38DE30EA27DC93070048563E /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
+		38DE30EB27DC93070048563E /* RippleLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
+		38DE30EC27DC93070048563E /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
+		38DE30ED27DC93070048563E /* MaterialVerticalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialVerticalButton.swift; sourceTree = "<group>"; };
 		38E6C0A92785963300953D55 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		38E6C0AC27859D5A00953D55 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
 		38E9563E27BB997E002276BD /* TripCommmnets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCommmnets.swift; sourceTree = "<group>"; };
@@ -514,7 +533,9 @@
 		38152A4B27DB66830077BDB5 /* TravelAdviceList */ = {
 			isa = PBXGroup;
 			children = (
+				38DE30E427DC93070048563E /* MaterialDesignWidgets */,
 				38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */,
+				38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */,
 			);
 			path = TravelAdviceList;
 			sourceTree = "<group>";
@@ -737,6 +758,22 @@
 				38D06E0227A50AAD0022C2C0 /* OneStripeViewCell.xib */,
 			);
 			path = SkeletonCells;
+			sourceTree = "<group>";
+		};
+		38DE30E427DC93070048563E /* MaterialDesignWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				38DE30E527DC93070048563E /* MaterialTableViewCell.swift */,
+				38DE30E627DC93070048563E /* MaterialDesignWidgets.h */,
+				38DE30E727DC93070048563E /* MaterialSegmentedControl.swift */,
+				38DE30E827DC93070048563E /* MaterialTextField.swift */,
+				38DE30E927DC93070048563E /* Extensions.swift */,
+				38DE30EA27DC93070048563E /* MaterialButton.swift */,
+				38DE30EB27DC93070048563E /* RippleLayer.swift */,
+				38DE30EC27DC93070048563E /* MaterialLoadingIndicator.swift */,
+				38DE30ED27DC93070048563E /* MaterialVerticalButton.swift */,
+			);
+			path = MaterialDesignWidgets;
 			sourceTree = "<group>";
 		};
 		38E6C0AB27859D4400953D55 /* Components */ = {
@@ -1636,6 +1673,7 @@
 				88A7C0CA275CAB25001DFBDB /* TripMainPageHeaderCellXIB.swift in Sources */,
 				885CE117275CDCAB00A13FC9 /* TripMainPageHeaderNameXIB.swift in Sources */,
 				38D06DF927A503570022C2C0 /* ProfileHomeViewModel.swift in Sources */,
+				38DE30EE27DC93070048563E /* MaterialTableViewCell.swift in Sources */,
 				38857A2627A0004100AFAA1D /* AddTripFavouriteImageHeader.swift in Sources */,
 				8845434E2737FAFA00B52FED /* ProfileHomeVC.swift in Sources */,
 				8889200A273AED19009D799A /* ActivityHomeVC.swift in Sources */,
@@ -1648,6 +1686,7 @@
 				88A7DAF027342C16000640E1 /* LoaderClass.swift in Sources */,
 				88E307F6276DB1A500E0F8FD /* SubCategoryListModel.swift in Sources */,
 				38AE15402782D6630016F80E /* AllNumber+Extensions.swift in Sources */,
+				38DE30F227DC93070048563E /* MaterialButton.swift in Sources */,
 				3872C59627B4355600B5920E /* TestTableViewUseCase.swift in Sources */,
 				38003B6D27D5BD54009BACE1 /* OtherProfileHomeVC.swift in Sources */,
 				886763262729D2C70023D9DA /* OnboardingVC.swift in Sources */,
@@ -1663,6 +1702,7 @@
 				88B31C7C273F81DC0011BF59 /* AddTripTopExpandXIB.swift in Sources */,
 				88B31C84273F91A40011BF59 /* AddTripLogisticsExpandXIB.swift in Sources */,
 				38152A4D27DB66A00077BDB5 /* TravelAdviceListViewController.swift in Sources */,
+				38DE30E327DC4F060048563E /* TravelAdviceDataModel.swift in Sources */,
 				883EDE072761D736009491F0 /* TripPageDetailimage.swift in Sources */,
 				88A00B41275CE7C7008B23E9 /* TripMainPageTopCellXIB.swift in Sources */,
 				38584CE127BD080A00FACF6D /* FeedHomeViewModel.swift in Sources */,
@@ -1678,6 +1718,7 @@
 				38AE15392782D6630016F80E /* SwiftyJSON.swift in Sources */,
 				38AE15352782D6630016F80E /* UploadHTTPMethod.swift in Sources */,
 				38AE15472782D6630016F80E /* UITextView+Extensions.swift in Sources */,
+				38DE30F427DC93070048563E /* MaterialLoadingIndicator.swift in Sources */,
 				38AE15362782D6630016F80E /* NSURLSession+Multipart.swift in Sources */,
 				38ED7CC427BE73BF00794C43 /* ActivityHomeViewModel.swift in Sources */,
 				38CC20CB27D65193008E952B /* ExploreTableDataCell.swift in Sources */,
@@ -1699,6 +1740,7 @@
 				38AE152F2782D6630016F80E /* CustomAlertHelpingUtility.swift in Sources */,
 				38152A4727DB37F50077BDB5 /* ExploreTripTopCellXIB.swift in Sources */,
 				88122D51273FD935003512C1 /* LoginViewModel.swift in Sources */,
+				38DE30F127DC93070048563E /* Extensions.swift in Sources */,
 				38AE15562782D6630016F80E /* GlobalConstants.swift in Sources */,
 				38AE153E2782D6630016F80E /* GlobalProtocols.swift in Sources */,
 				38CC20CF27D651CD008E952B /* ExploreCollectionDataCell.swift in Sources */,
@@ -1713,6 +1755,7 @@
 				88EADAA92741501200A6B390 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				38AE15372782D6630016F80E /* UploadingManager.swift in Sources */,
 				38857A2B27A0174600AFAA1D /* TripImagesModel.swift in Sources */,
+				38DE30EF27DC93070048563E /* MaterialSegmentedControl.swift in Sources */,
 				38584CE527BD098600FACF6D /* FeedTableViewCell.swift in Sources */,
 				8853FBEA272E8AC900787059 /* PersonalDetailsVC.swift in Sources */,
 				38AE154A2782D6630016F80E /* UIImage+Extensions.swift in Sources */,
@@ -1721,10 +1764,12 @@
 				3802A30D278C281400A6E3C0 /* SSReachabilityManager.swift in Sources */,
 				38ED7CC727BE7C6600794C43 /* ActivityFooterCell.swift in Sources */,
 				38AE15442782D6630016F80E /* UIButton+Extensions.swift in Sources */,
+				38DE30F027DC93070048563E /* MaterialTextField.swift in Sources */,
 				3893F16027C526EF005D8501 /* LessMoreCustomizeLabel.swift in Sources */,
 				38E6C0AD27859D5A00953D55 /* PaddingTextField.swift in Sources */,
 				88122D54273FEFEC003512C1 /* AddTripFavouriteLocationsVC.swift in Sources */,
 				88B596FB2740CC9000CBA48C /* ActivityHeaderCell.swift in Sources */,
+				38DE30F327DC93070048563E /* RippleLayer.swift in Sources */,
 				8853FBE7272E80A900787059 /* ProfilePhotoUploadVC.swift in Sources */,
 				A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */,
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
@@ -1735,6 +1780,7 @@
 				8885DFB12733A71D00AE698B /* ResetPasswordVC.swift in Sources */,
 				384046042784074000BF206D /* UserLocationDataSetModel.swift in Sources */,
 				889C74CF27410C8400B2123C /* ProfileHeaderCellXIB.swift in Sources */,
+				38DE30F527DC93070048563E /* MaterialVerticalButton.swift in Sources */,
 				38857A2927A0104000AFAA1D /* AddTripFavouriteLocationDetail.swift in Sources */,
 				883651FE276647420047693F /* LatestTripVC.swift in Sources */,
 				885B7BD6274AA44800E7489E /* CityModel.swift in Sources */,

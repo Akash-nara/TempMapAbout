@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RESegmentedControl
+//import MaterialDesignWidgets
 
 class TravelAdviceListViewController: UIViewController {
     
@@ -30,8 +30,9 @@ class TravelAdviceListViewController: UIViewController {
     }
     var cityId = 0
     var cityName = "Spain"
+    @IBOutlet weak var segmentedControl: UIView!
+
     /// Segmented Control
-    @IBOutlet weak var segmentedControl: RESegmentedControl!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
@@ -42,9 +43,9 @@ class TravelAdviceListViewController: UIViewController {
     }
     
     var isShowWholeContent = false
-    var arrayOfToolTips = [Bool]()
-    var arrayOfStories = [Bool]()
-    var arrayOfLogistics = [Bool]()
+    var arrayOfToolTips = [TravelAdviceDataModel]()
+    var arrayOfStories = [TravelAdviceDataModel]()
+    var arrayOfLogistics = [TravelAdviceDataModel]()
     
     var selectedTab:EnumTravelType = .topTips
     
@@ -54,47 +55,44 @@ class TravelAdviceListViewController: UIViewController {
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         
-        arrayOfToolTips.append(false)
-        arrayOfToolTips.append(false)
-        arrayOfToolTips.append(false)
+        arrayOfToolTips.append(TravelAdviceDataModel.init())
+        arrayOfToolTips.append(TravelAdviceDataModel.init())
+        arrayOfToolTips.append(TravelAdviceDataModel.init())
         
-        arrayOfStories.append(false)
-        arrayOfStories.append(false)
-        arrayOfStories.append(false)
+        arrayOfStories.append(TravelAdviceDataModel.init())
+        arrayOfStories.append(TravelAdviceDataModel.init())
+        arrayOfStories.append(TravelAdviceDataModel.init())
         
-        arrayOfLogistics.append(false)
-        arrayOfLogistics.append(false)
-        arrayOfLogistics.append(false)
+        arrayOfLogistics.append(TravelAdviceDataModel.init())
+        arrayOfLogistics.append(TravelAdviceDataModel.init())
+        arrayOfLogistics.append(TravelAdviceDataModel.init())
         
-        
-        // Specify a list of string that will be shown
-        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
-        
-        // Map a list of string to the [SegmentModel]
-        var segmentItems: [SegmentModel] {
-            return titles.map({ SegmentModel(title: $0.title) })
-        }
-        // Create a preset to style the segmentedControl
-        var preset = BootstapPreset(backgroundColor: .white, selectedBackgroundColor: .white)
-        preset.selectedTextColor = UIColor.App_BG_SeafoamBlue_Color
-        preset.selectedTintColor = UIColor.App_BG_SeafoamBlue_Color
-        preset.textColor = UIColor.App_BG_SecondaryDark2_Color
-        preset.textFont = UIFont.Montserrat.Medium(15)
-        preset.segmentItemSeparator?.color = UIColor.App_BG_SeafoamBlue_Color
-        preset.selectedTextFont = UIFont.Montserrat.Medium(15)
-        
-        // segmentedControl configuration method
-        segmentedControl.configure(segmentItems: segmentItems, preset: preset)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlTap), for: .valueChanged)
+        setSampleSegments()
     }
     
-    @objc func segmentedControlTap(_ sender:RESegmentedControl){
+    @objc func segmentedControlTap(_ sender:MaterialSegmentedControl){
         debugPrint(sender.selectedSegmentIndex)
         self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
         tblviewData.reloadData()
     }
     
+    
+    func setSampleSegments() {
+        let segmentCn = MaterialSegmentedControl.init()
+        segmentCn.frame = segmentedControl.frame
+        segmentedControl.addSubview(segmentCn)
+        segmentCn.selectorStyle = .line
+        segmentCn.foregroundColor = UIColor.App_BG_SecondaryDark2_Color
+        segmentCn.selectorColor = UIColor.App_BG_SeafoamBlue_Color
+        segmentCn.selectedForegroundColor = UIColor.App_BG_SeafoamBlue_Color
+        
+        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
+        titles.forEach { enmType in
+            segmentCn.appendTextSegment(text: enmType.title, textColor: .gray, rippleColor: .lightGray)
+        }
+        segmentCn.addTarget(self, action: #selector(segmentedControlTap(_:)), for: .valueChanged)
+    }
+
     @IBAction func buttonBackTapp(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
     }
@@ -122,21 +120,22 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         switch self.selectedTab{
         case .topTips:
             
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row].isExpand,isBookmark: arrayOfToolTips[indexPath.row].isBookmark)
         case .stories:
             
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfStories[indexPath.row].isExpand,isBookmark: arrayOfStories[indexPath.row].isBookmark)
             
         case .logistics:
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfLogistics[indexPath.row].isExpand,isBookmark: arrayOfLogistics[indexPath.row].isBookmark)
         }
     }
     
-    func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool) -> ExploreTripTopCellXIB{
+    func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool, isBookmark:Bool) -> ExploreTripTopCellXIB{
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "ExploreTripTopCellXIB", for: indexPath) as! ExploreTripTopCellXIB
         cell.userIcon.image = UIImage.init(named: icon)
         cell.trealingViewExpand.constant = 50
         
+        cell.buttonBookmark.isSelected = isBookmark
         cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
         cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
@@ -153,16 +152,17 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
             cell.labelSubTitle.isHidden = true
         } else {
             cell.labelSubTitle.isHidden = false
-            cell.labelSubTitle.isShowWholeContent = self.arrayOfToolTips[cell.labelSubTitle.tag]
+            cell.labelSubTitle.isShowWholeContent = isExpadCell//self.arrayOfToolTips[cell.labelSubTitle.tag]
             cell.labelSubTitle.readLessText = " " + "see less"
             cell.labelSubTitle.readMoreText = " " + "see more"
             cell.labelSubTitle.isOneLinedContent = true
             cell.labelSubTitle.setContent(str, noOfCharacters: 35, readMoreTapped: {
-                self.arrayOfToolTips[cell.labelSubTitle.tag] = true
+                self.updateBoolFlagForExpand(index: cell.labelSubTitle.tag, flag: true)
+
                 self.isShowWholeContent = true
                 self.tblviewData.reloadData()
             }) {
-                self.arrayOfToolTips[cell.labelSubTitle.tag] = false
+                self.updateBoolFlagForExpand(index: cell.labelSubTitle.tag, flag: false)
                 self.isShowWholeContent = false
                 self.tblviewData.reloadData()
             }
@@ -170,15 +170,42 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         return cell
     }
     
+    func updateBoolFlagForExpand(index:Int,flag:Bool){
+        switch self.selectedTab{
+        case .topTips:
+            self.arrayOfToolTips[index].isExpand = flag
+        case .stories:
+            self.arrayOfStories[index].isExpand = flag
+        case .logistics:
+            self.arrayOfLogistics[index].isExpand = flag
+        }
+    }
+    
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
+        switch self.selectedTab {
+        case .topTips:
+            arrayOfToolTips[sender.tag].isBookmark.toggle()
+        case .stories:
+            arrayOfStories[sender.tag].isBookmark.toggle()
+        case .logistics:
+            arrayOfLogistics[sender.tag].isBookmark.toggle()
+        }
     }
     
     //MARK: - OTHER FUNCTIONS
     @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
         let section = (Int(sender.accessibilityHint ?? "") ?? 0)
         let row = (Int(sender.accessibilityLabel ?? "") ?? 0)
-        arrayOfToolTips[IndexPath.init(row: row, section: section).row].toggle()
+        
+        switch self.selectedTab {
+        case .topTips:
+            arrayOfToolTips[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+        case .stories:
+            arrayOfStories[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+        case .logistics:
+            arrayOfLogistics[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+        }
         self.tblviewData.reloadData()
     }
     

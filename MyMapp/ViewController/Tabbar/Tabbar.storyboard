@@ -642,10 +642,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tNT-D3-RrM">
-                                <rect key="frame" x="0.0" y="68" width="389" height="128"/>
+                                <rect key="frame" x="0.0" y="68" width="389" height="168"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yld-nr-BQb">
-                                        <rect key="frame" x="0.0" y="41.5" width="389" height="45"/>
+                                        <rect key="frame" x="0.0" y="61.5" width="389" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TgV-AW-jXr">
                                                 <rect key="frame" x="0.0" y="0.0" width="55" height="45"/>
@@ -672,17 +672,36 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oMr-U7-X1P">
-                                <rect key="frame" x="0.0" y="196" width="414" height="666"/>
+                                <rect key="frame" x="0.0" y="236" width="414" height="626"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEQ-dF-kIG" customClass="RESegmentedControl" customModule="RESegmentedControl">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Ce8-zs-CFZ"/>
-                                        </constraints>
-                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6Ip-nU-Ghn">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMb-Yo-9w0">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="wKz-bQ-1IM"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
+                                                        <color key="value" systemColor="labelColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectorColor">
+                                                        <color key="value" systemColor="labelColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedForegroundColor">
+                                                        <color key="value" systemColor="labelColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eap-Ph-qRO">
-                                        <rect key="frame" x="0.0" y="45" width="414" height="621"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="576"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -706,7 +725,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="labelTitle" destination="HJ7-CB-Jhk" id="hwG-1b-cwe"/>
-                        <outlet property="segmentedControl" destination="UEQ-dF-kIG" id="a8t-fq-jiX"/>
+                        <outlet property="segmentedControl" destination="UMb-Yo-9w0" id="4yg-hD-CKU"/>
                         <outlet property="tblviewData" destination="eap-Ph-qRO" id="fwx-AT-Mjh"/>
                     </connections>
                 </viewController>
@@ -732,6 +751,9 @@
         <namedColor name="App_Bg_Seafoamblue_Color">
             <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
