@@ -2,8 +2,8 @@
 //  AddPaginationProtocol.swift
 //  CertifID
 //
-//  Created by Kiran Jasvanee on 08/07/19.
-//  Copyright © 2019 SmartSense. All rights reserved.
+//  Created by Akash Nara on 08/07/19.
+//  Copyright © 2019 Akash. All rights reserved.
 //
 
 import Foundation

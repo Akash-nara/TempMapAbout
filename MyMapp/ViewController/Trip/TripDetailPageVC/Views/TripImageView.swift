@@ -2,7 +2,7 @@
 //  TripImageView.swift
 //  MyMapp
 //
-//  Created by smartsense ConsultingSolutions on 05/03/22.
+//  Created by Akash Nara on 05/03/22.
 //
 
 import UIKit
