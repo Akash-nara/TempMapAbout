@@ -253,6 +253,8 @@
 		A440832E27DC8239004589FC /* CollectionViewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440832C27DC8239004589FC /* CollectionViewTVCell.xib */; };
 		A440833227DC8E91004589FC /* TitleHeaderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440833027DC8E91004589FC /* TitleHeaderTVCell.swift */; };
 		A440833327DC8E91004589FC /* TitleHeaderTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */; };
+		A440833727DCC3B7004589FC /* ExpandableTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440833527DCC3B7004589FC /* ExpandableTVCell.swift */; };
+		A440833827DCC3B7004589FC /* ExpandableTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833627DCC3B7004589FC /* ExpandableTVCell.xib */; };
 		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
@@ -513,6 +515,8 @@
 		A440832C27DC8239004589FC /* CollectionViewTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTVCell.xib; sourceTree = "<group>"; };
 		A440833027DC8E91004589FC /* TitleHeaderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderTVCell.swift; sourceTree = "<group>"; };
 		A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleHeaderTVCell.xib; sourceTree = "<group>"; };
+		A440833527DCC3B7004589FC /* ExpandableTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTVCell.swift; sourceTree = "<group>"; };
+		A440833627DCC3B7004589FC /* ExpandableTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableTVCell.xib; sourceTree = "<group>"; };
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -729,6 +733,7 @@
 		38C684D927D920D6008ACD05 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A440833427DCC3A3004589FC /* ExpandableTVCell */,
 				A440832F27DC8E7B004589FC /* TitleHeaderTVCell */,
 				A440832A27DC821C004589FC /* CollectionViewTVCell */,
 				A440832527DC76B7004589FC /* FeaturedPlacesCVCell */,
@@ -1422,6 +1427,15 @@
 			path = TitleHeaderTVCell;
 			sourceTree = "<group>";
 		};
+		A440833427DCC3A3004589FC /* ExpandableTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440833527DCC3B7004589FC /* ExpandableTVCell.swift */,
+				A440833627DCC3B7004589FC /* ExpandableTVCell.xib */,
+			);
+			path = ExpandableTVCell;
+			sourceTree = "<group>";
+		};
 		A4A1CC0FFBBBE0B484210754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1516,6 +1530,7 @@
 				88B31C81273F8D680011BF59 /* AddTripFavouriteExpandXIB.xib in Resources */,
 				886A0C9627366E5600DC0B30 /* CityListCell.xib in Resources */,
 				88B31C85273F91A40011BF59 /* AddTripLogisticsExpandXIB.xib in Resources */,
+				A440833827DCC3B7004589FC /* ExpandableTVCell.xib in Resources */,
 				88100B4C272A3328008A01F7 /* Montserrat-Light.ttf in Resources */,
 				885CE11C275CDEC000A13FC9 /* TripMainLocationCellXIB.xib in Resources */,
 				88B597002740CD2300CBA48C /* ActivityInfoCellXIB.xib in Resources */,
@@ -1798,6 +1813,7 @@
 				69F436B02774867500CC5F44 /* AddTripViewModel.swift in Sources */,
 				38AE15492782D6630016F80E /* UIColor+Extensions.swift in Sources */,
 				38AE15432782D6630016F80E /* DispatchQueue+Extensions.swift in Sources */,
+				A440833727DCC3B7004589FC /* ExpandableTVCell.swift in Sources */,
 				38A7F52027A79FD300423250 /* PlaceHolderTripCell.swift in Sources */,
 				88B31C74273F7C060011BF59 /* AddTripFavouriteCollpaseXIB.swift in Sources */,
 				88ECE0F4273062F50000AEA3 /* SigninVC.swift in Sources */,

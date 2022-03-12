@@ -22,16 +22,19 @@ class ExploreTripDetailViewController: UIViewController {
             tblviewData.registerCell(type: MapExploreTVCell.self, identifier: MapExploreTVCell.identifier)
             tblviewData.registerCell(type: ExploreTripTopCellXIB.self, identifier: ExploreTripTopCellXIB.identifier)
             tblviewData.registerCell(type: CollectionViewTVCell.self, identifier: CollectionViewTVCell.identifier)
-
+            tblviewData.registerCellNib(identifier: ExpandableTVCell.identifier)
+            
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     var isShowWholeContent = false
     enum EnumTripType:Int {
-        case maps = 0, popularCities, featuredPlaces, topTips
+        case maps = 0, expandableViews, popularCities, featuredPlaces, topTips
         var title:String{
             switch self{
             case .maps:
+                return ""
+            case .expandableViews:
                 return ""
             case .popularCities:
                 return "Most Popular Cities"
@@ -46,7 +49,8 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayOfToolTips = [Bool]()
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [String]()
-    
+    var arrayExpandable = [(cellType: Int, isOpenCell: Bool)]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +61,11 @@ class ExploreTripDetailViewController: UIViewController {
         // Maps
         arrayOfSections.append(.maps)
 
+        // ExpandableViews
+        arrayExpandable = [(1, false), (2, false)]
+        if !arrayExpandable.count.isZero() {
+            arrayOfSections.append(.expandableViews)
+        }
         // FeaturedPlaces
         arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
         if !arrayFeaturedPlaces.count.isZero() {
@@ -88,6 +97,8 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         switch arrayOfSections[section] {
         case .maps:
             return 1
+        case .expandableViews:
+            return arrayExpandable.count
         case .featuredPlaces:
             return 1
         case .topTips:
@@ -107,6 +118,15 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
                     return UITableViewCell()
                 }
             return cell
+        case .expandableViews:
+            let cell = tblviewData.dequeueCell(withType: ExpandableTVCell.self, for: indexPath) as! ExpandableTVCell
+            cell.cellConfigExpandable(isOpen: arrayExpandable[indexPath.row].isOpenCell)
+            cell.cellConfig(data: arrayExpandable[indexPath.row].cellType)
+            cell.buttonExpandToggle.tag = indexPath.row
+            cell.buttonExpandToggle.addTarget(self, action: #selector(self.cellButtonExpandToggleClicked(_:)), for: .touchUpInside)
+            cell.buttonHere.tag = indexPath.row
+            cell.buttonHere.addTarget(self, action: #selector(self.cellButtonHereClicked(_:)), for: .touchUpInside)
+            return cell
         case .featuredPlaces:
             let cell = tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigFeaturedPlacesCell(data: arrayFeaturedPlaces)
@@ -116,6 +136,15 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         default:
             return UITableViewCell()
         }
+    }
+    
+    @objc func cellButtonExpandToggleClicked(_ sender: UIButton) {
+        arrayExpandable[sender.tag].isOpenCell.toggle()
+        tblviewData.reloadData()
+    }
+    
+    @objc func cellButtonHereClicked(_ sender: UIButton) {
+        print(arrayExpandable[sender.tag])
     }
     
     func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool) -> ExploreTripTopCellXIB{

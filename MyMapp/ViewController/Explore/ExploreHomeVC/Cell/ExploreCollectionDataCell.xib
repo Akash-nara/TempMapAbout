@@ -182,7 +182,7 @@
         <image name="ic_heart" width="19" height="19"/>
         <image name="ic_user_image_defaulut_one" width="512" height="512"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
-            <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -33,17 +33,16 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Nol-2Y-4uW">
-                        <rect key="frame" x="0.0" y="150" width="141" height="15"/>
+                        <rect key="frame" x="0.0" y="150" width="141" height="37"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hz-1f-24D">
                                 <rect key="frame" x="0.0" y="0.0" width="141" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adZ-Z6-W82">
-                                <rect key="frame" x="0.0" y="0.0" width="141" height="15"/>
+                                <rect key="frame" x="0.0" y="22" width="141" height="15"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -57,7 +56,7 @@
                         <state key="normal" image="iconsSavedUnselected"/>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jc5-zq-wjc">
-                        <rect key="frame" x="0.0" y="172" width="79" height="50"/>
+                        <rect key="frame" x="0.0" y="194" width="79" height="50"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70M-jv-KPA">
                                 <rect key="frame" x="0.0" y="0.0" width="34" height="50"/>
@@ -116,7 +115,7 @@
         <image name="iconsVisitors" width="15" height="15"/>
         <image name="imgStarRating" width="15" height="15"/>
         <namedColor name="App_Bg_Seafoamblue_Color">
-            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.42352941176470588" green="0.83137254901960789" blue="0.7686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
