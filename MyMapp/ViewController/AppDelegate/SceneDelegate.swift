@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let loggedUser = UserManager.getLoggedInUser() {
             APP_USER = loggedUser
 //            appDelegateShared.checkRedirectionFlow()
-            self.window?.rootViewController = UIStoryboard.tabbar.travelAdviceListVC
+            self.window?.rootViewController = UIStoryboard.tabbar.exploreTripDetailVC
 
         }else{
             self.window?.rootViewController = UIStoryboard.authentication.instantiateInitialViewController()
