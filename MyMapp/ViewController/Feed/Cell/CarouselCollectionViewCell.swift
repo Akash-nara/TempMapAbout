@@ -19,7 +19,6 @@ class CarouselCollectionViewCell: UICollectionViewCell {
         }
     }
     @IBOutlet weak var sketonView: UIView!
-    static let identifier = "CarouselCollectionViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -238,6 +238,12 @@
 		88ECE0F4273062F50000AEA3 /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ECE0F3273062F20000AEA3 /* SigninVC.swift */; };
 		88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 88F0ADFE276FAB69005C9657 /* MapStyle.json */; };
 		88F5DC1C272D5CD6003EEEAF /* FirstViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */; };
+		A440832827DC76CD004589FC /* FeaturedPlacesCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440832627DC76CD004589FC /* FeaturedPlacesCVCell.swift */; };
+		A440832927DC76CD004589FC /* FeaturedPlacesCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440832727DC76CD004589FC /* FeaturedPlacesCVCell.xib */; };
+		A440832D27DC8239004589FC /* CollectionViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440832B27DC8239004589FC /* CollectionViewTVCell.swift */; };
+		A440832E27DC8239004589FC /* CollectionViewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440832C27DC8239004589FC /* CollectionViewTVCell.xib */; };
+		A440833227DC8E91004589FC /* TitleHeaderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440833027DC8E91004589FC /* TitleHeaderTVCell.swift */; };
+		A440833327DC8E91004589FC /* TitleHeaderTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */; };
 		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
@@ -482,6 +488,12 @@
 		88F0ADFE276FAB69005C9657 /* MapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
 		88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewVC.swift; sourceTree = "<group>"; };
 		99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A440832627DC76CD004589FC /* FeaturedPlacesCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlacesCVCell.swift; sourceTree = "<group>"; };
+		A440832727DC76CD004589FC /* FeaturedPlacesCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedPlacesCVCell.xib; sourceTree = "<group>"; };
+		A440832B27DC8239004589FC /* CollectionViewTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTVCell.swift; sourceTree = "<group>"; };
+		A440832C27DC8239004589FC /* CollectionViewTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTVCell.xib; sourceTree = "<group>"; };
+		A440833027DC8E91004589FC /* TitleHeaderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderTVCell.swift; sourceTree = "<group>"; };
+		A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleHeaderTVCell.xib; sourceTree = "<group>"; };
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -696,6 +708,9 @@
 		38C684D927D920D6008ACD05 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A440832F27DC8E7B004589FC /* TitleHeaderTVCell */,
+				A440832A27DC821C004589FC /* CollectionViewTVCell */,
+				A440832527DC76B7004589FC /* FeaturedPlacesCVCell */,
 				38152A4527DB37F50077BDB5 /* ExploreTripTopCellXIB.swift */,
 				38152A4627DB37F50077BDB5 /* ExploreTripTopCellXIB.xib */,
 				38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */,
@@ -1343,6 +1358,33 @@
 			path = FirstViewVC;
 			sourceTree = "<group>";
 		};
+		A440832527DC76B7004589FC /* FeaturedPlacesCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440832627DC76CD004589FC /* FeaturedPlacesCVCell.swift */,
+				A440832727DC76CD004589FC /* FeaturedPlacesCVCell.xib */,
+			);
+			path = FeaturedPlacesCVCell;
+			sourceTree = "<group>";
+		};
+		A440832A27DC821C004589FC /* CollectionViewTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440832B27DC8239004589FC /* CollectionViewTVCell.swift */,
+				A440832C27DC8239004589FC /* CollectionViewTVCell.xib */,
+			);
+			path = CollectionViewTVCell;
+			sourceTree = "<group>";
+		};
+		A440832F27DC8E7B004589FC /* TitleHeaderTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440833027DC8E91004589FC /* TitleHeaderTVCell.swift */,
+				A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */,
+			);
+			path = TitleHeaderTVCell;
+			sourceTree = "<group>";
+		};
 		A4A1CC0FFBBBE0B484210754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1450,10 +1492,12 @@
 				88100B4F272A3328008A01F7 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				88100B48272A3328008A01F7 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				885CE118275CDCAC00A13FC9 /* TripMainPageHeaderNameXIB.xib in Resources */,
+				A440832927DC76CD004589FC /* FeaturedPlacesCVCell.xib in Resources */,
 				88100B54272A3328008A01F7 /* Montserrat-ExtraBold.ttf in Resources */,
 				88B31C7D273F81DC0011BF59 /* AddTripTopExpandXIB.xib in Resources */,
 				88100B57272A3328008A01F7 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				38D06E0727A50AAE0022C2C0 /* SkeletonTripCVCell.xib in Resources */,
+				A440833327DC8E91004589FC /* TitleHeaderTVCell.xib in Resources */,
 				88100B56272A3328008A01F7 /* Montserrat-Black.ttf in Resources */,
 				88ACE2FA275CF50000229162 /* TripMainPageCommentsCellXIB.xib in Resources */,
 				A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */,
@@ -1481,6 +1525,7 @@
 				88100B46272A3328008A01F7 /* Montserrat-Medium.ttf in Resources */,
 				88100B51272A3328008A01F7 /* Montserrat-Thin.ttf in Resources */,
 				88122D59273FFEE5003512C1 /* LocationDescriptionCell.xib in Resources */,
+				A440832E27DC8239004589FC /* CollectionViewTVCell.xib in Resources */,
 				88EADAA727414AD200A6B390 /* ProfileImagesCellXIB.xib in Resources */,
 				886763242729D2A00023D9DA /* Authentication.storyboard in Resources */,
 				38A0D7D927BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib in Resources */,
@@ -1622,6 +1667,7 @@
 				88A00B41275CE7C7008B23E9 /* TripMainPageTopCellXIB.swift in Sources */,
 				38584CE127BD080A00FACF6D /* FeedHomeViewModel.swift in Sources */,
 				38E6C0AA2785963300953D55 /* UIApplication+Extensions.swift in Sources */,
+				A440833227DC8E91004589FC /* TitleHeaderTVCell.swift in Sources */,
 				6906DA5127464E4600B9F23A /* AddTripFavouriteAddImage.swift in Sources */,
 				38AE15512782D6630016F80E /* UIScrollView+Extensions.swift in Sources */,
 				38AE15342782D6630016F80E /* Routing.swift in Sources */,
@@ -1635,6 +1681,7 @@
 				38AE15362782D6630016F80E /* NSURLSession+Multipart.swift in Sources */,
 				38ED7CC427BE73BF00794C43 /* ActivityHomeViewModel.swift in Sources */,
 				38CC20CB27D65193008E952B /* ExploreTableDataCell.swift in Sources */,
+				A440832D27DC8239004589FC /* CollectionViewTVCell.swift in Sources */,
 				69F436B8277495D000CC5F44 /* Advice.swift in Sources */,
 				690D0558274785100022682D /* ProfilePhotoUploadViewModel.swift in Sources */,
 				88ACE2F9275CF50000229162 /* TripMainPageCommentsCellXIB.swift in Sources */,
@@ -1683,6 +1730,7 @@
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
 				38D06DFE27A5063A0022C2C0 /* SayNoForDataTableView.swift in Sources */,
 				38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */,
+				A440832827DC76CD004589FC /* FeaturedPlacesCVCell.swift in Sources */,
 				38C684DC27D920F9008ACD05 /* MapExploreTVCell.swift in Sources */,
 				8885DFB12733A71D00AE698B /* ResetPasswordVC.swift in Sources */,
 				384046042784074000BF206D /* UserLocationDataSetModel.swift in Sources */,

@@ -17,20 +17,21 @@ class ExploreTripDetailViewController: UIViewController {
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
-            tblviewData.registerCell(type: SearchHeaderXIB.self, identifier: SearchHeaderXIB.identifier)
+            tblviewData.registerCell(type: TitleHeaderTVCell.self, identifier: TitleHeaderTVCell.identifier)
             tblviewData.registerCell(type: ExploreTableDataCell.self, identifier: ExploreTableDataCell.identifier)
             tblviewData.registerCell(type: MapExploreTVCell.self, identifier: MapExploreTVCell.identifier)
             tblviewData.registerCell(type: ExploreTripTopCellXIB.self, identifier: ExploreTripTopCellXIB.identifier)
-            
+            tblviewData.registerCell(type: CollectionViewTVCell.self, identifier: CollectionViewTVCell.identifier)
+
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     var isShowWholeContent = false
     enum EnumTripType:Int {
-        case map = 0, popularCities, featuredPlaces, topTips, fromMyFeed
+        case maps = 0, popularCities, featuredPlaces, topTips
         var title:String{
             switch self{
-            case .map:
+            case .maps:
                 return ""
             case .popularCities:
                 return "Most Popular Cities"
@@ -38,13 +39,14 @@ class ExploreTripDetailViewController: UIViewController {
                 return "Featured Places"
             case .topTips:
                 return "Top Tips"
-            case .fromMyFeed:
-                return "From my Feed"
             }
         }
     }
+    
     var arrayOfToolTips = [Bool]()
-    var arrayOfSections:[EnumTripType] = [.map,.topTips]
+    var arrayOfSections:[EnumTripType] = []
+    var arrayFeaturedPlaces = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,9 +54,23 @@ class ExploreTripDetailViewController: UIViewController {
         labelTitle.numberOfLines = 2
         labelToSaved.isHidden = true
         
+        // Maps
+        arrayOfSections.append(.maps)
+
+        // FeaturedPlaces
+        arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
+        if !arrayFeaturedPlaces.count.isZero() {
+            arrayOfSections.append(.featuredPlaces)
+        }
+        
+        // ToolTips
         arrayOfToolTips.append(false)
         arrayOfToolTips.append(false)
         arrayOfToolTips.append(false)
+        if !arrayOfToolTips.count.isZero() {
+            arrayOfSections.append(.topTips)
+        }
+
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -70,7 +86,9 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch arrayOfSections[section] {
-        case .map:
+        case .maps:
+            return 1
+        case .featuredPlaces:
             return 1
         case .topTips:
             return arrayOfToolTips.count > 4 ? 3 : arrayOfToolTips.count
@@ -82,15 +100,19 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch arrayOfSections[indexPath.section]{
-        case .map:
+        case .maps:
             guard let cell = self.tblviewData.dequeueCell(
                 withType: MapExploreTVCell.self,
                 for: indexPath) as? MapExploreTVCell else {
                     return UITableViewCell()
                 }
             return cell
+        case .featuredPlaces:
+            let cell = tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
+            cell.cellConfigFeaturedPlacesCell(data: arrayFeaturedPlaces)
+            return cell
         case .topTips:
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because....", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
         default:
             return UITableViewCell()
         }
@@ -148,20 +170,22 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         self.tblviewData.reloadData()
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch arrayOfSections[indexPath.section]{
+        case .featuredPlaces:
+            return FeaturedPlacesCVCell.cellSize.height
+        default:
+            return UITableView.automaticDimension
+        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let indexPath = IndexPath.init(row: 0, section: section)
         switch arrayOfSections[section] {
-        case.topTips,.map:
-            guard let cell = self.tblviewData.dequeueCell(
-                withType: SearchHeaderXIB.self,
-                for: indexPath) as? SearchHeaderXIB else {
-                    return UITableViewCell()
-                }
-            cell.labelTitle.text = arrayOfSections[section].title
+        case .featuredPlaces, .topTips:
+            let cell = self.tblviewData.dequeueCell(withType: TitleHeaderTVCell.self) as! TitleHeaderTVCell
+            cell.cellConfig(title: arrayOfSections[section].title)
             return cell
         default:
             return nil
@@ -170,7 +194,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch arrayOfSections[section] {
-        case .topTips:
+        case .featuredPlaces, .topTips:
             return 60
         default:
             return  0.01
