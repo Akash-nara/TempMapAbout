@@ -7,6 +7,8 @@
 
 import UIKit
 import SwiftSVG
+import FSInteractiveMap
+
 class MapExploreTVCell: UITableViewCell {
     
     @IBOutlet weak var labelTitle: UILabel!
@@ -14,7 +16,22 @@ class MapExploreTVCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-                
+               
+        imgSVGMap.isUserInteractionEnabled = true
+        let dict  = [ "RU" : 12,
+                      "it" : 2,
+                      "de" : 9,
+                      "pl" : 24,
+                      "uk" : 17
+                      ]
+        
+        let map = FSInteractiveMapView.init(frame: imgSVGMap.frame)
+        map.loadMap("world-low", withData: dict, colorAxis: [UIColor.black, UIColor.black])
+        map.clickHandler = { (identi, layer) in
+            debugPrint(identi)
+        }
+        imgSVGMap.addSubview(map)
+        
         let svgURL = Bundle.main.url(forResource: "world-low", withExtension: "svg")!
         let pizza = CALayer(SVGURL: svgURL) { (svgLayer) in
             // Set the fill color
@@ -24,7 +41,7 @@ class MapExploreTVCell: UITableViewCell {
             svgLayer.resizeToFit(self.imgSVGMap.bounds)
 
             // Add the layer to self.view's sublayers
-            self.imgSVGMap.layer.addSublayer(svgLayer)
+//            self.imgSVGMap.layer.addSublayer(svgLayer)
         }
 
     }

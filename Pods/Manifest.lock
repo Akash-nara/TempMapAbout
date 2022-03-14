@@ -71,6 +71,7 @@ PODS:
     - SDWebImage
     - SwiftyGif
   - ELWaterFallLayout (0.1.2)
+  - FSInteractiveMap (0.1.0)
   - GoogleMaps (5.2.0):
     - GoogleMaps/Maps (= 5.2.0)
   - GoogleMaps/Base (5.2.0)
@@ -108,6 +109,7 @@ DEPENDENCIES:
   - DKImagePickerController
   - DKPhotoGallery
   - ELWaterFallLayout
+  - FSInteractiveMap
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
@@ -136,6 +138,7 @@ SPEC REPOS:
     - DKImagePickerController
     - DKPhotoGallery
     - ELWaterFallLayout
+    - FSInteractiveMap
     - GoogleMaps
     - GooglePlaces
     - IQKeyboardManagerSwift
@@ -165,6 +168,7 @@ SPEC CHECKSUMS:
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   ELWaterFallLayout: 12bf34e49aa39c4b0315f5da829a1705133cebeb
+  FSInteractiveMap: 43a8d1388056b21da95194528fc37e222c7dad50
   GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
   GooglePlaces: c97d96ae68594acb64035c9ca9f26fbfc1d23af1
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
@@ -183,6 +187,6 @@ SPEC CHECKSUMS:
   WaterfallLayout: 030e04b041e5c6c47ae2c1eaa685c60289fab0b1
   WXImageCompress: 86c7a4d028c7fc9c74181468c318a9ec688fcdac
 
-PODFILE CHECKSUM: 66d1a4bd4d2693c0855f16adc42a40b49bab3d89
+PODFILE CHECKSUM: aa1dbf741774dc371d35504da6401bc9809ceb3d
 
 COCOAPODS: 1.11.2

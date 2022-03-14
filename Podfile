@@ -32,6 +32,7 @@ target 'MyMapp' do
   pod 'SwiftSVG'
   pod 'DKPhotoGallery'
 #  pod 'MaterialDesignWidgets'
+pod "FSInteractiveMap"
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
