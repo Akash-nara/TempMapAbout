@@ -30,7 +30,7 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
             tblviewSuggestion.registerCell(type: CityListCell.self, identifier: CityListCell.identifier)
             self.tblviewSuggestion.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tblviewSuggestion.bounds.size.width, height: .leastNonzeroMagnitude))
             tblviewSuggestion.clipsToBounds = true
-
+            
         }
     }
     
@@ -169,10 +169,10 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
         }else{
             return 0
             /*
-            switch arrayOfSections[section] {
-            default:
-                return 1
-            }*/
+             switch arrayOfSections[section] {
+             default:
+             return 1
+             }*/
         }
     }
     
@@ -256,6 +256,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             exploreTripDetailVC.cityName = cityData[indexPath.row].name
             exploreTripDetailVC.cityId = cityData[indexPath.row].id
             self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
+            
         }else{}
     }
     
@@ -307,7 +308,7 @@ extension ExploreHomeVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
         }
         
         //        cell.labelCityName.text = ""
-                cell.labelLikedCount.text = "\(indexPath.row)"
+        cell.labelLikedCount.text = "\(indexPath.row)"
         //        cell.labelUserName.text = ""
         //        cell.labelCountryName.text = ""
         //        cell.imgUser.setImage(url: "", placeholder: UIImage.init(imageName: "")!)
@@ -391,7 +392,7 @@ extension ExploreHomeVC{
                 self.currentPage = 1
                 self.cityData.removeAll()
             }
-
+            
             DispatchQueue.getMain {
                 self.tblviewSuggestion.reloadData()
                 self.HIDE_CUSTOM_LOADER()

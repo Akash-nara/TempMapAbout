@@ -100,6 +100,7 @@
 		38D06E0A27A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D06E0827A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift */; };
 		38D06E0B27A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D06E0927A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib */; };
 		38D7722727B5100300346B6D /* TripMainPageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D7722627B5100300346B6D /* TripMainPageTableCell.xib */; };
+		38DBE49C27DF9116003F852F /* SubmitSuggestionOfTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBE49B27DF9116003F852F /* SubmitSuggestionOfTripViewController.swift */; };
 		38DE30E327DC4F060048563E /* TravelAdviceDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */; };
 		38DE30EE27DC93070048563E /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E527DC93070048563E /* MaterialTableViewCell.swift */; };
 		38DE30EF27DC93070048563E /* MaterialSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE30E727DC93070048563E /* MaterialSegmentedControl.swift */; };
@@ -115,6 +116,8 @@
 		38ED7CC427BE73BF00794C43 /* ActivityHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ED7CC327BE73BF00794C43 /* ActivityHomeViewModel.swift */; };
 		38ED7CC727BE7C6600794C43 /* ActivityFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ED7CC527BE7C6600794C43 /* ActivityFooterCell.swift */; };
 		38ED7CC827BE7C6600794C43 /* ActivityFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38ED7CC627BE7C6600794C43 /* ActivityFooterCell.xib */; };
+		38FFDC9727DFAEA400DDC6DA /* TripSuggestionTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FFDC9527DFAEA400DDC6DA /* TripSuggestionTVCell.xib */; };
+		38FFDC9827DFAEA400DDC6DA /* TripSuggestionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFDC9627DFAEA400DDC6DA /* TripSuggestionTVCell.swift */; };
 		6906DA5127464E4600B9F23A /* AddTripFavouriteAddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6906DA4F27464E4600B9F23A /* AddTripFavouriteAddImage.swift */; };
 		6906DA5227464E4600B9F23A /* AddTripFavouriteAddImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6906DA5027464E4600B9F23A /* AddTripFavouriteAddImage.xib */; };
 		6906DA55274656F400B9F23A /* AddTripStepVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6906DA54274656F400B9F23A /* AddTripStepVC.swift */; };
@@ -357,6 +360,7 @@
 		38D06E0827A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingActivityIndicatorMoreCVCell.swift; sourceTree = "<group>"; };
 		38D06E0927A518DC0022C2C0 /* LoadingActivityIndicatorMoreCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingActivityIndicatorMoreCVCell.xib; sourceTree = "<group>"; };
 		38D7722627B5100300346B6D /* TripMainPageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripMainPageTableCell.xib; sourceTree = "<group>"; };
+		38DBE49B27DF9116003F852F /* SubmitSuggestionOfTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSuggestionOfTripViewController.swift; sourceTree = "<group>"; };
 		38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdviceDataModel.swift; sourceTree = "<group>"; };
 		38DE30E527DC93070048563E /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		38DE30E627DC93070048563E /* MaterialDesignWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialDesignWidgets.h; sourceTree = "<group>"; };
@@ -373,6 +377,8 @@
 		38ED7CC327BE73BF00794C43 /* ActivityHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHomeViewModel.swift; sourceTree = "<group>"; };
 		38ED7CC527BE7C6600794C43 /* ActivityFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFooterCell.swift; sourceTree = "<group>"; };
 		38ED7CC627BE7C6600794C43 /* ActivityFooterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityFooterCell.xib; sourceTree = "<group>"; };
+		38FFDC9527DFAEA400DDC6DA /* TripSuggestionTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripSuggestionTVCell.xib; sourceTree = "<group>"; };
+		38FFDC9627DFAEA400DDC6DA /* TripSuggestionTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripSuggestionTVCell.swift; sourceTree = "<group>"; };
 		65226A10AD5E5D279F5AA5B1 /* Pods-MyMapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.release.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.release.xcconfig"; sourceTree = "<group>"; };
 		6906DA4F27464E4600B9F23A /* AddTripFavouriteAddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripFavouriteAddImage.swift; sourceTree = "<group>"; };
 		6906DA5027464E4600B9F23A /* AddTripFavouriteAddImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTripFavouriteAddImage.xib; sourceTree = "<group>"; };
@@ -741,6 +747,8 @@
 				38152A4627DB37F50077BDB5 /* ExploreTripTopCellXIB.xib */,
 				38C684DA27D920F8008ACD05 /* MapExploreTVCell.swift */,
 				38C684DB27D920F8008ACD05 /* MapExploreTVCell.xib */,
+				38FFDC9627DFAEA400DDC6DA /* TripSuggestionTVCell.swift */,
+				38FFDC9527DFAEA400DDC6DA /* TripSuggestionTVCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -763,6 +771,14 @@
 				38D06E0227A50AAD0022C2C0 /* OneStripeViewCell.xib */,
 			);
 			path = SkeletonCells;
+			sourceTree = "<group>";
+		};
+		38DBE49A27DF90E9003F852F /* SubmitSuggestion */ = {
+			isa = PBXGroup;
+			children = (
+				38DBE49B27DF9116003F852F /* SubmitSuggestionOfTripViewController.swift */,
+			);
+			path = SubmitSuggestion;
 			sourceTree = "<group>";
 		};
 		38DE30E427DC93070048563E /* MaterialDesignWidgets */ = {
@@ -1001,6 +1017,7 @@
 		8845433E2737F77700B52FED /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				38DBE49A27DF90E9003F852F /* SubmitSuggestion */,
 				38152A4B27DB66830077BDB5 /* TravelAdviceList */,
 				38C684D627D90BB0008ACD05 /* ExploreTripDetail */,
 				884543432737FA9000B52FED /* ExploreHomeVC */,
@@ -1555,6 +1572,7 @@
 				A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */,
 				88100B52272A3328008A01F7 /* Montserrat-SemiBold.ttf in Resources */,
 				38584D4627BE1A4400FACF6D /* SkeletonTripTVCell.xib in Resources */,
+				38FFDC9727DFAEA400DDC6DA /* TripSuggestionTVCell.xib in Resources */,
 				88100B55272A3328008A01F7 /* Montserrat-LightItalic.ttf in Resources */,
 				38152A4A27DB38800077BDB5 /* world-low.svg in Resources */,
 				88100B53272A3328008A01F7 /* Montserrat-Regular.ttf in Resources */,
@@ -1675,6 +1693,7 @@
 				8836520A276665B70047693F /* TripImagesUploadedCell.swift in Sources */,
 				692898882744FF1C00F5AF05 /* SignupViewModel.swift in Sources */,
 				38AE15312782D6630016F80E /* GenericLoader.swift in Sources */,
+				38DBE49C27DF9116003F852F /* SubmitSuggestionOfTripViewController.swift in Sources */,
 				38AE15522782D6630016F80E /* UILabel+Extensions.swift in Sources */,
 				88D6054C275B306B00B9A88E /* ProfileMapCellXIB.swift in Sources */,
 				88EADAA627414AD200A6B390 /* ProfileImagesCellXIB.swift in Sources */,
@@ -1837,6 +1856,7 @@
 				38D06E0427A50AAE0022C2C0 /* SkeletonTripCVCell.swift in Sources */,
 				88975CF5273D9CAF001483EA /* AddTripAddLocationsCell.swift in Sources */,
 				38AE15382782D6630016F80E /* NSMutableData+AppendString.swift in Sources */,
+				38FFDC9827DFAEA400DDC6DA /* TripSuggestionTVCell.swift in Sources */,
 				883EDE042761C594009491F0 /* TripPhotoExpansionDetailsVC.swift in Sources */,
 				884D7A31272D67B100730734 /* SignupVC.swift in Sources */,
 				88122D58273FFEE5003512C1 /* LocationDescriptionCell.swift in Sources */,

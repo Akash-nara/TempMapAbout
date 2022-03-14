@@ -129,6 +129,10 @@ extension UIStoryboard {
         return getViewController(vcClass: TravelAdviceListViewController.self)
     }
     
+    var submitSuggestionOfTripVC: SubmitSuggestionOfTripViewController? {
+        return getViewController(vcClass: SubmitSuggestionOfTripViewController.self)
+    }
+    
     
     
     func getViewController<T: UIViewController>(vcClass: T.Type) -> T? {

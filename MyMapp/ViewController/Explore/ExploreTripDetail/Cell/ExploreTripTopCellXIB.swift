@@ -29,10 +29,8 @@ class ExploreTripTopCellXIB: UITableViewCell {
         labelSubTitle.setTextFont = UIFont.Montserrat.Medium(14)
         labelSubTitle.seeMoreLessFont = UIFont.Montserrat.Medium(12.7)
         labelSubTitle.isNeedToUnderlineSeeMoreSeeLess = false
-
     }
     
-    @IBAction func controllExpandTap(_ sender:UIControl){
-        
-    }
+    @IBAction func controllExpandTap(_ sender:UIControl){}
+    
 }

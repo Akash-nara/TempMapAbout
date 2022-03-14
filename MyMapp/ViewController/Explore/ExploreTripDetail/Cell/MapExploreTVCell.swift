@@ -26,10 +26,11 @@ class MapExploreTVCell: UITableViewCell {
                       ]
         
         let map = FSInteractiveMapView.init(frame: imgSVGMap.frame)
-        map.loadMap("world-low", withData: dict, colorAxis: [UIColor.black, UIColor.black])
+        map.loadMap("world-low", withData: dict, colorAxis: [UIColor.App_BG_SeafoamBlue_Color, UIColor.App_BG_SeafoamBlue_Color ])
         map.clickHandler = { (identi, layer) in
             debugPrint(identi)
         }
+        
         imgSVGMap.addSubview(map)
         
         let svgURL = Bundle.main.url(forResource: "world-low", withExtension: "svg")!

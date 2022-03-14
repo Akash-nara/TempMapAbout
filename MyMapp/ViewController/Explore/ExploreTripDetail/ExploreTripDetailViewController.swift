@@ -50,17 +50,18 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [String]()
     var arrayExpandable = [(cellType: Int, isOpenCell: Bool)]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelToSaved.isHidden = true
+        getAdminSuggestion()
         
         // Maps
         arrayOfSections.append(.maps)
-
+        
         // ExpandableViews
         arrayExpandable = [(1, false), (2, false)]
         if !arrayExpandable.count.isZero() {
@@ -79,7 +80,7 @@ class ExploreTripDetailViewController: UIViewController {
         if !arrayOfToolTips.count.isZero() {
             arrayOfSections.append(.topTips)
         }
-
+        
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -145,13 +146,22 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     @objc func cellButtonHereClicked(_ sender: UIButton) {
         print(arrayExpandable[sender.tag])
+        
+        guard let submitSuggestionOfTripVC = UIStoryboard.tabbar.submitSuggestionOfTripVC else {
+            return
+        }
+        
+        submitSuggestionOfTripVC.hidesBottomBarWhenPushed = true
+        submitSuggestionOfTripVC.cityName = cityName
+        submitSuggestionOfTripVC.cityId = cityId
+        self.navigationController?.present(submitSuggestionOfTripVC, animated: true, completion: nil)
     }
     
     func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool) -> ExploreTripTopCellXIB{
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "ExploreTripTopCellXIB", for: indexPath) as! ExploreTripTopCellXIB
         cell.userIcon.image = UIImage.init(named: icon)
         cell.trealingViewExpand.constant = 50
-
+        
         cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
         cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
@@ -187,8 +197,8 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
-//        arrayOfToolTips[sender.tag].toggle()
-//        tblviewData.reloadData()
+        //        arrayOfToolTips[sender.tag].toggle()
+        //        tblviewData.reloadData()
     }
     
     //MARK: - OTHER FUNCTIONS
@@ -198,7 +208,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         arrayOfToolTips[IndexPath.init(row: row, section: section).row].toggle()
         self.tblviewData.reloadData()
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch arrayOfSections[indexPath.section]{
         case .featuredPlaces:
@@ -227,6 +237,19 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             return 60
         default:
             return  0.01
+        }
+    }
+}
+
+extension ExploreTripDetailViewController{
+    func getAdminSuggestion() {
+        let strJson = JSON(["id": "\(cityId)"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) { response in
+            debugPrint(response)
+        } failure: { str in
+        } internetFailure: {
+        } failureInform: {
         }
     }
 }
