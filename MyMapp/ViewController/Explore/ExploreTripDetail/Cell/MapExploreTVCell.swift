@@ -31,7 +31,7 @@ class MapExploreTVCell: UITableViewCell {
             debugPrint(identi)
         }
         
-        imgSVGMap.addSubview(map)
+//        imgSVGMap.addSubview(map)
         
         let svgURL = Bundle.main.url(forResource: "world-low", withExtension: "svg")!
         let pizza = CALayer(SVGURL: svgURL) { (svgLayer) in

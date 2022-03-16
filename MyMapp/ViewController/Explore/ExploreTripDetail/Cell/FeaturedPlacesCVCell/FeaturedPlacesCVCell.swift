@@ -23,9 +23,12 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
 
+//        imageViewPlace.backgroundColor = UIColor.green
+        imageViewPlace.image = UIImage(named: "ic_Default_city_image_one")
         imageViewPlace.cornerRadius = 15
-        imageViewPlace.backgroundColor = UIColor.green
-
+        imageViewPlace.clipsToBounds = true
+        imageViewPlace.contentMode = .scaleToFill
+        
         buttonSaveToggle.setImage(UIImage(named: "iconsSavedUnselected"), for: .normal)
         buttonSaveToggle.setImage(UIImage(named: "ic_down_blue_curve"), for: .selected)
         buttonSaveToggle.isSelected = false

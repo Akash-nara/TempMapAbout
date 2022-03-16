@@ -133,7 +133,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.cellConfigFeaturedPlacesCell(data: arrayFeaturedPlaces)
             return cell
         case .topTips:
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi YangYangYangYangYangYang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi Yang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
         default:
             return UITableViewCell()
         }

@@ -25,7 +25,7 @@ class Environment {
     class func APIBasePath() -> String {
         switch self.server {
         case .developement:
-            return "http://54.160.11.28:8081/"
+            return "http://18.214.39.155:8081/"
         case .staging:
             return "http://54.160.11.28:8081/"
         case .demo:
@@ -36,7 +36,7 @@ class Environment {
     }
     
     static var socketURL:String{
-        return "http://54.160.11.28:9090"
+        return "http://18.214.39.155:9090"
     }
     
     

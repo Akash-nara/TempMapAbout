@@ -53,11 +53,12 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
         super.viewDidLoad()
         
         labelTitle.text = cityName
-//         getSuggestionList()
+        labelTitle.numberOfLines = 2
+         getSuggestionList()
         
-        arraySuggestionList.append(TripSuggestion.init(id: 0, value: "adkdlmadlkdamdlkd", title: "Covid"))
-        arraySuggestionList.append(TripSuggestion.init(id: 1, value: "SSSSSSSSSadkdlmadlkdamdlkd", title: "laung Curreancy"))
-        arraySuggestionList.append(TripSuggestion.init(id: 2, value: "SSSSSSSSSadkdlmadlkdamdlkd", title: "Other information"))
+        arraySuggestionList.append(TripSuggestion.init(id: 0, value: "", title: "Covid"))
+        arraySuggestionList.append(TripSuggestion.init(id: 1, value: "", title: "Language & Currency"))
+        arraySuggestionList.append(TripSuggestion.init(id: 2, value: "", title: "Other information"))
         tblviewData.reloadData()
         heightOfTableView.constant = min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
     }
