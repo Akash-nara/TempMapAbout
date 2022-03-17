@@ -45,7 +45,7 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlacesCVCell.identifier, for: indexPath) as! FeaturedPlacesCVCell
-        cell.cellConfig(data: "")
+        cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row])
         return cell
     }
 }

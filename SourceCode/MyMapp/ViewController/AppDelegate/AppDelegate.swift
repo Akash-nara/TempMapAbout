@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
     var tagsData = [TagListModel]()
     var locationManager = CLLocationManager()
     var locationDataGetModel = UserLocationDataSetModel()
-    
+    var googleKey = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         SSReachabilityManager.shared.startMonitoring() // Start checking internet connection
@@ -40,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate{
 //        GMSServices.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
 //        GMSPlacesClient.provideAPIKey("AIzaSyD0CSdY7uisKjY-kwmEUPtzHnHjvxk2Gj8")
 
-        GMSServices.provideAPIKey("AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218")
-        GMSPlacesClient.provideAPIKey("AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218")
+        GMSServices.provideAPIKey(googleKey)
+        GMSPlacesClient.provideAPIKey(googleKey)
 
         
         self.locationManager = CLLocationManager()
