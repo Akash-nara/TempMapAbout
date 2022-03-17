@@ -10,7 +10,7 @@ import SwiftSVG
 
 class FeaturedPlacesCVCell: UICollectionViewCell {
     
-    static let cellSize = CGSize(width: 185, height: 219)
+    static let cellSize = CGSize(width: 185, height: 230)
     
     @IBOutlet weak var imageViewPlace: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
@@ -35,8 +35,10 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         buttonSaveToggle.isSelected = false
         
         labelTitle.textColor = UIColor(named: "App_BG_SecondaryDark2_Color")
+        labelTitle.numberOfLines = 1
         labelSubtitle.textColor = UIColor(named: "App_BG_SecondaryDark2_Color")
-        
+        labelSubtitle.numberOfLines = 1
+
 //        let image = UIImage(named: "imgStarRating")?.withRenderingMode(.alwaysTemplate)
         buttonRatings.setImage(UIImage(named: "imgStarRating"), for: .normal)
 

@@ -104,8 +104,8 @@
                 <outlet property="buttonSaveToggle" destination="OOK-MA-cAb" id="qCF-SG-1YY"/>
                 <outlet property="buttonVisitors" destination="uik-c4-aae" id="y4z-Fq-P3d"/>
                 <outlet property="imageViewPlace" destination="rFo-U6-Zlu" id="KSG-MP-BfE"/>
-                <outlet property="labelSubtitle" destination="7hz-1f-24D" id="Gir-YR-Vkz"/>
-                <outlet property="labelTitle" destination="adZ-Z6-W82" id="WW1-8z-uIL"/>
+                <outlet property="labelSubtitle" destination="adZ-Z6-W82" id="srx-Mk-gxm"/>
+                <outlet property="labelTitle" destination="7hz-1f-24D" id="GPS-vh-9PC"/>
             </connections>
             <point key="canvasLocation" x="234.78260869565219" y="145.98214285714286"/>
         </collectionViewCell>

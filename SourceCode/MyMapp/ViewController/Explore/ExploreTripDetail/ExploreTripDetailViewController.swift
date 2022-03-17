@@ -28,7 +28,7 @@ class ExploreTripDetailViewController: UIViewController {
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
-    var isShowWholeContent = false
+//    var isShowWholeContent = false
     enum EnumTripType:Int {
         case maps = 0, expandableViews, popularCities, featuredPlaces, topTips
         var title:String{
@@ -190,11 +190,11 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.labelSubTitle.isOneLinedContent = true
             cell.labelSubTitle.setContent(str, noOfCharacters: 35, readMoreTapped: {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = true
-                self.isShowWholeContent = true
+//                self.isShowWholeContent = true
                 self.tblviewData.reloadData()
             }) {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = false
-                self.isShowWholeContent = false
+//                self.isShowWholeContent = false
                 self.tblviewData.reloadData()
             }
         }
@@ -242,6 +242,63 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         switch arrayOfSections[section] {
         case .featuredPlaces, .topTips:
             return 60
+        default:
+            return  0.01
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard arrayOfToolTips.count != 0 else {
+            return nil
+        }
+        switch arrayOfSections[section] {
+        case .topTips:
+            
+            let yourAttributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.font: UIFont.Montserrat.Medium(15),
+                NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+                NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
+            ] // .styleDouble.rawValue, .styleThick.rawValue, .styleNone.rawValue
+
+            let attributeString = NSMutableAttributedString(
+              string: "Read more",
+              attributes: yourAttributes
+            )
+
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44.0))
+            let doneButton = UIButton(frame: CGRect(x: tableView.frame.width - 130, y: 0, width: 130, height: 44.0))
+//            doneButton.setTitleColor(.darkGray, for: .normal)
+            doneButton.setAttributedTitle(attributeString, for: .normal)
+            doneButton.layer.cornerRadius = 10.0
+//            doneButton.shadow = true
+            doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
+            footerView.addSubview(doneButton)
+
+            return footerView
+
+        default:
+            return  nil
+        }
+    }
+    
+    @objc func buttonReadMoreClikced(){
+        
+        guard let vc = UIStoryboard.tabbar.travelAdviceListVC else {
+            return
+        }
+        vc.cityName = self.cityName
+        vc.cityId = cityId
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard arrayOfToolTips.count != 0 else {
+            return 0.01
+        }
+        switch arrayOfSections[section] {
+        case .topTips:
+            return 50
         default:
             return  0.01
         }
