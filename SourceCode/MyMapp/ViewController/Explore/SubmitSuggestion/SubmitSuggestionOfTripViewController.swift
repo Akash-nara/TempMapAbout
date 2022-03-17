@@ -19,7 +19,7 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     var shouldDismissInteractivelty: Bool?
     var customNavigationController: UINavigationController?
     
-    let mainHeight = UIScreen.main.bounds.size.height -  50//150//700
+    let mainHeight = UIScreen.main.bounds.size.height -  100//150//700
     
     override var popupHeight: CGFloat { return height ?? CGFloat(mainHeight) }
     override var popupTopCornerRadius: CGFloat { return topCornerRadius ?? CGFloat(10) }
@@ -60,7 +60,7 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
         arraySuggestionList.append(TripSuggestion.init(id: 1, value: "", title: "Language & Currency"))
         arraySuggestionList.append(TripSuggestion.init(id: 2, value: "", title: "Other information"))
         tblviewData.reloadData()
-        heightOfTableView.constant = min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+        heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -70,7 +70,6 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     @IBAction func btnHandlerSubmit(_ sender:UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension SubmitSuggestionOfTripViewController{
@@ -109,6 +108,7 @@ extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableVi
         cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].value
         cell.textViewTripSuggestion.delegate = self
         cell.textViewTripSuggestion.tag = indexPath.row
+        cell.textViewTripSuggestion.placeholder = "Enter \(arraySuggestionList[indexPath.row].title.lowercased())"
         return cell
     }
     
@@ -134,5 +134,4 @@ extension SubmitSuggestionOfTripViewController: UITextViewDelegate{
     func textViewDidChange(_ textView: UITextView) {
         arraySuggestionList[textView.tag].value = textView.text!
     }
-    
 }

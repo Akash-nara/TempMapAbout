@@ -26,8 +26,8 @@ public class SkeletonViewAppearance {
     public var gradient = SkeletonGradient(baseColor: .skeletonDefault)
 
     public var multilineHeight: CGFloat = 15
-
-    public var useFontLineHeight: Bool = true
+    
+    public lazy var textLineHeight: SkeletonTextLineHeight = .fixed(SkeletonAppearance.default.multilineHeight)
     
     public var multilineSpacing: CGFloat = 10
 
@@ -37,5 +37,7 @@ public class SkeletonViewAppearance {
 
     public var renderSingleLineAsView: Bool = false
     
+    public var skeletonCornerRadius: Float = 0
+
 }
 // codebeat:enable[TOO_MANY_IVARS]

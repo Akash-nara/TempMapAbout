@@ -6,10 +6,10 @@
 //
 
 import UIKit
-
+import  KMPlaceholderTextView
 class TripSuggestionTVCell: UITableViewCell {
     
-    @IBOutlet weak var textViewTripSuggestion: UITextView!
+    @IBOutlet weak var textViewTripSuggestion: KMPlaceholderTextView!
     @IBOutlet weak var labelTitle: UILabel!
 
     override func awakeFromNib() {

@@ -1,6 +1,6 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - Alamofire (5.4.4)
+  - Alamofire (5.5.0)
   - BottomPopup (0.7.0)
   - CenteredCollectionView (2.2.2)
   - CHIPageControl (0.2):
@@ -20,7 +20,7 @@ PODS:
   - CHIPageControl/Jaloro (0.2)
   - CHIPageControl/Paprika (0.2)
   - CHIPageControl/Puya (0.2)
-  - CropViewController (2.6.0)
+  - CropViewController (2.6.1)
   - DKCamera (1.6.7)
   - DKImagePickerController (4.3.2):
     - DKImagePickerController/Camera (= 4.3.2)
@@ -72,28 +72,29 @@ PODS:
     - SwiftyGif
   - ELWaterFallLayout (0.1.2)
   - FSInteractiveMap (0.1.0)
-  - GoogleMaps (5.2.0):
-    - GoogleMaps/Maps (= 5.2.0)
-  - GoogleMaps/Base (5.2.0)
-  - GoogleMaps/Maps (5.2.0):
+  - GoogleMaps (6.1.0):
+    - GoogleMaps/Maps (= 6.1.0)
+  - GoogleMaps/Base (6.1.0)
+  - GoogleMaps/Maps (6.1.0):
     - GoogleMaps/Base
-  - GooglePlaces (6.0.0)
+  - GooglePlaces (6.1.0)
   - IQKeyboardManagerSwift (6.5.9)
+  - KMPlaceholderTextView (1.4.0)
   - NVActivityIndicatorView/Base (5.1.1)
   - NVActivityIndicatorView/Extended (5.1.1):
     - NVActivityIndicatorView/Base
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.12.1):
-    - SDWebImage/Core (= 5.12.1)
-  - SDWebImage/Core (5.12.1)
-  - SkeletonView (1.25.2)
+  - SDWebImage (5.12.5):
+    - SDWebImage/Core (= 5.12.5)
+  - SDWebImage/Core (5.12.5)
+  - SkeletonView (1.29.2)
   - SKPhotoBrowser (7.0.0)
   - Socket.IO-Client-Swift (15.2.0):
     - Starscream (~> 3.1)
   - Starscream (3.1.1)
   - SVPinView (1.0.11)
   - SwiftSVG (2.3.2)
-  - SwiftyGif (5.4.2)
+  - SwiftyGif (5.4.3)
   - SwiftyJSON (5.0.1)
   - TagListView (1.4.1)
   - WaterfallLayout (0.2)
@@ -113,6 +114,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
+  - KMPlaceholderTextView
   - NVActivityIndicatorView/Extended
   - ReachabilitySwift
   - SDWebImage
@@ -142,6 +144,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - IQKeyboardManagerSwift
+    - KMPlaceholderTextView
     - NVActivityIndicatorView
     - ReachabilitySwift
     - SDWebImage
@@ -159,34 +162,35 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   BottomPopup: fe3e284628532f99093ae68c592c6b9d392c972d
   CenteredCollectionView: a9217908a698c386cbb98af11b596da48900b908
   CHIPageControl: a787bf7205c9b7e7fbfc412be36c5e8636b68f86
-  CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
+  CropViewController: 58fb440f30dac788b129d2a1f24cffdcb102669c
   DKCamera: a902b66921fca14b7a75266feb8c7568aa7caa71
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   ELWaterFallLayout: 12bf34e49aa39c4b0315f5da829a1705133cebeb
   FSInteractiveMap: 43a8d1388056b21da95194528fc37e222c7dad50
-  GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
-  GooglePlaces: c97d96ae68594acb64035c9ca9f26fbfc1d23af1
+  GoogleMaps: cffc5d24ce920063aaeebe6ac4dbaaca1dd7f377
+  GooglePlaces: 66f0796e44d3bd83d82b1f19d8fe3cd7062fe930
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
-  SkeletonView: 820b2bbd180d7408f3f03b6462cfc3cac39d2ef2
+  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
+  SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
   SKPhotoBrowser: 6aaa8f232752e87c7e76bace183bead0a137097d
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
   SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
-  SwiftyGif: dec758a9dd3d278e5a855dbf279bf062c923c387
+  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   WaterfallLayout: 030e04b041e5c6c47ae2c1eaa685c60289fab0b1
   WXImageCompress: 86c7a4d028c7fc9c74181468c318a9ec688fcdac
 
-PODFILE CHECKSUM: aa1dbf741774dc371d35504da6401bc9809ceb3d
+PODFILE CHECKSUM: 5cf1134a1557360868367c25d2fca6540eebe6a8
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.8.4

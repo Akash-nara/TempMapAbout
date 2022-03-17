@@ -81,6 +81,9 @@ class ExploreTripDetailViewController: UIViewController {
             arrayOfSections.append(.topTips)
         }
         
+        //        getGoogleTripsDetial()
+        testGppgle()
+        
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -247,9 +250,111 @@ extension ExploreTripDetailViewController{
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) { response in
             debugPrint(response)
+            self.getGoogleTripsDetial()
         } failure: { str in
         } internetFailure: {
         } failureInform: {
         }
     }
+    
+    func getGoogleTripsDetial() {
+        
+        let key = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
+        let queryItems = [URLQueryItem(name: "key", value: key), URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction")]
+        var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
+        urlComps?.queryItems = queryItems
+        guard let serviceUrl = urlComps?.url else { return }
+        
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let jsonObj = JSON.init(json)
+                    let placeIdsArray = jsonObj["results"].arrayValue.map({$0.dictionaryValue["place_id"]?.stringValue})
+                    print(json)
+                    self.getGoogleTrips(placeId: ((placeIdsArray.first ?? "") ?? ""))
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+    
+    func getGoogleTrips(placeId:String) {
+        
+        let key = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
+        let queryItems = [URLQueryItem(name: "place_id", value: placeId), URLQueryItem(name: "key", value: key)]
+        var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/details/json")
+        urlComps?.queryItems = queryItems
+        guard let serviceUrl = urlComps?.url else { return }
+        
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let jsonObj = JSON.init(json)
+                    print(json)
+                    let placeIdsArray = jsonObj["results"].dictionaryValue["photos"]?.arrayValue
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+    
+    
+    func testGppgle() {
+        //    "message" : "Parameter 'format' must be one of: xml, json, jsonv2, geojson, geocodejson"
+
+//    https://nominatim.openstreetmap.org/search.php?q=Warsaw+Poland&polygon_geojson=1&format=json
+        let key = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
+        let queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"), URLQueryItem(name: "q", value: cityName),URLQueryItem(name: "format", value: "geojson")]
+        var urlComps = URLComponents(string: "https://nominatim.openstreetmap.org/search.php")
+        urlComps?.queryItems = queryItems
+        guard let serviceUrl = urlComps?.url else { return }
+        
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            
+            
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let jsonObj = JSON.init(json)
+                    let placeIdsArray = jsonObj["features"].arrayValue
+                    placeIdsArray.forEach { objJosn in
+                        let geometry = objJosn.dictionaryValue["geometry"]
+                        if let type = geometry?.dictionaryValue["type"]?.stringValue,  type == "Polygon", let arrayOfCoordinates = geometry?["coordinates"].arrayValue{
+                            debugPrint("cordinate array :=\(arrayOfCoordinates.first ?? JSON())")
+                        }
+                    }
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+    
 }
