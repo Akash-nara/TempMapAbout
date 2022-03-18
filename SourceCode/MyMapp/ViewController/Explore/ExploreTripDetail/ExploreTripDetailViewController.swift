@@ -28,7 +28,7 @@ class ExploreTripDetailViewController: UIViewController {
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
-//    var isShowWholeContent = false
+    //    var isShowWholeContent = false
     enum EnumTripType:Int {
         case maps = 0, expandableViews, popularCities, featuredPlaces, topTips
         var title:String{
@@ -71,10 +71,10 @@ class ExploreTripDetailViewController: UIViewController {
         
         
         // FeaturedPlaces
-//        arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
-//        if !arrayFeaturedPlaces.count.isZero() {
-//            arrayOfSections.append(.featuredPlaces)
-//        }
+        //        arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
+        //        if !arrayFeaturedPlaces.count.isZero() {
+        //            arrayOfSections.append(.featuredPlaces)
+        //        }
         
         // ToolTips
         arrayOfToolTips.append(false)
@@ -83,9 +83,8 @@ class ExploreTripDetailViewController: UIViewController {
         if !arrayOfToolTips.count.isZero() {
             arrayOfSections.append(.topTips)
         }
-        
-//                getGoogleTripsDetial()
-//        testGppgle()
+        //                getGoogleTripsDetial()
+        //        testGppgle()
         
     }
     
@@ -190,11 +189,9 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.labelSubTitle.isOneLinedContent = true
             cell.labelSubTitle.setContent(str, noOfCharacters: 35, readMoreTapped: {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = true
-//                self.isShowWholeContent = true
                 self.tblviewData.reloadData()
             }) {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = false
-//                self.isShowWholeContent = false
                 self.tblviewData.reloadData()
             }
         }
@@ -203,8 +200,6 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         sender.isSelected.toggle()
-        //        arrayOfToolTips[sender.tag].toggle()
-        //        tblviewData.reloadData()
     }
     
     //MARK: - OTHER FUNCTIONS
@@ -213,7 +208,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         let row = (Int(sender.accessibilityLabel ?? "") ?? 0)
         arrayOfToolTips[IndexPath.init(row: row, section: section).row].toggle()
         self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
-//        self.tblviewData.reloadData()
+        //        self.tblviewData.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -259,23 +254,21 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
                 NSAttributedString.Key.foregroundColor: UIColor.darkGray,
                 NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
             ] // .styleDouble.rawValue, .styleThick.rawValue, .styleNone.rawValue
-
+            
             let attributeString = NSMutableAttributedString(
-              string: "Read more",
-              attributes: yourAttributes
+                string: "Read more",
+                attributes: yourAttributes
             )
-
+            
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44.0))
             let doneButton = UIButton(frame: CGRect(x: tableView.frame.width - 130, y: 0, width: 130, height: 44.0))
-//            doneButton.setTitleColor(.darkGray, for: .normal)
             doneButton.setAttributedTitle(attributeString, for: .normal)
             doneButton.layer.cornerRadius = 10.0
-//            doneButton.shadow = true
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
-
+            
             return footerView
-
+            
         default:
             return  nil
         }
@@ -310,12 +303,18 @@ extension ExploreTripDetailViewController{
         SHOW_CUSTOM_LOADER()
         let strJson = JSON(["id": "\(cityId)"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) { response in
-            debugPrint(response)
+        API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) {  response in
+            //            self?.HIDE_CUSTOM_LOADER()
+            guard let suggestionObjArray =  response?["responseJson"]?.dictionaryValue["suggestion"]?.arrayValue else {
+                return
+            }
+            
+            debugPrint(suggestionObjArray)
             self.getGoogleTripsDetial()
         } failure: { str in
         } internetFailure: {
         } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
         }
     }
     
@@ -341,16 +340,16 @@ extension ExploreTripDetailViewController{
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     let jsonObj = JSON.init(json)
-//                    let placeIdsArray = jsonObj["results"].arrayValue.map({$0.dictionaryValue["place_id"]?.stringValue})
+                    //                    let placeIdsArray = jsonObj["results"].arrayValue.map({$0.dictionaryValue["place_id"]?.stringValue})
                     //                    self.getGoogleTrips(placeId: ((placeIdsArray.first ?? "") ?? ""))
-
+                    
                     let placeIdsArray = jsonObj["results"].arrayValue
                     print(json)
                     
                     self.arrayFeaturedPlaces.removeAll()
-                    self.arrayFeaturedPlaces = placeIdsArray ?? []
+                    self.arrayFeaturedPlaces = placeIdsArray
                     if !self.arrayFeaturedPlaces.count.isZero() {
-                        self.arrayOfSections.insert(.featuredPlaces, at: 1)
+                        self.arrayOfSections.insert(.featuredPlaces, at: 2)
                     }
                     
                     DispatchQueue.main.async {
@@ -363,81 +362,82 @@ extension ExploreTripDetailViewController{
         }.resume()
     }
     
-    func getGoogleTrips(placeId:String) {
-        
-        let key = appDelegateShared.googleKey
-        let queryItems = [URLQueryItem(name: "place_id", value: placeId), URLQueryItem(name: "key", value: key)]
-        var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/details/json")
-        urlComps?.queryItems = queryItems
-        guard let serviceUrl = urlComps?.url else { return }
-        
-        var request = URLRequest(url: serviceUrl)
-        request.httpMethod = "GET"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            self.HIDE_CUSTOM_LOADER()
-            if let response = response {
-                print(response)
-            }
-            if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    let jsonObj = JSON.init(json)
-                    print(json)
-                    if let placeIdsArray = jsonObj["result"].dictionaryValue["photos"]?.arrayValue{
-                        self.arrayFeaturedPlaces.removeAll()
-                        self.arrayFeaturedPlaces = placeIdsArray
-                        if !self.arrayFeaturedPlaces.count.isZero() {
-                            self.arrayOfSections.append(.featuredPlaces)
-                        }
-                        self.tblviewData.reloadData()
-                    }
-                } catch {
-                    print(error)
-                }
-            }
-        }.resume()
-    }
-    
-    
-    func testGppgle() {
-        //    "message" : "Parameter 'format' must be one of: xml, json, jsonv2, geojson, geocodejson"
-
-//    https://nominatim.openstreetmap.org/search.php?q=Warsaw+Poland&polygon_geojson=1&format=json
-        let key = appDelegateShared.googleKey
-        let queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"), URLQueryItem(name: "q", value: cityName),URLQueryItem(name: "format", value: "geojson")]
-        var urlComps = URLComponents(string: "https://nominatim.openstreetmap.org/search.php")
-        urlComps?.queryItems = queryItems
-        guard let serviceUrl = urlComps?.url else { return }
-        
-        var request = URLRequest(url: serviceUrl)
-        request.httpMethod = "GET"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            
-            
-            if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    let jsonObj = JSON.init(json)
-                    let placeIdsArray = jsonObj["features"].arrayValue
-                    placeIdsArray.forEach { objJosn in
-                        let geometry = objJosn.dictionaryValue["geometry"]
-                        if let type = geometry?.dictionaryValue["type"]?.stringValue,  type == "Polygon", let arrayOfCoordinates = geometry?["coordinates"].arrayValue{
-                            debugPrint("cordinate array :=\(arrayOfCoordinates.first ?? JSON())")
-                        }
-                    }
-                    print(json)
-                } catch {
-                    print(error)
-                }
-            }
-        }.resume()
-    }
+    /*
+     func getGoogleTrips(placeId:String) {
+     
+     let key = appDelegateShared.googleKey
+     let queryItems = [URLQueryItem(name: "place_id", value: placeId), URLQueryItem(name: "key", value: key)]
+     var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/details/json")
+     urlComps?.queryItems = queryItems
+     guard let serviceUrl = urlComps?.url else { return }
+     
+     var request = URLRequest(url: serviceUrl)
+     request.httpMethod = "GET"
+     request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+     let session = URLSession.shared
+     session.dataTask(with: request) { (data, response, error) in
+     self.HIDE_CUSTOM_LOADER()
+     if let response = response {
+     print(response)
+     }
+     if let data = data {
+     do {
+     let json = try JSONSerialization.jsonObject(with: data, options: [])
+     let jsonObj = JSON.init(json)
+     print(json)
+     if let placeIdsArray = jsonObj["result"].dictionaryValue["photos"]?.arrayValue{
+     self.arrayFeaturedPlaces.removeAll()
+     self.arrayFeaturedPlaces = placeIdsArray
+     if !self.arrayFeaturedPlaces.count.isZero() {
+     self.arrayOfSections.append(.featuredPlaces)
+     }
+     self.tblviewData.reloadData()
+     }
+     } catch {
+     print(error)
+     }
+     }
+     }.resume()
+     }
+     
+     
+     func testGppgle() {
+     //    "message" : "Parameter 'format' must be one of: xml, json, jsonv2, geojson, geocodejson"
+     
+     //    https://nominatim.openstreetmap.org/search.php?q=Warsaw+Poland&polygon_geojson=1&format=json
+     let key = appDelegateShared.googleKey
+     let queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"), URLQueryItem(name: "q", value: cityName),URLQueryItem(name: "format", value: "geojson")]
+     var urlComps = URLComponents(string: "https://nominatim.openstreetmap.org/search.php")
+     urlComps?.queryItems = queryItems
+     guard let serviceUrl = urlComps?.url else { return }
+     
+     var request = URLRequest(url: serviceUrl)
+     request.httpMethod = "GET"
+     request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+     let session = URLSession.shared
+     session.dataTask(with: request) { (data, response, error) in
+     if let response = response {
+     print(response)
+     }
+     
+     
+     if let data = data {
+     do {
+     let json = try JSONSerialization.jsonObject(with: data, options: [])
+     let jsonObj = JSON.init(json)
+     let placeIdsArray = jsonObj["features"].arrayValue
+     placeIdsArray.forEach { objJosn in
+     let geometry = objJosn.dictionaryValue["geometry"]
+     if let type = geometry?.dictionaryValue["type"]?.stringValue,  type == "Polygon", let arrayOfCoordinates = geometry?["coordinates"].arrayValue{
+     debugPrint("cordinate array :=\(arrayOfCoordinates.first ?? JSON())")
+     }
+     }
+     print(json)
+     } catch {
+     print(error)
+     }
+     }
+     }.resume()
+     }*/
     
 }

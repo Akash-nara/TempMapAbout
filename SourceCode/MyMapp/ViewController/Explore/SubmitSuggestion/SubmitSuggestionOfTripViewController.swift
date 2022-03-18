@@ -8,8 +8,48 @@
 import UIKit
 import BottomPopup
 
-class SubmitSuggestionOfTripViewController: BottomPopupViewController {
+class TripSuggestion{
     
+    class Category {
+        
+        class SuggestionCategory {
+            
+            var id:Int = 0
+            var placeholder:String = ""
+            var value:String = ""
+            var key:String = ""
+            
+            init(){}
+            init(param:JSON){
+                self.id = param["id"].intValue
+                self.placeholder = param["placeholder"].stringValue
+                self.value = param["value"].stringValue
+                self.key = param["key"].stringValue
+            }
+        }
+        
+        var id:Int = 0
+        var suggestionCategory:SuggestionCategory = SuggestionCategory()
+        
+        init(){}
+        init(param:JSON) {
+            self.id = param["id"].intValue
+            self.suggestionCategory = SuggestionCategory.init(param: param["suggestionCategory"])
+        }
+    }
+    var id:Int = 0
+    var suggestion:String = ""
+    var objCategory = Category()
+    
+    init(param:JSON){
+        
+        self.id = param["id"].intValue
+        self.suggestion = param["suggestion"].stringValue
+        self.objCategory = Category.init(param: param["category"])
+    }
+}
+
+class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     
     //MARK: - VARIABLES
     var height: CGFloat?
@@ -29,45 +69,37 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var heightOfTableView: NSLayoutConstraint!
-    
-    struct TripSuggestion{
-        
-        var id:Int!
-        var value:String!
-        var title:String!
-    }
-    var arraySuggestionList = [TripSuggestion]()
-    var tripId = 0
-    var cityId = 0
-    var cityName = "Spain"
-    
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
+            tblviewData.registerCell(type: SkeletonTripTVCell.self, identifier: "SkeletonTripTVCell")
             tblviewData.registerCell(type: TripSuggestionTVCell.self, identifier: TripSuggestionTVCell.identifier)
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
+            self.reloadData()
         }
     }
+    
+    var arraySuggestionList = [TripSuggestion.Category]()
+    var tripId = 0
+    var cityId = 0
+    var cityName = ""
+    var isFetchedDara = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
-         getSuggestionList()
-        
-        arraySuggestionList.append(TripSuggestion.init(id: 0, value: "", title: "Covid"))
-        arraySuggestionList.append(TripSuggestion.init(id: 1, value: "", title: "Language & Currency"))
-        arraySuggestionList.append(TripSuggestion.init(id: 2, value: "", title: "Other information"))
-        tblviewData.reloadData()
-        heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+        getSuggestionList()
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
+        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnHandlerSubmit(_ sender:UIButton){
+        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -76,19 +108,37 @@ extension SubmitSuggestionOfTripViewController{
     func getSuggestionList() {
         let strJson = JSON(["id": "\(cityId)"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) { response in
-            debugPrint(response)
+        API_SERVICES.callAPI(param, path: .getListOfSuggestions, method: .post) { [weak self] response in
+            self?.isFetchedDara = true
+            guard let suggestionObjArray =  response?["responseJson"]?.dictionaryValue["suggestion"]?.arrayValue else {
+                return
+            }
+            self?.arraySuggestionList.removeAll()
+            suggestionObjArray.forEach { obj in
+                self?.arraySuggestionList.append(TripSuggestion.Category.init(param: obj))
+            }
+            self?.reloadData()
         } failure: { str in
         } internetFailure: {
         } failureInform: {
         }
     }
     
+    func reloadData(){
+        if isFetchedDara{
+            self.heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+        }else{
+            self.heightOfTableView.constant = mainHeight - (CGFloat(3*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+        }
+        self.tblviewData.reloadData()
+    }
+    
     func submitSuggestionList(text:String,index:Int) {
-        let strJson = JSON(["suggestion": text, "suggestionCategory":["id":arraySuggestionList[index].id]]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let strJson = JSON(["suggestion": text, "suggestionCategory":["id":arraySuggestionList[index].suggestionCategory.id]]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        API_SERVICES.callAPI(param, path: .submitListOfSuggestions, method: .post) { response in
+        API_SERVICES.callAPI(param, path: .submitListOfSuggestions, method: .post) { [weak self] response in
             debugPrint(response)
+            self?.arraySuggestionList[index].suggestionCategory.value = text
         } failure: { str in
         } internetFailure: {
         } failureInform: {
@@ -99,22 +149,35 @@ extension SubmitSuggestionOfTripViewController{
 //MARK: - TABLEVIEW METHODS
 extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard self.isFetchedDara else { return 3 }
         return arraySuggestionList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard isFetchedDara else {
+            let cell = tblviewData.dequeueReusableCell(withIdentifier: "SkeletonTripTVCell", for: indexPath) as! SkeletonTripTVCell
+            cell.startAnimating(index: indexPath.row)
+            return cell
+        }
+        
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "TripSuggestionTVCell", for: indexPath) as! TripSuggestionTVCell
-        cell.labelTitle.text = "  "+arraySuggestionList[indexPath.row].title
-        cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].value
+        cell.labelTitle.text = "  "+arraySuggestionList[indexPath.row].suggestionCategory.value
+        cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].suggestionCategory.key
         cell.textViewTripSuggestion.delegate = self
         cell.textViewTripSuggestion.tag = indexPath.row
-        cell.textViewTripSuggestion.placeholder = "Enter \(arraySuggestionList[indexPath.row].title.lowercased())"
+        cell.textViewTripSuggestion.placeholder = arraySuggestionList[indexPath.row].suggestionCategory.placeholder
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return !isFetchedDara ? 150 : UITableView.automaticDimension
+    }
+
 }
 
+// UITextViewDelegate
 extension SubmitSuggestionOfTripViewController: UITextViewDelegate{
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
@@ -126,12 +189,19 @@ extension SubmitSuggestionOfTripViewController: UITextViewDelegate{
     
     func textViewDidEndEditing(_ textView: UITextView) {
         debugPrint("end edting row \(textView.tag) \(textView.text!)")
-        if arraySuggestionList[textView.tag].value != textView.text!{
+        if arraySuggestionList[textView.tag].suggestionCategory.value != textView.text!{
             submitSuggestionList(text: textView.text!, index: textView.tag)
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        arraySuggestionList[textView.tag].value = textView.text!
+        //        arraySuggestionList[textView.tag].suggestion = textView.text!
+    }
+}
+
+//BottomPopupDelegate
+extension SubmitSuggestionOfTripViewController:BottomPopupDelegate{
+    func bottomPopupDidDismiss() {
+        self.view.endEditing(true)
     }
 }
