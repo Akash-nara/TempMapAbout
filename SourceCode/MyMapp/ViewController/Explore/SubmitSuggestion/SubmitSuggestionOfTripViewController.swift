@@ -69,12 +69,15 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var heightOfTableView: NSLayoutConstraint!
-    @IBOutlet weak var tblviewData: UITableView!{
+    @IBOutlet weak var viewButtonContainer: UIView!
+
+    @IBOutlet weak var tblviewData: SayNoForDataTableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
             tblviewData.registerCell(type: SkeletonTripTVCell.self, identifier: "SkeletonTripTVCell")
             tblviewData.registerCell(type: TripSuggestionTVCell.self, identifier: TripSuggestionTVCell.identifier)
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
+            tblviewData.sayNoSection = .noDataFound("Data not found")
             self.reloadData()
         }
     }
@@ -92,7 +95,7 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
         labelTitle.numberOfLines = 2
         getSuggestionList()
     }
-    
+        
     @IBAction func buttonBackTapp(_ sender:UIButton){
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
@@ -128,9 +131,25 @@ extension SubmitSuggestionOfTripViewController{
         if isFetchedDara{
             self.heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
         }else{
+            
             self.heightOfTableView.constant = mainHeight - (CGFloat(3*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
         }
+        
+        if arraySuggestionList.count != 0{
+            viewButtonContainer.isHidden = false
+            
+        }else{
+            tblviewData.isUserInteractionEnabled = false
+            tblviewData.isScrollEnabled = false
+            self.heightOfTableView.constant = mainHeight/2
+            
+            // Enable scrolling based on content height
+            tblviewData.isScrollEnabled = false
+        }
+        
         self.tblviewData.reloadData()
+        self.tblviewData.figureOutAndShowNoResults()
+        
     }
     
     func submitSuggestionList(text:String,index:Int) {

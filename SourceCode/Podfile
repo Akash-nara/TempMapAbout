@@ -34,6 +34,7 @@ target 'MyMapp' do
   pod "FSInteractiveMap"
   pod 'KMPlaceholderTextView'
 #  pod 'MaterialDesignWidgets'
+pod 'Google-Maps-iOS-Utils', '~> 4.1.0'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

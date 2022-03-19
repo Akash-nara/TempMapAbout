@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,30 +13,42 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MapExploreTVCell" rowHeight="217" id="KGk-i7-Jjw" userLabel="MapExploreTVCell" customClass="MapExploreTVCell" customModule="MyMapp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="384" height="217"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="384" height="217"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIx-Vf-GNB">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="217"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="220"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.82745098039215681" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="217" id="dr3-OU-a1j"/>
+                            <constraint firstAttribute="height" constant="220" id="dr3-OU-a1j"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="SVGName" value="world-low"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rt4-nd-hM9" customClass="GMSMapView">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="400"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.82745098039215681" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="400" id="PiG-EE-7l2"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="jIx-Vf-GNB" secondAttribute="trailing" id="89C-bT-Zua"/>
                     <constraint firstItem="jIx-Vf-GNB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8Ad-nZ-Mky"/>
-                    <constraint firstAttribute="bottom" secondItem="jIx-Vf-GNB" secondAttribute="bottom" id="IYh-re-1KI"/>
+                    <constraint firstItem="rt4-nd-hM9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DBn-qh-l1F"/>
+                    <constraint firstAttribute="bottom" secondItem="jIx-Vf-GNB" secondAttribute="bottom" constant="20" id="IYh-re-1KI"/>
+                    <constraint firstItem="rt4-nd-hM9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Vsh-tz-Vwg"/>
                     <constraint firstItem="jIx-Vf-GNB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bEs-iM-Hvd"/>
+                    <constraint firstAttribute="bottom" secondItem="rt4-nd-hM9" secondAttribute="bottom" id="orw-VF-NqI"/>
+                    <constraint firstAttribute="trailing" secondItem="rt4-nd-hM9" secondAttribute="trailing" id="pxa-Qk-RXU"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="googleMap" destination="rt4-nd-hM9" id="hv0-d8-IW3"/>
                 <outlet property="imgSVGMap" destination="jIx-Vf-GNB" id="wOG-lL-IS2"/>
             </connections>
             <point key="canvasLocation" x="178.2608695652174" y="165.06696428571428"/>
