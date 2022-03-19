@@ -646,7 +646,7 @@
                                 <rect key="frame" x="0.0" y="68" width="389" height="168"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUS-T7-TqG">
-                                        <rect key="frame" x="0.0" y="61.5" width="106.5" height="45"/>
+                                        <rect key="frame" x="0.0" y="61.5" width="389" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-L6-QKR">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -663,15 +663,15 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZb-Hr-SKl">
-                                                <rect key="frame" x="45" y="0.0" width="61.5" height="45"/>
+                                                <rect key="frame" x="45" y="0.0" width="344" height="45"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to saved" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdQ-ec-wYR">
-                                        <rect key="frame" x="320" y="74" width="69" height="20"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to saved" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdQ-ec-wYR">
+                                        <rect key="frame" x="0.0" y="74" width="0.0" height="20"/>
                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                         <nil key="highlightedColor"/>

@@ -74,7 +74,7 @@ class MapExploreTVCell: UITableViewCell {
         
         imgSVGMap.isUserInteractionEnabled = true
         let dict  = [ "RU" : 12,
-                      "IN" : 2,
+                      "I" : 2,
                       "de" : 9,
                       "pl" : 24,
                       "uk" : 17
