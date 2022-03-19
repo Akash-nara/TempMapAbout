@@ -59,6 +59,8 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var defaultParentTag: TagListModel?
     var arraySubTags = [SubCategoryListModel]()
     var arrayUploadedOnTripCityOnly = [TripDataModel.TripPhotoDetails.TripImage]()
+    
+    var cancelSubmitData = false
 
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -94,10 +96,37 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
         setPhotoCount()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        debugPrint("viewWillAppear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        debugPrint("viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if !cancelSubmitData {
+            submiteData()
+        }
+        debugPrint("viewDidDisappear")
+    }
+    
+    func bottomPopupWillAppear() {
+        cancelSubmitData = false
+    }
+    
     func bottomPopupWillDismiss() {
-        submiteData()
         debugPrint("bottomPopupDidDismiss")
     }
+    
+    func bottomPopupDidDismiss() {
+        debugPrint("bottomPopupDidDismiss")
+    }
+    
     
     func checkRecomandationButtonsTap(){
         
@@ -354,6 +383,7 @@ extension AddTripFavouriteLocationsVC{
     }
     
     func openGalleryForMultipleImages(isCameraOpen:Bool=false) {
+        cancelSubmitData = true
         DispatchQueue.main.async {
             
             if totalGlobalTripPhotoCount == 0 {
@@ -417,6 +447,7 @@ extension AddTripFavouriteLocationsVC{
     func cameraOpen() {
         DispatchQueue.main.async {
             if(UIImagePickerController .isSourceTypeAvailable(.camera)) {
+                self.cancelSubmitData = true
                 DispatchQueue.main.async {
                     if totalGlobalTripPhotoCount == 0 {
                         Utility.errorMessage(message: "Maximum 21 imagess allowed.")
