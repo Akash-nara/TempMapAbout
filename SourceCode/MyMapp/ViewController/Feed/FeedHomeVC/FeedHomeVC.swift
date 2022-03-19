@@ -148,6 +148,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
+//        saveFeedApi(indexRow: sender.tag)
         sender.isSelected.toggle()
         viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
         viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
@@ -262,7 +263,33 @@ extension FeedHomeVC{
 //            self.HIDE_CUSTOM_LOADER()
         }
     }
-
+    
+    func saveFeedApi(indexRow:Int){
+        let strJson = JSON(["trip": ["id":viewModel.arrayOfTripList[indexRow].id],
+                            "INTEREST_CATEGORY": "Feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            self?.updateCellWithStatus(index: indexRow)
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+    
+    func updateCellWithStatus(index:Int){
+        viewModel.arrayOfTripList[index].isBookmarked.toggle()
+        viewModel.arrayOfTripList[index].increaeeDecreaseBookmarkCount()
+        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: index, section: 0)) as! FeedTableViewCell
+        cell.buttonBookmark.isSelected.toggle()
+        cell.configureCell(modelData: viewModel.arrayOfTripList[index])
+    }
 }
 
 // MARK: - UIScrollViewDelegate

@@ -33,6 +33,7 @@ enum Routing {
     case getAdminSuggestions
     case getListOfSuggestions
     case submitListOfSuggestions
+    case saveTrip
     
     var getPath: String {
         switch self {
@@ -84,6 +85,9 @@ enum Routing {
             return "api/private/suggestion/city/suggestions"
         case .submitListOfSuggestions:
             return "api/private/suggestion/add"
+            
+        case .saveTrip:
+            return "api/private/event/add"
         }
     }
 }
