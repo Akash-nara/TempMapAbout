@@ -631,7 +631,7 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             default:break
             }
             
-            cell.imgviewCity.contentMode = .scaleToFill            
+            cell.imgviewCity.contentMode = .scaleToFill
             return cell
         }
     }

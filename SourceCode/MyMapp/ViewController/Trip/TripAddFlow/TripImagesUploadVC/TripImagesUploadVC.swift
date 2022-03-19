@@ -462,6 +462,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         }
+        cell.imgTrip.contentMode = .scaleToFill
         return cell
     }
     

@@ -24,10 +24,10 @@ class TripImagesModel:NSObject {
     var isVerticalImage:Bool{
         if let sizeOfImage = image?.size, sizeOfImage.width > sizeOfImage.height {
             //since the width > height we may fit it and we'll have bands on top/bottom
-            return true
+            return false
         } else {
             //width < height we fill it until width is taken up and clipped on top/bottom
-            return false
+            return true
         }
     }
     

@@ -84,10 +84,10 @@ class ProfileImagesCellXIB: UICollectionViewCell {
 
 extension UIImage{
     var isImageVerticle:Bool{
-        if self.size.width < self.size.height {
-            return true
-        }else{
+        if self.size.width > self.size.height {
             return false
+        }else{
+            return true
         }
     }
 }
