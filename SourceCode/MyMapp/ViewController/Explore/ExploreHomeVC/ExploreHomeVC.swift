@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
 class ExploreHomeVC: UIViewController,UITextFieldDelegate{
     
@@ -178,7 +179,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int{
         if tableView == self.tblviewSuggestion{
-            return 1
+            return cityData.count == 0 ? 0 : 1
         }else{
             return 0//arrayOfSections.count
         }
@@ -255,6 +256,7 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             exploreTripDetailVC.hidesBottomBarWhenPushed = true
             exploreTripDetailVC.cityName = cityData[indexPath.row].name
             exploreTripDetailVC.cityId = cityData[indexPath.row].id
+            exploreTripDetailVC.latLong = CLLocationCoordinate2D.init(latitude: cityData[indexPath.row].latitude, longitude: cityData[indexPath.row].longitude)
             self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
             
         }else{}

@@ -2019,7 +2019,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = 2859WFA2CV;
+				DEVELOPMENT_TEAM = T5Y544FW66;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2043,9 +2043,9 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = devProfivionProfile;
+				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2061,10 +2061,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = 2859WFA2CV;
+				DEVELOPMENT_TEAM = T5Y544FW66;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2087,9 +2087,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distriProProfile;
+				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

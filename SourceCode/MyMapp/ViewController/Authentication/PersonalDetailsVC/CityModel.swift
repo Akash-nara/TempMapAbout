@@ -15,8 +15,8 @@ class CityModel:Equatable{
     var cityName:String!
     var name : String!
 	var id : Int!
-	var latitude : Float!
-	var longitude : Float!
+	var latitude : Double!
+	var longitude : Double!
 	/**
 	 * Instantiate the instance using the passed json values to set the properties values
 	 */
@@ -33,8 +33,8 @@ class CityModel:Equatable{
             countryName = last
         }
 		id = json["id"].intValue
-		latitude = json["latitude"].floatValue
-		longitude = json["longitude"].floatValue
+		latitude = json["latitude"].doubleValue
+		longitude = json["longitude"].doubleValue
         self.countryCode = json["countryCode"].stringValue 
 	}
 

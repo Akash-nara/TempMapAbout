@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import MapKit
 
 class ExploreTripDetailViewController: UIViewController {
     
@@ -51,7 +52,8 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [JSON]()
     var arrayExpandable = [(cellType: Int, isOpenCell: Bool)]()
-    
+    var latLong:CLLocationCoordinate2D? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,6 +125,10 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
                 for: indexPath) as? MapExploreTVCell else {
                     return UITableViewCell()
                 }
+            cell.cityName = self.cityName
+            cell.latLong = self.latLong
+            cell.loadDefaultPosition()
+//            cell.configureMap()
             return cell
         case .expandableViews:
             let cell = tblviewData.dequeueCell(withType: ExpandableTVCell.self, for: indexPath) as! ExpandableTVCell

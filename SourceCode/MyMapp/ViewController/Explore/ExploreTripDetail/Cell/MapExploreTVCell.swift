@@ -15,91 +15,75 @@ import GoogleMapsUtils
 class MapExploreTVCell: UITableViewCell {
     
     @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var imgSVGMap: UIView!
     @IBOutlet weak var googleMap: GMSMapView!
     
     var mapStyle = "JSON_STYLE_GOES_HERE"
     var cityName = "Surat, India"
+    var latLong:CLLocationCoordinate2D? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        imgSVGMap.isHidden = true
-        googleMap.isHidden = true
         
-        /*
+        
+        self.setStyleOfMap()
+        
+    }
+    
+    
+    func configureMap(){
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(cityName) { placemarks, error in
             if let placemark = placemarks?.first{
-                let lat = placemark.location!.coordinate.latitude
-                let long = placemark.location!.coordinate.longitude
-                
-                let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom: 1.0) // point the initial location of map
-                self.googleMap.camera = camera
-                //                self.googleMap.delegate = self
-                self.googleMap.isMyLocationEnabled = true
-                self.googleMap.settings.myLocationButton = true
-                
-                let marker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                marker.title = self.cityName
-                marker.map = self.googleMap
-                self.googleMap.animate(toLocation: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                self.latLong = placemark.location!.coordinate
+                self.loadDefaultPosition()
             }
         }
+    }
+    
+    func loadDefaultPosition(){
         
-        testGppgle()
-         */
-        
-        //        if let path = Bundle.main.path(forResource: "sample", ofType: "json") {
-        //            do {
-        //                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-        //                let jsonObj = try JSON(data: data)
-        //                print("jsonData:\(jsonObj.stringValue)")
-        //                self.mapStyle = jsonObj.stringValue
-        //
-        //                do {
-        //                  // Set the map style by passing a valid JSON string.
-        //                    googleMap.mapStyle = try GMSMapStyle(jsonString: mapStyle)
-        //                } catch {
-        //                  print("One or more of the map styles failed to load. \(error)")
-        //                }
-        //            } catch let error {
-        //                print("parse error: \(error.localizedDescription)")
-        //            }
-        //        } else {
-        //            print("Invalid filename/path.")
-        //        }
-        
-        
-        
-        imgSVGMap.isUserInteractionEnabled = true
-        let dict  = [ "RU" : 12,
-                      "I" : 2,
-                      "de" : 9,
-                      "pl" : 24,
-                      "uk" : 17
-        ]
-        
-        let map = FSInteractiveMapView.init(frame: imgSVGMap.frame)
-        map.loadMap("world-low", withData: dict, colorAxis: [UIColor.App_BG_SeafoamBlue_Color, UIColor.App_BG_SeafoamBlue_Color ])
-        map.clickHandler = { (identi, layer) in
-            debugPrint(identi)
+        guard let cordinate  = self.latLong else {
+            return
         }
-        
-//        imgSVGMap.addSubview(map)
-        
-        let svgURL = Bundle.main.url(forResource: "world-low", withExtension: "svg")!
-        let pizza = CALayer(SVGURL: svgURL) { (svgLayer) in
-            // Set the fill color
-            //            svgLayer.fillColor = UIColor(red:0.94, green:0.37, blue:0.00, alpha:1.00).cgColor
-            // Aspect fit the layer to self.view
-            svgLayer.fillColor = UIColor.App_BG_silver_Color.cgColor
-            svgLayer.resizeToFit(self.imgSVGMap.bounds)
+        DispatchQueue.getMain {
+            let camera = GMSCameraPosition.camera(withLatitude: cordinate.latitude, longitude: cordinate.longitude, zoom: 7.0) // point the initial location of map
+            self.googleMap.camera = camera
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude)
+            marker.title = self.cityName
+            marker.map = self.googleMap
+            marker.icon = GMSMarker.markerImage(with: UIColor.black)
+            self.googleMap.animate(toLocation: CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude))
             
-            // Add the layer to self.view's sublayers
-            //            self.imgSVGMap.layer.addSublayer(svgLayer)
+            //                    var visibleRegion : GMSVisibleRegion = self.googleMap.projection.visibleRegion()
+            //                    var bounds = GMSCoordinateBounds(coordinate: visibleRegion.nearLeft, coordinate: visibleRegion.farRight)
+            //                    self.googleMap.cameraTargetBounds = bounds
+            
+            self.testGppgle()
         }
-        
+    }
+    
+    func setStyleOfMap(){
+        if let path = Bundle.main.path(forResource: "sample", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+                //                print("jsonData:\(String.init(data: data, encoding: .utf8) ?? ""//jsonObj.stringValue)")
+                
+                DispatchQueue.getMain{
+                    self.mapStyle = String.init(data: data, encoding: .utf8) ?? ""//jsonObj.stringValue
+                    do{
+                        // Set the map style by passing a valid JSON string.
+                        self.googleMap.mapStyle = try GMSMapStyle(jsonString: self.mapStyle)
+                    } catch {
+                        print("One or more of the map styles failed to load. \(error)")
+                    }
+                }
+            } catch let error {
+                print("parse error: \(error.localizedDescription)")
+            }
+        } else {
+            print("Invalid filename/path.")
+        }
     }
     
     func testGppgle() {
@@ -107,7 +91,15 @@ class MapExploreTVCell: UITableViewCell {
         
         //    https://nominatim.openstreetmap.org/search.php?q=Warsaw+Poland&polygon_geojson=1&format=json
         //        let key = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
-        let queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"), URLQueryItem(name: "q", value: cityName),URLQueryItem(name: "format", value: "geojson")]
+        
+        ///https://api.geoapify.com/v1/boundaries/part-of?id=51290c25ee8c295240597eb5fa6129393740f00103f901b20a862e0000000092030b47616e6468696e61676172&geometry=geometry_1000&apiKey=YOUR_API_KEY
+
+        var queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"),URLQueryItem(name: "format", value: "geojson")]
+        if cityName.split(separator: ",").count == 2{
+            let country = cityName.split(separator: ",")[1].trimmingCharacters(in: .whitespaces)
+            queryItems.append(URLQueryItem(name: "country", value: country))
+            queryItems.append(URLQueryItem(name: "q", value: cityName))
+        }
         var urlComps = URLComponents(string: "https://nominatim.openstreetmap.org/search.php")
         urlComps?.queryItems = queryItems
         guard let serviceUrl = urlComps?.url else { return }
@@ -120,72 +112,104 @@ class MapExploreTVCell: UITableViewCell {
             if let response = response {
                 print(response)
             }
-            if let data = data {
-                do {
-                    let _ = try JSONSerialization.jsonObject(with: data, options: [])
-                    // 3. From a GeoJSON file:
-                    let decoder = JSONDecoder()
-                    let path = GMSMutablePath()
-                    if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
-                       case let .featureCollection(feature) = geoJSON{
-                        //                        let italy = feature.features.first?.geometry?.buffer(by: 1)
-                        //                        debugPrint(italy)
+            
+            DispatchQueue.getMain {
+                
+                if let data = data {
+                    do {
+                        let _ = try JSONSerialization.jsonObject(with: data, options: [])
+                        // 3. From a GeoJSON file:
+                        let decoder = JSONDecoder()
+                        let path = GMSMutablePath()
                         
                         /*
-                         feature.features.forEach { obj in
-                         
-                         switch obj.geometry {
-                         case let .polygon(polygon):
-                         // Do something with polygon
-                         let points = polygon.exterior.points
-                         let coords = points.map { p in CLLocationCoordinate2D(latitude: p.y, longitude: p.x) }
-                         for c in coords {
-                         path.add(c)
-                         }
-                         let polygonpath = GMSPolyline(path: path)
-                         //                                polygonpath.fillColor = UIColor.red
-                         polygonpath.strokeColor = .brown
-                         polygonpath.strokeWidth = 5
-                         polygonpath.geodesic = true
-                         
-                         //                                polygonpath.spans
-                         //                                polygonpath.spans = [GMSStyleSpan(color: .red)]
-                         //                                let solidRed = GMSStrokeStyle.solidColor(.red)
-                         //                                polygonpath.spans = [GMSStyleSpan(style: solidRed)]
-                         
-                         polygonpath.map = self.mapView
-                         
-                         default:
-                         break
-                         }
-                         }*/
-                    }
-                    
-                    if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
-                       case let .feature(feature) = geoJSON{
+                        let geoJsonParser = GMUGeoJSONParser.init(data: data)
+                        geoJsonParser.parse()
+
+                        let renderer = GMUGeometryRenderer(map: self.googleMap, geometries: geoJsonParser.features)
+                        renderer.render()*/
+
                         
-                        switch feature.geometry {
-                        case let .polygon(polygon):
-                            // Do something with polygon
-                            let points = polygon.exterior.points
-                            let coords = points.map { p in CLLocationCoordinate2D(latitude: p.y, longitude: p.x) }
-                            for c in coords {
-                                path.add(c)
-                            }
-                            let polygonpath = GMSPolygon(path: path)
-                            polygonpath.fillColor = UIColor.red
-                            polygonpath.strokeColor = .brown
-                            polygonpath.strokeWidth = 5
-                            polygonpath.map = self.googleMap
+                        if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
+                           case let .featureCollection(feature) = geoJSON{
                             
-                        default:
-                            break
+                            
+                            feature.features.forEach { obj in
+                                switch obj.geometry {
+                                    
+                                    
+                                case .multiPolygon(let multiplePoly):
+                                    // Do something with polygon
+                                    
+                                    for cc in multiplePoly.polygons{
+                                        let points = cc.exterior.points
+                                        let coords = points.map { p in CLLocationCoordinate2D(latitude: p.y, longitude: p.x) }
+                                        for c in coords {
+                                            path.add(c)
+                                        }
+                                    }
+                                    
+                                    // drwi poligon
+                                    let polygonpath = GMSPolygon(path: path)
+                                    polygonpath.fillColor = UIColor.App_BG_SeafoamBlue_Color
+                                    polygonpath.strokeColor = .App_BG_SeafoamBlue_Color
+                                    polygonpath.strokeWidth = 3
+                                    polygonpath.geodesic = false
+                                    polygonpath.map = self.googleMap
+
+                                case let .polygon(polygon):
+                                    
+                                    // Do something with polygon
+                                    let points = polygon.exterior.points
+                                    let coords = points.map { p in CLLocationCoordinate2D(latitude: p.y, longitude: p.x) }
+                                    for c in coords {
+                                        path.add(c)
+                                    }
+                                    
+                                    
+                                    // drwi poligon
+                                    let polygonpath = GMSPolygon(path: path)
+                                    polygonpath.fillColor = UIColor.App_BG_SeafoamBlue_Color
+                                    polygonpath.strokeColor = .App_BG_SeafoamBlue_Color
+                                    polygonpath.strokeWidth = 3
+                                    polygonpath.geodesic = true
+                                    polygonpath.map = self.googleMap
+
+                                default:
+                                    break
+                                }
+                            }
                         }
+
+                        /*
+                        
+                        if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
+                           case let .feature(feature) = geoJSON{
+                            
+                            switch feature.geometry {
+                            case let .polygon(polygon):
+                                // Do something with polygon
+                                let points = polygon.exterior.points
+                                let coords = points.map { p in CLLocationCoordinate2D(latitude: p.y, longitude: p.x) }
+                                for c in coords {
+                                    path.add(c)
+                                }
+                                let polygonpath = GMSPolygon(path: path)
+                                polygonpath.fillColor = UIColor.red
+                                polygonpath.strokeColor = .brown
+                                polygonpath.strokeWidth = 5
+                                polygonpath.map = self.googleMap
+                            default:
+                                break
+                            }
+                        }*/
+                        
+                    } catch {
+                        print(error)
                     }
-                } catch {
-                    print(error)
                 }
             }
         }.resume()
     }
 }
+
