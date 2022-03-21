@@ -67,8 +67,6 @@ class MapExploreTVCell: UITableViewCell {
         if let path = Bundle.main.path(forResource: "sample", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                //                print("jsonData:\(String.init(data: data, encoding: .utf8) ?? ""//jsonObj.stringValue)")
-                
                 DispatchQueue.getMain{
                     self.mapStyle = String.init(data: data, encoding: .utf8) ?? ""//jsonObj.stringValue
                     do{
@@ -91,20 +89,27 @@ class MapExploreTVCell: UITableViewCell {
         
         //    https://nominatim.openstreetmap.org/search.php?q=Warsaw+Poland&polygon_geojson=1&format=json
         //        let key = "AIzaSyCbpJmRcahoG9cm330aEfMc3Owv85oP218"
-        
+//        let key  = "9edc2211bde844bf9e751b4099ca3aa8"
         ///https://api.geoapify.com/v1/boundaries/part-of?id=51290c25ee8c295240597eb5fa6129393740f00103f901b20a862e0000000092030b47616e6468696e61676172&geometry=geometry_1000&apiKey=YOUR_API_KEY
+//  https://api.geoapify.com/v1/isoline?lat=48.13736145&lon=11.574172059316222&type=time&mode=transit&range=1800&apiKey=9edc2211bde844bf9e751b4099ca3aa8
 
-        var queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"),URLQueryItem(name: "format", value: "geojson")]
+        
+        var queryItems = [URLQueryItem(name: "polygon_geojson", value: "1"),URLQueryItem(name: "format", value: "geojson"), URLQueryItem(name: "admin_level", value: "5"),URLQueryItem(name: "boundary", value: "administrative"),URLQueryItem(name: "zoom", value: "10")]
         if cityName.split(separator: ",").count == 2{
             let country = cityName.split(separator: ",")[1].trimmingCharacters(in: .whitespaces)
+            let city = cityName.split(separator: ",")[0].trimmingCharacters(in: .whitespaces)
             queryItems.append(URLQueryItem(name: "country", value: country))
             queryItems.append(URLQueryItem(name: "q", value: cityName))
         }
         var urlComps = URLComponents(string: "https://nominatim.openstreetmap.org/search.php")
         urlComps?.queryItems = queryItems
         guard let serviceUrl = urlComps?.url else { return }
-        
         var request = URLRequest(url: serviceUrl)
+        
+//        let str = "https://api.geoapify.com/v1/isoline?id=029721088690f17883749d9f61908ef4&apiKey=9edc2211bde844bf9e751b4099ca3aa8"
+//        let url = URL.init(string: str)!
+//        var request = URLRequest(url: url)
+
         request.httpMethod = "GET"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         let session = URLSession.shared
@@ -119,17 +124,24 @@ class MapExploreTVCell: UITableViewCell {
                     do {
                         let _ = try JSONSerialization.jsonObject(with: data, options: [])
                         // 3. From a GeoJSON file:
-                        let decoder = JSONDecoder()
-                        let path = GMSMutablePath()
                         
                         /*
                         let geoJsonParser = GMUGeoJSONParser.init(data: data)
                         geoJsonParser.parse()
 
+                        let style = GMUStyle(styleID: "random", stroke: UIColor.App_BG_SeafoamBlue_Color, fill: UIColor.App_BG_SeafoamBlue_Color, width: 2, scale: 1, heading: 0, anchor: CGPoint(x: 0, y: 0), iconUrl: nil, title: nil, hasFill: true, hasStroke: true)
+                                
+                        for feature in geoJsonParser.features {
+                          feature.style = style
+                        }
+                        
                         let renderer = GMUGeometryRenderer(map: self.googleMap, geometries: geoJsonParser.features)
-                        renderer.render()*/
+                        renderer.render()
+                        */
 
                         
+                         let decoder = JSONDecoder()
+                         let path = GMSMutablePath()
                         if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
                            case let .featureCollection(feature) = geoJSON{
                             
@@ -181,7 +193,7 @@ class MapExploreTVCell: UITableViewCell {
                             }
                         }
 
-                        /*
+                        
                         
                         if let geoJSON = try? decoder.decode(GeoJSON.self, from: data),
                            case let .feature(feature) = geoJSON{
@@ -202,7 +214,7 @@ class MapExploreTVCell: UITableViewCell {
                             default:
                                 break
                             }
-                        }*/
+                        }
                         
                     } catch {
                         print(error)
