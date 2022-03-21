@@ -159,7 +159,7 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
             cell.labelSubTitle.readLessText = " " + "see less"
             cell.labelSubTitle.readMoreText = " " + "see more"
             cell.labelSubTitle.isOneLinedContent = true
-            cell.labelSubTitle.setContent(str, noOfCharacters: 35, readMoreTapped: {
+            cell.labelSubTitle.setContent(str, noOfCharacters: 120, readMoreTapped: {
                 self.updateBoolFlagForExpand(index: cell.labelSubTitle.tag, flag: true)
 
                 self.isShowWholeContent = true

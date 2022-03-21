@@ -109,7 +109,7 @@ extension ExpandableTVCell {
         labelLeftBulletPointHeading.text = "Languages"
         loadLeftBulletPoints(data: ["Spanish", "Catalan"])
         
-        labelRightBulletPointHeading.text = "Languages"
+        labelRightBulletPointHeading.text = "Currency"
         loadRightBulletPoints(data: ["Euro"])
     }
     
@@ -120,6 +120,7 @@ extension ExpandableTVCell {
         labelHeading.text = "COVID-19 updates"
         
         labelCovid19Heading.text = "COVID-19 restrictions"
+        labelCovid19Heading.isHidden = true
         labelCovid19Detail.text = "Find the latest details here."
     }
     

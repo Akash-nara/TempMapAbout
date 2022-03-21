@@ -60,9 +60,9 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         labelTitle.text = jsn["name"].stringValue//"Las Rambla"
         labelSubtitle.text = jsn["formatted_address"].stringValue//"Catholic Church"
         
-        buttonSaveToggle.isSelected = true
-        buttonRatings.setTitle(" \(jsn["user_ratings_total"].intValue)", for: .normal)
-        buttonVisitors.setTitle(" \(jsn["rating"].intValue)", for: .normal)
+//        buttonSaveToggle.isSelected = true
+        buttonVisitors.setTitle(" \(jsn["user_ratings_total"].intValue)", for: .normal)
+        buttonRatings.setTitle(" \(jsn["rating"].floatValue)", for: .normal)
         
         imageViewPlace.showAnimatedSkeleton()
         if let photosObj = jsn["photos"].arrayValue.first, let key = photosObj["photo_reference"].string{

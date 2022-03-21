@@ -193,15 +193,24 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.labelSubTitle.readLessText = " " + "see less"
             cell.labelSubTitle.readMoreText = " " + "see more"
             cell.labelSubTitle.isOneLinedContent = true
-            cell.labelSubTitle.setContent(str, noOfCharacters: 35, readMoreTapped: {
+            cell.labelSubTitle.setContent(str, noOfCharacters: 120, readMoreTapped: {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = true
+//                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
                 self.tblviewData.reloadData()
             }) {
                 self.arrayOfToolTips[cell.labelSubTitle.tag] = false
+//                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
                 self.tblviewData.reloadData()
             }
         }
         return cell
+    }
+    
+    func reloadToptipsSection(sender:Int){
+        if let section = arrayOfSections.firstIndex(where: {$0 == .topTips}){
+            self.tblviewData.reloadRows(at: [IndexPath.init(row: sender, section: section)], with: .automatic)
+//            self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
+        }
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
