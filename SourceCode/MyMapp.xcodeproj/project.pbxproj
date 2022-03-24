@@ -2030,8 +2030,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = T5Y544FW66;
+				CURRENT_PROJECT_VERSION = 10;
+				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2055,9 +2055,9 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
+				PROVISIONING_PROFILE_SPECIFIER = devProfivionProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2075,8 +2075,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = T5Y544FW66;
+				CURRENT_PROJECT_VERSION = 10;
+				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMapp/Info.plist;
@@ -2099,9 +2099,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ss.doo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapabouts.travelnetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = doo_ss_development;
+				PROVISIONING_PROFILE_SPECIFIER = devProfivionProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyMapp/MyMapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
