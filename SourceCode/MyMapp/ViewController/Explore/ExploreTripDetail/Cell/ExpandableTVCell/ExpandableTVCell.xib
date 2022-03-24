@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -288,6 +288,8 @@
                 <outlet property="stackViewLeftBulletpoint" destination="Y8z-4k-vWu" id="vFh-bN-ohe"/>
                 <outlet property="stackViewParentBulletPoint" destination="V8b-XF-Oyk" id="0cG-s6-AVu"/>
                 <outlet property="stackViewParentCovid19" destination="jV9-Mw-i7A" id="oKd-tG-XuF"/>
+                <outlet property="stackViewParentLeftBulletpoint" destination="X5G-Ck-bqW" id="l8b-S1-kU7"/>
+                <outlet property="stackViewParentRightBulletpoint" destination="Abi-OY-AQK" id="w8H-Wq-oPv"/>
                 <outlet property="stackViewRightBulletpoint" destination="pfn-He-qh6" id="pOS-ef-Dwt"/>
                 <outlet property="viewParentExpandableDetail" destination="1fp-IH-IKO" id="MxF-Eu-8ZG"/>
                 <outlet property="viewParentHere" destination="olj-5R-EVw" id="F33-kZ-xOT"/>

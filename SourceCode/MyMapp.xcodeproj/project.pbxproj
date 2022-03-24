@@ -250,6 +250,7 @@
 		88ECE0F4273062F50000AEA3 /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88ECE0F3273062F20000AEA3 /* SigninVC.swift */; };
 		88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 88F0ADFE276FAB69005C9657 /* MapStyle.json */; };
 		88F5DC1C272D5CD6003EEEAF /* FirstViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */; };
+		A433746F27ECD9E60019BF80 /* ExploreSuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A433746E27ECD9E60019BF80 /* ExploreSuggestionModel.swift */; };
 		A440832827DC76CD004589FC /* FeaturedPlacesCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440832627DC76CD004589FC /* FeaturedPlacesCVCell.swift */; };
 		A440832927DC76CD004589FC /* FeaturedPlacesCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440832727DC76CD004589FC /* FeaturedPlacesCVCell.xib */; };
 		A440832D27DC8239004589FC /* CollectionViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440832B27DC8239004589FC /* CollectionViewTVCell.swift */; };
@@ -517,6 +518,7 @@
 		88F0ADFE276FAB69005C9657 /* MapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
 		88F5DC1B272D5CD6003EEEAF /* FirstViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewVC.swift; sourceTree = "<group>"; };
 		99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A433746E27ECD9E60019BF80 /* ExploreSuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSuggestionModel.swift; sourceTree = "<group>"; };
 		A440832627DC76CD004589FC /* FeaturedPlacesCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlacesCVCell.swift; sourceTree = "<group>"; };
 		A440832727DC76CD004589FC /* FeaturedPlacesCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedPlacesCVCell.xib; sourceTree = "<group>"; };
 		A440832B27DC8239004589FC /* CollectionViewTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTVCell.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 		38C684D627D90BB0008ACD05 /* ExploreTripDetail */ = {
 			isa = PBXGroup;
 			children = (
+				A433746D27ECD9B50019BF80 /* Model */,
 				38152A4927DB38800077BDB5 /* world-low.svg */,
 				38C684D927D920D6008ACD05 /* Cell */,
 				38C684D727D90BEA008ACD05 /* ExploreTripDetailViewController.swift */,
@@ -1422,6 +1425,14 @@
 			path = FirstViewVC;
 			sourceTree = "<group>";
 		};
+		A433746D27ECD9B50019BF80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A433746E27ECD9E60019BF80 /* ExploreSuggestionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A440832527DC76B7004589FC /* FeaturedPlacesCVCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,6 +1766,7 @@
 				6906DA5127464E4600B9F23A /* AddTripFavouriteAddImage.swift in Sources */,
 				38AE15512782D6630016F80E /* UIScrollView+Extensions.swift in Sources */,
 				38AE15342782D6630016F80E /* Routing.swift in Sources */,
+				A433746F27ECD9E60019BF80 /* ExploreSuggestionModel.swift in Sources */,
 				38AE153F2782D6630016F80E /* OperatorOverloading.swift in Sources */,
 				38AE154E2782D6630016F80E /* UITableView+Extensions.swift in Sources */,
 				38AE15532782D6630016F80E /* UICollectionView+Extensions.swift in Sources */,

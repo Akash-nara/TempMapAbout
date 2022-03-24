@@ -51,7 +51,7 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayOfToolTips = [Bool]()
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [JSON]()
-    var arrayExpandable = [(cellType: Int, isOpenCell: Bool)]()
+    var arrayExpandable = [ExploreSuggestionDataModel]()
     var latLong:CLLocationCoordinate2D? = nil
 
     override func viewDidLoad() {
@@ -64,13 +64,6 @@ class ExploreTripDetailViewController: UIViewController {
         
         // Maps
         arrayOfSections.append(.maps)
-        
-        // ExpandableViews
-        arrayExpandable = [(1, false), (2, false)]
-        if !arrayExpandable.count.isZero() {
-            arrayOfSections.append(.expandableViews)
-        }
-        
         
         // FeaturedPlaces
         //        arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
@@ -132,8 +125,8 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             return cell
         case .expandableViews:
             let cell = tblviewData.dequeueCell(withType: ExpandableTVCell.self, for: indexPath) as! ExpandableTVCell
-            cell.cellConfigExpandable(isOpen: arrayExpandable[indexPath.row].isOpenCell)
-            cell.cellConfig(data: arrayExpandable[indexPath.row].cellType)
+//            cell.cellConfigExpandable(isOpen: arrayExpandable[indexPath.row].isOpenCell)
+            cell.cellConfig(data: arrayExpandable[indexPath.row])
             cell.buttonExpandToggle.tag = indexPath.row
             cell.buttonExpandToggle.addTarget(self, action: #selector(self.cellButtonExpandToggleClicked(_:)), for: .touchUpInside)
             cell.buttonHere.tag = indexPath.row
@@ -324,7 +317,29 @@ extension ExploreTripDetailViewController{
                 return
             }
             
+            self.arrayExpandable.removeAll()
+            var languagesAndCurrenciesIndex = -1
+            suggestionObjArray.forEach { suggestion in
+                let data = ExploreSuggestionDataModel(param: suggestion)
+                switch data.cellType {
+                case .languagesAndCurrencies:
+                    if languagesAndCurrenciesIndex == -1 {
+                        languagesAndCurrenciesIndex = self.arrayExpandable.count
+                        self.arrayExpandable.append(data)
+                    } else {
+                        self.arrayExpandable[languagesAndCurrenciesIndex].mergeLanguagesAndCurrencies(data2: data)
+                    }
+                default:
+                    self.arrayExpandable.append(data)
+                }
+            }
             debugPrint(suggestionObjArray)
+            
+            // ExpandableViews
+            if !self.arrayExpandable.count.isZero() {
+                self.arrayOfSections.append(.expandableViews)
+            }
+
             self.getGoogleTripsDetial()
         } failure: { str in
         } internetFailure: {
