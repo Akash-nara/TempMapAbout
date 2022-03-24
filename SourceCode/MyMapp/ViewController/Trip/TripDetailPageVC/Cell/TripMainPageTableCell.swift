@@ -158,7 +158,7 @@ class TripMainPageTableCell: UITableViewCell {
             }
         }
 
-        //minimizeCollectionViewHightForVerticle()
+        minimizeCollectionViewHightForVerticle()
         
         func removeAllStackViewData() {
             stackViewLeftColumn.arrangedSubviews.forEach { subview in
