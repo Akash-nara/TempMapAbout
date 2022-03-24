@@ -386,7 +386,15 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 }
             cell.labelTitle.text = arrayLocation[indexPath.row].locationFav?.name
             cell.subTitle.text = arrayLocation[indexPath.row].locationFav?.name
-            cell.locationImage.setImage(url: arrayLocation[indexPath.row].firstLocationImage, placeholder: UIImage.init(named: "ic_nature_image"))
+            
+            cell.locationImage.showSkeleton()
+            cell.locationImage.sd_setImage(with: URL.init(string: arrayLocation[indexPath.row].firstLocationImage), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                if let image = img{
+                    cell.locationImage.hideSkeleton()
+                    cell.locationImage.image = image
+                }
+            }
+//            cell.locationImage.setImage(url: arrayLocation[indexPath.row].firstLocationImage, placeholder: UIImage.init(named: "ic_nature_image"))
             
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)

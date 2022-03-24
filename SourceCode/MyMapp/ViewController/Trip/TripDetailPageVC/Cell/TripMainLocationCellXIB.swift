@@ -7,6 +7,8 @@
 
 import UIKit
 import TagListView
+import SkeletonView
+
 class TripMainLocationCellXIB: UITableViewCell {
 
     @IBOutlet weak var labelTitle : UILabel!
@@ -19,6 +21,7 @@ class TripMainLocationCellXIB: UITableViewCell {
         super.awakeFromNib()
         
         locationImage.contentMode = .scaleToFill
+        locationImage.isSkeletonable = true
         // Initialization code
         
 //        tagListView.textFont = UIFont.Montserrat.Medium(14)
