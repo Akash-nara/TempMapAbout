@@ -23,6 +23,7 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         imageViewPlace.isSkeletonable = true
+        buttonSaveToggle.isHidden = true
         
         //        imageViewPlace.backgroundColor = UIColor.green
         imageViewPlace.image = UIImage(named: "ic_Default_city_image_one")

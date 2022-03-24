@@ -28,11 +28,13 @@ struct TripDataModel{
         var cityName = ""
         var countryName = ""
         var id = 0
+        var countryCode = ""
         
         init() {}
         init(param:JSON) {
             self.cityName = param["cityName"].stringValue
             self.countryName = param["country"].stringValue
+            self.countryCode = param["countryCode"].stringValue
             self.id = param["id"].intValue
         }
     }
@@ -111,7 +113,6 @@ struct TripDataModel{
 
     var locationList = [AddTripFavouriteLocationDetail]()
     var photoUploadedArray = [TripPhotoDetails]()
-    var photoUploadedArrayDetail = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
     var isBookmarked = false{

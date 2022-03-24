@@ -83,7 +83,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
         return objTirpDatModel?.id ?? 0
     }
     var countryCode:String{
-        return objTirpDatModel?.city.countryName ?? ""
+        return objTirpDatModel?.city.countryCode ?? ""
     }
     
     var objTirpDatModel:TripDataModel? = nil
@@ -116,9 +116,19 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
         viewContainerOfSubmitFeed.isUserInteractionEnabled = true
         viewContainerOfSubmitFeed.addGestureRecognizer(gesture)
         hideAndShowSubmitPopUp(isHidden: true)
-        getAdviceForTripAPi()
         
-        loadDataEditFlow()
+        if self.editFlow{
+            DispatchQueue.getMain {
+                self.loadDataEditFlow()
+            }
+        }else{
+            self.arrayOfSection.removeAll()
+            self.arrayOfSection = [.description, .favouriteLocation]
+        }
+        
+        getAdviceForTripAPi()
+
+//        loadDataEditFlow()
     }
     
 //    func defaultCityLocationAdded(){
@@ -132,27 +142,72 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
 //    }
     
     
-    func defaultCityLocationAdded(){
-        arrayOfTripLocationListData.removeAll()
+    func defaultCityLocationAdded(isDeleteArray:Bool=true){
+        if isDeleteArray{
+            arrayOfTripLocationListData.removeAll()
+        }
         var objectLocation = AddTripFavouriteLocationDetail.TripFavLocations()//Keylocation.init(name: "", latitude: 0.0, longitude: 0.0)
         objectLocation.lastRecord = true
         let objAddTripFavouriteLocationDetail = AddTripFavouriteLocationDetail()
         objAddTripFavouriteLocationDetail.locationFav = objectLocation
         arrayOfTripLocationListData.append(objAddTripFavouriteLocationDetail)
-        self.tblviewCity.reloadSections([1], with: .none)
+        if let section = arrayOfSection.firstIndex(where: {$0 == .favouriteLocation}){
+            self.tblviewCity.reloadSections([section], with: .none)
+        }
         tblviewCity.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
     }
     
     func loadDataEditFlow(){
         
         if editFlow, let obDataModel = objTirpDatModel{
+            arrayOfSection.removeAll()
+//            totalGlobalTripPhotoCount = obDataModel.photoCount
             descriptionTextContent = obDataModel.tripDescription
-            self.defaultCityLocationAdded()
-            
+            arrayOfSection.append(.description)
+            self.arrayOfTripLocationListData.removeAll()
             obDataModel.locationList.forEach { objAddTripFavouriteLocationDetail in
+                objAddTripFavouriteLocationDetail.isEdited = true
+                if let filterdObj  = obDataModel.photoUploadedArray.filter({$0.hash == objAddTripFavouriteLocationDetail.locationHash}).first{
+                    filterdObj.arrayOfImageURL.forEach { objTripImg in
+                        let model = TripImagesModel.init(image: UIImage(), url: objTripImg.image)
+                        model.url = objTripImg.image
+                        let url = URL.init(string: objTripImg.image)
+                        let name = url?.lastPathComponent ?? ""
+                        model.keyToSubmitServer = self.tripBucketHash+"/"+objAddTripFavouriteLocationDetail.locationHash+"/\(name)"
+                        model.statusUpload = .done
+                        model.id = objAddTripFavouriteLocationDetail.id
+                        model.isEdit = true
+                        model.nameOfImage = name
+                        totalGlobalTripPhotoCount -= 1
+                        objAddTripFavouriteLocationDetail.arrayOfImages.append(model)
+                    }
+                }
+                
                 self.arrayOfTripLocationListData.append(objAddTripFavouriteLocationDetail)
             }
             
+            self.arrayCityLevelImageUpload.removeAll()
+            for mainObj in obDataModel.photoUploadedArray.enumerated(){
+                if mainObj.element.hash == "default"{
+                    mainObj.element.arrayOfImageURL.forEach { objTripImg in
+                        let model = TripImagesModel.init(image: UIImage(), url: objTripImg.image)
+                        model.url = objTripImg.image
+                        let url = URL.init(string: objTripImg.image)
+                        let name = url?.lastPathComponent ?? ""
+                        model.keyToSubmitServer = self.tripBucketHash+"/\(name)"
+                        model.statusUpload = .done
+//                        model.id = mainObj.element.id
+                        model.isEdit = true
+                        totalGlobalTripPhotoCount -= 1
+                        model.nameOfImage = name
+                        arrayCityLevelImageUpload.append(model)
+                    }
+                }
+            }
+            
+            defaultCityLocationAdded(isDeleteArray: false)
+            arrayOfSection.append(.favouriteLocation)
+                        
             objTirpDatModel?.advicesOfArray.forEach({ objAdvice in
                 switch objAdvice{
                 case .topTips(let _, let subTitle):
@@ -168,6 +223,11 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
             self.isTopDataAdded = !self.topTipContent.isEmpty
             self.isFavouriteDataAdded = !self.favouriteStoryContent.isEmpty
             self.isLogisticDataAdded = !self.logisticContent.isEmpty
+            
+            DispatchQueue.getMain {
+                self.tblviewCity.reloadData()
+
+            }
         }
     }
     
@@ -293,9 +353,6 @@ extension AddTripSecondStepVC{
                 return
             }
             
-            self?.arrayOfSection.removeAll()
-            self?.arrayOfSection = [.description, .favouriteLocation]
-            
             guard let arrayOfAdvices = response?["responseJson"]?.dictionaryValue["advices"]?.arrayValue  else {
                 return
             }
@@ -318,6 +375,7 @@ extension AddTripSecondStepVC{
                     break
                 }
             }
+            
             self?.tblviewCity.reloadData()
         } internetFailure: {
             debugPrint("internetFailure")
@@ -335,7 +393,10 @@ extension AddTripSecondStepVC{
     
     func deleteLocationTripApi(index:Int){
         let hashLocation = self.arrayOfTripLocationListData[index]?.locationHash ?? ""
-        var paramDict:[String:Any] = ["locationHash":hashLocation]
+        var paramDict:[String:Any] = [String:Any]()
+//        if !editFlow{
+            paramDict["locationHash"] = hashLocation
+//        }
         
         if let id = self.arrayOfTripLocationListData[index]?.id,  id != 0{
             paramDict["id"] = id
@@ -429,6 +490,7 @@ extension AddTripSecondStepVC{
 
 //MARK: - Custom Button Action
 extension AddTripSecondStepVC{
+    
     @objc func addnewAddress(sender:UIButton){
         let autocompletecontroller = GMSAutocompleteViewController()
         autocompletecontroller.delegate = self
@@ -574,6 +636,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 for: indexPath) as? AddTripCityDescriptionHeaderCell else {
                     return UITableViewCell()
                 }
+            cell.txtDescription.text = descriptionTextContent
             cell.cityDescriptionHeaderProtoColDelegate = self
             return cell
         case .favouriteLocation:
@@ -661,6 +724,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                         return UITableViewCell()
                     }
                 cell.selectionStyle = .none
+                cell.txtviewTopTip.text = self.topTipContent
                 cell.txtviewTopTip.placeholder = placeHolderText
                 cell.btnTitleExpand.addTarget(self, action: #selector(self.isTopTipExpandView(sender: )), for: .touchUpInside)
                 cell.AddTripTopExpandDelegate = self
@@ -675,6 +739,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                     for: indexPath) as? AddTripFavouriteCollpaseXIB else {
                         return UITableViewCell()
                     }
+                
                 cell.selectionStyle = .none
                 cell.btnTitleExpand.accessibilityHint = placeHolderText
                 cell.labelTitle.text = title
@@ -698,8 +763,8 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 cell.txtviewFavourite.placeholder = placeHolderText
                 cell.btnTitleExpand.addTarget(self, action: #selector(self.isFavouriteExpandView(sender:)), for: .touchUpInside)
                 cell.btnTitleExpand.tag = indexPath.section
-                
                 cell.AddTripFavouriteExpandDelegate = self
+                cell.txtviewFavourite.text = self.favouriteStoryContent
                 return cell
             }
         case .logisticsRoute(let title, let placeHolderText):
@@ -729,6 +794,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                     for: indexPath) as? AddTripLogisticsExpandXIB else {
                         return UITableViewCell()
                     }
+                cell.txtviewLogistics.text = self.logisticContent
                 cell.txtviewLogistics.placeholder = placeHolderText
                 cell.selectionStyle = .none
                 cell.AddTripLogisticsExpandDelegate = self
@@ -825,10 +891,12 @@ extension AddTripSecondStepVC{
         guard let tripImagesUploadVC = UIStoryboard.trip.tripImagesUploadVC else {
             return
         }
+        
         tripImagesUploadVC.objTripSecondVC = self
         tripImagesUploadVC.arrayOfImageUpload = self.arrayOfTripLocationListData
         tripImagesUploadVC.paramDict = self.preparedParams()
         tripImagesUploadVC.tripBucketHash = self.tripBucketHash
+        tripImagesUploadVC.isEditFlow = self.editFlow
         self.navigationController?.pushViewController(tripImagesUploadVC, animated: true)
     }
 }

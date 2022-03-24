@@ -53,7 +53,7 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
                     arrayOfImageURL.append(obj1)
                 }
             }
-            
+            buttonSaveUnSavedTrip.isSelected = obj.isBookmarked
             pageControllview.numberOfPages = arrayOfImageURL.count
             collectionviewImages.reloadData()
             DispatchQueue.getMain {

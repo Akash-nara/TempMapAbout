@@ -44,7 +44,7 @@ class AddTripFavouriteLocationDetail{
     var locationFav:TripFavLocations? = nil
     var isEdited = false
     var firstLocationImage = ""
-    
+    var isSaved = false
     init(){}
     init(param:JSON) {
         

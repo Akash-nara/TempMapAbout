@@ -46,7 +46,7 @@ class MapExploreTVCell: UITableViewCell {
             return
         }
         DispatchQueue.getMain {
-            let camera = GMSCameraPosition.camera(withLatitude: cordinate.latitude, longitude: cordinate.longitude, zoom: 7.0) // point the initial location of map
+            let camera = GMSCameraPosition.camera(withLatitude: cordinate.latitude, longitude: cordinate.longitude, zoom: 3.0) // point the initial location of map
             self.googleMap.camera = camera
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude)
@@ -54,6 +54,7 @@ class MapExploreTVCell: UITableViewCell {
             marker.map = self.googleMap
             marker.icon = GMSMarker.markerImage(with: UIColor.black)
             self.googleMap.animate(toLocation: CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude))
+            self.googleMap.isUserInteractionEnabled = false
             
             //                    var visibleRegion : GMSVisibleRegion = self.googleMap.projection.visibleRegion()
             //                    var bounds = GMSCoordinateBounds(coordinate: visibleRegion.nearLeft, coordinate: visibleRegion.farRight)

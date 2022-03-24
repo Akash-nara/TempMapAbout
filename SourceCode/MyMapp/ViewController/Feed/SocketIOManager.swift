@@ -23,10 +23,10 @@ class SocketIOManager: NSObject {
     //    var socket = SocketIOClient(socketURL: URL(string: kUrlApi.BaseUrl)!, config: [.log(false),.reconnects(false),.forcePolling(true),.forceWebsockets(true),.forceNew(true)])
     
     static var sharedInstance = SocketIOManager()
-    var socketManager = SocketManager(socketURL: URL(string: "http://54.160.11.28:9090/")!, config: [.log(true),.compress])
+        //"http://54.160.11.28:9090/"
+    var socketManager = SocketManager(socketURL: URL(string: "\(Environment.socketURL)/")!, config: [.log(true),.compress])
     var socket:SocketIOClient!
     var callbackClouserOfTrip: ((TripDataModel?) -> Void)?
-    
     
     //MARK:- Init
     override init() {

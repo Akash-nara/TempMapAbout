@@ -32,7 +32,8 @@ class ProfileHomeVC: UIViewController {
     
     //MARK: - OUTLETS
     @IBOutlet weak var collectionviewProfile: SayNoForDataCollectionView!
-    
+    @IBOutlet weak var buttonThreeDots: UIButton!
+
     //MARK: - VARIABLES
     var selectedTab: EnumProfileTab = .albums
     var viewModel = ProfileHomeViewModel()

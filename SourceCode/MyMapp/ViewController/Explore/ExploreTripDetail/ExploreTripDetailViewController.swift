@@ -348,7 +348,7 @@ extension ExploreTripDetailViewController{
         session.dataTask(with: request) { (data, response, error) in
             self.HIDE_CUSTOM_LOADER()
             if let response = response {
-                print(response)
+//                print(response)
             }
             
             if let data = data {
@@ -359,7 +359,7 @@ extension ExploreTripDetailViewController{
                     //                    self.getGoogleTrips(placeId: ((placeIdsArray.first ?? "") ?? ""))
                     
                     let placeIdsArray = jsonObj["results"].arrayValue
-                    print(json)
+//                    print(json)
                     
                     self.arrayFeaturedPlaces.removeAll()
                     self.arrayFeaturedPlaces = placeIdsArray

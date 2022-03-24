@@ -163,13 +163,16 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     func setPhotoCount(){
 //        self.lblCount.text = "\(self.tripImages.count)" + "/\(totalGlobalTripPhotoCount)"
 //        self.lblCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
-        self.lblCount.text = "\(21 - totalGlobalTripPhotoCount)" + "/\(21)"
+        let count = 21 - totalGlobalTripPhotoCount
+//        self.lblCount.text = "\(count < 0 ? 0 : count)" + "/\(21)"
+        self.lblCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadEditData(){
         if let objDetail = selectedAddTripFavouriteLocationDetail{
             btnTitleSubmit.backgroundColor = .App_BG_SeafoamBlue_Color
             
+//            tripImages.removeAll()
             for (_, obj) in  objDetail.arrayOfImages.enumerated(){
                 tripImages.append(obj)
             }
@@ -658,7 +661,17 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
                 cell.imgviewCity.backgroundColor = .white
                 cell.btnTitleRemove.isHidden = false
                 cell.reloadImageButton.isHidden = true
-                cell.imgviewCity.image = (self.tripImages[indexPath.row].image)
+                if self.tripImages[indexPath.row].isEdit{
+                    cell.startAnimating()
+                    cell.imgviewCity.sd_setImage(with: URL.init(string: self.tripImages[indexPath.row].url), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                        if let image = img{
+                            cell.stopAnimating()
+                            cell.imgviewCity.image = image
+                        }
+                    }
+                }else{
+                    cell.imgviewCity.image = (self.tripImages[indexPath.row].image)
+                }
             default:break
             }
             

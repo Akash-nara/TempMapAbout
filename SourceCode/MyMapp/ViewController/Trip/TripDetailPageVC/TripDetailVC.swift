@@ -209,7 +209,7 @@ class TripDetailVC: UIViewController {
             }
         }
         
-        if arrayOfSections.count == 0 || enumCurrentFlow == .personal{
+        if arrayOfSections.count == 0 || enumCurrentFlow == .otherUser{
             viewSetting.isHidden = true
         }
     }
@@ -223,11 +223,37 @@ class TripDetailVC: UIViewController {
         
         let secondAction: UIAlertAction = UIAlertAction(title: "Edit", style: .default) { action -> Void in
             CustomAlertView.init(title: "Comming soon.", forPurpose: .success).showForWhile(animated: true)
+            guard let addTripSecondStepVC = UIStoryboard.trip.addTripSecondStepVC else {
+                return
+            }
+            
+//            if editFlow{
+//                self.arrayCityLevelImageUpload.removeAll()
+//                self.objTirpDatModel?.photoUploadedArray.forEach({ objPhotDetail in
+//                    objPhotDetail.arrayOfImageURL.forEach { photoObject in
+//                        let name = URL.init(string: photoObject.image)?.lastPathComponent ?? ""
+//                        let objectModel = TripImagesModel.init(image: UIImage(), type: "", url: photoObject.image)
+//                        let str:String = Routing.uploadTripImage.getPath+self.tripBucketHash+"/\(name)"
+//                        objectModel.url = photoObject.image
+//                        objectModel.keyToSubmitServer = self.tripBucketHash+"/\(name)"
+//                        objectModel.isCityUploadeImage = true
+//                        objectModel.statusUpload = .done
+//                        objectModel.nameOfImage = name
+//    //                    locationLevelUploadCount += 1
+//                        self.arrayCityLevelImageUpload.append(objectModel)
+//                    }
+//                })
+//            }
+            
+            totalGlobalTripPhotoCount = 21 // reset count
+            addTripSecondStepVC.objTirpDatModel = self.detailTripDataModel
+            addTripSecondStepVC.editFlow = true
+//            self.navigationController?.pushViewController(addTripSecondStepVC, animated: true)
         }
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         
-        actionSheetController.addAction(firstAction)
+//        actionSheetController.addAction(firstAction)
         actionSheetController.addAction(secondAction)
         actionSheetController.addAction(cancelAction)
         actionSheetController.popoverPresentationController?.sourceView = sender as? UIView
@@ -263,6 +289,7 @@ class TripDetailVC: UIViewController {
         }
 //        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
 //        self.tblviewTrip.reloadRows(at: [IndexPath.init(row: 0, section: section)], with: .automatic)
+//        self.tblviewTrip.layoutIfNeeded()
         self.tblviewTrip.reloadData()
     }
 }
@@ -364,6 +391,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
             cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
+            cell.buttonBookmark.isSelected = arrayLocation[indexPath.row].isSaved
             
             cell.buttonBookmark.tag = indexPath.section
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
@@ -412,7 +440,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         cell.buttonBookmark.tag = indexPath.row
         cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
         cell.buttonBookmark.isHidden = isOwnProfile
-        
+
         cell.lblHeader.text = title
         cell.labelSubTitle.text = subTitle
         
@@ -539,7 +567,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
     @objc func buttonBookmarkClicked(sender:UIButton){
         let indexRow = Int(sender.accessibilityHint ?? "") ?? 0
         
-        sender.isSelected.toggle()
         switch arrayOfSections[sender.tag]{
             
         case.logisticsRoute, .travelStory, .topTips:
@@ -547,6 +574,10 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         case .locationList(let array):
             if array.indices.contains(indexRow){
                 debugPrint("locationList:\(array[indexRow])")
+                self.saveLocationTripApi(id: array[indexRow].id) {
+                    sender.isSelected.toggle()
+                    array[indexRow].isSaved.toggle()
+                }
             }
         default:break
         }
@@ -580,6 +611,28 @@ extension TripDetailVC:UITextFieldDelegate{
                 self.buttonCurrentChatBookmark.isSelected = false
             }
             self.tblviewTrip.scrollToBottom()
+        }
+    }
+}
+extension TripDetailVC{
+    func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
+        let strJson = JSON(["location": ["id":id],
+                            "userId":APP_USER?.userId ?? 0,
+                            "INTEREST_CATEGORY": "location"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+//            self?.updateCellWithStatus(index: indexRow)
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
         }
     }
 }

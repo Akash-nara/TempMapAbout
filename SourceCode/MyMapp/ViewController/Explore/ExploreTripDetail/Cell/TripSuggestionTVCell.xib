@@ -27,7 +27,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xd6-CI-I8o" customClass="UIControl" customModule="MyMapp" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xd6-CI-I8o">
                         <rect key="frame" x="10" y="5" width="300" height="144"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="r4e-UM-y4F">
@@ -88,9 +88,6 @@
                                 <real key="value" value="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="controllExpandTap:" destination="tOl-Zh-c2a" eventType="touchUpInside" id="MgQ-R7-qsI"/>
-                        </connections>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

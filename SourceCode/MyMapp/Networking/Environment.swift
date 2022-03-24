@@ -36,7 +36,7 @@ class Environment {
     }
     
     static var socketURL:String{
-        return "http://18.214.39.155:9090"
+        return "http://54.160.11.28:8081"
     }
     
     

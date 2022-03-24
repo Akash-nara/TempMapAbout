@@ -570,7 +570,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IBs-8R-boZ">
                                 <rect key="frame" x="0.0" y="68" width="389" height="45"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSN-jZ-wZg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kSN-jZ-wZg">
                                         <rect key="frame" x="0.0" y="0.0" width="106.5" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-23-xhp">
@@ -588,7 +588,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xj-mW-8xx">
-                                                <rect key="frame" x="45" y="0.0" width="61.5" height="45"/>
+                                                <rect key="frame" x="45" y="9" width="61.5" height="27"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>

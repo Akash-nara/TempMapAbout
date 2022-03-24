@@ -37,6 +37,7 @@ class TripImagesUploadVC: UIViewController {
             checkTripAddPrivateOrPublicButtonsTap()
         }
     }
+    var isEditFlow = false
     
    var keyForDafultImageSelected = ""
    var tripBucketHash = ""
@@ -55,7 +56,9 @@ class TripImagesUploadVC: UIViewController {
     func setPhotoCount(){
 //        self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count+locationLevelUploadCount)" + "/\(totalGlobalTripPhotoCount)"
 //        self.labelImageUploadedCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
-        self.labelImageUploadedCount.text = "\(21 - totalGlobalTripPhotoCount)" + "/\(21)"
+        let count = 21 - totalGlobalTripPhotoCount
+        self.labelImageUploadedCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
+//        self.labelImageUploadedCount.text = "\(21 - totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadData(){
@@ -96,7 +99,11 @@ class TripImagesUploadVC: UIViewController {
             imgModel.statusUpload = .done
             arrayJsonFilterImages.append(imgModel)
         })
+        setPhotoCount()
         
+        if isEditFlow{
+            buttonAddToFeed.setTitle("Update to feed")
+        }
         labelImageUploadedCount.text = "\(arrayJsonFilterImages.count)/\(totalGlobalTripPhotoCount)"
     }
     
@@ -451,7 +458,19 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             setLongGeture()
             cell.buttonRetry.isHidden = true
             cell.buttonRadioSelection.isHidden = false
-            cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
+            
+            if !self.arrayJsonFilterImages[indexPath.row].url.isEmpty && self.arrayJsonFilterImages[indexPath.row].isEdit{
+                cell.startAnimating()
+                cell.imgTrip.sd_setImage(with: URL.init(string: self.arrayJsonFilterImages[indexPath.row].url), placeholderImage: nil, options: .highPriority) { img, erro, cache, url in
+                    if let image = img{
+                        cell.stopAnimating()
+                        cell.imgTrip.image = image
+                    }
+                }
+            }else{
+                cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
+            }
+//            cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         case .fail:
             cell.startAnimating()
             cell.buttonRetry.isHidden = false
@@ -576,13 +595,21 @@ extension  TripImagesUploadVC{
             if let indexofImage = self?.objTripSecondVC?.arrayCityLevelImageUpload.firstIndex(where: {$0.keyToSubmitServer == keyServerName}){
                 self?.objTripSecondVC?.arrayCityLevelImageUpload.remove(at: indexofImage)
             }
+            
             self?.arrayJsonFilterImages.remove(at: index)
+            self?.changeDefaultImageKey(index: index)
             self?.collectionviewPhotos.reloadData()
             totalGlobalTripPhotoCount += 1
             self?.setPhotoCount()
         } failure: { str in
             debugPrint(str)
             self.collectionviewPhotos.reloadData()
+        }
+    }
+    
+    func changeDefaultImageKey(index:Int){
+        if index == selectedImageRow, let key = arrayJsonFilterImages.first?.keyToSubmitServer{
+            keyForDafultImageSelected = key
         }
     }
     

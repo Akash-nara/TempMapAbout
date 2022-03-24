@@ -237,7 +237,7 @@ class TripMainPageTableCell: UITableViewCell {
         var noOfColumn = 0
         print("localArray.count: \(localArray.count)")
         var i = 0
-        while true {
+        while true && arrayOfImageURL.indices.contains(i) {
 
             var itemHeight = arrayOfImageURL[i].isVerticle ? longCellHeight : smallCellHeight
             print("columHeight Begin: \(columHeight)")

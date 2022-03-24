@@ -16,7 +16,7 @@ class TripImagesModel:NSObject {
     var isCityUploadeImage = false
     var type:String = ""
     var url:String = ""
-    var isEdit:String = ""
+    var isEdit = false
     var statusUpload:EnumUploadStatus = .none
     var nameOfImage = ""
     var id = 0

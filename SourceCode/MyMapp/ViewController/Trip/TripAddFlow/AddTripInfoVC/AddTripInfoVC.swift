@@ -162,6 +162,7 @@ extension AddTripInfoVC{
                 paramCity["id"] = cityObject.id
                 paramCity["cityName"] = cityObject.name
                 paramCity["country"] = cityObject.countryCode
+                
             }else{
                 Utility.errorMessage(message: "City must be select or enter from the list")
                 return
@@ -285,6 +286,9 @@ extension AddTripInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard cityData.indices.contains(indexPath.row) else {
+            return
+        }
         self.txtCity.text = cityData[indexPath.row].name
         countryCode = cityData[indexPath.row].countryCode
         self.viewSuggestions.isHidden = true
@@ -457,7 +461,7 @@ extension AddTripInfoVC{
                 self?.objTirpDatModel = TripDataModel()
             }
             self?.objTirpDatModel?.city = TripDataModel.TripCity()
-            self?.objTirpDatModel?.city.countryName = self?.countryCode ?? ""
+            self?.objTirpDatModel?.city.countryCode = self?.countryCode ?? ""
             self?.objTirpDatModel?.id = id
             self?.objTirpDatModel?.bucketHash = bucketHash
             self?.redirectNextScreen(bucketHash: bucketHash , tripId: id)

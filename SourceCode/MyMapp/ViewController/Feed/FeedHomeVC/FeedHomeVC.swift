@@ -18,7 +18,7 @@ class FeedHomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        buttonNotification.isHidden = true
         configureTableView()
         getSocketTripData()
         
@@ -148,12 +148,12 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
-//        saveFeedApi(indexRow: sender.tag)
-        sender.isSelected.toggle()
-        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
-        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
-        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
-        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
+        saveFeedApi(indexRow: sender.tag)
+//        sender.isSelected.toggle()
+//        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
+//        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
+//        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
+//        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -266,7 +266,8 @@ extension FeedHomeVC{
     
     func saveFeedApi(indexRow:Int){
         let strJson = JSON(["trip": ["id":viewModel.arrayOfTripList[indexRow].id],
-                            "INTEREST_CATEGORY": "Feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
+                            "userId":APP_USER?.userId ?? 0,
+                            "INTEREST_CATEGORY": "feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
         API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in

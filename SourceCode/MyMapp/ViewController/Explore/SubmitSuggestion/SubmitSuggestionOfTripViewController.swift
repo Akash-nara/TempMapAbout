@@ -137,14 +137,14 @@ extension SubmitSuggestionOfTripViewController{
         
         if arraySuggestionList.count != 0{
             viewButtonContainer.isHidden = false
-            
+            tblviewData.isUserInteractionEnabled = true
+
         }else{
             tblviewData.isUserInteractionEnabled = false
             tblviewData.isScrollEnabled = false
             self.heightOfTableView.constant = mainHeight/2
             
             // Enable scrolling based on content height
-            tblviewData.isScrollEnabled = false
         }
         
         self.tblviewData.reloadData()
@@ -181,7 +181,7 @@ extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableVi
         
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "TripSuggestionTVCell", for: indexPath) as! TripSuggestionTVCell
         cell.labelTitle.text = "  "+arraySuggestionList[indexPath.row].suggestionCategory.value
-        cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].suggestionCategory.key
+        cell.textViewTripSuggestion.text = ""
         cell.textViewTripSuggestion.delegate = self
         cell.textViewTripSuggestion.tag = indexPath.row
         cell.textViewTripSuggestion.placeholder = arraySuggestionList[indexPath.row].suggestionCategory.placeholder
@@ -208,9 +208,9 @@ extension SubmitSuggestionOfTripViewController: UITextViewDelegate{
     
     func textViewDidEndEditing(_ textView: UITextView) {
         debugPrint("end edting row \(textView.tag) \(textView.text!)")
-        if arraySuggestionList[textView.tag].suggestionCategory.value != textView.text!{
+//        if arraySuggestionList[textView.tag].suggestionCategory.value != textView.text!{
             submitSuggestionList(text: textView.text!, index: textView.tag)
-        }
+//        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
