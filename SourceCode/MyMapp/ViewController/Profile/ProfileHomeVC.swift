@@ -148,7 +148,6 @@ extension ProfileHomeVC: UICollectionViewDataSource,UICollectionViewDelegate{
                 }
                 return viewModel.arrayOfTripList.count
                 
-                
             case  .map(let arrayOfMap):
                 return arrayOfMap?.count ?? 0
             case .saved:

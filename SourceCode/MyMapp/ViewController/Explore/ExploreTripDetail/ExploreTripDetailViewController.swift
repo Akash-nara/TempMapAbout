@@ -71,6 +71,11 @@ class ExploreTripDetailViewController: UIViewController {
         //            arrayOfSections.append(.featuredPlaces)
         //        }
         
+        //                getGoogleTripsDetial()
+        //        testGppgle()
+        
+    }
+    func configureTopTipsArray(){
         // ToolTips
         arrayOfToolTips.append(false)
         arrayOfToolTips.append(false)
@@ -78,9 +83,6 @@ class ExploreTripDetailViewController: UIViewController {
         if !arrayOfToolTips.count.isZero() {
             arrayOfSections.append(.topTips)
         }
-        //                getGoogleTripsDetial()
-        //        testGppgle()
-        
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -313,31 +315,33 @@ extension ExploreTripDetailViewController{
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .getAdminSuggestions, method: .post) {  response in
             //            self?.HIDE_CUSTOM_LOADER()
-            guard let suggestionObjArray =  response?["responseJson"]?.dictionaryValue["suggestion"]?.arrayValue else {
-                return
-            }
-            
-            self.arrayExpandable.removeAll()
-            var languagesAndCurrenciesIndex = -1
-            suggestionObjArray.forEach { suggestion in
-                let data = ExploreSuggestionDataModel(param: suggestion)
-                switch data.cellType {
-                case .languagesAndCurrencies:
-                    if languagesAndCurrenciesIndex == -1 {
-                        languagesAndCurrenciesIndex = self.arrayExpandable.count
+            if let suggestionObjArray =  response?["responseJson"]?.dictionaryValue["suggestion"]?.arrayValue{
+                
+                self.arrayExpandable.removeAll()
+                var languagesAndCurrenciesIndex = -1
+                suggestionObjArray.forEach { suggestion in
+                    let data = ExploreSuggestionDataModel(param: suggestion)
+                    switch data.cellType {
+                    case .languagesAndCurrencies:
+                        if languagesAndCurrenciesIndex == -1 {
+                            languagesAndCurrenciesIndex = self.arrayExpandable.count
+                            self.arrayExpandable.append(data)
+                        } else {
+                            self.arrayExpandable[languagesAndCurrenciesIndex].mergeLanguagesAndCurrencies(data2: data)
+                        }
+                    default:
                         self.arrayExpandable.append(data)
-                    } else {
-                        self.arrayExpandable[languagesAndCurrenciesIndex].mergeLanguagesAndCurrencies(data2: data)
                     }
-                default:
-                    self.arrayExpandable.append(data)
+                }
+                debugPrint(suggestionObjArray)
+                // ExpandableViews
+                if !self.arrayExpandable.count.isZero() {
+                    self.arrayOfSections.append(.expandableViews)
                 }
             }
-            debugPrint(suggestionObjArray)
             
-            // ExpandableViews
-            if !self.arrayExpandable.count.isZero() {
-                self.arrayOfSections.append(.expandableViews)
+            DispatchQueue.getMain {
+                self.tblviewData.reloadData()
             }
 
             self.getGoogleTripsDetial()
@@ -379,10 +383,12 @@ extension ExploreTripDetailViewController{
                     self.arrayFeaturedPlaces.removeAll()
                     self.arrayFeaturedPlaces = placeIdsArray
                     if !self.arrayFeaturedPlaces.count.isZero() {
-                        self.arrayOfSections.insert(.featuredPlaces, at: 2)
+                        self.arrayOfSections.append(.featuredPlaces)
+//                        self.arrayOfSections.insert(.featuredPlaces, at: 2)
                     }
                     
                     DispatchQueue.main.async {
+                        self.configureTopTipsArray()
                         self.tblviewData.reloadData()
                     }
                 } catch {

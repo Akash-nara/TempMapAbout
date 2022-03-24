@@ -2804,28 +2804,31 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfc-X9-Hw9">
-                                        <rect key="frame" x="0.0" y="0.0" width="25" height="5"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <connections>
-                                            <action selector="btnHandlerSelectOptions:" destination="NC9-eT-Bne" eventType="touchUpInside" id="x6A-Tr-YSt"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="47A-aV-E21"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zfc-X9-Hw9" secondAttribute="bottom" id="8DZ-tR-57M"/>
                                     <constraint firstItem="kxu-VF-z4Q" firstAttribute="leading" secondItem="saQ-Rg-D9X" secondAttribute="leading" id="ONe-N0-YHI"/>
                                     <constraint firstAttribute="bottom" secondItem="kxu-VF-z4Q" secondAttribute="bottom" id="h2X-bh-nTY"/>
                                     <constraint firstItem="kxu-VF-z4Q" firstAttribute="top" secondItem="saQ-Rg-D9X" secondAttribute="top" id="jIC-UK-beK"/>
                                     <constraint firstAttribute="trailing" secondItem="kxu-VF-z4Q" secondAttribute="trailing" id="map-xb-lX5"/>
-                                    <constraint firstItem="Zfc-X9-Hw9" firstAttribute="leading" secondItem="saQ-Rg-D9X" secondAttribute="leading" id="pmU-qh-U2m"/>
-                                    <constraint firstItem="Zfc-X9-Hw9" firstAttribute="top" secondItem="saQ-Rg-D9X" secondAttribute="top" id="qX1-zr-JtX"/>
-                                    <constraint firstAttribute="trailing" secondItem="Zfc-X9-Hw9" secondAttribute="trailing" id="wGE-ET-5Jg"/>
                                     <constraint firstAttribute="width" constant="25" id="yXZ-Qu-LEP"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TzQ-tv-iiu">
+                                <rect key="frame" x="359" y="62" width="55" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="WX2-jc-LNW"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="AAAAA" buttonSize="mini">
+                                    <color key="baseForegroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="buttonThreeDotsClickedWithSender:" destination="NC9-eT-Bne" eventType="touchUpInside" id="b6o-Ji-Ic4"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="re7-Ce-uC2" customClass="SayNoForDataTableView" customModule="MyMapp" customModuleProvider="target">
                                 <rect key="frame" x="10" y="97" width="394" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2934,6 +2937,7 @@
                             <constraint firstItem="re7-Ce-uC2" firstAttribute="leading" secondItem="Wk8-Sb-dIR" secondAttribute="leading" constant="10" id="Xrl-00-LmC"/>
                             <constraint firstItem="Wk8-Sb-dIR" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZAr-sI-7BI" secondAttribute="trailing" constant="25" id="Y22-Hm-FAt"/>
                             <constraint firstItem="ZAr-sI-7BI" firstAttribute="centerX" secondItem="T0B-PX-nUf" secondAttribute="centerX" id="dKL-lm-71D"/>
+                            <constraint firstItem="Wk8-Sb-dIR" firstAttribute="trailing" secondItem="TzQ-tv-iiu" secondAttribute="trailing" id="fnF-np-p4Q"/>
                             <constraint firstItem="BDy-4j-uRH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZAr-sI-7BI" secondAttribute="bottom" constant="25" id="hwX-u0-qcQ"/>
                             <constraint firstItem="Wk8-Sb-dIR" firstAttribute="trailing" secondItem="saQ-Rg-D9X" secondAttribute="trailing" constant="20" id="p5F-yq-3dx"/>
                             <constraint firstItem="Wk8-Sb-dIR" firstAttribute="trailing" secondItem="t0x-qa-YKa" secondAttribute="trailing" id="rgd-aT-pvI"/>
@@ -2941,13 +2945,16 @@
                             <constraint firstItem="ZAr-sI-7BI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="T0B-PX-nUf" secondAttribute="top" constant="25" id="w2C-5q-kc0"/>
                             <constraint firstItem="t0x-qa-YKa" firstAttribute="leading" secondItem="Wk8-Sb-dIR" secondAttribute="leading" id="w2H-vg-J09"/>
                             <constraint firstItem="Wk8-Sb-dIR" firstAttribute="trailing" secondItem="re7-Ce-uC2" secondAttribute="trailing" constant="10" id="wr0-ud-EsU"/>
+                            <constraint firstItem="TzQ-tv-iiu" firstAttribute="centerY" secondItem="JSh-dm-Pdc" secondAttribute="centerY" id="xwd-2E-nI3"/>
                             <constraint firstItem="ZAr-sI-7BI" firstAttribute="centerY" secondItem="T0B-PX-nUf" secondAttribute="centerY" id="yoS-dJ-XRW"/>
                             <constraint firstItem="JSh-dm-Pdc" firstAttribute="leading" secondItem="Wk8-Sb-dIR" secondAttribute="leading" id="zwp-Sd-UXS"/>
+                            <constraint firstItem="TzQ-tv-iiu" firstAttribute="leading" secondItem="saQ-Rg-D9X" secondAttribute="leading" constant="-10" id="zxz-r5-OtV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonCurrentChatBookmark" destination="hmN-wd-y3y" id="meG-ga-3bx"/>
                         <outlet property="buttonCurrentChatLikeUnLike" destination="Tu8-Zb-1zK" id="XrN-YM-tFw"/>
+                        <outlet property="buttonSetting" destination="TzQ-tv-iiu" id="fTU-SX-dO4"/>
                         <outlet property="consHeight" destination="rCq-3P-Xsh" id="uJN-3b-Er9"/>
                         <outlet property="consWidth" destination="Qvi-h9-mN6" id="ko4-iM-gzD"/>
                         <outlet property="consX" destination="9pZ-2S-dZW" id="eX2-tp-SEm"/>

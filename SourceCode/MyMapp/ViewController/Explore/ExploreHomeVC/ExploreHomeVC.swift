@@ -62,7 +62,6 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
     var isPageRefreshing:Bool = false
     var arrayOfSections:[EnumTripType] = [.mostLiked,.mostSaved,.thisMonthPopuler]
     
-    
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()

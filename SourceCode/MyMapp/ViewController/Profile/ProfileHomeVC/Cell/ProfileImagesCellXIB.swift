@@ -47,7 +47,6 @@ class ProfileImagesCellXIB: UICollectionViewCell {
     
     func loadCellData(objTripModel:TripDataModel, completion: ((Bool,Int, CGFloat) -> Void)? = nil) {
         
-        self.startAnimating()
         btnTitleRemove.isHidden = true
         btnAddimage.isHidden = true
         tripTitle.text = objTripModel.city.cityName
@@ -56,6 +55,7 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         tripOfDays.text = objTripModel.dateFromatedOftrip
         widthCancelButton.constant = 0
         
+        self.startAnimating()
         if let firstObject = objTripModel.photoUploadedArray.first?.arrayOfImageURL.first{
             let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
             imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
@@ -74,7 +74,7 @@ class ProfileImagesCellXIB: UICollectionViewCell {
             }
             self.imgviewBG.clipsToBounds = true
         }else{
-            startAnimating()
+//            startAnimating()
             self.imgviewBG.backgroundColor = .clear
             self.imgviewBG.contentMode = .scaleToFill
 //            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")

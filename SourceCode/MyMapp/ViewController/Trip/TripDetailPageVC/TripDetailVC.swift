@@ -34,7 +34,8 @@ class TripDetailVC: UIViewController {
     @IBOutlet weak var txtComment:UITextField!
     @IBOutlet weak var viewSep:UIView!
     @IBOutlet weak var viewSetting:UIView!
-    
+    @IBOutlet weak var buttonSetting:UIButton!
+
     @IBOutlet weak var buttonCurrentChatBookmark:UIButton!
     @IBOutlet weak var buttonCurrentChatLikeUnLike:UIButton!
     @IBOutlet weak var viewComment:UIView!
@@ -211,6 +212,7 @@ class TripDetailVC: UIViewController {
         
         if arrayOfSections.count == 0 || enumCurrentFlow == .otherUser{
             viewSetting.isHidden = true
+            buttonSetting.isHidden = true
         }
     }
     
@@ -272,6 +274,10 @@ class TripDetailVC: UIViewController {
     
     @IBAction func buttonBookmarkCurrentChatTapped(sender: UIButton){
         sender.isSelected.toggle()
+    }
+    
+    @IBAction func buttonThreeDotsClicked(sender: UIButton){
+        btnHandlerSelectOptions(sender)
     }
     
     //MARK: - OTHER FUNCTIONS
