@@ -224,7 +224,7 @@ class TripDetailVC: UIViewController {
         }
         
         let secondAction: UIAlertAction = UIAlertAction(title: "Edit", style: .default) { action -> Void in
-            CustomAlertView.init(title: "Comming soon.", forPurpose: .success).showForWhile(animated: true)
+//            CustomAlertView.init(title: "Comming soon.", forPurpose: .success).showForWhile(animated: true)
             guard let addTripSecondStepVC = UIStoryboard.trip.addTripSecondStepVC else {
                 return
             }
@@ -250,7 +250,7 @@ class TripDetailVC: UIViewController {
             totalGlobalTripPhotoCount = 21 // reset count
             addTripSecondStepVC.objTirpDatModel = self.detailTripDataModel
             addTripSecondStepVC.editFlow = true
-//            self.navigationController?.pushViewController(addTripSecondStepVC, animated: true)
+            self.navigationController?.pushViewController(addTripSecondStepVC, animated: true)
         }
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }

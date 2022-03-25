@@ -417,6 +417,10 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_selected_purple"), for: .selected)
         cell.buttonRadioSelection.isSelected = selectedImageRow == indexPath.row
         cell.buttonRadioSelection.tintColor = selectedImageRow == indexPath.row ? UIColor.RadioButtonPurpleColor : UIColor.App_BG_SecondaryDark2_Color
+        
+        if selectedImageRow == indexPath.row, keyForDafultImageSelected.isEmpty{
+          keyForDafultImageSelected = arrayJsonFilterImages[indexPath.row].keyToSubmitServer
+        }
         cell.buttonRetry.isHidden = true
         cell.buttonRetry.addTarget(self, action: #selector(reloadUploadApi), for: .touchUpInside)
         cell.buttonRetry.tag = indexPath.row
@@ -554,14 +558,13 @@ extension TripImagesUploadVC: CHTCollectionViewDelegateWaterfallLayout {
 
 extension  TripImagesUploadVC{
     func callUpdateTripApi(){
-        guard var jsonDict = paramDict else {
+        if !keyForDafultImageSelected.isEmpty{
+            self.paramDict?["defaultImageKey"] = keyForDafultImageSelected
+        }
+        paramDict?["addToFeed"] = isPublicTrip
+        guard let jsonDict = paramDict else {
             return
         }
-        
-        if !keyForDafultImageSelected.isEmpty{
-            jsonDict["defaultImageKey"] = keyForDafultImageSelected
-        }
-        jsonDict["addToFeed"] = isPublicTrip
         let param: [String: Any] = ["requestJson" : jsonDict.json]
         API_SERVICES.callAPI(param, path: .updateCityTrip, method: .put) { [weak self] response in
             guard let status = response?["status"]?.intValue, status == 200, let msg = response?["msg"]?.stringValue else {
@@ -610,6 +613,8 @@ extension  TripImagesUploadVC{
     func changeDefaultImageKey(index:Int){
         if index == selectedImageRow, let key = arrayJsonFilterImages.first?.keyToSubmitServer{
             keyForDafultImageSelected = key
+        }else{
+            keyForDafultImageSelected = ""
         }
     }
     

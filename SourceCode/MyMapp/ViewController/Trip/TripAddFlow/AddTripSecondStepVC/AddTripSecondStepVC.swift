@@ -200,6 +200,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
                         model.isEdit = true
                         totalGlobalTripPhotoCount -= 1
                         model.nameOfImage = name
+                        model.isCityUploadeImage = true
                         arrayCityLevelImageUpload.append(model)
                     }
                 }
@@ -310,7 +311,12 @@ extension AddTripSecondStepVC{
             }
             
             if let objLocation = objModel?.locationFav{
-                locationDict["location"] = ["name" : objLocation.name , "latitude" : objLocation.latitude ,"longitude":objLocation.longitude ]
+                var locationParam:[String:Any] = ["name" : objLocation.name , "latitude" : objLocation.latitude ,"longitude":objLocation.longitude]
+                
+                if !objLocation.id.isZero(){ //
+//                    locationParam["id"] = objLocation.id
+                }
+                locationDict["location"] = locationParam
             }
             
             if locationDict.count != 0{
@@ -452,6 +458,7 @@ extension AddTripSecondStepVC{
             objectLocation.longitude = place.coordinate.longitude
             objectLocation.name = place.name!
             objectLocation.lastRecord = false
+            objectLocation.id = self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav?.id ?? 0
             self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav = objectLocation
             
             if let lastObj  = self.arrayOfTripLocationListData.last, !(lastObj?.locationFav?.lastRecord ?? false){
