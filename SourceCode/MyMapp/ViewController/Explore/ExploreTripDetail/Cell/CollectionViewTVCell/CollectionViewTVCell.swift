@@ -46,7 +46,13 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlacesCVCell.identifier, for: indexPath) as! FeaturedPlacesCVCell
         cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row])
+        cell.buttonSaveToggle.tag = indexPath.row
+        cell.buttonSaveToggle.addTarget(self, action: #selector(buttonToggleSave), for: .touchUpInside)
         return cell
+    }
+    
+   @objc func buttonToggleSave(sender:UIButton){
+       sender.isSelected.toggle()
     }
 }
 

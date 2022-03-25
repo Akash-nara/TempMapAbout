@@ -23,7 +23,7 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         imageViewPlace.isSkeletonable = true
-        buttonSaveToggle.isHidden = true
+//        buttonSaveToggle.isHidden = true
         
         //        imageViewPlace.backgroundColor = UIColor.green
         imageViewPlace.image = UIImage(named: "ic_Default_city_image_one")
@@ -50,7 +50,7 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
 //        buttonRatings.imageView?.image  = UIImage.init(named: "imgStarRating")?.withRenderingMode(.alwaysTemplate).sd_tintedImage(with: UIColor.App_BG_SeafoamBlue_Color)
         
 
-        buttonSaveToggle.isUserInteractionEnabled = false
+//        buttonSaveToggle.isUserInteractionEnabled = false
         buttonRatings.isUserInteractionEnabled = false
         buttonVisitors.isUserInteractionEnabled = false
     }

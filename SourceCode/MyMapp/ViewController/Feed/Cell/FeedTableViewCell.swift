@@ -29,6 +29,7 @@ class FeedTableViewCell: UITableViewCell{
     @IBOutlet weak var collectionviewTags: UICollectionView!
     @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
     @IBOutlet weak var stackViewPostedUser: UIStackView!
+    @IBOutlet weak var commentStack: UIStackView!
 
     var arrayOfImageURL: [TripDataModel.TripPhotoDetails.TripImage] = []
     var arrayTagName = [String]()
@@ -68,6 +69,9 @@ class FeedTableViewCell: UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        buttonLike.isHidden = true
+        commentStack.isHidden = true
         
         constraintHeightCollectionView.constant = CarouselCollectionViewCell.cellSize + 25
         
