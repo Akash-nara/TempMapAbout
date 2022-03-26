@@ -311,7 +311,7 @@ extension AddTripSecondStepVC{
             }
             
             if let objLocation = objModel?.locationFav{
-                var locationParam:[String:Any] = ["name" : objLocation.name , "latitude" : objLocation.latitude ,"longitude":objLocation.longitude]
+                let locationParam:[String:Any] = ["name" : objLocation.name , "latitude" : objLocation.latitude ,"longitude":objLocation.longitude]
                 
                 if !objLocation.id.isZero(){ //
 //                    locationParam["id"] = objLocation.id
@@ -323,7 +323,7 @@ extension AddTripSecondStepVC{
                 tripLocationList.append(locationDict)
             }
         }
-        
+        debugPrint("location array prepared:======\(tripLocationList)")
         paramMain["tripLocationList"] = tripLocationList
         return paramMain
     }

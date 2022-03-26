@@ -34,7 +34,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeY-kP-XIh">
                                 <rect key="frame" x="346" y="44" width="68" height="62"/>
                                 <inset key="contentEdgeInsets" minX="25" minY="20" maxX="25" maxY="20"/>
-                                <state key="normal" image="ic_Settings"/>
+                                <state key="normal" image="logout"/>
                                 <connections>
                                     <action selector="btnHandlerSetting:" destination="OdA-9R-sii" eventType="touchUpInside" id="jzu-6E-cRA"/>
                                 </connections>
@@ -925,10 +925,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_Settings" width="18" height="18"/>
         <image name="ic_back_black" width="48" height="48"/>
         <image name="ic_nature_image" width="700" height="437"/>
         <image name="ic_unselected_Notifications" width="25" height="25"/>
+        <image name="logout" width="18" height="18"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
             <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

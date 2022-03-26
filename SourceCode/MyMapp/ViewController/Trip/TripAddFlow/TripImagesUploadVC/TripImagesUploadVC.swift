@@ -104,6 +104,17 @@ class TripImagesUploadVC: UIViewController {
         if isEditFlow{
             buttonAddToFeed.setTitle("Update to feed")
         }
+        
+        
+        if let index = arrayJsonFilterImages.firstIndex(where: {$0.keyToSubmitServer == keyForDafultImageSelected}){
+            selectedImageRow = index
+        }
+        
+        let key =  objTripSecondVC?.objTirpDatModel?.defaultImageKey ?? ""
+        if let index = arrayJsonFilterImages.firstIndex(where: {$0.url == key}){
+            selectedImageRow = index
+        }
+        
         labelImageUploadedCount.text = "\(arrayJsonFilterImages.count)/\(totalGlobalTripPhotoCount)"
     }
     
@@ -558,14 +569,16 @@ extension TripImagesUploadVC: CHTCollectionViewDelegateWaterfallLayout {
 
 extension  TripImagesUploadVC{
     func callUpdateTripApi(){
-        if !keyForDafultImageSelected.isEmpty{
-            self.paramDict?["defaultImageKey"] = keyForDafultImageSelected
+        if keyForDafultImageSelected.isEmpty, let key = arrayJsonFilterImages.first?.keyToSubmitServer{
+            keyForDafultImageSelected = key
         }
+        self.paramDict?["defaultImageKey"] = keyForDafultImageSelected
         paramDict?["addToFeed"] = isPublicTrip
         guard let jsonDict = paramDict else {
             return
         }
         let param: [String: Any] = ["requestJson" : jsonDict.json]
+        print(jsonDict["tripLocationList"]!)
         API_SERVICES.callAPI(param, path: .updateCityTrip, method: .put) { [weak self] response in
             guard let status = response?["status"]?.intValue, status == 200, let msg = response?["msg"]?.stringValue else {
                 Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
@@ -613,6 +626,7 @@ extension  TripImagesUploadVC{
     func changeDefaultImageKey(index:Int){
         if index == selectedImageRow, let key = arrayJsonFilterImages.first?.keyToSubmitServer{
             keyForDafultImageSelected = key
+            selectedImageRow = 0
         }else{
             keyForDafultImageSelected = ""
         }
@@ -642,6 +656,7 @@ extension  TripImagesUploadVC{
             debugPrint(dict)
             self?.searchIndexOfdeleteLocationImage(image: s3Key)
             self?.arrayJsonFilterImages.remove(at: index)
+            self?.changeDefaultImageKey(index: index)
             self?.collectionviewPhotos.reloadData()
             totalGlobalTripPhotoCount += 1
             self?.setPhotoCount()

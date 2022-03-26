@@ -40,7 +40,7 @@ class FeedHomeViewModel {
             }
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfTripList.removeAll() }
-            debugPrint(feedList)
+//            debugPrint(feedList)
             for obj in feedList{
                 self.arrayOfTripList.append(TripDataModel.init(param: obj))
             }

@@ -98,7 +98,6 @@ struct TripDataModel{
                 self.arrayOfImageURL.append(objTripImage)
 
             }
-//            self.arrayOfImageURL = param["imageArray"].arrayValue
         }
     }
     
@@ -123,7 +122,6 @@ struct TripDataModel{
     var isLiked = false
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
-
     mutating func increaeeDecreaseBookmarkCount(){
         if isBookmarked{
             bookmarkedTotalCount += 1
@@ -144,61 +142,6 @@ struct TripDataModel{
         }
     }
 
-    /*
-    func processDetailArray(){
-        photoUploadedArrayDetail.removeAll()
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: false, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-//        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: false, image: ""))
-//        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-//        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: false, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-
-        
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-        photoUploadedArrayDetail.append(TripDataModel.TripPhotoDetails.TripImage.init(isVerticle: true, image: ""))
-
-        var collectionViewHeight:CGFloat = 500
-        var longCellHeight = ((collectionViewHeight - 10 - 10)/5)*2 //231
-        var smallCellHeight = (collectionViewHeight - 10 - 10)/5
-
-        let localArray = photoUploadedArrayDetail
-        var dummyItemCount = 0
-        var columHeight:CGFloat = 0
-    
-        
-        for (i, obj) in localArray.enumerated(){
-            var indexMain: Int { i + dummyItemCount }
-            var itemHeight = photoUploadedArrayDetail[indexMain].isVerticle ? longCellHeight : smallCellHeight
-            print("columHeight Begin: \(columHeight)")
-            if !columHeight.isZero {
-                columHeight += 10
-            }
-            columHeight += itemHeight
-                
-            if columHeight > collectionViewHeight{
-                columHeight -= itemHeight
-                itemHeight = collectionViewHeight - columHeight
-                columHeight += itemHeight
-                photoUploadedArrayDetail.insert(
-                    TripDataModel.TripPhotoDetails.TripImage(isVerticle: false, image: "", isDummyItem: true, itemHeight: itemHeight),
-                    at: indexMain)
-                dummyItemCount += 1
-//                columHeight = 0
-            }
-            photoUploadedArrayDetail[indexMain].itemHeight = itemHeight
-            print("columHeight End: \(columHeight)")
-            if columHeight == collectionViewHeight {
-                columHeight = 0
-            }
-        }
-
-    }*/
-    
     func UTCToLocal(date:Date) -> Date? {
         let localDateFormatter = DateFormatter()
         // No timeZone configuration is required to obtain the
@@ -222,7 +165,6 @@ struct TripDataModel{
         }else{
             return diffInDays > 1 ? "\(diffInDays) days" : "\(diffInDays) day"
         }
-//        return "\(diffInDays) days"//self.setTimestamp(epochTime: tripDate == tripEndDate ? "\(tripDate)" : "\(tripEndDate)")//self.relativeDate(for: tripDate == tripEndDate ? startDate : endDate) //relativeDate
     }
     
     func relativeDate(for date:Date) -> String {
@@ -280,6 +222,7 @@ struct TripDataModel{
         self.tripDate = param["tripDate"].int64Value
         self.tripEndDate = param["tripEndDate"].int64Value
                 
+        self.isBookmarked = param["isSaved"].boolValue
         self.photoCount = param["photoCount"].intValue
         self.tripDescription = param["description"].stringValue
         

@@ -50,7 +50,7 @@ class AddTripFavouriteLocationDetail{
         
         self.recommendation = param["recommendation"].boolValue
         self.id = param["id"].intValue
-        
+        self.isSaved = param["isSaved"].boolValue
         let arrayofTags = param["tags"].stringValue.components(separatedBy: ",")
         if arrayofTags.indices.contains(0){
             let tagWithoutParen = arrayofTags.first ?? "".replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")

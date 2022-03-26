@@ -309,6 +309,7 @@ extension  AddTripFavouriteLocationsVC{
         }else{
             objAddTripFavouriteLocationDetail.locationFav = selectedAddTripFavouriteLocationDetail?.locationFav
             objAddTripFavouriteLocationDetail.locationHash = selectedAddTripFavouriteLocationDetail?.locationHash ?? ""
+            objAddTripFavouriteLocationDetail.id = selectedAddTripFavouriteLocationDetail?.id ?? 0
             objAddTripFavouriteLocationDetail.isEdited = true
             selectedTripDetailCallBackBlock?(objAddTripFavouriteLocationDetail)
         }
