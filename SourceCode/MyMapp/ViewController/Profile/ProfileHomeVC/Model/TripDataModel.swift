@@ -114,11 +114,8 @@ struct TripDataModel{
     var photoUploadedArray = [TripPhotoDetails]()
     var tripDescription = ""
     var advicesOfArray = [EnumTripSection]()
-    var isBookmarked = false{
-        didSet{
-    
-        }
-    }
+    var advicesOfArrayOfDataModel = [TravelAdviceDataModel]()
+    var isBookmarked = false
     var isLiked = false
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
@@ -251,17 +248,28 @@ struct TripDataModel{
             objModel.firstLocationImage = imageFirstObjectOfLocation
             locationList.append(objModel)
         }
-
                 
         if let adviceArray = param["additionalInfo"].dictionary?["advice"]?.arrayValue{
             adviceArray.forEach { jsonObject in
+                let id = jsonObject.dictionaryValue["id"]?.intValue
+                let isSaved = jsonObject.dictionaryValue["isSaved"]?.boolValue
+                let model = TravelAdviceDataModel.init(param: jsonObject)
+                
                 if jsonObject.dictionaryValue.keys.contains("1"){
-                    advicesOfArray.append(.topTips("Top Tip", jsonObject.dictionaryValue["1"]?.stringValue ?? ""))
+                    model.key = 1
+                    model.title = "Top Tip"
+                    advicesOfArray.append(.topTips("Top Tip", jsonObject.dictionaryValue["1"]?.stringValue ?? "",id,isSaved))
                 }else if jsonObject.dictionaryValue.keys.contains("2"){
-                    advicesOfArray.append(.travelStory("Favorite Travel Story", jsonObject.dictionaryValue["2"]?.stringValue ?? ""))
+                    model.key = 2
+                    model.title = "Favorite Travel Story"
+                    advicesOfArray.append(.travelStory("Favorite Travel Story", jsonObject.dictionaryValue["2"]?.stringValue ?? "",id,isSaved))
                 }else if jsonObject.dictionaryValue.keys.contains("3"){
-                    advicesOfArray.append(.logisticsRoute("Logistics & Tips", jsonObject.dictionaryValue["3"]?.stringValue ?? ""))
+                    model.key = 3
+                    model.title = "Logistics & Tips"
+                    advicesOfArray.append(.logisticsRoute("Logistics & Tips", jsonObject.dictionaryValue["3"]?.stringValue ?? "",id,isSaved))
                 }
+                model.subTitle = jsonObject.dictionaryValue["\(model.key)"]?.stringValue ?? ""
+                advicesOfArrayOfDataModel.append(model)
             }
         }
         

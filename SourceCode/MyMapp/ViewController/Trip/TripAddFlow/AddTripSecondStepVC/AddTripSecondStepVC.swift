@@ -11,7 +11,7 @@ import SwiftyJSON
 
 
 enum EnumTripSection:Equatable{
-    case topTips(String,String), travelStory(String,String), logisticsRoute(String,String), description,favouriteLocation, travelAdvice
+    case topTips(String,String,Int?,Bool?), travelStory(String,String,Int?,Bool?), logisticsRoute(String,String,Int?,Bool?), description,favouriteLocation, travelAdvice
 }
 
 var totalGlobalTripPhotoCount = 21
@@ -211,11 +211,11 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
                         
             objTirpDatModel?.advicesOfArray.forEach({ objAdvice in
                 switch objAdvice{
-                case .topTips(let _, let subTitle):
+                case .topTips(let _, let subTitle,_,_):
                     self.topTipContent = subTitle
-                case .travelStory(let _, let subTitle):
+                case .travelStory(let _, let subTitle,_,_):
                     self.favouriteStoryContent = subTitle
-                case .logisticsRoute(let _, let subTitle):
+                case .logisticsRoute(let _, let subTitle,_,_):
                     logisticContent = subTitle
                 default:break
                 }
@@ -372,11 +372,11 @@ extension AddTripSecondStepVC{
                 let placeHolder = jsonObj["placeHolder"].stringValue
                 switch jsonObj["id"].intValue{
                 case 1:
-                    self?.arrayOfSection.append(.topTips(title, placeHolder))
+                    self?.arrayOfSection.append(.topTips(title, placeHolder,nil,nil))
                 case 2:
-                    self?.arrayOfSection.append(.travelStory(title, placeHolder))
+                    self?.arrayOfSection.append(.travelStory(title, placeHolder,nil,nil))
                 case 3:
-                    self?.arrayOfSection.append(.logisticsRoute(title, placeHolder))
+                    self?.arrayOfSection.append(.logisticsRoute(title, placeHolder,nil,nil))
                 default:
                     break
                 }
@@ -704,7 +704,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 }
             return cell
             
-        case .topTips(let title, let placeHolderText):
+        case .topTips(let title, let placeHolderText,_,_):
             if self.isTopTipExpand == false{
                 guard let cell = self.tblviewCity.dequeueCell(
                     withType: AddTripTopTipCollpaseXIB.self,
@@ -739,7 +739,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 
                 return cell
             }
-        case .travelStory(let title, let placeHolderText):
+        case .travelStory(let title, let placeHolderText,_,_):
             if self.isFavouriteExpand == false{
                 guard let cell = self.tblviewCity.dequeueCell(
                     withType: AddTripFavouriteCollpaseXIB.self,
@@ -774,7 +774,7 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                 cell.txtviewFavourite.text = self.favouriteStoryContent
                 return cell
             }
-        case .logisticsRoute(let title, let placeHolderText):
+        case .logisticsRoute(let title, let placeHolderText,_,_):
             
             if self.isLogisticsExpand == false{
                 guard let cell = self.tblviewCity.dequeueCell(

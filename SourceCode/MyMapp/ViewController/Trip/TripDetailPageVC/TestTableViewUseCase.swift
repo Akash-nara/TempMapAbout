@@ -101,18 +101,18 @@ class TestTableViewUseCase: UIViewController {
                 arrayOfSections.append(.travelAdvice)
             }
             
-            arrayOfTravelAdvice.forEach { Obj in
-                switch Obj {
-                case .topTips(let title, let subTitle):
-                    arrayOfSections.append(.topTips(title, subTitle))
-                case .travelStory(let title, let subTitle):
-                    arrayOfSections.append(.travelStory(title, subTitle))
-                case .logisticsRoute(let title, let subTitle):
-                    arrayOfSections.append(.logisticsRoute(title, subTitle))
-                default:
-                    break
-                }
-            }
+//            arrayOfTravelAdvice.forEach { Obj in
+//                switch Obj {
+//                case .topTips(let title, let subTitle,_,_):
+//                    arrayOfSections.append(.topTips(title, subTitle))
+//                case .travelStory(let title, let subTitle,_,_):
+//                    arrayOfSections.append(.travelStory(title, subTitle))
+//                case .logisticsRoute(let title, let subTitle,_,_):
+//                    arrayOfSections.append(.logisticsRoute(title, subTitle))
+//                default:
+//                    break
+//                }
+//            }
             
             //             comments
             if enumCurrentFlow == .otherUser{
@@ -140,7 +140,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch arrayOfSections[indexPath.section]{
-        case .topTips(_, let subTitle):
+        case .topTips(let obj):
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
 
             cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
@@ -158,7 +158,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             
             if isTopTipExpand{
 //                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle//subTitle
+                cell.lblHeader.text = obj.subTitle//subTitle
                 cell.lblHeader.numberOfLines = 0
             }else{
 //                cell.imgviewExpand.image = UIImage(named: "ic_black_collpase_icon")
@@ -167,7 +167,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             }
             return cell
             
-        case .travelStory(let _ , let subTitle):
+        case .travelStory(let obj):
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
             
             cell.viewExpand.tag = indexPath.section
@@ -184,7 +184,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             
             if isFavouriteExpand{
 //                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle//subTitle
+                cell.lblHeader.text = obj.subTitle//subTitle
                 cell.lblHeader.numberOfLines = 0
             }else{
                 cell.lblHeader.text = "Favorite Travel Story"
@@ -194,7 +194,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             
             return cell
             
-        case .logisticsRoute(_, let subTitle):
+        case .logisticsRoute(let obj):
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
 
             cell.viewExpand.accessibilityHint = "\(indexPath.row)"
@@ -212,7 +212,7 @@ extension TestTableViewUseCase:UITableViewDelegate,UITableViewDataSource{
             
             if isLogisticsExpand{
 //                cell.imgviewExpand.image = UIImage(named: "ic_black_expand_icon")
-                cell.lblHeader.text = subTitle
+                cell.lblHeader.text = obj.subTitle
                 cell.lblHeader.numberOfLines = 0
                 
             }else{
