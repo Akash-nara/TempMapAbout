@@ -263,6 +263,7 @@
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		AA411F8427E4E870009B498D /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AA411F8327E4E870009B498D /* sample.json */; };
 		AA411F8727E4EBA1009B498D /* GEOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA411F8627E4EBA1009B498D /* GEOSwift */; };
+		AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -530,6 +531,7 @@
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserDataModel.swift; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1059,6 +1061,7 @@
 			children = (
 				8881FE152740AFB000063CCC /* Cell */,
 				884543442737FAA600B52FED /* ExploreHomeVC.swift */,
+				AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */,
 			);
 			path = ExploreHomeVC;
 			sourceTree = "<group>";
@@ -1861,6 +1864,7 @@
 				885B7BD3274A883400E7489E /* TripAddedSuccessFullVC.swift in Sources */,
 				38AE153B2782D6630016F80E /* Constants.swift in Sources */,
 				884543482737FAC100B52FED /* AddTripHomeVC.swift in Sources */,
+				AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */,
 				38584D4527BE1A4400FACF6D /* SkeletonTripTVCell.swift in Sources */,
 				38AE154D2782D6630016F80E /* UIStoryboard+Extensions.swift in Sources */,
 				38C684D827D90BEA008ACD05 /* ExploreTripDetailViewController.swift in Sources */,

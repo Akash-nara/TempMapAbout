@@ -33,7 +33,8 @@ class OtherProfileHomeVC: UIViewController {
     
     //MARK: - OUTLETS
     @IBOutlet weak var collectionviewProfile: SayNoForDataCollectionView!
-    
+    @IBOutlet weak var buttonSetting: UIButton!
+
     //MARK: - VARIABLES
     var selectedTab: EnumProfileTab = .albums
     var viewModel = ProfileHomeViewModel()
@@ -41,6 +42,7 @@ class OtherProfileHomeVC: UIViewController {
     var searchValue = ""
     var searchTimer: Timer?
     var objTripDataModel:TripDataModel? = nil
+    var userId:Int? = nil
 
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -53,6 +55,7 @@ class OtherProfileHomeVC: UIViewController {
 //        getTripListApi()
         getOtherUserDetail()
         NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
+        buttonSetting.isHidden = true
     }
     
     @objc func reCallTripListApi() {
@@ -511,11 +514,11 @@ extension OtherProfileHomeVC{
 //        }
         self.collectionviewProfile.isAPIstillWorking = true
         
-        guard let userId  = APP_USER?.userId else {
+        guard let userIdInt  = self.userId else {
             return
         }
         
-        let paramDict:[String:Any] = ["userId":userId,"status":statusOfTrip, "pager":param]
+        let paramDict:[String:Any] = ["userId":userIdInt,"status":statusOfTrip, "pager":param]
         viewModel.getTripListApi(paramDict: paramDict, success: { response in
             self.stopLoaders()
             self.collectionviewProfile.reloadData()
@@ -534,7 +537,11 @@ extension OtherProfileHomeVC{
     }
     
     func getOtherUserDetail(){
-        viewModel.getOtherUserDetail { [weak self] response in
+        guard let id  = userId else {
+            return
+        }
+        viewModel.getOtherUserDetail(otherUserId: id) { [weak self] response in
+            self?.objTripDataModel = TripDataModel.init()
             self?.objTripDataModel?.userCreatedTrip = response
             self?.getTripListApi()
         }

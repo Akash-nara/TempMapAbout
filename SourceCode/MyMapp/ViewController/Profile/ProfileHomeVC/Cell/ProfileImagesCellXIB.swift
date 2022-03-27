@@ -32,7 +32,6 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         imgviewBG.contentMode = .scaleAspectFit
         imgviewBG.isSkeletonable = true
         self.skeletonView.isHidden = true
-
         
     }
     func startAnimating() {

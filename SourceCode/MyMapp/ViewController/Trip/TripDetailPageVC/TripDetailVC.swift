@@ -395,9 +395,15 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             
             cell.locationImage.showSkeleton()
             cell.locationImage.sd_setImage(with: URL.init(string: arrayLocation[indexPath.row].firstLocationImage), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                cell.locationImage.hideSkeleton()
                 if let image = img{
-                    cell.locationImage.hideSkeleton()
                     cell.locationImage.image = image
+                }else{
+                    cell.locationImage.image = UIImage.init(named: "not_icon")
+                    cell.locationImage.contentMode = .scaleToFill
+                    cell.locationImage.backgroundColor = .white
+                    cell.locationImage.borderWidth = 0.5
+                    cell.locationImage.borderColor = UIColor.App_BG_silver_Color
                 }
             }
 //            cell.locationImage.setImage(url: arrayLocation[indexPath.row].firstLocationImage, placeholder: UIImage.init(named: "ic_nature_image"))

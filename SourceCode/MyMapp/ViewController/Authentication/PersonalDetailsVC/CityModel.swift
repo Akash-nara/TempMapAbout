@@ -37,5 +37,10 @@ class CityModel:Equatable{
 		longitude = json["longitude"].doubleValue
         self.countryCode = json["countryCode"].stringValue 
 	}
+    
+    init(withSearchUser param:JSON) {
+        self.id = param["id"].intValue
+        self.name = param["displayName"].stringValue
+    }
 
 }

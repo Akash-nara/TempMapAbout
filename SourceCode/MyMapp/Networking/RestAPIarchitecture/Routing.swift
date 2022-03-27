@@ -29,11 +29,12 @@ enum Routing {
     case getTripList
     case deleteTripLocation
     case getFeedList
-    case getUserDetail
+    case getUserDetail(Int)
     case getAdminSuggestions
     case getListOfSuggestions
     case submitListOfSuggestions
     case saveTrip
+    case getSearchUserList
     
     var getPath: String {
         switch self {
@@ -76,8 +77,8 @@ enum Routing {
         case .getFeedList:
             return "api/private/feed/dashboard"
 
-        case .getUserDetail:
-            return "api/private/user"
+        case .getUserDetail(let id):
+            return "api/private/user/\(id)"
 
         case .getAdminSuggestions:
             return "api/private/suggestion/public"
@@ -88,6 +89,9 @@ enum Routing {
             
         case .saveTrip:
             return "api/private/event/add"
+            
+        case .getSearchUserList:
+           return "api/private/user/search"
         }
     }
 }

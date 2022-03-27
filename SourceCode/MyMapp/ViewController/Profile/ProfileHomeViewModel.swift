@@ -51,8 +51,8 @@ class ProfileHomeViewModel{
     }
     
     
-    func getOtherUserDetail(success: ((AppUser?) -> ())? = nil){
-        API_SERVICES.callAPI(path: .getUserDetail, method: .get) { response in
+    func getOtherUserDetail(otherUserId:Int,success: ((AppUser?) -> ())? = nil){
+        API_SERVICES.callAPI(path: .getUserDetail(otherUserId), method: .get) { response in
             guard let feedList = response?["responseJson"] else {
                 return
             }

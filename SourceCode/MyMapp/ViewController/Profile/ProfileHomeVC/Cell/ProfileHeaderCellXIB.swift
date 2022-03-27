@@ -29,9 +29,12 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
     @IBOutlet weak var segmentControll: UISegmentedControl!
     @IBOutlet weak var searchtextField: UITextField!
     @IBOutlet weak var buttonMessage: UIButton!
+    @IBOutlet weak var stackViewBoxsContainer: UIStackView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+//        stackViewBoxsContainer.isHidden = true  // as of now hidden
+        viewSaved.isHidden = true
         
         viewOnlineOfflineStatus.isHidden = true
         profilePic.cornerRadius = profilePic.frame.size.width/2

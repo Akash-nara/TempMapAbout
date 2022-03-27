@@ -61,6 +61,7 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
     var sortOrder = String()
     var isPageRefreshing:Bool = false
     var arrayOfSections:[EnumTripType] = [.mostLiked,.mostSaved,.thisMonthPopuler]
+    var isSearchUserOn = false
     
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -96,7 +97,11 @@ extension ExploreHomeVC {
                     isPageRefreshing = true
                     self.currentPage = self.currentPage + 1
                     self.pageSize = 50
-                    self.getCityName(text: self.txtCity.text!)
+                    if isSearchUserOn{
+                        self.getUserNameApi(text: self.txtCity.text!)
+                    }else{
+                        self.getCityName(text: self.txtCity.text!)
+                    }
                 }
             }
         }
@@ -110,13 +115,26 @@ extension ExploreHomeVC {
                 self.txtCity.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor
             }
             
+            if textField.text!.hasPrefix("@"){
+                isSearchUserOn = true
+            }else{
+                isSearchUserOn = false
+            }
             if textField.text!.count > 1 {
                 sortField = "cityName"
                 sortOrder = "1"
                 pageSize = 50
                 currentPage = 1
                 self.cityData.removeAll()
-                self.getCityName(text: self.txtCity.text!)
+                if isSearchUserOn{
+                    var textToSearch = self.txtCity.text!
+                    if textToSearch.hasPrefix("@"){
+                        textToSearch.removeFirst()
+                    }
+                    self.getUserNameApi(text: textToSearch)
+                }else{
+                    self.getCityName(text: self.txtCity.text!)
+                }
                 
             }else{
                 self.txtCity.rightView = nil
@@ -244,6 +262,10 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         if tableView == self.tblviewSuggestion{
+            
+            guard cityData.indices.contains(indexPath.row) else {
+                return
+            }
             self.txtCity.text = cityData[indexPath.row].name
             
             self.viewSuggestions.isHidden = true
@@ -253,15 +275,23 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             pageSize = 50
             currentPage = 1
             
-            guard let exploreTripDetailVC = UIStoryboard.tabbar.exploreTripDetailVC else {
-                return
+            if isSearchUserOn{
+                guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
+                    return
+                }
+                otherProfileHomeVC.userId = cityData[indexPath.row].id
+//                otherProfileHomeVC.objTripDataModel = self.viewModel.arrayOfTripList[row]
+                self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
+            }else{
+                guard let exploreTripDetailVC = UIStoryboard.tabbar.exploreTripDetailVC else {
+                    return
+                }
+                exploreTripDetailVC.hidesBottomBarWhenPushed = true
+                exploreTripDetailVC.cityName = cityData[indexPath.row].name
+                exploreTripDetailVC.cityId = cityData[indexPath.row].id
+                exploreTripDetailVC.latLong = CLLocationCoordinate2D.init(latitude: cityData[indexPath.row].latitude, longitude: cityData[indexPath.row].longitude)
+                self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
             }
-            exploreTripDetailVC.hidesBottomBarWhenPushed = true
-            exploreTripDetailVC.cityName = cityData[indexPath.row].name
-            exploreTripDetailVC.cityId = cityData[indexPath.row].id
-            exploreTripDetailVC.latLong = CLLocationCoordinate2D.init(latitude: cityData[indexPath.row].latitude, longitude: cityData[indexPath.row].longitude)
-            self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
-            
         }else{}
     }
     
@@ -372,6 +402,78 @@ extension ExploreHomeVC{
             if cityList.count > 0{
                 cityList.forEach { (singleObj) in
                     let sampleModel = CityModel(fromJson: JSON(singleObj))
+                    self.cityData.append(sampleModel)
+                }
+            }
+            else{
+                self.cityData.removeAll()
+            }
+            
+            self.cityData.removeDuplicates()
+            if self.cityData.count > 0 {
+                self.viewSuggestions.isHidden = false
+                self.viewSuggestionsHeight.constant = 50
+                if self.cityData.count > 4{
+                    self.viewSuggestionsHeight.constant = 200
+                }else{
+                    self.viewSuggestionsHeight.constant = CGFloat(self.cityData.count * 50)
+                }
+            } else {
+                self.viewSuggestions.isHidden = true
+                self.viewSuggestionsHeight.constant = 0
+                self.sortField = "cityName"
+                self.sortOrder = "1"
+                self.pageSize = 50
+                self.currentPage = 1
+                self.cityData.removeAll()
+            }
+            
+            DispatchQueue.getMain {
+                self.tblviewSuggestion.reloadData()
+                self.HIDE_CUSTOM_LOADER()
+            }
+        } failure: { jsonObject in
+            
+        }
+    }
+    
+    func getUserNameApi(text:String){
+        let param1: [String: Any] = ["pager" : [kpageSize: "\(pageSize)",
+                                             kcurrentPage:"\(currentPage)","sortField":sortField,"sortOrder":sortOrder,"searchValue":text] ]
+        
+        let strJson = JSON(param1).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        print(param)
+        
+        self.personalViewModel.getUserListAPI(param: param) { response in
+            debugPrint(response)
+            
+            guard let cityList = response?["responseJson"]?["user"].arrayObject, let totalRecord = response?["responseJson"]?["totalRecord"].intValue else {
+                
+                self.viewSuggestions.isHidden = true
+                self.viewSuggestionsHeight.constant = 0
+                self.cityData.removeAll()
+                self.tblviewSuggestion.reloadData()
+                self.HIDE_CUSTOM_LOADER()
+                self.sortField = "cityName"
+                self.sortOrder = "1"
+                self.pageSize = 50
+                self.currentPage = 1
+                self.cityData.removeAll()
+                Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
+                return
+            }
+            
+            if cityList.count >= self.pageSize{
+                self.isPageRefreshing = false
+            }else{
+                self.isPageRefreshing = true
+            }
+            
+            if cityList.count > 0{
+                cityList.forEach { (singleObj) in
+                    let sampleModel = CityModel.init(withSearchUser: JSON(singleObj))
                     self.cityData.append(sampleModel)
                 }
             }
