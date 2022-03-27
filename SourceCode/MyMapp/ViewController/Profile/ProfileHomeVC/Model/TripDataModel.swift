@@ -218,7 +218,8 @@ struct TripDataModel{
         self.id = param["id"].intValue
         self.bucketHash = param["bucketHash"].stringValue
         self.city = TripCity.init(param: param["city"])
-
+        self.bookmarkedTotalCount = param["savedCount"].intValue
+        
         self.tripDate = param["tripDate"].int64Value
         self.tripEndDate = param["tripEndDate"].int64Value
                 

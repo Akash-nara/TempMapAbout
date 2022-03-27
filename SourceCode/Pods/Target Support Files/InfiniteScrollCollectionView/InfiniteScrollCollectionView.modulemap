@@ -1,0 +1,6 @@
+framework module InfiniteScrollCollectionView {
+  umbrella header "InfiniteScrollCollectionView-umbrella.h"
+
+  export *
+  module * { export * }
+}

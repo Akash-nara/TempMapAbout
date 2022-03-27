@@ -811,7 +811,7 @@
                                                                                         <subviews>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWs-AH-0eU" userLabel="Sign up">
                                                                                                 <rect key="frame" x="84.5" y="7" width="165" height="40"/>
-                                                                                                <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="40" id="OUb-rq-ham"/>
                                                                                                     <constraint firstAttribute="width" constant="165" id="q5R-pX-aYO"/>

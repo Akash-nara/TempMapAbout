@@ -381,7 +381,7 @@ extension OtherProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
             })
             
             cell.segmentControll.isHidden = true
-            cell.viewSearchStack.isHidden = false
+//            cell.viewSearchStack.isHidden = false
 
             // map
         case .map:
@@ -402,7 +402,7 @@ extension OtherProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
             })
             
             cell.segmentControll.isHidden = true
-            cell.viewSearchStack.isHidden = false
+//            cell.viewSearchStack.isHidden = false
         }
         
         cell.btnHandlerAlbums.addTarget(self, action: #selector(self.selectFirstTab(sender: )), for: .touchUpInside)
@@ -431,6 +431,8 @@ extension OtherProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
         if collectionView == collectionviewProfile{
             
+            return 320
+            /*
             switch self.selectedTab{
             case .map:
                 return 320//320
@@ -438,7 +440,7 @@ extension OtherProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
                 return 390
             default:
                 return 390//467//390
-            }
+            }*/
         }
         return 0
     }

@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 import TagListView
-
+import InfiniteScrollCollectionView
 class FeedTableViewCell: UITableViewCell{
     
     @IBOutlet weak var postedUserPic: UIImageView!
@@ -20,7 +20,7 @@ class FeedTableViewCell: UITableViewCell{
     @IBOutlet weak var labelTotalLikeCount: UILabel!
     @IBOutlet weak var labelTotaBookmarkCount: UILabel!
     @IBOutlet weak var textFieldComment: UITextField!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: InfiniteScrollCollectionView!
     @IBOutlet weak var pageControll: UIPageControl!
     
     @IBOutlet weak var buttonBookmark: UIButton!
@@ -61,6 +61,9 @@ class FeedTableViewCell: UITableViewCell{
     func setupLayout() {
         let layout = self.collectionView.collectionViewLayout as! SJCenterFlowLayout
         layout.spacingMode = SJCenterFlowLayoutSpacingMode.fixed(spacing: -(CarouselCollectionViewCell.cellSize * 0.4))
+        collectionView.setInitialOffset()
+        collectionView.infiniteScrollDelegate = self
+
 //        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: -250)
 //        layout.al = 0.6
 //        layout.sideItemScale = 0.6
@@ -144,6 +147,8 @@ class FeedTableViewCell: UITableViewCell{
         pageControll.numberOfPages = arrayOfImageURL.count
         //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
+        arrayOfImageURL = collectionView.prepareDataSourceForInfiniteScroll(array: arrayOfImageURL) as! [TripDataModel.TripPhotoDetails.TripImage]
+
         collectionView.reloadData {
             if let index = self.arrayOfImageURL.firstIndex(where: {$0.isDefaultImage}){
                 self.currentPage = index
@@ -168,6 +173,8 @@ class FeedTableViewCell: UITableViewCell{
 ////                self.arrayTagName +=
 ////                                            self.arrayTagName.append(str.)
 //            })
+            
+            
             if self.arrayTagName.count == 0{
                 self.collectionviewTags.isHidden = true
             }else{
@@ -177,6 +184,7 @@ class FeedTableViewCell: UITableViewCell{
         }
         pageControll.isHidden = arrayOfImageURL.count == 0
         collectionView.isHidden = arrayOfImageURL.count == 0
+
     }
 }
 
@@ -262,7 +270,15 @@ extension FeedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
 //        default:
 //            break
 //        }
-
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        collectionView.infiniteScrollViewDidScroll(scrollView: scrollView)
+    }
+}
+extension FeedTableViewCell:InfiniteScrollCollectionViewDelegatge{
+    func uniformItemSizeIn(collectionView: UICollectionView) -> CGSize {
+        CGSize(width: CarouselCollectionViewCell.cellSize, height: CarouselCollectionViewCell.cellSize)
+    }
+    
 }

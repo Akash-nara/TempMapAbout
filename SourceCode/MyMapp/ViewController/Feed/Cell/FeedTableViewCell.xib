@@ -94,7 +94,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ojD-3p-9cH" userLabel="CollectionViewStack">
                                         <rect key="frame" x="0.0" y="68.5" width="320" height="300"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qJl-1r-TJR">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qJl-1r-TJR" customClass="InfiniteScrollCollectionView" customModule="InfiniteScrollCollectionView">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -298,6 +298,11 @@
             <point key="canvasLocation" x="66.666666666666671" y="195.20089285714286"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="nQL-YM-LUn">
+            <size key="intrinsicContentSize" width="36" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <image name="ic_heart_with_Border" width="25" height="25"/>

@@ -76,12 +76,16 @@ class ExploreTripDetailViewController: UIViewController {
         
     }
     func configureTopTipsArray(){
-        // ToolTips
-        arrayOfToolTips.append(false)
-        arrayOfToolTips.append(false)
-        arrayOfToolTips.append(false)
-        if !arrayOfToolTips.count.isZero() {
-            arrayOfSections.append(.topTips)
+        
+        // here static displayed for kabul only
+        if cityId == 1{
+            // ToolTips
+            arrayOfToolTips.append(false)
+            arrayOfToolTips.append(false)
+            arrayOfToolTips.append(false)
+            if !arrayOfToolTips.count.isZero() {
+                arrayOfSections.append(.topTips)
+            }
         }
     }
     
