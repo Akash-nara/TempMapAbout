@@ -32,7 +32,8 @@ class ProfileHomeVC: UIViewController {
     
     //MARK: - OUTLETS
     @IBOutlet weak var collectionviewProfile: SayNoForDataCollectionView!
-    @IBOutlet weak var buttonThreeDots: UIButton!
+    @IBOutlet weak var buttonSetting: UIButton!
+    @IBOutlet weak var buttonback: UIButton!
 
     //MARK: - VARIABLES
     var selectedTab: EnumProfileTab = .albums
@@ -40,6 +41,7 @@ class ProfileHomeVC: UIViewController {
     var statusOfTrip = "C"
     var searchValue = ""
     var searchTimer: Timer?
+    var isFromFeedList = false
 
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -51,6 +53,10 @@ class ProfileHomeVC: UIViewController {
         configureCollectionView()
         getTripListApi()
         NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil)
+        
+        buttonback.isHidden = !isFromFeedList
+        buttonSetting.isHidden = isFromFeedList
+
     }
     
     @objc func reCallTripListApi() {
@@ -95,6 +101,10 @@ class ProfileHomeVC: UIViewController {
     //MARK: - BUTTON ACTIONS
     @IBAction func btnHandlerSetting(_ sender: Any) {
         UserManager.logoutMethod()
+    }
+    
+    @IBAction func buttonBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - OTHER FUNCTIONS

@@ -131,11 +131,20 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     
     @objc func handleRedirectProfileScreen(sender:UITapGestureRecognizer){
         if let row = Int(sender.accessibilityHint ?? "0"){
-            guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
-                return
+            
+            if let id = self.viewModel.arrayOfTripList[row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId, id == loginUserId{
+                guard let profileHomeVC = UIStoryboard.tabbar.profileHomeVC else {
+                    return
+                }
+                profileHomeVC.isFromFeedList = true
+                self.navigationController?.pushViewController(profileHomeVC, animated: true)
+            }else{
+                guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
+                    return
+                }
+                otherProfileHomeVC.userId = self.viewModel.arrayOfTripList[row].userCreatedTrip?.userId
+                self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
             }
-            otherProfileHomeVC.objTripDataModel = self.viewModel.arrayOfTripList[row]
-            self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
         }
     }
     

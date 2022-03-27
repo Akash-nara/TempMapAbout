@@ -276,12 +276,20 @@ extension ExploreHomeVC: UITableViewDataSource, UITableViewDelegate {
             currentPage = 1
             
             if isSearchUserOn{
-                guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
-                    return
+                
+                if let loginUserId = APP_USER?.userId, cityData[indexPath.row].id == loginUserId{
+                    guard let profileHomeVC = UIStoryboard.tabbar.profileHomeVC else {
+                        return
+                    }
+                    profileHomeVC.isFromFeedList = true
+                    self.navigationController?.pushViewController(profileHomeVC, animated: true)
+                }else{
+                    guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
+                        return
+                    }
+                    otherProfileHomeVC.userId = cityData[indexPath.row].id
+                    self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
                 }
-                otherProfileHomeVC.userId = cityData[indexPath.row].id
-//                otherProfileHomeVC.objTripDataModel = self.viewModel.arrayOfTripList[row]
-                self.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
             }else{
                 guard let exploreTripDetailVC = UIStoryboard.tabbar.exploreTripDetailVC else {
                     return

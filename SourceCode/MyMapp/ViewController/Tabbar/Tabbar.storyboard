@@ -31,8 +31,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FpB-pV-bhf">
+                                <rect key="frame" x="0.0" y="44" width="68" height="63"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="10"/>
+                                <inset key="imageEdgeInsets" minX="15" minY="15" maxX="10" maxY="10"/>
+                                <state key="normal" image="ic_back_black"/>
+                                <connections>
+                                    <action selector="buttonBack:" destination="OdA-9R-sii" eventType="touchUpInside" id="lVy-ah-E2W"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeY-kP-XIh">
-                                <rect key="frame" x="346" y="44" width="68" height="62"/>
+                                <rect key="frame" x="346" y="44" width="68" height="63"/>
                                 <inset key="contentEdgeInsets" minX="25" minY="20" maxX="25" maxY="20"/>
                                 <state key="normal" image="logout"/>
                                 <connections>
@@ -40,7 +49,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o3P-Ys-uPx" customClass="SayNoForDataCollectionView" customModule="MyMapp" customModuleProvider="target">
-                                <rect key="frame" x="15" y="96" width="384" height="707"/>
+                                <rect key="frame" x="15" y="97" width="384" height="706"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="CGn-PH-Ucf">
                                     <size key="itemSize" width="128" height="128"/>
@@ -191,7 +200,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LeY-kP-XIh" firstAttribute="trailing" secondItem="XvE-Iv-HeN" secondAttribute="trailing" id="7rr-os-wkd"/>
+                            <constraint firstItem="o3P-Ys-uPx" firstAttribute="top" secondItem="FpB-pV-bhf" secondAttribute="bottom" constant="-10" id="Dz5-gm-URT"/>
                             <constraint firstItem="o3P-Ys-uPx" firstAttribute="top" secondItem="LeY-kP-XIh" secondAttribute="bottom" constant="-10" id="EWD-qD-oOp"/>
+                            <constraint firstItem="FpB-pV-bhf" firstAttribute="leading" secondItem="XvE-Iv-HeN" secondAttribute="leading" id="LzT-mU-t6N"/>
+                            <constraint firstItem="FpB-pV-bhf" firstAttribute="centerY" secondItem="LeY-kP-XIh" secondAttribute="centerY" id="dTa-wP-nNO"/>
                             <constraint firstItem="XvE-Iv-HeN" firstAttribute="bottom" secondItem="o3P-Ys-uPx" secondAttribute="bottom" constant="10" id="e1J-Vm-Om8"/>
                             <constraint firstItem="o3P-Ys-uPx" firstAttribute="trailing" secondItem="XvE-Iv-HeN" secondAttribute="trailing" constant="-15" id="haG-PR-k61"/>
                             <constraint firstItem="o3P-Ys-uPx" firstAttribute="leading" secondItem="XvE-Iv-HeN" secondAttribute="leading" constant="15" id="mld-hY-Dnt"/>
@@ -200,6 +212,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="kNP-vs-T4m"/>
                     <connections>
+                        <outlet property="buttonSetting" destination="LeY-kP-XIh" id="79Q-xy-raX"/>
+                        <outlet property="buttonback" destination="FpB-pV-bhf" id="mk3-yc-0q2"/>
                         <outlet property="collectionviewProfile" destination="o3P-Ys-uPx" id="ome-qi-3hS"/>
                     </connections>
                 </viewController>
