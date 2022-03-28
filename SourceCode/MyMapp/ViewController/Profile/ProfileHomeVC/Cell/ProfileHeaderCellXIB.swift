@@ -30,11 +30,26 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
     @IBOutlet weak var searchtextField: UITextField!
     @IBOutlet weak var buttonMessage: UIButton!
     @IBOutlet weak var stackViewBoxsContainer: UIStackView!
+    @IBOutlet weak var stackViewFollower: UIStackView!
+    @IBOutlet weak var sepratorHorizentalFollower: UIView!
+    @IBOutlet weak var sepratorHorizentalFollowerWidth: NSLayoutConstraint!
+    @IBOutlet weak var stackViewFollowerWidthConstrint: NSLayoutConstraint!
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        stackViewBoxsContainer.isHidden = true  // as of now hidden
+        
+        // temp commented hidden
+        stackViewFollowerWidthConstrint.constant = 0
+        sepratorHorizentalFollowerWidth.constant = 0
+        stackViewBoxsContainer.isHidden = true  // as of now hidden
         viewSaved.isHidden = true
+        viewAlbum.isHidden = true
+        viewMap.isHidden = true
+        sepratorHorizentalFollower.isHidden = true
+        stackViewFollower.isHidden = true
+        buttonMessage.isHidden = true
+        buttonEditAndFollowingProfile.isHidden = true
         
         viewOnlineOfflineStatus.isHidden = true
         profilePic.cornerRadius = profilePic.frame.size.width/2
@@ -63,12 +78,12 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
             address = tripDataModel.userCreatedTrip?.userLocationCity ?? "NA"
             followerCount = tripDataModel.userCreatedTrip?.followersCount ?? 1
             profilePicPath = tripDataModel.userCreatedTrip?.profilePicPath ?? "NA"
-            self.buttonMessage.isHidden = false
+//            self.buttonMessage.isHidden = false
             self.buttonMessage.setTitle("Message", for: .normal)
             buttonEditAndFollowingProfile.setTitle("Following", for: .normal)
             
         }else{
-            self.buttonMessage.isHidden = true
+//            self.buttonMessage.isHidden = true
             buttonEditAndFollowingProfile.setTitle("Edit Profile", for: .normal)
             
             if let name = APP_USER?.displayName, !name.isEmpty{

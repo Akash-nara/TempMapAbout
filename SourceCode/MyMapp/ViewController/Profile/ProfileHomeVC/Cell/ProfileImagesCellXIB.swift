@@ -22,6 +22,7 @@ class ProfileImagesCellXIB: UICollectionViewCell {
     @IBOutlet weak var widthCancelButton: NSLayoutConstraint!
     @IBOutlet weak var skeletonView: UIView!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

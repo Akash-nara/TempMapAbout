@@ -185,11 +185,14 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         redirecttripPageDetail(indexPath: indexPath)
     }
     
-    
     func redirecttripPageDetail(indexPath:IndexPath) {
+        
+        guard let tripUserId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId  else {
+            return
+        }
         if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
             tripPageDetailVC.hidesBottomBarWhenPushed = true
-            tripPageDetailVC.enumCurrentFlow = .otherUser
+            tripPageDetailVC.enumCurrentFlow = tripUserId == loginUserId ? .personal : .otherUser
             tripPageDetailVC.detailTripDataModel = self.viewModel.arrayOfTripList[indexPath.row]
             self.navigationController?.pushViewController(tripPageDetailVC, animated: true)
         }

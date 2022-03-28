@@ -129,10 +129,10 @@ extension SubmitSuggestionOfTripViewController{
     
     func reloadData(){
         if isFetchedDara{
-            self.heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+            self.heightOfTableView.constant = mainHeight //- (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
         }else{
             
-            self.heightOfTableView.constant = mainHeight - (CGFloat(3*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+            self.heightOfTableView.constant = mainHeight //- (CGFloat(4*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
         }
         
         if arraySuggestionList.count != 0{
@@ -143,13 +143,11 @@ extension SubmitSuggestionOfTripViewController{
             tblviewData.isUserInteractionEnabled = false
             tblviewData.isScrollEnabled = false
             self.heightOfTableView.constant = mainHeight/2
-            
             // Enable scrolling based on content height
         }
         
         self.tblviewData.reloadData()
         self.tblviewData.figureOutAndShowNoResults()
-        
     }
     
     func submitSuggestionList(text:String,index:Int) {

@@ -432,7 +432,7 @@ extension ProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
     // header section hieght
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
         if collectionView == collectionviewProfile{
-            return 320
+            return 320 - 130 // here 80 minus for boxes map, albums, saved
             /*
             switch self.selectedTab{
             case .map:
