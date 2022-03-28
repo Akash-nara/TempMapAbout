@@ -157,7 +157,11 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
-        saveFeedApi(indexRow: sender.tag)
+        if viewModel.arrayOfTripList[sender.tag].isBookmarked{
+            unSaveFeedApi(indexRow: sender.tag)
+        }else{
+            saveFeedApi(indexRow: sender.tag)
+        }
 //        sender.isSelected.toggle()
 //        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
 //        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
@@ -292,6 +296,24 @@ extension FeedHomeVC{
             self.HIDE_CUSTOM_LOADER()
         }
     }
+    
+    func unSaveFeedApi(indexRow:Int){
+        let strJson = JSON(["id":viewModel.arrayOfTripList[indexRow].id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            self?.updateCellWithStatus(index: indexRow)
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+
     
     func updateCellWithStatus(index:Int){
         viewModel.arrayOfTripList[index].isBookmarked.toggle()

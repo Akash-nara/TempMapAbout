@@ -105,7 +105,6 @@ class TripImagesUploadVC: UIViewController {
             buttonAddToFeed.setTitle("Update to feed")
         }
         
-        
         if let index = arrayJsonFilterImages.firstIndex(where: {$0.keyToSubmitServer == keyForDafultImageSelected}){
             selectedImageRow = index
         }
@@ -152,6 +151,7 @@ class TripImagesUploadVC: UIViewController {
     }
     
     func notifyDoneForImages() {
+        
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
             let cameraAction = UIAlertAction(title: "Camera", style: .default){
@@ -530,7 +530,6 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
     @objc func removeImage(sender:UIButton){
         deleteImageApi(index: sender.tag)
     }
-
     
     @objc func buttonRadioClicked(sender:UIButton){
         selectedImageRow = sender.tag
