@@ -77,8 +77,9 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
             tblviewData.setDefaultProperties(vc: self)
             tblviewData.registerCell(type: SkeletonTripTVCell.self, identifier: "SkeletonTripTVCell")
             tblviewData.registerCell(type: TripSuggestionTVCell.self, identifier: TripSuggestionTVCell.identifier)
-            tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
+//            tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
             tblviewData.sayNoSection = .noDataFound("Data not found")
+            tblviewData.bounces = false
             self.reloadData()
         }
     }
@@ -121,6 +122,9 @@ extension SubmitSuggestionOfTripViewController{
             suggestionObjArray.forEach { obj in
                 self?.arraySuggestionList.append(TripSuggestion.Category.init(param: obj))
             }
+//            self?.arraySuggestionList.removeFirst()
+//            self?.arraySuggestionList.removeFirst()
+//            self?.arraySuggestionList.removeFirst()
             self?.reloadData()
         } failure: { str in
         } internetFailure: {
@@ -130,7 +134,7 @@ extension SubmitSuggestionOfTripViewController{
     
     func reloadData(){
         if isFetchedDara{
-            self.heightOfTableView.constant = mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40 - 100) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+            self.heightOfTableView.constant = CGFloat(arraySuggestionList.count * (120+19+20)) //mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40 - 100) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
         }else{
             
             self.heightOfTableView.constant = mainHeight - (CGFloat(3*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
