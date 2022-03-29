@@ -43,11 +43,11 @@ class TabbarVC: UITabBarController,UITabBarControllerDelegate{
         Trip?.selectedImage = TripImage
         Trip?.image = TripUnselectedImage
         
-        let Forum: UITabBarItem? = tabBar.items?[3]
-        let ForumImage = UIImage(named: "ic_unselected_Notifications")?.withRenderingMode(.alwaysOriginal)
-        let ForumUnselectedImage = UIImage(named: "ic_unselected_Notifications")?.withRenderingMode(.alwaysOriginal)
-        Forum?.selectedImage = ForumImage!.imageWithColor(color1: UIColor.App_BG_SecondaryDark2_Color)
-        Forum?.image = ForumUnselectedImage
+        let savedAlbum: UITabBarItem? = tabBar.items?[3]
+        let ForumImage = UIImage(named: "iconsSavedSelectedTab")?.withRenderingMode(.alwaysOriginal)
+        let ForumUnselectedImage = UIImage(named: "iconsSavedUnselected")?.withRenderingMode(.alwaysOriginal)
+        savedAlbum?.selectedImage = ForumImage!.imageWithColor(color1: UIColor.App_BG_SecondaryDark2_Color)
+        savedAlbum?.image = ForumUnselectedImage
         
         let Profile: UITabBarItem? = tabBar.items?[4]
         let ProfileImage = UIImage(named: "ic_selected_profile")?.withRenderingMode(.alwaysOriginal)

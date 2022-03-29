@@ -221,7 +221,7 @@
             </objects>
             <point key="canvasLocation" x="873.91304347826099" y="1026.5625"/>
         </scene>
-        <!--Activity-->
+        <!--Saved Album-->
         <scene sceneID="Zcw-cx-kcF">
             <objects>
                 <viewController storyboardIdentifier="ActivityHomeVC" id="h8o-Sn-HWc" customClass="ActivityHomeVC" customModule="MyMapp" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,7 +229,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrc-h5-3Wk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved Album" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrc-h5-3Wk">
                                 <rect key="frame" x="25" y="68" width="364" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Xn1-3m-n2t"/>
@@ -255,7 +255,7 @@
                             <constraint firstItem="Qrc-h5-3Wk" firstAttribute="top" secondItem="tab-6q-YUC" secondAttribute="top" constant="24" id="qq4-Vn-Pef"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Activity" id="WOZ-tC-eEx">
+                    <tabBarItem key="tabBarItem" title="Saved Album" id="WOZ-tC-eEx">
                         <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="10" maxX="0.0" maxY="20"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
