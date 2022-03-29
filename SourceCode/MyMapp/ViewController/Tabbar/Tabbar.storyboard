@@ -221,10 +221,10 @@
             </objects>
             <point key="canvasLocation" x="873.91304347826099" y="1026.5625"/>
         </scene>
-        <!--Saved Album-->
+        <!--SavedAlbumListViewController-->
         <scene sceneID="Zcw-cx-kcF">
             <objects>
-                <viewController storyboardIdentifier="ActivityHomeVC" id="h8o-Sn-HWc" customClass="ActivityHomeVC" customModule="MyMapp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedAlbumListViewController" title="SavedAlbumListViewController" id="h8o-Sn-HWc" customClass="SavedAlbumListViewController" customModule="MyMapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9H-i3-ReS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -238,21 +238,32 @@
                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2JH-zb-JN1" customClass="SayNoForDataTableView" customModule="MyMapp" customModuleProvider="target">
-                                <rect key="frame" x="20" y="120" width="374" height="683"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eXQ-8w-ZWG" customClass="SayNoForDataCollectionView" customModule="MyMapp" customModuleProvider="target">
+                                <rect key="frame" x="20" y="120" width="374" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8ov-MY-DOc">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="h8o-Sn-HWc" id="PnS-Zm-uMw"/>
+                                    <outlet property="delegate" destination="h8o-Sn-HWc" id="g3m-mS-Kdz"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tab-6q-YUC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="tab-6q-YUC" firstAttribute="trailing" secondItem="2JH-zb-JN1" secondAttribute="trailing" constant="20" id="OhG-Fw-luu"/>
-                            <constraint firstItem="2JH-zb-JN1" firstAttribute="leading" secondItem="tab-6q-YUC" secondAttribute="leading" constant="20" id="Oq8-va-w27"/>
-                            <constraint firstItem="tab-6q-YUC" firstAttribute="bottom" secondItem="2JH-zb-JN1" secondAttribute="bottom" constant="10" id="PYn-iW-mnU"/>
+                            <constraint firstItem="eXQ-8w-ZWG" firstAttribute="top" secondItem="Qrc-h5-3Wk" secondAttribute="bottom" constant="20" id="KHN-AL-eaX"/>
                             <constraint firstItem="Qrc-h5-3Wk" firstAttribute="leading" secondItem="tab-6q-YUC" secondAttribute="leading" constant="25" id="QDt-Fb-S8w"/>
-                            <constraint firstItem="2JH-zb-JN1" firstAttribute="top" secondItem="Qrc-h5-3Wk" secondAttribute="bottom" constant="20" id="WVD-oi-1Mw"/>
+                            <constraint firstItem="tab-6q-YUC" firstAttribute="bottom" secondItem="eXQ-8w-ZWG" secondAttribute="bottom" constant="20" id="j31-d7-eKd"/>
                             <constraint firstItem="tab-6q-YUC" firstAttribute="trailing" secondItem="Qrc-h5-3Wk" secondAttribute="trailing" constant="25" id="jgZ-sy-FEH"/>
+                            <constraint firstItem="eXQ-8w-ZWG" firstAttribute="leading" secondItem="tab-6q-YUC" secondAttribute="leading" constant="20" id="mDS-BY-AE5"/>
                             <constraint firstItem="Qrc-h5-3Wk" firstAttribute="top" secondItem="tab-6q-YUC" secondAttribute="top" constant="24" id="qq4-Vn-Pef"/>
+                            <constraint firstItem="tab-6q-YUC" firstAttribute="trailing" secondItem="eXQ-8w-ZWG" secondAttribute="trailing" constant="20" id="t3T-P5-Tg6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Saved Album" id="WOZ-tC-eEx">
@@ -261,7 +272,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="tblviewActivity" destination="2JH-zb-JN1" id="d6g-rd-QUi"/>
+                        <outlet property="collectionviewProfile" destination="eXQ-8w-ZWG" id="K0V-xD-I9a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lZU-B8-OLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

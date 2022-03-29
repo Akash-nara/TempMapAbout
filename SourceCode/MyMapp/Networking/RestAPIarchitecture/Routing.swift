@@ -36,6 +36,7 @@ enum Routing {
     case saveTrip
     case getSearchUserList
     case unSaveTrip
+    case getSavedTripList
     var getPath: String {
         switch self {
         case .signIn:
@@ -96,6 +97,8 @@ enum Routing {
         case .unSaveTrip:
             return "api/private/event/delete"
             
+        case .getSavedTripList:
+            return "api/private/savedInterest/getUserSavedFeeds"
         }
     }
 }

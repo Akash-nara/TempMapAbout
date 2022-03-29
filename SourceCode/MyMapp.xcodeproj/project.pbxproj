@@ -263,6 +263,8 @@
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		AA411F8427E4E870009B498D /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AA411F8327E4E870009B498D /* sample.json */; };
 		AA411F8727E4EBA1009B498D /* GEOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA411F8627E4EBA1009B498D /* GEOSwift */; };
+		AA64793227F314670048FDEA /* SavedAlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */; };
+		AA64793427F315600048FDEA /* SavedAlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */; };
 		AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
@@ -531,6 +533,8 @@
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewController.swift; sourceTree = "<group>"; };
+		AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewModel.swift; sourceTree = "<group>"; };
 		AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserDataModel.swift; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1132,6 +1136,7 @@
 		886763192729CD0C0023D9DA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AA64793027F314040048FDEA /* SavedAlbum */,
 				88892007273AECFC009D799A /* Activity */,
 				8845433F2737F77D00B52FED /* Profile */,
 				887EECF92735608D003D2F1A /* Trip */,
@@ -1490,6 +1495,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		AA64793027F314040048FDEA /* SavedAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */,
+				AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */,
+			);
+			path = SavedAlbum;
+			sourceTree = "<group>";
+		};
 		D36E295DDDAA877AB62D6551 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1732,6 +1746,7 @@
 				885CE117275CDCAB00A13FC9 /* TripMainPageHeaderNameXIB.swift in Sources */,
 				38D06DF927A503570022C2C0 /* ProfileHomeViewModel.swift in Sources */,
 				38DE30EE27DC93070048563E /* MaterialTableViewCell.swift in Sources */,
+				AA64793227F314670048FDEA /* SavedAlbumListViewController.swift in Sources */,
 				38857A2627A0004100AFAA1D /* AddTripFavouriteImageHeader.swift in Sources */,
 				8845434E2737FAFA00B52FED /* ProfileHomeVC.swift in Sources */,
 				8889200A273AED19009D799A /* ActivityHomeVC.swift in Sources */,
@@ -1873,6 +1888,7 @@
 				38E9563F27BB997E002276BD /* TripCommmnets.swift in Sources */,
 				69A88C5B273E4B6000C2BF79 /* AddTripTopTipCollpaseXIB.swift in Sources */,
 				69F436BA277495D000CC5F44 /* TripLocationList.swift in Sources */,
+				AA64793427F315600048FDEA /* SavedAlbumListViewModel.swift in Sources */,
 				69F436B7277495D000CC5F44 /* AdditionalInfo.swift in Sources */,
 				88892005273AD58A009D799A /* AddTripInfoVC.swift in Sources */,
 				884543452737FAA600B52FED /* ExploreHomeVC.swift in Sources */,

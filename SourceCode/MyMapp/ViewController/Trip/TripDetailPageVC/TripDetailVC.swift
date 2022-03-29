@@ -680,6 +680,7 @@ extension TripDetailVC{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
@@ -704,6 +705,7 @@ extension TripDetailVC{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
@@ -722,6 +724,8 @@ extension TripDetailVC{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
