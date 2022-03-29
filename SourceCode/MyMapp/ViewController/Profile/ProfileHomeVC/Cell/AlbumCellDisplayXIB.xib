@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -33,15 +33,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYH-5b-H6B">
                                 <rect key="frame" x="5" y="5" width="310" height="145"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygR-gZ-dUM">
-                                        <rect key="frame" x="0.0" y="0.0" width="310" height="145"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Default_city_image_one" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Sz-XvP">
                                         <rect key="frame" x="0.0" y="0.0" width="310" height="145"/>
                                         <userDefinedRuntimeAttributes>
@@ -51,58 +42,53 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uzq-tq-duc">
-                                        <rect key="frame" x="10" y="10" width="90" height="40"/>
+                                        <rect key="frame" x="10" y="10" width="90" height="42"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcelona" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAm-Ob-uiZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
                                                 <color key="textColor" name="App_Bg_Seafoamblue_Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lM1-Ef-98F">
-                                                <rect key="frame" x="0.0" y="20" width="90" height="20"/>
+                                                <rect key="frame" x="0.0" y="21" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="zP2-lb-dsj"/>
-                                        </constraints>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down_blue_curve" translatesAutoresizingMaskIntoConstraints="NO" id="xdA-WR-Yfh">
-                                        <rect key="frame" x="10" y="115" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="GbR-X2-2VZ"/>
-                                            <constraint firstAttribute="height" constant="20" id="xRU-RI-bn1"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pE-dl-8bd">
-                                        <rect key="frame" x="40" y="115" width="17.5" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="XEp-jh-kfk"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                        <color key="textColor" name="App_Bg_Seafoamblue_Color"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kJF-Nu-0Wb">
+                                        <rect key="frame" x="0.0" y="115" width="57.5" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCb-WH-iTY">
+                                                <rect key="frame" x="0.0" y="0.0" width="35" height="30"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="-2" maxX="5" maxY="10"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_down_blue_curve"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pE-dl-8bd">
+                                                <rect key="frame" x="40" y="0.0" width="17.5" height="17.5"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                                <color key="textColor" name="App_Bg_Seafoamblue_Color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="xdA-WR-Yfh" firstAttribute="leading" secondItem="UYH-5b-H6B" secondAttribute="leading" constant="10" id="5KA-KX-Gvy"/>
-                                    <constraint firstAttribute="trailing" secondItem="ygR-gZ-dUM" secondAttribute="trailing" id="CKv-mb-WC0"/>
-                                    <constraint firstAttribute="bottom" secondItem="xdA-WR-Yfh" secondAttribute="bottom" constant="10" id="DGd-Ea-aTj"/>
-                                    <constraint firstItem="4pE-dl-8bd" firstAttribute="leading" secondItem="xdA-WR-Yfh" secondAttribute="trailing" constant="10" id="Dgv-l5-Oxu"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kJF-Nu-0Wb" secondAttribute="trailing" constant="10" id="0aO-Pm-bmn"/>
+                                    <constraint firstItem="kJF-Nu-0Wb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Uzq-tq-duc" secondAttribute="bottom" constant="40" id="13w-Cs-he4"/>
                                     <constraint firstItem="k33-Sz-XvP" firstAttribute="leading" secondItem="UYH-5b-H6B" secondAttribute="leading" id="IzK-lh-VQG"/>
                                     <constraint firstItem="k33-Sz-XvP" firstAttribute="top" secondItem="UYH-5b-H6B" secondAttribute="top" id="M8X-tD-FAX"/>
+                                    <constraint firstItem="kJF-Nu-0Wb" firstAttribute="leading" secondItem="UYH-5b-H6B" secondAttribute="leading" id="VeK-G5-C5h"/>
                                     <constraint firstItem="Uzq-tq-duc" firstAttribute="top" secondItem="UYH-5b-H6B" secondAttribute="top" constant="10" id="VjV-Mv-g3d"/>
+                                    <constraint firstAttribute="bottom" secondItem="kJF-Nu-0Wb" secondAttribute="bottom" id="WOI-G3-JXQ"/>
                                     <constraint firstAttribute="bottom" secondItem="k33-Sz-XvP" secondAttribute="bottom" id="WtN-tV-As9"/>
-                                    <constraint firstItem="ygR-gZ-dUM" firstAttribute="top" secondItem="UYH-5b-H6B" secondAttribute="top" id="dGI-Zj-RDo"/>
-                                    <constraint firstAttribute="bottom" secondItem="ygR-gZ-dUM" secondAttribute="bottom" id="hF0-or-4fM"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Uzq-tq-duc" secondAttribute="trailing" constant="10" id="YMk-wA-23s"/>
                                     <constraint firstItem="Uzq-tq-duc" firstAttribute="leading" secondItem="UYH-5b-H6B" secondAttribute="leading" constant="10" id="hGz-u4-Eav"/>
-                                    <constraint firstItem="ygR-gZ-dUM" firstAttribute="leading" secondItem="UYH-5b-H6B" secondAttribute="leading" id="lSx-xd-Nla"/>
                                     <constraint firstAttribute="trailing" secondItem="k33-Sz-XvP" secondAttribute="trailing" id="tBg-kv-FkI"/>
-                                    <constraint firstAttribute="bottom" secondItem="4pE-dl-8bd" secondAttribute="bottom" constant="10" id="ua3-Yu-nkQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -123,6 +109,13 @@
                 <constraint firstItem="cWU-4e-Bgs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KQi-30-e4R"/>
                 <constraint firstItem="cWU-4e-Bgs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TAq-4z-qjc"/>
             </constraints>
+            <connections>
+                <outlet property="buttonSaved" destination="tCb-WH-iTY" id="zkU-ZE-mRW"/>
+                <outlet property="imageTrip" destination="k33-Sz-XvP" id="0dr-TG-eYM"/>
+                <outlet property="labelBookmarkCount" destination="4pE-dl-8bd" id="IHR-bK-5XY"/>
+                <outlet property="tripSubTitle" destination="lM1-Ef-98F" id="ZE6-9B-uzz"/>
+                <outlet property="tripTitle" destination="gAm-Ob-uiZ" id="QOd-0C-mdD"/>
+            </connections>
             <point key="canvasLocation" x="132" y="83"/>
         </collectionViewCell>
     </objects>
@@ -130,7 +123,7 @@
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <image name="ic_down_blue_curve" width="20" height="20"/>
         <namedColor name="App_Bg_Seafoamblue_Color">
-            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.42352941176470588" green="0.83137254901960789" blue="0.7686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -104,17 +104,35 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
          }*/
         
         // here trip image object load here
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileImagesCellXIB", for: indexPath) as! ProfileImagesCellXIB
-        cell.imgviewBG.tag = indexPath.row
-        cell.loadCellData(objTripModel: viewModel.arrayOfTripList[indexPath.row]) { (isVertical, index, imgheight) in
-            if self.viewModel.arrayOfTripList.indices.contains(index){
-                self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCellDisplayXIB", for: indexPath) as! AlbumCellDisplayXIB
+        cell.imageTrip.tag = indexPath.row
+        cell.buttonSaved.tag = indexPath.row
+        
+        
+        let objModel = self.viewModel.arrayOfTripList[indexPath.row]
+        if let firstObject = objModel.photoUploadedArray.first?.arrayOfImageURL.first{
+            let urlStr = objModel.defaultImageKey.isEmpty ? firstObject.image : objModel.defaultImageKey
+            cell.imageTrip.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
+                cell.imageTrip.image = img
+                
+                if let image = img, image.isImageVerticle{
+                    //since the width > height we may fit it and we'll have bands on top/bottom
+                    cell.imageTrip.contentMode = .scaleAspectFill
+                }else{
+                    //width < height we fill it until width is taken up and clipped on top/bottom
+                    cell.imageTrip.contentMode = .scaleToFill
+                }
             }
+            cell.imageTrip.clipsToBounds = true
+            
             UIView.animate(withDuration: 0.2) {
                 self.collectionviewProfile.collectionViewLayout.invalidateLayout()
-                //                        self.collectionviewProfile.reloadItems(at: [IndexPath.init(row: index, section: 0)])
             }
-            //                    collectionView.reloadItems(at: [IndexPath.init(item: index, section: 0)])
+        }else{
+//            startAnimating()
+            cell.imageTrip.backgroundColor = .clear
+            cell.imageTrip.contentMode = .scaleToFill
+//            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
         }
         cell.layoutIfNeeded()
         return cell
