@@ -248,17 +248,21 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="h8o-Sn-HWc" id="PnS-Zm-uMw"/>
-                                    <outlet property="delegate" destination="h8o-Sn-HWc" id="g3m-mS-Kdz"/>
-                                </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoK-P8-6UF">
+                                <rect key="frame" x="157" y="437.5" width="100.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tab-6q-YUC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="HoK-P8-6UF" firstAttribute="centerY" secondItem="u9H-i3-ReS" secondAttribute="centerY" id="0oH-mL-Mv5"/>
                             <constraint firstItem="eXQ-8w-ZWG" firstAttribute="top" secondItem="Qrc-h5-3Wk" secondAttribute="bottom" constant="20" id="KHN-AL-eaX"/>
                             <constraint firstItem="Qrc-h5-3Wk" firstAttribute="leading" secondItem="tab-6q-YUC" secondAttribute="leading" constant="25" id="QDt-Fb-S8w"/>
+                            <constraint firstItem="HoK-P8-6UF" firstAttribute="centerX" secondItem="u9H-i3-ReS" secondAttribute="centerX" id="f2p-pN-02n"/>
                             <constraint firstItem="tab-6q-YUC" firstAttribute="bottom" secondItem="eXQ-8w-ZWG" secondAttribute="bottom" constant="20" id="j31-d7-eKd"/>
                             <constraint firstItem="tab-6q-YUC" firstAttribute="trailing" secondItem="Qrc-h5-3Wk" secondAttribute="trailing" constant="25" id="jgZ-sy-FEH"/>
                             <constraint firstItem="eXQ-8w-ZWG" firstAttribute="leading" secondItem="tab-6q-YUC" secondAttribute="leading" constant="20" id="mDS-BY-AE5"/>
@@ -266,7 +270,7 @@
                             <constraint firstItem="tab-6q-YUC" firstAttribute="trailing" secondItem="eXQ-8w-ZWG" secondAttribute="trailing" constant="20" id="t3T-P5-Tg6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Saved Album" id="WOZ-tC-eEx">
+                    <tabBarItem key="tabBarItem" title="Saved" id="WOZ-tC-eEx">
                         <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="10" maxX="0.0" maxY="20"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>

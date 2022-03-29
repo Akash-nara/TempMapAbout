@@ -12,8 +12,6 @@ class SavedAlbumListViewController: UIViewController {
     //MARK: - OUTLETS
     @IBOutlet weak var collectionviewProfile: SayNoForDataCollectionView!
     var viewModel = SavedAlbumListViewModel()
-    var statusOfTrip = "C"
-    var searchValue = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
