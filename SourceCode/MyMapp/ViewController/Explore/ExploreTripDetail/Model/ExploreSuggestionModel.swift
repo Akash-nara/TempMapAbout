@@ -10,22 +10,20 @@ import SwiftyJSON
 struct ExploreSuggestionDataModel{
 
     enum EnumCellType {
-        case covid19, languagesAndCurrencies(String)
+        case covid19(String), languagesAndCurrencies(String)
         
         init?(typeName: String) {
             switch typeName {
-            case "Covid 19 Update":
-                self = .covid19
             case "Language", "Currency":
                 self = .languagesAndCurrencies(typeName)
             default:
-                return nil
+                self = .covid19(typeName)
             }
         }
         
         var subType: String {
             switch self {
-            case .covid19: return "Covid 19 Update"
+            case .covid19(let subType): return subType
             case .languagesAndCurrencies(let subType): return subType
             }
         }
@@ -41,7 +39,7 @@ struct ExploreSuggestionDataModel{
     var title = ""
     var items = [ExploreSuggestionItemDataModel]()
 
-    var cellType = EnumCellType.covid19
+    var cellType = EnumCellType.covid19("")
     var isOpenCell = false
     
     init() { }
