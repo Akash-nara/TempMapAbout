@@ -15,26 +15,40 @@ class FeedHomeVC: UIViewController {
     
     var viewModel = FeedHomeViewModel()
     var isShowWholeContent = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonNotification.isHidden = true
         configureTableView()
         getSocketTripData()
         
-//        API_LOADER.SHOW_CUSTOM_LOADER()
-//        self.getTripListApi()
-//        SHOW_CUSTOM_LOADER()
+        //        API_LOADER.SHOW_CUSTOM_LOADER()
+        //        self.getTripListApi()
+        //        SHOW_CUSTOM_LOADER()
         DispatchQueue.getMain(delay: 0.2) {
             self.getTagData()
         }
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //
+        //        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateTripForSaveUnSave), name: Notification.Name("reloadForSaveUnSaveTrip"), object: nil) //
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
     }
+    
+    @objc func updateTripForSaveUnSave(notification:NSNotification) {
+        if let id = notification.object as? Int{
+            if let index = self.viewModel.arrayOfTripList.firstIndex(where: {$0.id == id}){
+                self.viewModel.arrayOfTripList[index].isBookmarked.toggle()
+                self.viewModel.arrayOfTripList[index].increaeeDecreaseBookmarkCount()
+                self.tableViewFeedList.reloadData()
+            }
+        }
+    }
+    
     @objc func reCallTripListApi() {
         stopLoaders()
         self.getTripListApi(isPullToRefresh: true)
@@ -59,9 +73,9 @@ class FeedHomeVC: UIViewController {
             // Fallback on earlier versions
         }
         
-//        self.viewModel.isTripListFetched = true
+        //        self.viewModel.isTripListFetched = true
         tableViewFeedList.sayNoSection = .noFeedFound("Feed not found.")
-//        tableViewFeedList.figureOutAndShowNoResults()
+        //        tableViewFeedList.figureOutAndShowNoResults()
         tableViewFeedList.reloadData()
         tableViewFeedList.addRefreshControlForPullToRefresh { [weak self] in
             self?.viewModel.isTripListFetched = false
@@ -89,7 +103,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
             cell.startAnimating(index: indexPath.row)
             return cell
         }
-
+        
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         
         let tap  = UITapGestureRecognizer.init(target: self, action: #selector(handleRedirectProfileScreen(sender:)))
@@ -107,9 +121,9 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.buttonLike.tag = indexPath.row
         
         cell.configureCell(modelData:viewModel.arrayOfTripList[indexPath.row])
-//        let str = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//viewModel.arrayOfTripList[indexPath.row].tripDescription
+        //        let str = "The city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summerThe city is very vibrant at night, especially in summer"//viewModel.arrayOfTripList[indexPath.row].tripDescription
         let str = viewModel.arrayOfTripList[indexPath.row].tripDescription//
-
+        
         if str.isEmpty {
             cell.labelExpDescription.isHidden = true
         } else {
@@ -162,11 +176,11 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         }else{
             saveFeedApi(indexRow: sender.tag)
         }
-//        sender.isSelected.toggle()
-//        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
-//        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
-//        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
-//        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
+        //        sender.isSelected.toggle()
+        //        viewModel.arrayOfTripList[sender.tag].isBookmarked.toggle()
+        //        viewModel.arrayOfTripList[sender.tag].increaeeDecreaseBookmarkCount()
+        //        let cell = tableViewFeedList.cellForRow(at: IndexPath.init(row: sender.tag, section: 0)) as! FeedTableViewCell
+        //        cell.configureCell(modelData: viewModel.arrayOfTripList[sender.tag])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -214,8 +228,8 @@ extension FeedHomeVC{
         }
         
         var param = viewModel.getPageDict(isPullToRefresh)
-            param["searchValue"] = ""
-            param["sortField"] = "CITY"
+        param["searchValue"] = ""
+        param["sortField"] = "CITY"
         
         self.tableViewFeedList.isAPIstillWorking = true
         viewModel.getTripListApi(paramDict: ["status":"C", "pager":param], success: { response in
@@ -229,7 +243,7 @@ extension FeedHomeVC{
         self.viewModel.isTripListFetched = true
         self.tableViewFeedList.isAPIstillWorking = false
         self.tableViewFeedList.stopPullToRefresh()
-//        self.tableViewFeedList.reloadData()
+        //        self.tableViewFeedList.reloadData()
         UIView.setAnimationsEnabled(false)
         self.tableViewFeedList.reloadData()
         UIView.setAnimationsEnabled(true)
@@ -244,7 +258,7 @@ extension FeedHomeVC{
                 appDelegateShared.tagsData.forEach { parentTag in
                     if primaryTags.contains(parentTag.id) {
                         objLocation.arrayTagsFeed.append(parentTag.name)
-
+                        
                         parentTag.subTagsList.forEach { subTag in
                             if secondaryTags.contains(subTag.id) {
                                 objLocation.arrayTagsFeed.append(subTag.name)
@@ -259,7 +273,7 @@ extension FeedHomeVC{
     func getTagData(){
         API_SERVICES.callAPI([:], path: .getTags, method: .get) { [weak self] dataResponce in
             
-//            self?.HIDE_CUSTOM_LOADER()
+            //            self?.HIDE_CUSTOM_LOADER()
             guard let status = dataResponce?["status"]?.intValue, status == 200, let listArray =  dataResponce?["responseJson"]?["tagList"].arrayObject else {
                 return
             }
@@ -272,11 +286,11 @@ extension FeedHomeVC{
             
             self?.getTripListApi()
         }  internetFailure: {
-//            API_LOADER.HIDE_CUSTOM_LOADER()
+            //            API_LOADER.HIDE_CUSTOM_LOADER()
             debugPrint("internetFailure")
         } failureInform: {
-//            API_LOADER.HIDE_CUSTOM_LOADER()
-//            self.HIDE_CUSTOM_LOADER()
+            //            API_LOADER.HIDE_CUSTOM_LOADER()
+            //            self.HIDE_CUSTOM_LOADER()
         }
     }
     
@@ -302,7 +316,7 @@ extension FeedHomeVC{
     }
     
     func unSaveFeedApi(indexRow:Int){
-        let strJson = JSON(["id":viewModel.arrayOfTripList[indexRow].id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let strJson = JSON(["id":viewModel.arrayOfTripList[indexRow].id, "INTEREST_CATEGORY": "feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
             self?.HIDE_CUSTOM_LOADER()
@@ -318,7 +332,7 @@ extension FeedHomeVC{
             self.HIDE_CUSTOM_LOADER()
         }
     }
-
+    
     
     func updateCellWithStatus(index:Int){
         viewModel.arrayOfTripList[index].isBookmarked.toggle()

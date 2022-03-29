@@ -590,7 +590,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             if arrayOfTravelAdvice.indices.contains(indexRow){
                 debugPrint("selected :\(arrayOfTravelAdvice[indexRow].title)")
                 if self.arrayOfTravelAdvice[indexRow].isSaved{
-                    self.unSaveLocationAndTravelApi(id: arrayOfTravelAdvice[indexRow].id) {
+                    self.unSaveLocationAndTravelApi(id: arrayOfTravelAdvice[indexRow].id, key:"advice") {
                         sender.isSelected.toggle()
                         self.arrayOfTravelAdvice[indexRow].isSaved.toggle()
 //                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
@@ -617,7 +617,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             if array.indices.contains(indexRow){
                 debugPrint("locationList:\(array[indexRow])")
                 if array[indexRow].isSaved{
-                    self.unSaveLocationAndTravelApi(id: array[indexRow].id) {
+                    self.unSaveLocationAndTravelApi(id: array[indexRow].id, key:"location") {
                         sender.isSelected.toggle()
                         array[indexRow].isSaved.toggle()
 //                        self.detailTripDataModel?.locationList[indexRow].isSaved.toggle()
@@ -716,8 +716,8 @@ extension TripDetailVC{
     }
     
     
-    func unSaveLocationAndTravelApi(id:Int, success: (() -> ())? = nil){
-        let strJson = JSON(["id":id]).rawString(.utf8, options: .sortedKeys) ?? ""
+    func unSaveLocationAndTravelApi(id:Int, key:String, success: (() -> ())? = nil){
+        let strJson = JSON(["id":id,"INTEREST_CATEGORY": key]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
             self?.HIDE_CUSTOM_LOADER()

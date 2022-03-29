@@ -98,7 +98,7 @@ enum Routing {
             return "api/private/event/delete"
             
         case .getSavedTripList:
-            return "api/private/savedInterest/getUserSavedFeeds"
+            return "api/private/savedInterest/getUserSavedInterests"
         }
     }
 }

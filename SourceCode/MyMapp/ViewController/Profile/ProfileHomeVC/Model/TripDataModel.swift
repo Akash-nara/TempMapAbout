@@ -279,6 +279,35 @@ class TripDataModel{
 //        advicesOfArray.append(.logisticsRoute("Logistics & Tips", "damdakldmadlakdmadlkamdaldkamdalkdmadlakdmadlkdmadlkdmd"))
 
     }
+    var userDisplayName = ""
+     var userSavedId = 0
+    var tripSavedId = 0
+    init(withSavedFeed param:JSON) {
+        self.tripDate = param["tripDate"].int64Value
+        self.tripEndDate = param["tripEndDate"].int64Value
+        self.city = TripCity.init(param: param["city"])
+        self.userDisplayName = param["userDisplayName"].stringValue
+        self.userSavedId = param["userId"].intValue
+        self.defaultImageKey = param["defaultImageKey"].stringValue
+        self.id = param["id"].intValue
+        self.isBookmarked = param["isSaved"].boolValue
+        self.bookmarkedTotalCount = param["savedCount"].intValue
+
+        let photoArray = param["photoDetails"].dictionaryValue
+        self.photoUploadedArray.removeAll()
+        arraYOfPhotoCount.removeAll()
+        photoArray.keys.forEach { jsonKey in
+            let imageUrl = photoArray[jsonKey]?.arrayValue ?? []
+            arraYOfPhotoCount.append(imageUrl.count)
+//            let filterObj = locationList.filter({$0.locationHash == jsonKey}).first
+            self.photoUploadedArray.append(TripPhotoDetails.init(param: JSON(["hash":jsonKey,"imageArray":imageUrl,
+//                                                                              "cityName":filterObj.name,
+//                                                                              "countryName":filterObj,
+                                                                             ]), deafultImageName:defaultImageKey, isLocationImage:jsonKey != "default"))
+        }
+        
+        locationList.removeAll()
+    }
     
     func setTimestamp(epochTime: String) -> String {
         let currentDate = Date()

@@ -19,7 +19,7 @@ class SavedAlbumListViewController: UIViewController {
         super.viewDidLoad()
         
         configureCollectionView()
-//        getTripListApi()
+        getTripListApi()
         NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadSavedTripList"), object: nil)
     }
     
@@ -47,7 +47,7 @@ class SavedAlbumListViewController: UIViewController {
         layout.headerHeight = 0//CGSize(width: collectionviewProfile.frame.size.width, height: 420)
         
         self.collectionviewProfile.collectionViewLayout = layout
-        self.collectionviewProfile.reloadData()
+        //        self.collectionviewProfile.reloadData()
         
         collectionviewProfile.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 40, right: 0)
         
@@ -66,15 +66,6 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard self.viewModel.isTripListFetched else { return 20 }
-        
-        /*
-         if (self.viewModel.getTotalElements > self.viewModel.arrayOfTripList.count)
-         && self.viewModel.arrayOfTripList.count != 0 {
-         return viewModel.arrayOfTripList.count + 1
-         }else{
-         return viewModel.arrayOfTripList.count
-         }*/
-        
         if viewModel.arrayOfTripList.count == 0{
             return 1
         }
@@ -120,6 +111,7 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
         }
         
         if !defaultKey.isEmpty{
+            
             cell.imageTrip.sd_setImage(with: URL.init(string: defaultKey), placeholderImage: nil, options: .highPriority) { [weak self] img, error, cache, url in
                 
                 if let image = img{
@@ -154,19 +146,19 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
     }
     
     @objc  func unSavedButtonClicked(sender:UIButton){
-//        unSaveFeedApi(indexRow: viewModel)
+        unSaveFeedApi(indexRow: sender.tag)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
-            guard let userId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId else {
-                return
-            }
-            tripPageDetailVC.hidesBottomBarWhenPushed = true
-            tripPageDetailVC.detailTripDataModel = self.viewModel.arrayOfTripList[indexPath.row]
-            tripPageDetailVC.enumCurrentFlow = userId == loginUserId ? .personal : .otherUser
-            self.navigationController?.pushViewController(tripPageDetailVC, animated: true)
-        }
+        //        if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
+        //            guard let userId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId else {
+        //                return
+        //            }
+        //            tripPageDetailVC.hidesBottomBarWhenPushed = true
+        //            tripPageDetailVC.detailTripDataModel = self.viewModel.arrayOfTripList[indexPath.row]
+        //            tripPageDetailVC.enumCurrentFlow = userId == loginUserId ? .personal : .otherUser
+        //            self.navigationController?.pushViewController(tripPageDetailVC, animated: true)
+        //        }
     }
 }
 
@@ -216,24 +208,10 @@ extension SavedAlbumListViewController{
             self.collectionviewProfile.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
         }
         
-        var param = viewModel.getPageDict(isPullToRefresh)
-        //        if !searchValue.isEmpty{
-        param["searchValue"] = searchValue
-        //        }
+        let param = viewModel.getPageDict(isPullToRefresh)
         self.collectionviewProfile.isAPIstillWorking = true
-        guard let userId  = APP_USER?.userId else {
-            return
-        }
-        //        {
-        //          "INTEREST_CATEGORY": "location",
-        //          "pager": {
-        //            "pageSize": 5,
-        //            "currentPage": 1,
-        //            "sortOrder": 1,
-        //          }
-        //        }
         
-        let paramDict:[String:Any] = ["userId":userId,"status":statusOfTrip, "pager":param]
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
             self.stopLoaders()
             self.collectionviewProfile.reloadData()
@@ -244,13 +222,18 @@ extension SavedAlbumListViewController{
     }
     
     func unSaveFeedApi(indexRow:Int){
-        let strJson = JSON(["id":viewModel.arrayOfTripList[indexRow].id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let id = viewModel.arrayOfTripList[indexRow].id
+        let strJson = JSON(["id":id,"INTEREST_CATEGORY":"feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
             self?.HIDE_CUSTOM_LOADER()
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadForSaveUnSaveTrip"), object: id)
+            self?.viewModel.updateCount(id: id)
+            self?.collectionviewProfile.reloadData()
+            self?.collectionviewProfile.figureOutAndShowNoResults()
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
             debugPrint("internetFailure")
@@ -258,7 +241,6 @@ extension SavedAlbumListViewController{
             self.HIDE_CUSTOM_LOADER()
         }
     }
-    
     
     func stopLoaders() {
         self.viewModel.isTripListFetched = true

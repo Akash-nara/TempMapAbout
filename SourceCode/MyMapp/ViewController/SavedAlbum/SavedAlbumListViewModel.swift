@@ -8,6 +8,7 @@
 import Foundation
 
 import Foundation
+
 class SavedAlbumListViewModel{
     
     var arrayOfTripList = [TripDataModel]()
@@ -15,15 +16,17 @@ class SavedAlbumListViewModel{
         let pageNo = JSON.init(paramDict)["pager"]["currentPage"].intValue
         let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        API_SERVICES.callAPI(param, path: .getTripList, method: .post) { response in
-            guard let feedList = response?["responseJson"]?["feed"].arrayValue, let totalRecord =  response?["responseJson"]?["totalRecord"].intValue else {
+        API_SERVICES.callAPI(param, path: .getSavedTripList, method: .post) { response in
+            guard let feedList = response?["responseJson"]?["feeds"].arrayValue, let totalRecord =  response?["responseJson"]?["totalRecord"].intValue else {
                 return
             }
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfTripList.removeAll() }
             debugPrint(feedList)
             for obj in feedList{
-                self.arrayOfTripList.append(TripDataModel.init(param: obj))
+                let objSavedModel = TripDataModel.init(withSavedFeed: obj["feed"])
+                objSavedModel.tripSavedId = obj["id"].intValue
+                self.arrayOfTripList.append(objSavedModel)
             }
             success?(nil)
         } failureInform: {
@@ -62,6 +65,13 @@ class SavedAlbumListViewModel{
             success?(objUser)
         } failureInform: {
             HIDE_CUSTOM_LOADER()
+        }
+    }
+    
+    func updateCount(id:Int){
+        if let index = self.arrayOfTripList.firstIndex(where: {$0.id == id}){
+            arrayOfTripList.remove(at: index)
+            totalElements -= 1
         }
     }
 }

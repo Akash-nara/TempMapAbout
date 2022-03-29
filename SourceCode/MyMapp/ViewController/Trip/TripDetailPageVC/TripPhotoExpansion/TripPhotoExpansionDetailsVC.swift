@@ -173,7 +173,7 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
     }
     
     @IBAction func buttonSaveUnSave(_ sender: UIButton){
-        let isLocationImage = (sender.accessibilityHint ?? "").isEmpty
+        let isLocationImage = !(sender.accessibilityHint ?? "").isEmpty
     
         func updateStatusOfBookmark(){
             sender.isSelected.toggle()
@@ -189,12 +189,19 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
         }
         
         if sender.isSelected{
-            self.unSaveLocationAndTravelApi(id: sender.tag) {
+            self.unSaveTripORLocationAndTravelApi(id: sender.tag, key: isLocationImage ? "location" : "feed") {
                 updateStatusOfBookmark()
             }
+            
         }else{
-            self.saveLocationTripApi(id: sender.tag) {
-                updateStatusOfBookmark()
+            if isLocationImage{
+                self.saveLocationTripApi(id: sender.tag) {
+                    updateStatusOfBookmark()
+                }
+            }else{
+                self.saveTripTripApi(id: sender.tag) {
+                    updateStatusOfBookmark()
+                }
             }
         }
     }
@@ -293,8 +300,33 @@ extension TripPhotoExpansionDetailsVC{
         }
     }
     
-    func unSaveLocationAndTravelApi(id:Int, success: (() -> ())? = nil){
-        let strJson = JSON(["id":id]).rawString(.utf8, options: .sortedKeys) ?? ""
+    func saveTripTripApi(id:Int, success: (() -> ())? = nil){
+        guard let userId = tripDataModel?.userCreatedTrip?.userId else {
+            return
+        }
+        let strJson = JSON(["trip": ["id":id],
+                            "userId":userId,
+                            "INTEREST_CATEGORY": "feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+    
+    
+    func unSaveTripORLocationAndTravelApi(id:Int,key:String, success: (() -> ())? = nil){
+        let strJson = JSON(["id":id,"INTEREST_CATEGORY" : key]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
             self?.HIDE_CUSTOM_LOADER()
