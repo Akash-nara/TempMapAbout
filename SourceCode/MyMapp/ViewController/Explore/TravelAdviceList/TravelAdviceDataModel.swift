@@ -12,7 +12,7 @@ class TravelAdviceDataModel{
     case topTips = 1, stories, logistics
     }
     var isExpand = false
-    var isBookmark = false
+    var isSaved = false
     var id  = 0
     var savedCount = 0
     var key = 0
@@ -24,7 +24,7 @@ class TravelAdviceDataModel{
     
     init() {}
     init(param:JSON) {
-        self.isBookmark = param["isSaved"].boolValue
+        self.isSaved = param["isSaved"].boolValue
         self.id = param["id"].intValue
         self.savedCount = param["savedCount"].intValue
     }

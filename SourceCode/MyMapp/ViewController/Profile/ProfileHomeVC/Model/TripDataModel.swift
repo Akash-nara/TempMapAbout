@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 import MapKit
 
-struct TripDataModel{
+class TripDataModel{
     
     
 //    struct UserCreatedTrip{
@@ -24,7 +24,7 @@ struct TripDataModel{
 //            self.region = param["region"].stringValue
 //        }
 //    }
-    struct TripCity{
+    class TripCity{
         var cityName = ""
         var countryName = ""
         var id = 0
@@ -39,7 +39,7 @@ struct TripDataModel{
         }
     }
     
-    struct TripFavLocations{
+    class TripFavLocations{
         var name = ""
         var longitude:Double = 0.0
         var latitude:Double = 0.0
@@ -119,7 +119,7 @@ struct TripDataModel{
     var isLiked = false
     var bookmarkedTotalCount = 0
     var likedTotalCount = 0
-    mutating func increaeeDecreaseBookmarkCount(){
+    func increaeeDecreaseBookmarkCount(){
         if isBookmarked{
             bookmarkedTotalCount += 1
         }else{
@@ -129,7 +129,7 @@ struct TripDataModel{
         }
     }
     
-    mutating func increaeeDecreaseLikeUNLIkeCount(){
+    func increaeeDecreaseLikeUNLIkeCount(){
         if isLiked{
             likedTotalCount += 1
         }else{
@@ -327,7 +327,7 @@ struct TripDataModel{
         }
     }
     
-    mutating func setCityData(json:JSON){
+    func setCityData(json:JSON){
         self.city = TripCity.init(param: json)
     }
 

@@ -47,13 +47,16 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
     func loadTripDetailData(){
         if let obj = tripDataModel{
             
+            if obj.userCreatedTrip?.userId == APP_USER?.userId{
+                buttonSaveUnSavedTrip.isHidden = true
+            }
+            
             // image array
             obj.photoUploadedArray.forEach { obj in
                 obj.arrayOfImageURL.forEach { obj1 in
                     arrayOfImageURL.append(obj1)
                 }
             }
-            buttonSaveUnSavedTrip.isSelected = obj.isBookmarked
             pageControllview.numberOfPages = arrayOfImageURL.count
             collectionviewImages.reloadData()
             DispatchQueue.getMain {
@@ -137,14 +140,23 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
             if let index = obj.locationList.firstIndex(where: {$0.locationHash == hashLocaton}){
                 labelTripName.text = obj.locationList[index].locationFav?.name
                 labelTripDescription.text = obj.locationList[index].notes
+                buttonSaveUnSavedTrip.isSelected = obj.locationList[index].isSaved
+                buttonSaveUnSavedTrip.tag = obj.locationList[index].id
+                buttonSaveUnSavedTrip.accessibilityHint = "location"
             }else{
                 labelTripName.text = obj.city.cityName
                 labelTripDescription.text = obj.tripDescription
+                buttonSaveUnSavedTrip.isSelected = obj.isBookmarked
+                buttonSaveUnSavedTrip.tag = obj.id
+                buttonSaveUnSavedTrip.accessibilityHint = ""
             }
         }else{
             // cover data
             labelTripName.text = obj.city.cityName
             labelTripDescription.text = obj.tripDescription
+            buttonSaveUnSavedTrip.isSelected = obj.isBookmarked
+            buttonSaveUnSavedTrip.tag = obj.id
+            buttonSaveUnSavedTrip.accessibilityHint = ""
         }
         
         labelTripDescription.isHidden = labelTripDescription.text!.isEmpty
@@ -161,8 +173,32 @@ class TripPhotoExpansionDetailsVC: UIViewController,TagListViewDelegate, UIScrol
     }
     
     @IBAction func buttonSaveUnSave(_ sender: UIButton){
-        sender.isSelected.toggle()
+        let isLocationImage = (sender.accessibilityHint ?? "").isEmpty
+    
+        func updateStatusOfBookmark(){
+            sender.isSelected.toggle()
+            if isLocationImage{
+                if let arrayOfLocation = self.tripDataModel?.locationList, let indexOfLocation =  arrayOfLocation.firstIndex(where: {$0.id == sender.tag}){
+                    self.tripDataModel?.locationList[indexOfLocation].isSaved.toggle()
+                }else{
+                    self.tripDataModel?.isBookmarked.toggle()
+                }
+            }else{
+                self.tripDataModel?.isBookmarked.toggle()
+            }
+        }
+        
+        if sender.isSelected{
+            self.unSaveLocationAndTravelApi(id: sender.tag) {
+                updateStatusOfBookmark()
+            }
+        }else{
+            self.saveLocationTripApi(id: sender.tag) {
+                updateStatusOfBookmark()
+            }
+        }
     }
+    
     //MARK: - OTHER FUNCTIONS
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         print("Current centered index: \(String(describing: centeredCollectionViewFlowLayout.currentCenteredPage ?? nil))")
@@ -228,5 +264,48 @@ extension TripPhotoExpansionDetailsVC:UICollectionViewDelegate,UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: collectionviewImages.frame.width - 40, height: collectionviewImages.bounds.height)
+    }
+}
+
+extension TripPhotoExpansionDetailsVC{
+    func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
+        
+        guard let userId = tripDataModel?.userCreatedTrip?.userId else {
+            return
+        }
+        let strJson = JSON(["location": ["id":id],
+                            "userId":userId,
+                            "INTEREST_CATEGORY": "location"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+    
+    func unSaveLocationAndTravelApi(id:Int, success: (() -> ())? = nil){
+        let strJson = JSON(["id":id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
     }
 }

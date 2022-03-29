@@ -460,7 +460,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         cell.buttonBookmark.tag = dataModel.id
         cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
         cell.buttonBookmark.isHidden = isOwnProfile
-        cell.buttonBookmark.isSelected = dataModel.isBookmark
+        cell.buttonBookmark.isSelected = dataModel.isSaved
 
         cell.lblHeader.text = dataModel.title
         cell.labelSubTitle.text = dataModel.subTitle
@@ -589,11 +589,22 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         if let section =  Int(sender.accessibilityHint ?? ""), let indexRow = arrayOfTravelAdvice.firstIndex(where: {$0.id == sender.tag}){ // get section
             if arrayOfTravelAdvice.indices.contains(indexRow){
                 debugPrint("selected :\(arrayOfTravelAdvice[indexRow].title)")
-                self.saveTravelAdviceApi(id: arrayOfTravelAdvice[indexRow].id) {
-                    sender.isSelected.toggle()
-                    self.arrayOfTravelAdvice[indexRow].isBookmark.toggle()
-                    self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isBookmark.toggle()
-                    self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+                if self.arrayOfTravelAdvice[indexRow].isSaved{
+                    self.unSaveLocationAndTravelApi(id: arrayOfTravelAdvice[indexRow].id) {
+                        sender.isSelected.toggle()
+                        self.arrayOfTravelAdvice[indexRow].isSaved.toggle()
+//                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
+//                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+//                        self.tblviewTrip.reloadData()
+                    }
+                }else{
+                    self.saveTravelAdviceApi(id: arrayOfTravelAdvice[indexRow].id) {
+                        sender.isSelected.toggle()
+                        self.arrayOfTravelAdvice[indexRow].isSaved.toggle()
+//                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
+//                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+//                        self.tblviewTrip.reloadData()
+                    }
                 }
             }
         }
@@ -605,10 +616,18 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         case .locationList(let array):
             if array.indices.contains(indexRow){
                 debugPrint("locationList:\(array[indexRow])")
-                self.saveLocationTripApi(id: array[indexRow].id) {
-                    sender.isSelected.toggle()
-                    array[indexRow].isSaved.toggle()
-                    self.detailTripDataModel?.locationList[indexRow].isSaved.toggle()
+                if array[indexRow].isSaved{
+                    self.unSaveLocationAndTravelApi(id: array[indexRow].id) {
+                        sender.isSelected.toggle()
+                        array[indexRow].isSaved.toggle()
+//                        self.detailTripDataModel?.locationList[indexRow].isSaved.toggle()
+                    }
+                }else{
+                    self.saveLocationTripApi(id: array[indexRow].id) {
+                        sender.isSelected.toggle()
+                        array[indexRow].isSaved.toggle()
+//                        self.detailTripDataModel?.locationList[indexRow].isSaved.toggle()
+                    }
                 }
             }
         default:break
@@ -648,8 +667,11 @@ extension TripDetailVC:UITextFieldDelegate{
 }
 extension TripDetailVC{
     func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
+        guard let userId = detailTripDataModel?.userCreatedTrip?.userId else {
+            return
+        }
         let strJson = JSON(["location": ["id":id],
-                            "userId":APP_USER?.userId ?? 0,
+                            "userId":userId,
                             "INTEREST_CATEGORY": "location"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
@@ -658,7 +680,6 @@ extension TripDetailVC{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
-//            self?.updateCellWithStatus(index: indexRow)
             success?()
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
@@ -669,8 +690,12 @@ extension TripDetailVC{
     }
     
     func saveTravelAdviceApi(id:Int, success: (() -> ())? = nil){
+        guard let userId = detailTripDataModel?.userCreatedTrip?.userId else {
+            return
+        }
+
         let strJson = JSON(["advice": ["id":id],
-                            "userId":APP_USER?.userId ?? 0,
+                            "userId":userId,
                             "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
@@ -687,4 +712,23 @@ extension TripDetailVC{
             self.HIDE_CUSTOM_LOADER()
         }
     }
+    
+    
+    func unSaveLocationAndTravelApi(id:Int, success: (() -> ())? = nil){
+        let strJson = JSON(["id":id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+
 }
