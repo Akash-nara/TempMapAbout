@@ -54,6 +54,10 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     
     //MARK: - VARIABLES
     var height: CGFloat?
+//    {
+//        CGFloat(shimerCellCount * 159) + 204 + cueSize.bottomHeightOfSafeArea
+//    }
+
     var topCornerRadius: CGFloat?
     var presentDuration: Double?
     var dismissDuration: Double?
@@ -89,10 +93,11 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     var cityId = 0
     var cityName = ""
     var isFetchedDara = false
+    var shimerCellCount: Int { 3 }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         getSuggestionList()
@@ -134,10 +139,14 @@ extension SubmitSuggestionOfTripViewController{
     
     func reloadData(){
         if isFetchedDara{
-            self.heightOfTableView.constant = CGFloat(arraySuggestionList.count * (120+19+20)) //mainHeight - (CGFloat(arraySuggestionList.count*125) - 55 - 40 - 40 - 100) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+            //120+19+20 = 159
+            self.heightOfTableView.constant = CGFloat(arraySuggestionList.count * 159)
+            //20+20+10+45+5+20+10+54+20 = 204
+//            let expectedHeight = self.heightOfTableView.constant + 204 + cueSize.bottomHeightOfSafeArea
+//            height = min(mainHeight, expectedHeight)
+//            self.updatePopupHeight(to: height!)
         }else{
-            
-            self.heightOfTableView.constant = mainHeight - (CGFloat(3*125) - 55 - 40 - 40) //min(mainHeight - 55 - 40, CGFloat(arraySuggestionList.count*125))
+            self.heightOfTableView.constant = CGFloat(shimerCellCount * 159)
         }
         
         if arraySuggestionList.count != 0{
@@ -172,7 +181,7 @@ extension SubmitSuggestionOfTripViewController{
 //MARK: - TABLEVIEW METHODS
 extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard self.isFetchedDara else { return 3 }
+        guard self.isFetchedDara else { return shimerCellCount }
         return arraySuggestionList.count
     }
     
@@ -195,7 +204,7 @@ extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !isFetchedDara ? 150 : UITableView.automaticDimension
+        return !isFetchedDara ? 159 : UITableView.automaticDimension
     }
 
 }
