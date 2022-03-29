@@ -19,8 +19,8 @@ class SavedAlbumListViewController: UIViewController {
         super.viewDidLoad()
         
         configureCollectionView()
-        getTripListApi()
-      NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadSavedTripList"), object: nil)
+//        getTripListApi()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadSavedTripList"), object: nil)
     }
     
     @objc func reCallTripListApi() {
@@ -105,43 +105,60 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
         
         // here trip image object load here
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCellDisplayXIB", for: indexPath) as! AlbumCellDisplayXIB
+        let objModel = self.viewModel.arrayOfTripList[indexPath.row]
         cell.imageTrip.tag = indexPath.row
         cell.buttonSaved.tag = indexPath.row
+        cell.buttonSaved.addTarget(self, action: #selector(unSavedButtonClicked(sender:)), for: .touchUpInside)
+        cell.labelBookmarkCount.text = "\(objModel.bookmarkedTotalCount)"
+        cell.labelBookmarkCount.isHidden = objModel.bookmarkedTotalCount.isZero()
+        cell.tripTitle.text = objModel.city.cityName
+        cell.tripSubTitle.text = objModel.city.countryName
         
+        var defaultKey = objModel.defaultImageKey
+        if defaultKey.isEmpty, let firstObject = objModel.photoUploadedArray.first?.arrayOfImageURL.first{
+            defaultKey = firstObject.image
+        }
         
-        let objModel = self.viewModel.arrayOfTripList[indexPath.row]
-        if let firstObject = objModel.photoUploadedArray.first?.arrayOfImageURL.first{
-            let urlStr = objModel.defaultImageKey.isEmpty ? firstObject.image : objModel.defaultImageKey
-            cell.imageTrip.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
-                cell.imageTrip.image = img
+        if !defaultKey.isEmpty{
+            cell.imageTrip.sd_setImage(with: URL.init(string: defaultKey), placeholderImage: nil, options: .highPriority) { [weak self] img, error, cache, url in
                 
-                if let image = img, image.isImageVerticle{
+                if let image = img{
+                    cell.imageTrip.image = image
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     cell.imageTrip.contentMode = .scaleAspectFill
                 }else{
                     //width < height we fill it until width is taken up and clipped on top/bottom
                     cell.imageTrip.contentMode = .scaleToFill
+                    if let foundImage = objModel.photoUploadedArray.first?.arrayOfImageURL.first?.image, !foundImage.isEmpty{
+                        cell.imageTrip.setImage(url: foundImage, placeholder: UIImage.init(named: "not_icon"))
+                    }else{
+                        cell.imageTrip.image = UIImage.init(named: "not_icon")
+                    }
                 }
             }
+            
             cell.imageTrip.clipsToBounds = true
             
             UIView.animate(withDuration: 0.2) {
                 self.collectionviewProfile.collectionViewLayout.invalidateLayout()
             }
         }else{
-//            startAnimating()
+            //            startAnimating()
             cell.imageTrip.backgroundColor = .clear
             cell.imageTrip.contentMode = .scaleToFill
-//            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
+            cell.imageTrip.image = UIImage.init(named: "not_icon")
+            //            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
         }
         cell.layoutIfNeeded()
         return cell
     }
     
+    @objc  func unSavedButtonClicked(sender:UIButton){
+//        unSaveFeedApi(indexRow: viewModel)
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
-            
             guard let userId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId else {
                 return
             }
@@ -207,14 +224,14 @@ extension SavedAlbumListViewController{
         guard let userId  = APP_USER?.userId else {
             return
         }
-//        {
-//          "INTEREST_CATEGORY": "location",
-//          "pager": {
-//            "pageSize": 5,
-//            "currentPage": 1,
-//            "sortOrder": 1,
-//          }
-//        }
+        //        {
+        //          "INTEREST_CATEGORY": "location",
+        //          "pager": {
+        //            "pageSize": 5,
+        //            "currentPage": 1,
+        //            "sortOrder": 1,
+        //          }
+        //        }
         
         let paramDict:[String:Any] = ["userId":userId,"status":statusOfTrip, "pager":param]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
@@ -225,6 +242,23 @@ extension SavedAlbumListViewController{
             }
         })
     }
+    
+    func unSaveFeedApi(indexRow:Int){
+        let strJson = JSON(["id":viewModel.arrayOfTripList[indexRow].id]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+    
     
     func stopLoaders() {
         self.viewModel.isTripListFetched = true

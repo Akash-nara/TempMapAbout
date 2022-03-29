@@ -20,5 +20,10 @@ class AlbumCellDisplayXIB: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         imageTrip.isSkeletonable = true
+        imageTrip.cornerRadius = 15
+        imageTrip.borderColor = .App_BG_SecondaryDark2_Color
+        imageTrip.borderWidth = 0.1
+        imageTrip.contentMode = .scaleAspectFit
+
     }
 }
