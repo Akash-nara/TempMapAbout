@@ -77,7 +77,7 @@ class ExploreHomeVC: UIViewController,UITextFieldDelegate{
         
         cityData.removeAll()
         
-        self.txtCity.placeholder = "Search for places"
+        self.txtCity.placeholder = "Search here"
         self.isSelectedTab = 0
         self.placeSearch()
     }

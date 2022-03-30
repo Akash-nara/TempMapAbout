@@ -364,17 +364,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcj-Rj-NC2">
-                                <rect key="frame" x="25" y="68" width="364" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="gq1-am-AzM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="26"/>
-                                <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EM8-EK-6Mq">
+                                <rect key="frame" x="25" y="68" width="364" height="72"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcj-Rj-NC2">
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="gq1-am-AzM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="26"/>
+                                        <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for a city or a @user" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Sp-yz-9gh">
+                                        <rect key="frame" x="0.0" y="52" width="364" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Bjb-aG-daU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
+                                        <color key="textColor" systemColor="placeholderTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qml-NG-SMd">
-                                <rect key="frame" x="25" y="120" width="364" height="45"/>
+                                <rect key="frame" x="25" y="148" width="364" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mCs-FZ-ZWX" customClass="PaddingTextField" customModule="MyMapp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="364" height="45"/>
@@ -415,11 +429,11 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Aw8-ec-VJV">
-                                <rect key="frame" x="0.0" y="175" width="414" height="628"/>
+                                <rect key="frame" x="0.0" y="203" width="414" height="600"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HPP-js-a66">
-                                <rect key="frame" x="25" y="175" width="364" height="50"/>
+                                <rect key="frame" x="25" y="203" width="364" height="50"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Lob-7S-jMJ">
                                         <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
@@ -439,14 +453,14 @@
                         <viewLayoutGuide key="safeArea" id="pd7-V5-36e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Tcj-Rj-NC2" firstAttribute="leading" secondItem="pd7-V5-36e" secondAttribute="leading" constant="25" id="8aZ-9v-2eV"/>
-                            <constraint firstItem="pd7-V5-36e" firstAttribute="trailing" secondItem="Tcj-Rj-NC2" secondAttribute="trailing" constant="25" id="AMi-ZF-F3K"/>
-                            <constraint firstItem="Qml-NG-SMd" firstAttribute="top" secondItem="Tcj-Rj-NC2" secondAttribute="bottom" constant="20" id="CFf-yL-MJA"/>
+                            <constraint firstItem="EM8-EK-6Mq" firstAttribute="top" secondItem="pd7-V5-36e" secondAttribute="top" constant="24" id="0oY-9R-l5u"/>
+                            <constraint firstItem="pd7-V5-36e" firstAttribute="trailing" secondItem="EM8-EK-6Mq" secondAttribute="trailing" constant="25" id="41j-9Y-gSg"/>
+                            <constraint firstItem="EM8-EK-6Mq" firstAttribute="leading" secondItem="pd7-V5-36e" secondAttribute="leading" constant="25" id="7C3-Fg-6F3"/>
                             <constraint firstItem="HPP-js-a66" firstAttribute="leading" secondItem="pd7-V5-36e" secondAttribute="leading" constant="25" id="D9j-AK-PUR"/>
                             <constraint firstItem="pd7-V5-36e" firstAttribute="bottom" secondItem="Aw8-ec-VJV" secondAttribute="bottom" constant="10" id="JLt-lK-b0D"/>
                             <constraint firstItem="pd7-V5-36e" firstAttribute="trailing" secondItem="HPP-js-a66" secondAttribute="trailing" constant="25" id="PVg-7c-vjf"/>
                             <constraint firstItem="Qml-NG-SMd" firstAttribute="leading" secondItem="pd7-V5-36e" secondAttribute="leading" constant="25" id="Tta-j6-BBR"/>
-                            <constraint firstItem="Tcj-Rj-NC2" firstAttribute="top" secondItem="pd7-V5-36e" secondAttribute="top" constant="24" id="ZLa-Ub-b03"/>
+                            <constraint firstItem="Qml-NG-SMd" firstAttribute="top" secondItem="EM8-EK-6Mq" secondAttribute="bottom" constant="8" id="YII-rM-qKl"/>
                             <constraint firstItem="Aw8-ec-VJV" firstAttribute="top" secondItem="Qml-NG-SMd" secondAttribute="bottom" constant="10" id="iXq-WP-cTM"/>
                             <constraint firstItem="pd7-V5-36e" firstAttribute="trailing" secondItem="Aw8-ec-VJV" secondAttribute="trailing" id="kbL-Yv-lHy"/>
                             <constraint firstItem="Aw8-ec-VJV" firstAttribute="leading" secondItem="pd7-V5-36e" secondAttribute="leading" id="lGC-hi-G4k"/>
@@ -976,6 +990,9 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -109,8 +109,17 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     }
     
     @IBAction func btnHandlerSubmit(_ sender:UIButton){
-        self.view.endEditing(true)
-        self.dismiss(animated: true, completion: nil)
+        let arrrayCount = self.arraySuggestionList.filter({!$0.suggestionCategory.customFieldForTextStore.isEmpty})
+        if arrrayCount.count != 0{
+            CustomAlertView.init(title: "Thank you for your contribution! Submissions are periodically reviewed by members of our team.", forPurpose: .success).showForWhile(animated: true)
+            DispatchQueue.getMain(delay: 0) {
+                self.view.endEditing(true)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }else{
+            self.view.endEditing(true)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

@@ -76,6 +76,12 @@ class TabbarVC: UITabBarController,UITabBarControllerDelegate{
         let name = String(describing: type(of: viewController))
         
         if name == "AddTripHomeVC", let popupVC = UIStoryboard.tabbar.addTripHomeVC{
+            
+            if let addTripInfoVC =  UIStoryboard.trip.addTripInfoVC{
+                self.navigationController?.pushViewController(addTripInfoVC, animated: true)
+            }
+
+            /*
             popupVC.height = 250
             popupVC.topCornerRadius = topCornerRadius
             popupVC.presentDuration = 0.5
@@ -83,7 +89,7 @@ class TabbarVC: UITabBarController,UITabBarControllerDelegate{
             popupVC.customNavigationController = self.navigationController
             DispatchQueue.main.async {
                 self.present(popupVC, animated: true, completion: nil)
-            }
+            }*/
             return false
         }else if let profileHomeVC = viewController as? ProfileHomeVC{
                     profileHomeVC.collectionviewProfile.reloadData()
