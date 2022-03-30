@@ -8,10 +8,12 @@
 import UIKit
 
 class CollectionViewTVCell: UITableViewCell {
-
+    
     @IBOutlet weak var collectionViewMain: UICollectionView!
     var arrayFeaturedPlaces = [Any]()
-    
+    var reachedScrollEndTap: (() -> Void)?
+    static var isGooglelPageApiWorking = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,10 +22,10 @@ class CollectionViewTVCell: UITableViewCell {
         collectionViewMain.dataSource = self
         collectionViewMain.delegate = self
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -31,7 +33,6 @@ class CollectionViewTVCell: UITableViewCell {
         arrayFeaturedPlaces = data
         collectionViewMain.reloadData()
     }
-    
 }
 
 extension CollectionViewTVCell: UICollectionViewDataSource {
@@ -51,8 +52,16 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
         return cell
     }
     
-   @objc func buttonToggleSave(sender:UIButton){
-       sender.isSelected.toggle()
+    @objc func buttonToggleSave(sender:UIButton){
+        sender.isSelected.toggle()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (indexPath.row == arrayFeaturedPlaces.count - 1) && !CollectionViewTVCell.isGooglelPageApiWorking { //it's your last cell
+           //Load more data & reload your collection view
+            CollectionViewTVCell.isGooglelPageApiWorking = true
+             reachedScrollEndTap?()
+         }
     }
 }
 

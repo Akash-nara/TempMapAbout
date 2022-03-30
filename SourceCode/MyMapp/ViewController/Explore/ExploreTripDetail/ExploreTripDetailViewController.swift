@@ -9,7 +9,9 @@ import UIKit
 import SwiftyJSON
 import MapKit
 
+
 class ExploreTripDetailViewController: UIViewController {
+
     
     //MARK: - OUTLETS
     var cityId = 0
@@ -53,7 +55,8 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayFeaturedPlaces = [JSON]()
     var arrayExpandable = [ExploreSuggestionDataModel]()
     var latLong:CLLocationCoordinate2D? = nil
-
+    var nextPageToken:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,16 +67,6 @@ class ExploreTripDetailViewController: UIViewController {
         
         // Maps
         arrayOfSections.append(.maps)
-        
-        // FeaturedPlaces
-        //        arrayFeaturedPlaces = ["abc", "def", "def", "def", "def", "def", "def", "def"]
-        //        if !arrayFeaturedPlaces.count.isZero() {
-        //            arrayOfSections.append(.featuredPlaces)
-        //        }
-        
-        //                getGoogleTripsDetial()
-        //        testGppgle()
-        
     }
     func configureTopTipsArray(){
         
@@ -141,6 +134,13 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         case .featuredPlaces:
             let cell = tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigFeaturedPlacesCell(data: arrayFeaturedPlaces)
+            cell.reachedScrollEndTap = { [weak self] in
+                if !(self?.nextPageToken.isEmpty ?? true){
+                    self?.getGoogleTripsDetial(isNextPage: true)
+                }else{
+                    CollectionViewTVCell.isGooglelPageApiWorking = false
+                }
+            }
             return cell
         case .topTips:
             return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi Yang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
@@ -356,44 +356,79 @@ extension ExploreTripDetailViewController{
         }
     }
     
-    func getGoogleTripsDetial() {
+    func getGoogleTripsDetial(isNextPage:Bool=false) {
         
+        var serviceUrl:URL? = nil
         let key = appDelegateShared.googleKey
-        let queryItems = [URLQueryItem(name: "key", value: key), URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction")]
-        var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
-        urlComps?.queryItems = queryItems
-        guard let serviceUrl = urlComps?.url else { return }
         
-        var request = URLRequest(url: serviceUrl)
+        if isNextPage{
+            let queryItems = [URLQueryItem(name: "pageToken", value: nextPageToken),URLQueryItem(name: "key", value: key),URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction"),URLQueryItem(name: "sensor", value: "false")]
+            var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
+            urlComps?.queryItems = queryItems
+            serviceUrl = urlComps?.url
+
+        }else{
+            let queryItems = [URLQueryItem(name: "key", value: key), URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction")]
+            var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
+            urlComps?.queryItems = queryItems
+            serviceUrl = urlComps?.url
+        }
+        
+        guard let urlGoogle = serviceUrl else { return }
+
+        var request = URLRequest(url: urlGoogle)
         request.httpMethod = "GET"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
             self.HIDE_CUSTOM_LOADER()
-            if let response = response {
-//                print(response)
-            }
-            
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     let jsonObj = JSON.init(json)
-                    //                    let placeIdsArray = jsonObj["results"].arrayValue.map({$0.dictionaryValue["place_id"]?.stringValue})
-                    //                    self.getGoogleTrips(placeId: ((placeIdsArray.first ?? "") ?? ""))
-                    
                     let placeIdsArray = jsonObj["results"].arrayValue
-//                    print(json)
-                    
-                    self.arrayFeaturedPlaces.removeAll()
-                    self.arrayFeaturedPlaces = placeIdsArray
-                    if !self.arrayFeaturedPlaces.count.isZero() {
-                        self.arrayOfSections.append(.featuredPlaces)
-//                        self.arrayOfSections.insert(.featuredPlaces, at: 2)
+
+                    self.nextPageToken = ""
+                    if let nextToken = jsonObj["next_page_token"].string, !nextToken.isEmpty{
+                        self.nextPageToken = nextToken
                     }
                     
-                    DispatchQueue.main.async {
-                        self.configureTopTipsArray()
-                        self.tblviewData.reloadData()
+                    CollectionViewTVCell.isGooglelPageApiWorking = false
+                    
+                    var ids = [String]()
+                    self.arrayFeaturedPlaces.forEach { objJson in
+                        if let id = objJson.dictionaryValue["place_id"]?.stringValue{
+                            ids.append(id)
+                        }
+                    }
+                    
+                    if !isNextPage{
+                        self.arrayFeaturedPlaces.removeAll()
+                        self.arrayFeaturedPlaces = placeIdsArray
+                        
+                        if !self.arrayFeaturedPlaces.count.isZero() {
+                            self.arrayOfSections.append(.featuredPlaces)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.configureTopTipsArray()
+                            self.tblviewData.reloadData()
+                        }
+                    }else{
+                        let arrayCount = self.arrayFeaturedPlaces.count
+                        placeIdsArray.forEach { obj in
+                            if let id = obj.dictionaryValue["place_id"]?.stringValue, !ids.contains(id){
+                                self.arrayFeaturedPlaces.append(obj)
+                            }
+                        }
+                        
+                        if arrayCount == self.arrayFeaturedPlaces.count{
+                            self.nextPageToken = ""
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.tblviewData.reloadData()
+                        }
                     }
                 } catch {
                     print(error)
