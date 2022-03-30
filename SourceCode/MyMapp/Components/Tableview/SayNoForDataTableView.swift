@@ -363,6 +363,7 @@ class SayNoForDataCollectionView: PaginationCollectionView {
     
     public enum SayNoSection {
         case noTripListFound(String)
+        case noSavedTripListFound(String)
         case none
         
         var getTitle: String {
@@ -408,6 +409,8 @@ class SayNoForDataCollectionView: PaginationCollectionView {
             switch sayNoSection {
             case .noTripListFound:
                 setSearchSectionSuggestionsSayNo(topGap: 370)
+            case .noSavedTripListFound:
+                setSearchSectionSuggestionsSayNo(true)
             default:
                 break
             }
