@@ -265,6 +265,7 @@
 		AA411F8727E4EBA1009B498D /* GEOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA411F8627E4EBA1009B498D /* GEOSwift */; };
 		AA64793227F314670048FDEA /* SavedAlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */; };
 		AA64793427F315600048FDEA /* SavedAlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */; };
+		AA64793827F4C54E0048FDEA /* SavedAlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */; };
 		AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
@@ -535,6 +536,7 @@
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewController.swift; sourceTree = "<group>"; };
 		AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewModel.swift; sourceTree = "<group>"; };
+		AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumDetailViewController.swift; sourceTree = "<group>"; };
 		AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserDataModel.swift; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1498,10 +1500,19 @@
 		AA64793027F314040048FDEA /* SavedAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				AA64793627F4C52E0048FDEA /* SavedAlbumDetail */,
 				AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */,
 				AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */,
 			);
 			path = SavedAlbum;
+			sourceTree = "<group>";
+		};
+		AA64793627F4C52E0048FDEA /* SavedAlbumDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */,
+			);
+			path = SavedAlbumDetail;
 			sourceTree = "<group>";
 		};
 		D36E295DDDAA877AB62D6551 /* Pods */ = {
@@ -1802,6 +1813,7 @@
 				88ACE2F9275CF50000229162 /* TripMainPageCommentsCellXIB.swift in Sources */,
 				88B31C78273F7F360011BF59 /* AddTripLogisticsCollpaseXIB.swift in Sources */,
 				88A7DAEF27342C16000640E1 /* WebServiceKey.swift in Sources */,
+				AA64793827F4C54E0048FDEA /* SavedAlbumDetailViewController.swift in Sources */,
 				3872661527A2909000B497AB /* TripDataModel.swift in Sources */,
 				38AE153D2782D6630016F80E /* DateGeneric.swift in Sources */,
 				38AE15302782D6630016F80E /* CustomAlertView.swift in Sources */,

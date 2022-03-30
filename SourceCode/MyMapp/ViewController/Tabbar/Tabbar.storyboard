@@ -970,6 +970,81 @@
             </objects>
             <point key="canvasLocation" x="724.63768115942037" y="1723.6607142857142"/>
         </scene>
+        <!--SavedAlbumDetailViewController-->
+        <scene sceneID="Eyn-4V-OB9">
+            <objects>
+                <viewController storyboardIdentifier="SavedAlbumDetailViewController" title="SavedAlbumDetailViewController" id="fdy-uc-YBD" customClass="SavedAlbumDetailViewController" customModule="MyMapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IPd-hS-dsA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IsW-eB-XFi">
+                                <rect key="frame" x="0.0" y="68" width="389" height="45"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="58j-DD-eCP">
+                                        <rect key="frame" x="0.0" y="0.0" width="98" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4W6-XH-nXY">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="Fjv-Rl-CiM"/>
+                                                    <constraint firstAttribute="height" constant="45" id="M1v-mz-VXy"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="5" maxY="10"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_back_black"/>
+                                                <connections>
+                                                    <action selector="buttonBackTapp:" destination="fdy-uc-YBD" eventType="touchUpInside" id="jzP-DA-FLs"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxs-Nu-Xpe">
+                                                <rect key="frame" x="45" y="9.5" width="53" height="26"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                                <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="go to city Page" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-nY-9C8">
+                                        <rect key="frame" x="281" y="13" width="108" height="19"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
+                                        <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QAA-Lv-ruS">
+                                <rect key="frame" x="0.0" y="143" width="414" height="709"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="VjX-c4-4Xr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VjX-c4-4Xr" firstAttribute="trailing" secondItem="QAA-Lv-ruS" secondAttribute="trailing" id="6nk-WZ-vLZ"/>
+                            <constraint firstItem="VjX-c4-4Xr" firstAttribute="trailing" secondItem="IsW-eB-XFi" secondAttribute="trailing" constant="25" id="JBz-Ca-Vc7"/>
+                            <constraint firstItem="IsW-eB-XFi" firstAttribute="top" secondItem="VjX-c4-4Xr" secondAttribute="top" constant="24" id="TfO-wF-2br"/>
+                            <constraint firstItem="IsW-eB-XFi" firstAttribute="leading" secondItem="VjX-c4-4Xr" secondAttribute="leading" id="bBM-qV-kgb"/>
+                            <constraint firstItem="VjX-c4-4Xr" firstAttribute="bottom" secondItem="QAA-Lv-ruS" secondAttribute="bottom" constant="10" id="bhH-6r-R1r"/>
+                            <constraint firstItem="QAA-Lv-ruS" firstAttribute="top" secondItem="IsW-eB-XFi" secondAttribute="bottom" constant="30" id="j9R-zP-2Tk"/>
+                            <constraint firstItem="QAA-Lv-ruS" firstAttribute="leading" secondItem="VjX-c4-4Xr" secondAttribute="leading" id="pdS-3u-8PW"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Explore" id="SzJ-Rb-0gV">
+                        <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="labelGotoCityPage" destination="Om7-nY-9C8" id="cc0-7z-Jna"/>
+                        <outlet property="labelTitle" destination="yxs-Nu-Xpe" id="8yB-8W-uOs"/>
+                        <outlet property="tblviewData" destination="QAA-Lv-ruS" id="vTw-QJ-XsG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HMP-U0-6hg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="35" y="1724"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic_back_black" width="48" height="48"/>

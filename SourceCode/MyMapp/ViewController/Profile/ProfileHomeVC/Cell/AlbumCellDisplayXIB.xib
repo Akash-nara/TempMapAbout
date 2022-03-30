@@ -33,7 +33,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYH-5b-H6B">
                                 <rect key="frame" x="5" y="5" width="310" height="145"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Default_city_image_one" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Sz-XvP">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Default_city_image_one" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Sz-XvP">
                                         <rect key="frame" x="0.0" y="0.0" width="310" height="145"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

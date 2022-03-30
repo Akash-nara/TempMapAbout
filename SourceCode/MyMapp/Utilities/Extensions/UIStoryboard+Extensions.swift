@@ -135,8 +135,12 @@ extension UIStoryboard {
 
     var savedAlbumListVC: SavedAlbumListViewController? {
         return getViewController(vcClass: SavedAlbumListViewController.self)
-    }    
+    }
     
+    var savedAlbumDetailVC: SavedAlbumDetailViewController? {
+        return getViewController(vcClass: SavedAlbumDetailViewController.self)
+    }
+        
     func getViewController<T: UIViewController>(vcClass: T.Type) -> T? {
         guard let viewController = instantiateViewController(withIdentifier: vcClass.className()) as? T else {
             return nil

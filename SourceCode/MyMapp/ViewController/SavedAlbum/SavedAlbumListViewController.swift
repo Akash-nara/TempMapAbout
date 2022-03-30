@@ -37,18 +37,18 @@ class SavedAlbumListViewController: UIViewController {
         collectionviewProfile.register(UINib(nibName: "LoadingActivityIndicatorMoreCVCell", bundle: nil), forCellWithReuseIdentifier: "LoadingActivityIndicatorMoreCVCell")
         collectionviewProfile.register(UINib(nibName: "PlaceHolderTripCell", bundle: nil), forCellWithReuseIdentifier: "PlaceHolderTripCell")
         
+        collectionviewProfile.delegate = self
         collectionviewProfile.dataSource = self
-        collectionviewProfile.dataSource = self
+        
         let layout = CHTCollectionViewWaterfallLayout()
         layout.minimumColumnSpacing = 4.0
         layout.minimumInteritemSpacing = 4.0
         layout.headerHeight = 0//CGSize(width: collectionviewProfile.frame.size.width, height: 420)
         
         self.collectionviewProfile.collectionViewLayout = layout
-        //        self.collectionviewProfile.reloadData()
-        
         collectionviewProfile.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 40, right: 0)
-        
+//        collectionView.userInteractionEnabled = true
+
         collectionviewProfile.sayNoSection = .noSavedTripListFound("No Saved albums found")
         
         collectionviewProfile.addPagination { [weak self] in
@@ -99,16 +99,13 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
         cell.buttonSaved.tag = indexPath.row
         cell.buttonSaved.addTarget(self, action: #selector(unSavedButtonClicked(sender:)), for: .touchUpInside)
         
-        
         cell.configureCell(dataModel: objModel) { isVertical, index in
             if self.viewModel.arrayOfTripList.indices.contains(index){
                 self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical
             }
             UIView.animate(withDuration: 0.2) {
                 self.collectionviewProfile.collectionViewLayout.invalidateLayout()
-//                        self.collectionviewProfile.reloadItems(at: [IndexPath.init(row: index, section: 0)])
             }
-            //                    collectionView.reloadItems(at: [IndexPath.init(item: index, section: 0)])
         }
         cell.layoutIfNeeded()
         return cell
@@ -117,13 +114,22 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
     @objc  func unSavedButtonClicked(sender:UIButton){
         unSaveFeedApi(indexRow: sender.tag)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let savedAlbumDetailVC = UIStoryboard.tabbar.savedAlbumDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
+            savedAlbumDetailVC.cityId = self.viewModel.arrayOfTripList[indexPath.row].city.id
+            savedAlbumDetailVC.cityName = self.viewModel.arrayOfTripList[indexPath.row].city.cityName
+            savedAlbumDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(savedAlbumDetailVC, animated: true)
+        }
         
         //        if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
         //            guard let userId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId else {
         //                return
         //            }
-        //            tripPageDetailVC.hidesBottomBarWhenPushed = true
+        //
+        
         //            tripPageDetailVC.detailTripDataModel = self.viewModel.arrayOfTripList[indexPath.row]
         //            tripPageDetailVC.enumCurrentFlow = userId == loginUserId ? .personal : .otherUser
         //            self.navigationController?.pushViewController(tripPageDetailVC, animated: true)
