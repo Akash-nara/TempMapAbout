@@ -98,46 +98,17 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
         cell.imageTrip.tag = indexPath.row
         cell.buttonSaved.tag = indexPath.row
         cell.buttonSaved.addTarget(self, action: #selector(unSavedButtonClicked(sender:)), for: .touchUpInside)
-        cell.labelBookmarkCount.text = "\(objModel.bookmarkedTotalCount)"
-        cell.labelBookmarkCount.isHidden = objModel.bookmarkedTotalCount.isZero()
-        cell.tripTitle.text = objModel.city.cityName
-        cell.tripSubTitle.text = objModel.city.countryName
         
-        var defaultKey = objModel.defaultImageKey
-        if defaultKey.isEmpty, let firstObject = objModel.photoUploadedArray.first?.arrayOfImageURL.first{
-            defaultKey = firstObject.image
-        }
         
-        if !defaultKey.isEmpty{
-            
-            cell.imageTrip.sd_setImage(with: URL.init(string: defaultKey), placeholderImage: nil, options: .highPriority) { [weak self] img, error, cache, url in
-                
-                if let image = img{
-                    cell.imageTrip.image = image
-                    //since the width > height we may fit it and we'll have bands on top/bottom
-                    cell.imageTrip.contentMode = .scaleAspectFill
-                }else{
-                    //width < height we fill it until width is taken up and clipped on top/bottom
-                    cell.imageTrip.contentMode = .scaleToFill
-                    if let foundImage = objModel.photoUploadedArray.first?.arrayOfImageURL.first?.image, !foundImage.isEmpty{
-                        cell.imageTrip.setImage(url: foundImage, placeholder: UIImage.init(named: "not_icon"))
-                    }else{
-                        cell.imageTrip.image = UIImage.init(named: "not_icon")
-                    }
-                }
+        cell.configureCell(dataModel: objModel) { isVertical, index in
+            if self.viewModel.arrayOfTripList.indices.contains(index){
+                self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical
             }
-            
-            cell.imageTrip.clipsToBounds = true
-            
             UIView.animate(withDuration: 0.2) {
                 self.collectionviewProfile.collectionViewLayout.invalidateLayout()
+//                        self.collectionviewProfile.reloadItems(at: [IndexPath.init(row: index, section: 0)])
             }
-        }else{
-            //            startAnimating()
-            cell.imageTrip.backgroundColor = .clear
-            cell.imageTrip.contentMode = .scaleToFill
-            cell.imageTrip.image = UIImage.init(named: "not_icon")
-            //            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
+            //                    collectionView.reloadItems(at: [IndexPath.init(item: index, section: 0)])
         }
         cell.layoutIfNeeded()
         return cell

@@ -45,7 +45,7 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         self.imgviewBG.hideSkeleton()
     }
     
-    func loadCellData(objTripModel:TripDataModel, completion: ((Bool,Int, CGFloat) -> Void)? = nil) {
+    func loadCellData(objTripModel:TripDataModel, completion: ((Bool,Int) -> Void)? = nil) {
         
         btnTitleRemove.isHidden = true
         btnAddimage.isHidden = true
@@ -65,11 +65,11 @@ class ProfileImagesCellXIB: UICollectionViewCell {
                 if let image = img, image.isImageVerticle{
                     //since the width > height we may fit it and we'll have bands on top/bottom
                     self.imgviewBG.contentMode = .scaleAspectFill
-                    completion?(true, self.imgviewBG.tag, imgviewBG.image?.getHeight ?? 0)
+                    completion?(true, self.imgviewBG.tag)
                 }else{
                     //width < height we fill it until width is taken up and clipped on top/bottom
                     self.imgviewBG.contentMode = .scaleToFill
-                    completion?(false,self.imgviewBG.tag, imgviewBG.image?.getHeight ?? 0)
+                    completion?(false,self.imgviewBG.tag)
                 }
             }
             self.imgviewBG.clipsToBounds = true

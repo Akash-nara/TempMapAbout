@@ -204,7 +204,7 @@ extension ProfileHomeVC: UICollectionViewDataSource,UICollectionViewDelegate{
                 // here trip image object load here
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileImagesCellXIB", for: indexPath) as! ProfileImagesCellXIB
                 cell.imgviewBG.tag = indexPath.row
-                cell.loadCellData(objTripModel: viewModel.arrayOfTripList[indexPath.row]) { (isVertical, index, imgheight) in
+                cell.loadCellData(objTripModel: viewModel.arrayOfTripList[indexPath.row]) { (isVertical, index) in
                     if self.viewModel.arrayOfTripList.indices.contains(index){
                         self.viewModel.arrayOfTripList[index].isVerticalImage = isVertical                        
                     }
