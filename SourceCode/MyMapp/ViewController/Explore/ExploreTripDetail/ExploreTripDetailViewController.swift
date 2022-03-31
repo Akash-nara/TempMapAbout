@@ -134,6 +134,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         case .featuredPlaces:
             let cell = tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigFeaturedPlacesCell(data: arrayFeaturedPlaces)
+            cell.cityId = self.cityId
             cell.reachedScrollEndTap = { [weak self] in
                 if !(self?.nextPageToken.isEmpty ?? true){
                     self?.getGoogleTripsDetial(isNextPage: true)
@@ -141,6 +142,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
                     CollectionViewTVCell.isGooglelPageApiWorking = false
                 }
             }
+            
             return cell
         case .topTips:
             return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi Yang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
@@ -241,6 +243,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         case .featuredPlaces, .topTips:
             let cell = self.tblviewData.dequeueCell(withType: TitleHeaderTVCell.self) as! TitleHeaderTVCell
             cell.cellConfig(title: arrayOfSections[section].title)
+            
             return cell
         default:
             return nil
@@ -514,5 +517,4 @@ extension ExploreTripDetailViewController{
      }
      }.resume()
      }*/
-    
 }

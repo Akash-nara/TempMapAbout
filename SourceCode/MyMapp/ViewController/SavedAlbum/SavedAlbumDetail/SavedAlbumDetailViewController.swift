@@ -111,18 +111,21 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                 }
             cell.labelTitle.text = "Ahmdabad"//arrayLocation[indexPath.row].locationFav?.name
             cell.subTitle.text = ""//arrayLocation[indexPath.row].locationFav?.name
-            
             cell.locationImage.showSkeleton()
             cell.locationImage.sd_setImage(with: URL.init(string: ""), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
                 cell.locationImage.hideSkeleton()
                 if let image = img{
                     cell.locationImage.image = image
                 }else{
+                    /* temp commeneted code
                     cell.locationImage.image = UIImage.init(named: "not_icon")
                     cell.locationImage.contentMode = .scaleToFill
                     cell.locationImage.backgroundColor = .white
                     cell.locationImage.borderWidth = 0.5
                     cell.locationImage.borderColor = UIColor.App_BG_silver_Color
+                     */
+                    
+                    cell.getGooglePhotoByCity(cityName: cell.labelTitle.text!)
                 }
             }
             

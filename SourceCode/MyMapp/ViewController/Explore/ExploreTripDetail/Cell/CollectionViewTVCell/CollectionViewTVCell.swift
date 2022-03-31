@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CollectionViewTVCell: UITableViewCell {
     
     @IBOutlet weak var collectionViewMain: UICollectionView!
-    var arrayFeaturedPlaces = [Any]()
+    var arrayFeaturedPlaces = [JSON]()
     var reachedScrollEndTap: (() -> Void)?
     static var isGooglelPageApiWorking = false
-
+    var cityId = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +31,7 @@ class CollectionViewTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func cellConfigFeaturedPlacesCell(data: [Any]) {
+    func cellConfigFeaturedPlacesCell(data: [JSON]) {
         arrayFeaturedPlaces = data
         collectionViewMain.reloadData()
     }
@@ -53,7 +55,11 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     }
     
     @objc func buttonToggleSave(sender:UIButton){
-        sender.isSelected.toggle()
+//        sender.isSelected.toggle()
+        
+        saveGoogleApi(indexRow: sender.tag) {
+            sender.isSelected.toggle()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -77,3 +83,46 @@ extension CollectionViewTVCell: UICollectionViewDelegate {
     }
 }
 
+
+extension CollectionViewTVCell{
+    func saveGoogleApi(indexRow:Int, success: (() -> ())? = nil){
+        
+        guard let placeId = arrayFeaturedPlaces[indexRow].dictionaryValue["place_id"]?.stringValue else {
+            return
+        }
+        let strJson = JSON(["placeId":placeId,
+                            "city": cityId]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .googleSavePhoto, method: .post) { [weak self] dataResponce in
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+            success?()
+        }  internetFailure: {
+            debugPrint("internetFailure")
+        } failureInform: {
+        }
+    }
+    
+    func unSaveGooglePhotoApi(indexRow:Int, success: (() -> ())? = nil){
+        guard let placeId = arrayFeaturedPlaces[indexRow].dictionaryValue["place_id"]?.stringValue else {
+            return
+        }
+
+        let strJson = JSON([placeId:placeId, "INTEREST_CATEGORY": "google"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+            success?()
+        }  internetFailure: {
+            debugPrint("internetFailure")
+        } failureInform: {
+        }
+    }
+
+}

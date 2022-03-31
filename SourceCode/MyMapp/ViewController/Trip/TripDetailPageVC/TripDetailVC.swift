@@ -399,11 +399,16 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 if let image = img{
                     cell.locationImage.image = image
                 }else{
+                    /* temp commented code
                     cell.locationImage.image = UIImage.init(named: "not_icon")
                     cell.locationImage.contentMode = .scaleToFill
                     cell.locationImage.backgroundColor = .white
                     cell.locationImage.borderWidth = 0.5
                     cell.locationImage.borderColor = UIColor.App_BG_silver_Color
+                     */
+                    
+                    cell.getGooglePhotoByCity(cityName: cell.labelTitle.text!)
+
                 }
             }
             
