@@ -49,7 +49,7 @@ class SavedAlbumListViewController: UIViewController {
         collectionviewProfile.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 40, right: 0)
 //        collectionView.userInteractionEnabled = true
 
-        collectionviewProfile.sayNoSection = .noSavedTripListFound("No Saved albums found")
+        collectionviewProfile.sayNoSection = .none//noSavedTripListFound("No Saved albums found")
         
         collectionviewProfile.addPagination { [weak self] in
             self?.viewModel.isTripListFetched = false

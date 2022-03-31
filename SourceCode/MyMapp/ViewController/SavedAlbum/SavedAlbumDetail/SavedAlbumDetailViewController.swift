@@ -63,9 +63,16 @@ class SavedAlbumDetailViewController: UIViewController {
         arrayOfSections.append(.savedToptips)
         tblviewData.reloadData()
         
+        getSavedTripListApi()
+//        getSavedLocationsListApi()
+//        getSavedTopTipListApi()
     }
     
     @objc func handleGestureGotoCityPage(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func buttonBackTapp(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -124,8 +131,10 @@ extension SavedAlbumDetailViewController{
     // get saved trips
     func getSavedTripListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
+
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
+            debugPrint("feed Response:-\(response)")
         })
     }
     
@@ -134,6 +143,7 @@ extension SavedAlbumDetailViewController{
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
+            debugPrint("location Response:-\(response)")
         })
     }
     
@@ -142,6 +152,7 @@ extension SavedAlbumDetailViewController{
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
+            debugPrint("topTips Response:-\(response)")
         })
     }
 }
