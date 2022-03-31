@@ -982,12 +982,12 @@
                                 <rect key="frame" x="0.0" y="68" width="389" height="45"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="58j-DD-eCP">
-                                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="86.5" height="45"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4W6-XH-nXY">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4W6-XH-nXY">
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="Fjv-Rl-CiM"/>
+                                                    <constraint firstAttribute="width" constant="25" id="Fjv-Rl-CiM"/>
                                                     <constraint firstAttribute="height" constant="45" id="M1v-mz-VXy"/>
                                                 </constraints>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -999,15 +999,18 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxs-Nu-Xpe">
-                                                <rect key="frame" x="45" y="9" width="61.5" height="27"/>
+                                                <rect key="frame" x="25" y="9" width="61.5" height="27"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="go to city Page" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-nY-9C8">
-                                        <rect key="frame" x="265" y="12.5" width="124" height="20"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="go to city Page" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-nY-9C8">
+                                        <rect key="frame" x="265" y="10" width="124" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Vn3-W3-zQr"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                         <nil key="highlightedColor"/>

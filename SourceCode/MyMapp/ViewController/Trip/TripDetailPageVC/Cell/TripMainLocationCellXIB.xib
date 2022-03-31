@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -40,7 +40,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JpH-Tc-dHf">
-                                <rect key="frame" x="65" y="5" width="225" height="55"/>
+                                <rect key="frame" x="65" y="5" width="235" height="55"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wa1-cc-f6J">
                                         <rect key="frame" x="0.0" y="18.5" width="114.5" height="18.5"/>
@@ -60,11 +60,11 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdw-Dl-Aat">
-                                        <rect key="frame" x="185" y="10" width="40" height="35"/>
+                                        <rect key="frame" x="195" y="10" width="40" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="VK2-I6-vxS"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="15" minY="5" maxX="0.0" maxY="5"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="10" maxY="5"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="ic_selected_saved"/>
                                     </button>
@@ -78,7 +78,7 @@
                             <constraint firstAttribute="bottom" secondItem="JpH-Tc-dHf" secondAttribute="bottom" constant="10" id="7jy-6j-5uk"/>
                             <constraint firstItem="JpH-Tc-dHf" firstAttribute="top" secondItem="oAJ-cb-QKp" secondAttribute="top" constant="5" id="KCF-78-2jn"/>
                             <constraint firstItem="KMK-fO-jRz" firstAttribute="top" secondItem="oAJ-cb-QKp" secondAttribute="top" constant="5" id="wMb-7H-wJc"/>
-                            <constraint firstAttribute="trailing" secondItem="JpH-Tc-dHf" secondAttribute="trailing" constant="10" id="xO5-qJ-Eph"/>
+                            <constraint firstAttribute="trailing" secondItem="JpH-Tc-dHf" secondAttribute="trailing" id="xO5-qJ-Eph"/>
                             <constraint firstItem="KMK-fO-jRz" firstAttribute="leading" secondItem="oAJ-cb-QKp" secondAttribute="leading" constant="10" id="zxi-tS-qBm"/>
                         </constraints>
                     </view>
@@ -104,7 +104,7 @@
         <image name="ic_nature_image" width="700" height="437"/>
         <image name="ic_selected_saved" width="25" height="25"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
-            <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

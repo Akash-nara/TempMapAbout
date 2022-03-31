@@ -35,14 +35,10 @@ class TripMainLocationCellXIB: UITableViewCell {
 //        tagListView.paddingY = 10
 //        let width = tagListView.tagViews.map { $0.frame.width }.reduce(0, +)
 //        tagListView.constant = width + CGFloat(10 * tagListView.tagViews.count)
-
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
-    
 }

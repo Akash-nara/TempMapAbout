@@ -406,7 +406,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                     cell.locationImage.borderColor = UIColor.App_BG_silver_Color
                 }
             }
-//            cell.locationImage.setImage(url: arrayLocation[indexPath.row].firstLocationImage, placeholder: UIImage.init(named: "ic_nature_image"))
             
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
