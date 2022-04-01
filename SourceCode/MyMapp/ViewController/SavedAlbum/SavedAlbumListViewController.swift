@@ -117,12 +117,14 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        CustomAlertView.init(title: "coming soon", forPurpose: .success).showForWhile(animated: true)
+        /*
         if let savedAlbumDetailVC = UIStoryboard.tabbar.savedAlbumDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
             savedAlbumDetailVC.cityId = self.viewModel.arrayOfTripList[indexPath.row].city.id
             savedAlbumDetailVC.cityName = self.viewModel.arrayOfTripList[indexPath.row].city.cityName
             savedAlbumDetailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(savedAlbumDetailVC, animated: true)
-        }
+        }*/
         
         //        if let tripPageDetailVC = UIStoryboard.trip.tripPageDetailVC, self.viewModel.arrayOfTripList.indices.contains(indexPath.row){
         //            guard let userId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId else {
