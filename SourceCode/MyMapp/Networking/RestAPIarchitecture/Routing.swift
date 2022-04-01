@@ -38,6 +38,7 @@ enum Routing {
     case unSaveTrip
     case getSavedTripList
     case googleSavePhoto
+    case unSaveGooglePhoto
     
     var getPath: String {
         switch self {
@@ -103,6 +104,8 @@ enum Routing {
             return "api/private/savedInterest/getUserSavedInterests"
         case .googleSavePhoto:
            return "api/private/googleLocation/add"
+        case .unSaveGooglePhoto:
+            return "api/private/googleLocation/delete"
         }
     }
 }

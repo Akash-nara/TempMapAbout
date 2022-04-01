@@ -16,6 +16,8 @@ class CollectionViewTVCell: UITableViewCell {
     static var isGooglelPageApiWorking = false
     var cityId = 0
     
+    var arrayStorePlaceId:[String]  = ["ChIJ0eYgbmBo0TgR0LgcoZ6HrJw", "ChIJ2yu9xS9p0TgR-sFyYH5Evq0", "ChIJF1dulbJu0TgRImp_8cX_gJY", "ChIJRSanU8du0TgR0lcfXHc9q5c", "ChIJpcjYXTtp0TgR5iHQ3JmAb1s", "ChIJdxaW2FFp0TgRNjLRpiC7jbk", "ChIJnejWKvlv0TgR-5N2mthrNJM", "ChIJWYkmfH9n0TgR3rK9j2BzMdQ", "ChIJO3fJHOdv0TgRH7u_9SCZfKE", "ChIJScGpuYZv0TgRMlstUbYKAS0", "ChIJQ49xUwdv0TgRADr1399FLUM", "ChIJY4FnMuhv0TgRbW1ocsyJTzA", "ChIJxYPLLDdp0TgRoyAwTB2AgdY", "ChIJb_sZTN1l0TgRva7hiuFAG3g", "ChIJZf4935MV0TgRJBl-xSHGKNU", "ChIJI8QxBx1p0TgRKHrqHnk4Paw", "ChIJv6f4_mJr0TgR1I6VndZD9QU", "ChIJp_9ortlx0TgRI-7UwtpSCV8", "ChIJdd7E3mtt0TgRti_hEjE_TsA", "ChIJU5dJH6Jp0TgRRB3pj7jO2fA"]
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -48,17 +50,35 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlacesCVCell.identifier, for: indexPath) as! FeaturedPlacesCVCell
-        cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row])
+        cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row], arrayOfPlaceIdsStored: self.arrayStorePlaceId)
         cell.buttonSaveToggle.tag = indexPath.row
         cell.buttonSaveToggle.addTarget(self, action: #selector(buttonToggleSave), for: .touchUpInside)
         return cell
     }
     
+    func  getCell(index:Int) -> FeaturedPlacesCVCell? {
+        return collectionViewMain.cellForItem(at: IndexPath.init(row: index, section: 0)) as? FeaturedPlacesCVCell
+    }
+    
     @objc func buttonToggleSave(sender:UIButton){
-//        sender.isSelected.toggle()
-        
-        saveGoogleApi(indexRow: sender.tag) {
-            sender.isSelected.toggle()
+        if sender.isSelected{
+            unSaveGooglePhotoApi(indexRow: sender.tag) {
+                sender.isSelected.toggle()
+                guard let cell = self.getCell(index: sender.tag), let placeId = self.arrayFeaturedPlaces[sender.tag].dictionaryValue["place_id"]?.string else {
+                    return
+                }
+                if let index = self.arrayStorePlaceId.firstIndex(where: {$0 == placeId}){
+                    self.arrayStorePlaceId.remove(at: index)
+                }
+            }
+        }else{
+            saveGoogleApi(indexRow: sender.tag) {
+                sender.isSelected.toggle()
+                guard let cell = self.getCell(index: sender.tag), let placeId = self.arrayFeaturedPlaces[sender.tag].dictionaryValue["place_id"]?.string else {
+                    return
+                }
+                self.arrayStorePlaceId.append(placeId)
+            }
         }
     }
     
@@ -111,9 +131,9 @@ extension CollectionViewTVCell{
             return
         }
 
-        let strJson = JSON([placeId:placeId, "INTEREST_CATEGORY": "google"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let strJson = JSON(["placeId":placeId]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
-        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+        API_SERVICES.callAPI(param, path: .unSaveGooglePhoto, method: .post) { [weak self] dataResponce in
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }

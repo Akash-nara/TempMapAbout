@@ -9,8 +9,6 @@ import UIKit
 import SwiftSVG
 
 class FeaturedPlacesCVCell: UICollectionViewCell {
-    
-    var arrayStorePlaceId:[String]  = ["ChIJ0eYgbmBo0TgR0LgcoZ6HrJw", "ChIJ2yu9xS9p0TgR-sFyYH5Evq0", "ChIJF1dulbJu0TgRImp_8cX_gJY", "ChIJRSanU8du0TgR0lcfXHc9q5c", "ChIJpcjYXTtp0TgR5iHQ3JmAb1s", "ChIJdxaW2FFp0TgRNjLRpiC7jbk", "ChIJnejWKvlv0TgR-5N2mthrNJM", "ChIJWYkmfH9n0TgR3rK9j2BzMdQ", "ChIJO3fJHOdv0TgRH7u_9SCZfKE", "ChIJScGpuYZv0TgRMlstUbYKAS0", "ChIJQ49xUwdv0TgRADr1399FLUM", "ChIJY4FnMuhv0TgRbW1ocsyJTzA", "ChIJxYPLLDdp0TgRoyAwTB2AgdY", "ChIJb_sZTN1l0TgRva7hiuFAG3g", "ChIJZf4935MV0TgRJBl-xSHGKNU", "ChIJI8QxBx1p0TgRKHrqHnk4Paw", "ChIJv6f4_mJr0TgR1I6VndZD9QU", "ChIJp_9ortlx0TgRI-7UwtpSCV8", "ChIJdd7E3mtt0TgRti_hEjE_TsA", "ChIJU5dJH6Jp0TgRRB3pj7jO2fA"]
 
     static let cellSize = CGSize(width: 185, height: 250)
     
@@ -20,6 +18,7 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
     @IBOutlet weak var buttonSaveToggle: UIButton!
     @IBOutlet weak var buttonRatings: UIButton!
     @IBOutlet weak var buttonVisitors: UIButton!
+    private var arrayStorePlaceId:[String]  = [String]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,8 +56,9 @@ class FeaturedPlacesCVCell: UICollectionViewCell {
         buttonVisitors.isUserInteractionEnabled = false
     }
     
-    func cellConfig(data: Any) {
+    func cellConfig(data: Any, arrayOfPlaceIdsStored:[String]) {
         let jsn = JSON.init(data)
+        self.arrayStorePlaceId = arrayOfPlaceIdsStored
         
         labelTitle.text = jsn["name"].stringValue//"Las Rambla"
         labelSubtitle.text = jsn["formatted_address"].stringValue//"Catholic Church"
