@@ -180,7 +180,7 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
             self.setPhotoCount()
             
             txtviewNotes.text = objDetail.notes
-            let tagWithoutParen = (objDetail.firstTag ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+            let tagWithoutParen = objDetail.firstTagFeed//(objDetail.firstTagFeed ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
             var arrayParentIDs = [Int]()
             var arrayChildIDs = [Int]()
             tagWithoutParen.components(separatedBy: ",").forEach { str in
@@ -189,7 +189,7 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
                 }
             }
 
-            let tagWithoutChild = (objDetail.secondTag ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+            let tagWithoutChild = objDetail.secondTagFeed//(objDetail.secondTagFeed ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
 
             tagWithoutChild.components(separatedBy: ",").forEach { str in
                 if let id = Int(str.trimSpace()){
@@ -286,16 +286,16 @@ extension  AddTripFavouriteLocationsVC{
         let arrayChildIDs = arraySubTags.map({ $0.id! })
 //        if activeIndexOfParenttag > 0{
 //        if arrayParentIDs.count > 0{
-        let firstTag = "(\(arrayParentIDs.map({String($0)}).joined(separator: ",")))"//arrayParentTags[self.activeIndexOfParenttag].name
-        objAddTripFavouriteLocationDetail.firstTag = firstTag
-        selectedAddTripFavouriteLocationDetail?.firstTag = firstTag
+        let firstTag = "\(arrayParentIDs.map({String($0)}).joined(separator: ","))"//arrayParentTags[self.activeIndexOfParenttag].name
+        objAddTripFavouriteLocationDetail.firstTagFeed = firstTag
+        selectedAddTripFavouriteLocationDetail?.firstTagFeed = firstTag
 //        }
         
 //        if arrayChildIDs.count > 0{
 //        if activeIndexOfChildTag > 0 && activeIndexOfParenttag > 0{
-        let secondTag = "(\(arrayChildIDs.map({String($0)}).joined(separator: ",")))"
-        objAddTripFavouriteLocationDetail.secondTag = secondTag
-        selectedAddTripFavouriteLocationDetail?.secondTag = secondTag
+        let secondTag = "\(arrayChildIDs.map({String($0)}).joined(separator: ","))"
+        objAddTripFavouriteLocationDetail.secondTagFeed = secondTag
+        selectedAddTripFavouriteLocationDetail?.secondTagFeed = secondTag
 //        }
         
         let filterArrray = tripImages

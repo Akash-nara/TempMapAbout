@@ -28,7 +28,8 @@ class FeedHomeVC: UIViewController {
         DispatchQueue.getMain(delay: 0.2) {
             self.getTagData()
         }
-        //        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //
+               
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadUserTripList"), object: nil) //
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateTripForSaveUnSave), name: Notification.Name("reloadForSaveUnSaveTrip"), object: nil) //
         

@@ -56,18 +56,29 @@ class ExploreTripDetailViewController: UIViewController {
     var arrayExpandable = [ExploreSuggestionDataModel]()
     var latLong:CLLocationCoordinate2D? = nil
     var nextPageToken:String = ""
-    
+  
+    static var arrayStorePlaceId:[String]  = [String]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelToSaved.isHidden = true
-        getAdminSuggestion()
+        
+        ExploreTripDetailViewController.arrayStorePlaceId.removeAll()
+        getSavedGooglePlaceIdListApi { [weak self] in
+            self?.getAdminSuggestion()
+        }
         
         // Maps
         arrayOfSections.append(.maps)
     }
+    
+    deinit {
+        ExploreTripDetailViewController.arrayStorePlaceId.removeAll()
+    }
+    
     func configureTopTipsArray(){
         
         // here static displayed for kabul only
@@ -440,6 +451,24 @@ extension ExploreTripDetailViewController{
         }.resume()
     }
     
+    
+    func getSavedGooglePlaceIdListApi(success: (() -> ())? = nil){
+        let strJson = JSON(["city":self.cityId]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .getSavedGoogleList, method: .post) { [weak self] dataResponce in
+            guard let status = dataResponce?["status"]?.intValue, status == 200, let arrayOfList = dataResponce?["responseJson"]?.dictionaryValue["googleLocations"]?.arrayValue else {
+                self?.getAdminSuggestion()
+                return
+            }
+            ExploreTripDetailViewController.arrayStorePlaceId = arrayOfList.map({$0.dictionaryValue["placeId"]?.stringValue ?? ""})
+            success?()
+        }  internetFailure: { [weak self] in
+            debugPrint("internetFailure")
+        } failureInform: { [weak self] in
+            self?.getAdminSuggestion()
+        }
+    }
+
     /*
      func getGoogleTrips(placeId:String) {
      

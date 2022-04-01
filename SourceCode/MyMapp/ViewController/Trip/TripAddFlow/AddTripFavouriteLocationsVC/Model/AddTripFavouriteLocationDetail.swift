@@ -28,8 +28,8 @@ class AddTripFavouriteLocationDetail{
     }
     
     var notes = ""
-    var firstTag = ""
-    var secondTag = ""
+//    var firstTag = ""
+//    var secondTag = ""
     var firstTagFeed = ""
     var secondTagFeed = ""
     var arrayTagsFeed = [String]()
@@ -37,7 +37,8 @@ class AddTripFavouriteLocationDetail{
     var indexOfObject = 0
     var id = 0
     var combinedTag:String {
-        return firstTag+","+secondTag
+        "("+firstTagFeed+"),("+secondTagFeed+")"
+//        return "(firstTagFeed)+ "(\(secondTagFeed)"
     }
     var recommendation = false
     var locationHash = ""
@@ -51,16 +52,16 @@ class AddTripFavouriteLocationDetail{
         self.recommendation = param["recommendation"].boolValue
         self.id = param["id"].intValue
         self.isSaved = param["isSaved"].boolValue
-        let arrayofTags = param["tags"].stringValue.components(separatedBy: ",")
-        if arrayofTags.indices.contains(0){
-            let tagWithoutParen = arrayofTags.first ?? "".replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-
-            self.firstTag = tagWithoutParen//arrayofTags.first ?? ""
-        }
-        if arrayofTags.indices.contains(1){
-            let tagWithoutParen = arrayofTags.last ?? "".replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-            self.secondTag = tagWithoutParen//arrayofTags.last ?? ""
-        }
+//        let arrayofTags = param["tags"].stringValue.components(separatedBy: ",")
+//        if arrayofTags.indices.contains(0){
+//            let tagWithoutParen = arrayofTags.first ?? "".replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+//
+//            self.firstTag = tagWithoutParen//arrayofTags.first ?? ""
+//        }
+//        if arrayofTags.indices.contains(1){
+//            let tagWithoutParen = arrayofTags.last ?? "".replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+//            self.secondTag = tagWithoutParen//arrayofTags.last ?? ""
+//        }
         self.locationHash = param["hash"].stringValue
         self.notes = param["notes"].stringValue
         
@@ -73,10 +74,17 @@ class AddTripFavouriteLocationDetail{
         if var primaryTagString = tags.first {
             primaryTagString.removeAll(where: { $0 == "(" || $0 == ")" })
             firstTagFeed = primaryTagString
+//            firstTag = primaryTagString
         }
+        
         if var secondaryTagString = tags.last {
             secondaryTagString.removeAll(where: { $0 == "(" || $0 == ")" })
             secondTagFeed = secondaryTagString.trimmingCharacters(in: CharacterSet.init(charactersIn: ","))
+//            secondTag = secondaryTagString.trimmingCharacters(in: CharacterSet.init(charactersIn: ","))
         }
+        
+        debugPrint("")
+
+        
     }
 }
