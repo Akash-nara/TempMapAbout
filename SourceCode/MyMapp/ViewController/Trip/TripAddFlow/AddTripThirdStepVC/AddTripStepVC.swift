@@ -238,10 +238,10 @@ class AddTripStepVC: UIViewController,BottomPopupDelegate{
             self.viewNonRadio.isHidden = true
             self.viewRadio.isHidden = false
         }else{
-            guard let TripAddedSuccessFullVC =  UIStoryboard.trip.tripAddedSuccessFullVC else {
-                return
-            }
-            self.navigationController?.pushViewController(TripAddedSuccessFullVC, animated: true)
+//            guard let TripAddedSuccessFullVC =  UIStoryboard.trip.tripAddedSuccessFullVC else {
+//                return
+//            }
+//            self.navigationController?.pushViewController(TripAddedSuccessFullVC, animated: true)
         }
     }
     

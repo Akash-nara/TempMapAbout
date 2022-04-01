@@ -70,9 +70,9 @@ extension UIStoryboard {
         return getViewController(vcClass: AddTripInfoVC.self)
     }
 
-    var tripAddedSuccessFullVC: TripAddedSuccessFullVC? {
-        return getViewController(vcClass: TripAddedSuccessFullVC.self)
-    }
+//    var tripAddedSuccessFullVC: TripAddedSuccessFullVC? {
+//        return getViewController(vcClass: TripAddedSuccessFullVC.self)
+//    }
     
     var addTripHomeVC: AddTripHomeVC? {
         return getViewController(vcClass: AddTripHomeVC.self)
@@ -96,9 +96,9 @@ extension UIStoryboard {
         return getViewController(vcClass: TripPhotoExpansionDetailsVC.self)
     }
 
-    var latestTripVC: LatestTripVC? {
-        return getViewController(vcClass: LatestTripVC.self)
-    }
+//    var latestTripVC: LatestTripVC? {
+//        return getViewController(vcClass: LatestTripVC.self)
+//    }
 
     var tripImagesUploadVC: TripImagesUploadVC? {
         return getViewController(vcClass: TripImagesUploadVC.self)
