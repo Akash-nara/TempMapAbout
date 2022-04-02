@@ -449,7 +449,20 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
         }else{
             cell.imgviewZoom.image = nil
         }
-                
+        
+        
+//        cell.scrollViewImg.layer.borderWidth = 2
+//        cell.scrollViewImg.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+//
+//        cell.imgviewZoom.layer.borderWidth = 2
+//        cell.imgviewZoom.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+//
+//        cell.viewBG.layer.borderWidth = 2
+//        cell.viewBG.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+//
+//        cell.contentView.layer.borderWidth = 2
+//        cell.contentView.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+
         
         //        if !arrayOfImageURL[indexPath.row].isDummyItem{
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGestureHandler))

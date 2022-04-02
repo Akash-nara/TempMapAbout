@@ -15,6 +15,7 @@ class TripMainPageCollectionCell: UICollectionViewCell{
     @IBOutlet weak var imgviewZoom: UIImageView!
     @IBOutlet weak var viewBG: UIView!
     @IBOutlet weak var sketonView: UIView!
+    @IBOutlet weak var scrollViewImg: UIScrollView!
 
     override class func awakeFromNib() {
         super.awakeFromNib()

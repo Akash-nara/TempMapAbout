@@ -102,11 +102,12 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         guard self.viewModel.isTripListFetched else {
             let cell = tableViewFeedList.dequeueReusableCell(withIdentifier: "SkeletonTripTVCell", for: indexPath) as! SkeletonTripTVCell
             cell.startAnimating(index: indexPath.row)
+            cell.selectionStyle = .none
             return cell
         }
         
         let cell = self.tableViewFeedList.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
-        
+        cell.selectionStyle = .none
         let tap  = UITapGestureRecognizer.init(target: self, action: #selector(handleRedirectProfileScreen(sender:)))
         tap.numberOfTapsRequired = 1
         tap.accessibilityHint = "\(indexPath.row)"
@@ -201,6 +202,10 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
     }
     
     func redirecttripPageDetail(indexPath:IndexPath) {
+        
+        guard viewModel.arrayOfTripList.indices.contains(indexPath.row) else {
+            return
+        }
         
         guard let tripUserId = self.viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId, let loginUserId = APP_USER?.userId  else {
             return

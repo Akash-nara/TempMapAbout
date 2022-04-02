@@ -18,6 +18,7 @@ class SavedAlbumListViewController: UIViewController {
         
         configureCollectionView()
         getTripListApi()
+        getCountryListSavedApi()
         NotificationCenter.default.addObserver(self, selector: #selector(self.reCallTripListApi), name: Notification.Name("reloadSavedTripList"), object: nil)
     }
     
@@ -196,6 +197,27 @@ extension SavedAlbumListViewController{
                 self.collectionviewProfile.setContentOffset(.zero, animated: true)
             }
         })
+    }
+    
+    func getCountryListSavedApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        guard !self.collectionviewProfile.isAPIstillWorking else { return } // Shouldn't me making another call if already running.
+        
+        if !isNextPageRequest && !isPullToRefresh{
+            // API_LOADER.show(animated: true)
+            self.viewModel.isTripListFetched = false // show skeleton
+            self.collectionviewProfile.reloadData() // show skeleton
+            self.collectionviewProfile.figureOutAndShowNoResults() // don't show no schedule or scene when skeleton is being shown.
+        }
+        
+        let param = viewModel.getPageDict(isPullToRefresh)
+        self.collectionviewProfile.isAPIstillWorking = true
+        API_SERVICES.callAPI(param, path: .getSavedCountriesList, method: .post) { response in
+            guard let feedList = response?["responseJson"]?["feeds"].arrayValue else {
+                return
+            }
+            debugPrint(feedList)
+        } failureInform: {
+        }
     }
     
     func unSaveFeedApi(indexRow:Int){

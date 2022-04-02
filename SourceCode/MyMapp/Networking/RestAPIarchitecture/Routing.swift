@@ -40,7 +40,8 @@ enum Routing {
     case googleSavePhoto
     case unSaveGooglePhoto
     case getSavedGoogleList
-    
+    case getSavedCountriesList
+
     var getPath: String {
         switch self {
         case .signIn:
@@ -109,6 +110,9 @@ enum Routing {
             return "api/private/googleLocation/delete"
         case .getSavedGoogleList:
            return "api/private/googleLocation/list"
+            
+        case .getSavedCountriesList:
+            return "api/private/savedInterest/bookmarkCountryList"
         }
     }
 }

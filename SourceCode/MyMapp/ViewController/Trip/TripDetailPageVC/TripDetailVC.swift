@@ -349,22 +349,6 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             DispatchQueue.getMain(delay: 0.6) {
                 cell.setTotalPageNo()
             }
-            //            cell.collectionViewTrip.reloadData {
-            //                let pages = ceil(cell.collectionViewTrip.contentSize.width /
-            //                                 cell.collectionViewTrip.frame.size.width);
-            //                cell.pageCtrl.numberOfPages = Int(pages)
-            //                cell.setTotalPageNo()
-            //            }
-            
-            //            cell.configureCollectionView()
-            
-            //            let height = cell.collectionViewTrip.collectionViewLayout.collectionViewContentSize.height
-            //            cell.heightOfCollectionViewTrip.constant = height
-            //            self.view.setNeedsLayout()
-            
-            //            cell.frame = tableView.bounds
-            //            cell.collectionViewTrip.reloadData()
-            //            cell.layoutIfNeeded()
             
             cell.didTap = { [weak self] (indexPath, url, isLocationImage) in
                 guard let detailVC = UIStoryboard.trip.tripPhotoExpansionDetailsVC else {
@@ -412,6 +396,9 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 }
             }
             
+            cell.locationImage.layer.borderWidth = 0.5
+            cell.locationImage.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
             cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarLocationkClicked(sender:)), for: .touchUpInside)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -120,6 +120,7 @@
             <connections>
                 <outlet property="imgviewZoom" destination="Tir-g8-DaJ" id="6Fo-Yr-e7w"/>
                 <outlet property="lblName" destination="49A-js-g2A" id="zux-pj-ORY"/>
+                <outlet property="scrollViewImg" destination="sE3-yW-mU0" id="isf-ZV-bxs"/>
                 <outlet property="sketonView" destination="ARd-1A-d56" id="INI-M3-SZx"/>
                 <outlet property="viewBG" destination="EJh-aN-027" id="sRS-Xy-aAQ"/>
             </connections>
@@ -129,7 +130,7 @@
     <resources>
         <image name="ic_Default_city_image_one" width="1920" height="1080"/>
         <namedColor name="App_Bg_Seafoamblue_Color">
-            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.42352941176470588" green="0.83137254901960789" blue="0.7686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
