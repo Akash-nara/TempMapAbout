@@ -70,6 +70,7 @@ class AppUser : NSObject, NSCoding {
     var username = ""
     var region = ""
     func update(profileResponse: JSON) {
+        debugPrint("userId parsed:=\(profileResponse["id"].intValue)")
         self.userId = profileResponse["id"].intValue
         self.emailId = profileResponse["emailId"].stringValue
         self.displayName = profileResponse["displayName"].stringValue

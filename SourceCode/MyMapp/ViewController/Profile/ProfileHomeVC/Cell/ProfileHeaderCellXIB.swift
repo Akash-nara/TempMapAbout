@@ -114,6 +114,8 @@ class ProfileHeaderCellXIB: UICollectionReusableView {
         labelUserAddress.text = address
         labelUserFollowerCounts.text = "\(followerCount)"
         profilePic.setImage(url: profilePicPath, placeholder: UIImage(named: "ic_user_image_defaulut_one"))
+        profilePic.layer.borderWidth = 0.5
+        profilePic.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
     }
 
 }

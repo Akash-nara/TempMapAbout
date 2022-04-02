@@ -77,6 +77,7 @@ class SigninVC: UIViewController,UITextFieldDelegate{
                             "password": self.txtPassword.text! ]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         loginViewModel.loginApi(param) { responseMsg in
+            debugPrint("After login sucess:----\(APP_USER?.userId)")
             Utility.successMessage(message: responseMsg)
             appDelegateShared.checkRedirectionFlow()
         }
