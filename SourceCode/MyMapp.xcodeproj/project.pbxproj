@@ -258,6 +258,14 @@
 		A440833827DCC3B7004589FC /* ExpandableTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833627DCC3B7004589FC /* ExpandableTVCell.xib */; };
 		A440D06727F8330B005A0DED /* SavedAlbumCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D06527F8330B005A0DED /* SavedAlbumCVCell.swift */; };
 		A440D06827F8330B005A0DED /* SavedAlbumCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */; };
+		A440D06F27F988D5005A0DED /* SavedAdviceParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D06D27F988D5005A0DED /* SavedAdviceParentCell.swift */; };
+		A440D07027F988D5005A0DED /* SavedAdviceParentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D06E27F988D5005A0DED /* SavedAdviceParentCell.xib */; };
+		A440D07327F988DF005A0DED /* SavedAdviceParentBottomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D07127F988DF005A0DED /* SavedAdviceParentBottomViewCell.swift */; };
+		A440D07427F988DF005A0DED /* SavedAdviceParentBottomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D07227F988DF005A0DED /* SavedAdviceParentBottomViewCell.xib */; };
+		A440D07727F988E8005A0DED /* SavedAdviceChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D07527F988E8005A0DED /* SavedAdviceChildCell.swift */; };
+		A440D07827F988E8005A0DED /* SavedAdviceChildCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D07627F988E8005A0DED /* SavedAdviceChildCell.xib */; };
+		A440D07C27F989DB005A0DED /* SavedAdviceFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D07A27F989DB005A0DED /* SavedAdviceFooterCell.swift */; };
+		A440D07D27F989DC005A0DED /* SavedAdviceFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D07B27F989DB005A0DED /* SavedAdviceFooterCell.xib */; };
 		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		AA411F8427E4E870009B498D /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AA411F8327E4E870009B498D /* sample.json */; };
@@ -529,6 +537,14 @@
 		A440833627DCC3B7004589FC /* ExpandableTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableTVCell.xib; sourceTree = "<group>"; };
 		A440D06527F8330B005A0DED /* SavedAlbumCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumCVCell.swift; sourceTree = "<group>"; };
 		A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAlbumCVCell.xib; sourceTree = "<group>"; };
+		A440D06D27F988D5005A0DED /* SavedAdviceParentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAdviceParentCell.swift; sourceTree = "<group>"; };
+		A440D06E27F988D5005A0DED /* SavedAdviceParentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceParentCell.xib; sourceTree = "<group>"; };
+		A440D07127F988DF005A0DED /* SavedAdviceParentBottomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAdviceParentBottomViewCell.swift; sourceTree = "<group>"; };
+		A440D07227F988DF005A0DED /* SavedAdviceParentBottomViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceParentBottomViewCell.xib; sourceTree = "<group>"; };
+		A440D07527F988E8005A0DED /* SavedAdviceChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAdviceChildCell.swift; sourceTree = "<group>"; };
+		A440D07627F988E8005A0DED /* SavedAdviceChildCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceChildCell.xib; sourceTree = "<group>"; };
+		A440D07A27F989DB005A0DED /* SavedAdviceFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAdviceFooterCell.swift; sourceTree = "<group>"; };
+		A440D07B27F989DB005A0DED /* SavedAdviceFooterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceFooterCell.xib; sourceTree = "<group>"; };
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
@@ -1453,6 +1469,10 @@
 		A440D06427F832CD005A0DED /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A440D06A27F9885D005A0DED /* SavedAdviceParentCell */,
+				A440D06C27F988AB005A0DED /* SavedAdviceParentBottomViewCell */,
+				A440D06B27F98870005A0DED /* SavedAdviceChildCell */,
+				A440D07927F989BE005A0DED /* SavedAdviceFooterCell */,
 				A440D06927F83314005A0DED /* SavedAlbumCVCell */,
 			);
 			path = Cell;
@@ -1465,6 +1485,42 @@
 				A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */,
 			);
 			path = SavedAlbumCVCell;
+			sourceTree = "<group>";
+		};
+		A440D06A27F9885D005A0DED /* SavedAdviceParentCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D06D27F988D5005A0DED /* SavedAdviceParentCell.swift */,
+				A440D06E27F988D5005A0DED /* SavedAdviceParentCell.xib */,
+			);
+			path = SavedAdviceParentCell;
+			sourceTree = "<group>";
+		};
+		A440D06B27F98870005A0DED /* SavedAdviceChildCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D07527F988E8005A0DED /* SavedAdviceChildCell.swift */,
+				A440D07627F988E8005A0DED /* SavedAdviceChildCell.xib */,
+			);
+			path = SavedAdviceChildCell;
+			sourceTree = "<group>";
+		};
+		A440D06C27F988AB005A0DED /* SavedAdviceParentBottomViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D07127F988DF005A0DED /* SavedAdviceParentBottomViewCell.swift */,
+				A440D07227F988DF005A0DED /* SavedAdviceParentBottomViewCell.xib */,
+			);
+			path = SavedAdviceParentBottomViewCell;
+			sourceTree = "<group>";
+		};
+		A440D07927F989BE005A0DED /* SavedAdviceFooterCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D07A27F989DB005A0DED /* SavedAdviceFooterCell.swift */,
+				A440D07B27F989DB005A0DED /* SavedAdviceFooterCell.xib */,
+			);
+			path = SavedAdviceFooterCell;
 			sourceTree = "<group>";
 		};
 		A4A1CC0FFBBBE0B484210754 /* Frameworks */ = {
@@ -1595,11 +1651,15 @@
 				88B31C75273F7C060011BF59 /* AddTripFavouriteCollpaseXIB.xib in Resources */,
 				38CC20D027D651CD008E952B /* ExploreCollectionDataCell.xib in Resources */,
 				883546562729CB1B00DAD2B5 /* LaunchScreen.storyboard in Resources */,
+				A440D07827F988E8005A0DED /* SavedAdviceChildCell.xib in Resources */,
 				88100B4F272A3328008A01F7 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				88100B48272A3328008A01F7 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				885CE118275CDCAC00A13FC9 /* TripMainPageHeaderNameXIB.xib in Resources */,
 				A440832927DC76CD004589FC /* FeaturedPlacesCVCell.xib in Resources */,
+				A440D07D27F989DC005A0DED /* SavedAdviceFooterCell.xib in Resources */,
+				A440D07427F988DF005A0DED /* SavedAdviceParentBottomViewCell.xib in Resources */,
 				88100B54272A3328008A01F7 /* Montserrat-ExtraBold.ttf in Resources */,
+				A440D07027F988D5005A0DED /* SavedAdviceParentCell.xib in Resources */,
 				88B31C7D273F81DC0011BF59 /* AddTripTopExpandXIB.xib in Resources */,
 				88100B57272A3328008A01F7 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				38D06E0727A50AAE0022C2C0 /* SkeletonTripCVCell.xib in Resources */,
@@ -1769,6 +1829,7 @@
 				69F436B9277495D000CC5F44 /* TripApiPassModel.swift in Sources */,
 				69EC9A8027436990006DACDB /* ForgotPasswordViewModel.swift in Sources */,
 				38AE154F2782D6630016F80E /* UISwitch+Extensions.swift in Sources */,
+				A440D07327F988DF005A0DED /* SavedAdviceParentBottomViewCell.swift in Sources */,
 				38AE15422782D6630016F80E /* UIViewController+Extensions.swift in Sources */,
 				38AE154C2782D6630016F80E /* UINavigationController+Extensions.swift in Sources */,
 				38AE15572782D6630016F80E /* ClassOverloading.swift in Sources */,
@@ -1778,6 +1839,7 @@
 				88B31C84273F91A40011BF59 /* AddTripLogisticsExpandXIB.swift in Sources */,
 				38152A4D27DB66A00077BDB5 /* TravelAdviceListViewController.swift in Sources */,
 				38DE30E327DC4F060048563E /* TravelAdviceDataModel.swift in Sources */,
+				A440D07727F988E8005A0DED /* SavedAdviceChildCell.swift in Sources */,
 				883EDE072761D736009491F0 /* TripPageDetailimage.swift in Sources */,
 				88A00B41275CE7C7008B23E9 /* TripMainPageTopCellXIB.swift in Sources */,
 				38584CE127BD080A00FACF6D /* FeedHomeViewModel.swift in Sources */,
@@ -1872,6 +1934,7 @@
 				88B596FF2740CD2300CBA48C /* ActivityInfoCellXIB.swift in Sources */,
 				88A7DAE9273424B4000640E1 /* LocationManager.swift in Sources */,
 				69F436B02774867500CC5F44 /* AddTripViewModel.swift in Sources */,
+				A440D06F27F988D5005A0DED /* SavedAdviceParentCell.swift in Sources */,
 				38AE15492782D6630016F80E /* UIColor+Extensions.swift in Sources */,
 				38AE15432782D6630016F80E /* DispatchQueue+Extensions.swift in Sources */,
 				A440833727DCC3B7004589FC /* ExpandableTVCell.swift in Sources */,
@@ -1899,6 +1962,7 @@
 				38D06E0427A50AAE0022C2C0 /* SkeletonTripCVCell.swift in Sources */,
 				88975CF5273D9CAF001483EA /* AddTripAddLocationsCell.swift in Sources */,
 				38AE15382782D6630016F80E /* NSMutableData+AppendString.swift in Sources */,
+				A440D07C27F989DB005A0DED /* SavedAdviceFooterCell.swift in Sources */,
 				38FFDC9827DFAEA400DDC6DA /* TripSuggestionTVCell.swift in Sources */,
 				883EDE042761C594009491F0 /* TripPhotoExpansionDetailsVC.swift in Sources */,
 				884D7A31272D67B100730734 /* SignupVC.swift in Sources */,

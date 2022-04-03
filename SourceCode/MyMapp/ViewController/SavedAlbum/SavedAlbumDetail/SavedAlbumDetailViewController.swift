@@ -15,38 +15,47 @@ class SavedAlbumDetailViewController: UIViewController {
     @IBOutlet weak var tblviewData: UITableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
-            tblviewData.registerCell(type: TitleHeaderTVCell.self, identifier: TitleHeaderTVCell.identifier)
-            tblviewData.registerCell(type: ExploreTableDataCell.self, identifier: ExploreTableDataCell.identifier)
-            tblviewData.registerCell(type: TripMainLocationCellXIB.self, identifier: TripMainLocationCellXIB.identifier)
-            tblviewData.registerCell(type: ExploreTripTopCellXIB.self, identifier: ExploreTripTopCellXIB.identifier)
-            tblviewData.registerCell(type: CollectionViewTVCell.self, identifier: CollectionViewTVCell.identifier)
-            tblviewData.registerCellNib(identifier: ExpandableTVCell.identifier)
+            tblviewData.registerCellNib(identifier: TitleHeaderTVCell.identifier)
+            tblviewData.registerCellNib(identifier: TripMainLocationCellXIB.identifier)
+            tblviewData.registerCellNib(identifier: CollectionViewTVCell.identifier)
+
+            tblviewData.registerCellNib(identifier: SavedAdviceParentCell.identifier)
+            tblviewData.registerCellNib(identifier: SavedAdviceParentBottomViewCell.identifier)
+            tblviewData.registerCellNib(identifier: SavedAdviceChildCell.identifier)
+            tblviewData.registerCellNib(identifier: SavedAdviceFooterCell.identifier)
             
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
-    enum EnumSavedAlbumType:Int {
-        case savedAlbums = 0, savedLocations, savedToptips
+    enum EnumSection:Int {
+        case savedAlbums = 0, savedLocations, savedAdvice
         var title:String{
             switch self{
             case .savedAlbums:
                 return "Saved Albums"
             case .savedLocations:
                 return "Saved Locations"
-            case .savedToptips:
+            case .savedAdvice:
                 return "Saved Advice"
             }
         }
     }
     var viewModel = SavedAlbumListViewModel()
     
-    var arrayOfSections:[EnumSavedAlbumType] = []
-    var arrayOfToolTips = [TravelAdviceDataModel]()
+    var sections:[SectionModel] = []
     var arraySavedAlbums = [TripDataModel]()
     var arraySavedLocations = [AddTripFavouriteLocationDetail]()
     var nextPageToken:String = ""
     var cityId = 0
     var cityName = "Spain"
+    
+    struct SectionModel {
+        var sectionType: EnumSection
+        var sectionTitle = ""
+        var subTitle = ""
+        var isOpenCell = false
+        var array = [TravelAdviceDataModel]()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +76,39 @@ class SavedAlbumDetailViewController: UIViewController {
         arraySavedAlbums.append(TripDataModel())
 
         if !arraySavedAlbums.count.isZero() {
-            arrayOfSections.append(.savedAlbums)
+            sections.append(SectionModel(sectionType: .savedAlbums))
         }
 
-        arrayOfSections.append(.savedLocations)
-        arrayOfSections.append(.savedToptips)
+        sections.append(SectionModel(sectionType: .savedLocations))
+        
+        var toolTips = [TravelAdviceDataModel]()
+        toolTips.append(TravelAdviceDataModel())
+        toolTips.append(TravelAdviceDataModel())
+        toolTips.append(TravelAdviceDataModel())
+
+        if !toolTips.count.isZero() {
+            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: "Top Tips", isOpenCell: false, array: toolTips))
+        }
+
+        var favoriteTravelStorys = [TravelAdviceDataModel]()
+        favoriteTravelStorys.append(TravelAdviceDataModel())
+        favoriteTravelStorys.append(TravelAdviceDataModel())
+        favoriteTravelStorys.append(TravelAdviceDataModel())
+
+        if !favoriteTravelStorys.count.isZero() {
+            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Favorite Travel Story", isOpenCell: false, array: favoriteTravelStorys))
+        }
+        
+        var logisticsAndRoutes = [TravelAdviceDataModel]()
+        logisticsAndRoutes.append(TravelAdviceDataModel())
+        logisticsAndRoutes.append(TravelAdviceDataModel())
+        logisticsAndRoutes.append(TravelAdviceDataModel())
+
+        if !logisticsAndRoutes.count.isZero() {
+            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Logistics & Routes", isOpenCell: false, array: logisticsAndRoutes))
+        }
+
+
         tblviewData.reloadData()
         
         getSavedTripListApi()
@@ -91,26 +128,32 @@ class SavedAlbumDetailViewController: UIViewController {
 //MARK: - TABLEVIEW METHODS
 extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int{
-        return arrayOfSections.count
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch arrayOfSections[section]{
+        switch sections[section].sectionType{
         case .savedLocations:
-            return 5//arraySavedLocations.count
+            return 2//arraySavedLocations.count
         case .savedAlbums:
             return arraySavedAlbums.count.isZero() ? 0 : 1
-        case .savedToptips:
-            return arrayOfToolTips.count
+        case .savedAdvice:
+            if sections[section].isOpenCell {
+                return sections[section].array.count + 1
+            } else {
+                return 1
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch arrayOfSections[indexPath.section]{
+
+        switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigSavedAlbums(data: arraySavedAlbums)
             return cell
+            
         case .savedLocations:
             guard let cell = self.tblviewData.dequeueCell(
                 withType: TripMainLocationCellXIB.self,
@@ -148,14 +191,31 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             cell.buttonBookmark.isHidden = false
 
             return cell
-        case .savedToptips:
-            guard let cell = self.tblviewData.dequeueCell(
-                withType: ExploreTableDataCell.self,
-                for: indexPath) as? ExploreTableDataCell else {
-                    return UITableViewCell()
-                }
-            return cell
+            
+        case .savedAdvice:
+            if indexPath.row.isZero() {
+                let cell = self.tblviewData.dequeueCell(withType: SavedAdviceParentBottomViewCell.self, for: indexPath) as! SavedAdviceParentBottomViewCell
+                cell.cellConfig(isOpenCell: sections[indexPath.section].isOpenCell)
+                cell.buttonDropDown.tag = indexPath.section
+                cell.buttonDropDown.addTarget(self, action: #selector(dropDownActionListenerSavedAdviceParentCell(_:)), for: .touchUpInside)
+                return cell
+            } else {
+                let row = getChildCellRow(indexPath: indexPath)
+                let cell = self.tblviewData.dequeueCell(withType: SavedAdviceChildCell.self, for: indexPath) as! SavedAdviceChildCell
+                cell.cellConfig(data: sections[indexPath.section].array[row], isLastCell: sections[indexPath.section].array.isLastIndex(row))
+                cell.buttonSaveToggle.tag = indexPath.section
+                cell.buttonSaveToggle.accessibilityHint = "\(indexPath.row)"
+                cell.buttonSaveToggle.addTarget(self, action: #selector(saveToggleActionListenerSavedAdviceChildCell(_:)), for: .touchUpInside)
+                return cell
+            }
         }
+    }
+    
+    @objc func saveToggleActionListenerSavedAdviceChildCell(_ sender : UIButton){
+        guard let rowString = sender.accessibilityHint, let rowCell = Int(rowString) else { return }
+        let row = getChildCellRow(indexPath: IndexPath(row: rowCell, section: sender.tag))
+        sections[sender.tag].array[row].isSaved.toggle()
+        tblviewData.reloadData()
     }
     
     @objc func buttonBookmarLocationkClicked(sender:UIButton){
@@ -178,7 +238,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch arrayOfSections[indexPath.section]{
+        switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             return SavedAlbumCVCell.cellSize.height
         default:
@@ -186,18 +246,71 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        switch sections[indexPath.section].sectionType{
+        case .savedAdvice:
+            let row = getChildCellRow(indexPath: indexPath)
+            sections[indexPath.section].array[row].isSaved.toggle()
+            tblviewData.reloadData()
+        default:
+            break
+        }
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = self.tblviewData.dequeueCell(withType: TitleHeaderTVCell.self) as! TitleHeaderTVCell
-        cell.cellConfig(title: arrayOfSections[section].title)
-        return cell
+        switch sections[section].sectionType{
+        case .savedAdvice:
+            let cell = self.tblviewData.dequeueCell(withType: SavedAdviceParentCell.self) as! SavedAdviceParentCell
+            cell.cellConfig(data: sections[section])
+            cell.buttonDropDown.tag = section
+            cell.buttonDropDown.addTarget(self, action: #selector(dropDownActionListenerSavedAdviceParentCell(_:)), for: .touchUpInside)
+            return cell
+        default:
+            let cell = self.tblviewData.dequeueCell(withType: TitleHeaderTVCell.self) as! TitleHeaderTVCell
+            cell.cellConfig(title: sections[section].sectionType.title)
+            return cell
+        }
+    }
+    
+    @objc func dropDownActionListenerSavedAdviceParentCell(_ sender : UIButton){
+        sections[sender.tag].isOpenCell.toggle()
+        tblviewData.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        switch sections[section].sectionType{
+        case .savedAdvice:
+            return SavedAdviceParentCell.getCellHeight(sectionTitle: sections[section].sectionTitle)
+        default:
+            return 60
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch sections[section].sectionType{
+        case .savedAdvice:
+            return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell)
+        default:
+            return 0.01
+        }
+    }
+    
+    func getChildCellRow(indexPath: IndexPath) -> Int {
+        return indexPath.row - 1
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch sections[section].sectionType {
+        case .savedAdvice:
+            let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
+            cell.cellConfig(isOpenCell: sections[section].isOpenCell)
+            return cell
+        default:
+            return nil
+        }
     }
 }
+
 // apis
 extension SavedAlbumDetailViewController{
     
