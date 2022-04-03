@@ -256,6 +256,8 @@
 		A440833327DC8E91004589FC /* TitleHeaderTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */; };
 		A440833727DCC3B7004589FC /* ExpandableTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440833527DCC3B7004589FC /* ExpandableTVCell.swift */; };
 		A440833827DCC3B7004589FC /* ExpandableTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440833627DCC3B7004589FC /* ExpandableTVCell.xib */; };
+		A440D06727F8330B005A0DED /* SavedAlbumCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D06527F8330B005A0DED /* SavedAlbumCVCell.swift */; };
+		A440D06827F8330B005A0DED /* SavedAlbumCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */; };
 		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		AA411F8427E4E870009B498D /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AA411F8327E4E870009B498D /* sample.json */; };
@@ -525,6 +527,8 @@
 		A440833127DC8E91004589FC /* TitleHeaderTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleHeaderTVCell.xib; sourceTree = "<group>"; };
 		A440833527DCC3B7004589FC /* ExpandableTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTVCell.swift; sourceTree = "<group>"; };
 		A440833627DCC3B7004589FC /* ExpandableTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableTVCell.xib; sourceTree = "<group>"; };
+		A440D06527F8330B005A0DED /* SavedAlbumCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumCVCell.swift; sourceTree = "<group>"; };
+		A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAlbumCVCell.xib; sourceTree = "<group>"; };
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
@@ -1446,6 +1450,23 @@
 			path = ExpandableTVCell;
 			sourceTree = "<group>";
 		};
+		A440D06427F832CD005A0DED /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D06927F83314005A0DED /* SavedAlbumCVCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A440D06927F83314005A0DED /* SavedAlbumCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A440D06527F8330B005A0DED /* SavedAlbumCVCell.swift */,
+				A440D06627F8330B005A0DED /* SavedAlbumCVCell.xib */,
+			);
+			path = SavedAlbumCVCell;
+			sourceTree = "<group>";
+		};
 		A4A1CC0FFBBBE0B484210754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1467,6 +1488,7 @@
 		AA64793027F314040048FDEA /* SavedAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				A440D06427F832CD005A0DED /* Cell */,
 				AA64793627F4C52E0048FDEA /* SavedAlbumDetail */,
 				AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */,
 				AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */,
@@ -1615,6 +1637,7 @@
 				88EADAA727414AD200A6B390 /* ProfileImagesCellXIB.xib in Resources */,
 				886763242729D2A00023D9DA /* Authentication.storyboard in Resources */,
 				38A0D7D927BFC0E700CC5CD8 /* CarouselCollectionViewCell.xib in Resources */,
+				A440D06827F8330B005A0DED /* SavedAlbumCVCell.xib in Resources */,
 				88B597042740E36D00CBA48C /* ActivityimageCellXIB.xib in Resources */,
 				887EECF727356068003D2F1A /* Trip.storyboard in Resources */,
 				38ED7CC827BE7C6600794C43 /* ActivityFooterCell.xib in Resources */,
@@ -1714,6 +1737,7 @@
 				88D6054C275B306B00B9A88E /* ProfileMapCellXIB.swift in Sources */,
 				88EADAA627414AD200A6B390 /* ProfileImagesCellXIB.swift in Sources */,
 				38AE15332782D6630016F80E /* NetworkingManager.swift in Sources */,
+				A440D06727F8330B005A0DED /* SavedAlbumCVCell.swift in Sources */,
 				88100B81272A348B008A01F7 /* ColorHelper.swift in Sources */,
 				88100B80272A348B008A01F7 /* LocalValidation.swift in Sources */,
 				885CE11B275CDEC000A13FC9 /* TripMainLocationCellXIB.swift in Sources */,

@@ -10,8 +10,16 @@ import SwiftyJSON
 
 class CollectionViewTVCell: UITableViewCell {
     
+    enum CellType {
+        case featuredPlaces, savedAlbums
+    }
+    
+    var cellType: CellType = .featuredPlaces
+    
     @IBOutlet weak var collectionViewMain: UICollectionView!
     var arrayFeaturedPlaces = [JSON]()
+    var arraySavedAlbums = [TripDataModel]()
+
     var reachedScrollEndTap: (() -> Void)?
     static var isGooglelPageApiWorking = false
     var cityId = 0
@@ -22,6 +30,7 @@ class CollectionViewTVCell: UITableViewCell {
         // Initialization code
         
         collectionViewMain.registerCellNib(identifier: FeaturedPlacesCVCell.identifier)
+        collectionViewMain.registerCellNib(identifier: SavedAlbumCVCell.identifier)
         collectionViewMain.dataSource = self
         collectionViewMain.delegate = self
     }
@@ -33,26 +42,56 @@ class CollectionViewTVCell: UITableViewCell {
     }
     
     func cellConfigFeaturedPlacesCell(data: [JSON]) {
+        cellType = .featuredPlaces
         arrayFeaturedPlaces = data
+        collectionViewMain.reloadData()
+    }
+    
+    func cellConfigSavedAlbums(data: [TripDataModel]) {
+        cellType = .savedAlbums
+        arraySavedAlbums = data
         collectionViewMain.reloadData()
     }
 }
 
 extension CollectionViewTVCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return arrayFeaturedPlaces.count.isZero() ? 0 : 1
+        switch cellType {
+        case .featuredPlaces:
+            return arrayFeaturedPlaces.count.isZero() ? 0 : 1
+        case .savedAlbums:
+            return arraySavedAlbums.count.isZero() ? 0 : 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayFeaturedPlaces.count
+        switch cellType {
+        case .featuredPlaces:
+            return arrayFeaturedPlaces.count
+        case .savedAlbums:
+            return arraySavedAlbums.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlacesCVCell.identifier, for: indexPath) as! FeaturedPlacesCVCell
-        cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row], arrayOfPlaceIdsStored: ExploreTripDetailViewController.arrayStorePlaceId)
-        cell.buttonSaveToggle.tag = indexPath.row
-        cell.buttonSaveToggle.addTarget(self, action: #selector(buttonToggleSave), for: .touchUpInside)
-        return cell
+        switch cellType {
+        case .featuredPlaces:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlacesCVCell.identifier, for: indexPath) as! FeaturedPlacesCVCell
+            cell.cellConfig(data: arrayFeaturedPlaces[indexPath.row], arrayOfPlaceIdsStored: ExploreTripDetailViewController.arrayStorePlaceId)
+            cell.buttonSaveToggle.tag = indexPath.row
+            cell.buttonSaveToggle.addTarget(self, action: #selector(buttonToggleSave), for: .touchUpInside)
+            return cell
+        case .savedAlbums:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedAlbumCVCell.identifier, for: indexPath) as! SavedAlbumCVCell
+            cell.cellConfig(data: arraySavedAlbums[indexPath.row])
+            cell.buttonUser.tag = indexPath.row
+            cell.buttonUser.addTarget(self, action: #selector(cellButtonUserActionListener(_:)), for: .touchUpInside)
+            return cell
+        }
+    }
+    
+    @objc func cellButtonUserActionListener(_ sender: UIControl){
+        print("cellControlUserActionListener : \(sender.tag)")
     }
     
     func  getCell(index:Int) -> FeaturedPlacesCVCell? {
@@ -82,17 +121,27 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if (indexPath.row == arrayFeaturedPlaces.count - 1) && !CollectionViewTVCell.isGooglelPageApiWorking { //it's your last cell
-           //Load more data & reload your collection view
-            CollectionViewTVCell.isGooglelPageApiWorking = true
-             reachedScrollEndTap?()
-         }
+        switch cellType {
+        case .featuredPlaces:
+            if (indexPath.row == arrayFeaturedPlaces.count - 1) && !CollectionViewTVCell.isGooglelPageApiWorking { //it's your last cell
+               //Load more data & reload your collection view
+                CollectionViewTVCell.isGooglelPageApiWorking = true
+                 reachedScrollEndTap?()
+             }
+        case .savedAlbums:
+            break
+        }
     }
 }
 
 extension CollectionViewTVCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return FeaturedPlacesCVCell.cellSize
+        switch cellType {
+        case .featuredPlaces:
+            return FeaturedPlacesCVCell.cellSize
+        case .savedAlbums:
+            return SavedAlbumCVCell.cellSize
+        }
     }
 }
 

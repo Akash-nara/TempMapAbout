@@ -58,7 +58,18 @@ class SavedAlbumDetailViewController: UIViewController {
         tap.numberOfTapsRequired = 1
         labelGotoCityPage.addGestureRecognizer(tap)
         
-        arrayOfSections.append(.savedAlbums)
+        
+        //savedAlbums
+        arraySavedAlbums.append(TripDataModel())
+        arraySavedAlbums.append(TripDataModel())
+        arraySavedAlbums.append(TripDataModel())
+        arraySavedAlbums.append(TripDataModel())
+        arraySavedAlbums.append(TripDataModel())
+
+        if !arraySavedAlbums.count.isZero() {
+            arrayOfSections.append(.savedAlbums)
+        }
+
         arrayOfSections.append(.savedLocations)
         arrayOfSections.append(.savedToptips)
         tblviewData.reloadData()
@@ -79,29 +90,26 @@ class SavedAlbumDetailViewController: UIViewController {
 
 //MARK: - TABLEVIEW METHODS
 extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int{
+        return arrayOfSections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch arrayOfSections[section]{
         case .savedLocations:
             return 5//arraySavedLocations.count
         case .savedAlbums:
-            return arraySavedAlbums.count
+            return arraySavedAlbums.count.isZero() ? 0 : 1
         case .savedToptips:
             return arrayOfToolTips.count
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int{
-        return arrayOfSections.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch arrayOfSections[indexPath.section]{
         case .savedAlbums:
-            guard let cell = self.tblviewData.dequeueCell(
-                withType: ExploreTableDataCell.self,
-                for: indexPath) as? ExploreTableDataCell else {
-                    return UITableViewCell()
-                }
+            let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
+            cell.cellConfigSavedAlbums(data: arraySavedAlbums)
             return cell
         case .savedLocations:
             guard let cell = self.tblviewData.dequeueCell(
@@ -166,6 +174,15 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     self.arraySavedLocations[indexRow].isSaved.toggle()
                 }
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch arrayOfSections[indexPath.section]{
+        case .savedAlbums:
+            return SavedAlbumCVCell.cellSize.height
+        default:
+            return UITableView.automaticDimension
         }
     }
     
