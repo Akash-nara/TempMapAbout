@@ -396,7 +396,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
                 }
             }
             
-            cell.locationImage.layer.borderWidth = 0.5
+            cell.locationImage.layer.borderWidth = 0.2
             cell.locationImage.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
 
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)

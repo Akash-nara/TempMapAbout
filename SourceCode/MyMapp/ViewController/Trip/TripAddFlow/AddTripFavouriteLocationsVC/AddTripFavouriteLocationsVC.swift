@@ -676,6 +676,9 @@ extension AddTripFavouriteLocationsVC:UICollectionViewDelegate,UICollectionViewD
             default:break
             }
             
+            cell.imgviewCity.layer.borderWidth = 0.2
+                    cell.imgviewCity.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+
             cell.imgviewCity.contentMode = .scaleAspectFill
             return cell
         }

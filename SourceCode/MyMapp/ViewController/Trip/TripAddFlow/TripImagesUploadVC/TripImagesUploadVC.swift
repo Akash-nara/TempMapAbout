@@ -423,14 +423,14 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
         cell.imgTrip.tag = indexPath.row
         cell.buttonRadioSelection.tag = indexPath.row
         cell.buttonRadioSelection.addTarget(self, action: #selector(buttonRadioClicked), for: .touchUpInside)
-
+        
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_nonselected_purple"), for: .normal)
         cell.buttonRadioSelection.setImage(UIImage.init(named: "ic_selected_purple"), for: .selected)
         cell.buttonRadioSelection.isSelected = selectedImageRow == indexPath.row
         cell.buttonRadioSelection.tintColor = selectedImageRow == indexPath.row ? UIColor.RadioButtonPurpleColor : UIColor.App_BG_SecondaryDark2_Color
         
         if selectedImageRow == indexPath.row, keyForDafultImageSelected.isEmpty{
-          keyForDafultImageSelected = arrayJsonFilterImages[indexPath.row].keyToSubmitServer
+            keyForDafultImageSelected = arrayJsonFilterImages[indexPath.row].keyToSubmitServer
         }
         cell.buttonRetry.isHidden = true
         cell.buttonRetry.addTarget(self, action: #selector(reloadUploadApi), for: .touchUpInside)
@@ -461,7 +461,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
                     }
                 }
             } failureCompletion: {
-//                cell.stopAnimating()
+                //                cell.stopAnimating()
                 DispatchQueue.getMain {
                     if let ids = self.arrayJsonFilterImages[indexPath.row].image?.accessibilityHint, Int(ids) == indexPath.row{
                         self.arrayJsonFilterImages[indexPath.row].statusUpload = .fail
@@ -485,7 +485,7 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             }else{
                 cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
             }
-//            cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
+            //            cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         case .fail:
             cell.startAnimating()
             cell.buttonRetry.isHidden = false
@@ -496,6 +496,9 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         }
+        cell.imgTrip.layer.borderWidth = 0.2
+        cell.imgTrip.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+        
         cell.imgTrip.contentMode = .scaleAspectFill
         return cell
     }
