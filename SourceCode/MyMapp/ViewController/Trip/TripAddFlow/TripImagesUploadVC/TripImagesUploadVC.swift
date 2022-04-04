@@ -496,8 +496,8 @@ extension TripImagesUploadVC: UICollectionViewDataSource,UICollectionViewDelegat
             cell.buttonRadioSelection.isHidden = false
             cell.imgTrip.image = (self.arrayJsonFilterImages[indexPath.row].image)
         }
-        cell.imgTrip.layer.borderWidth = 0.2
-        cell.imgTrip.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
+        
+        cell.imgTrip.setBorderWithColor()
         
         cell.imgTrip.contentMode = .scaleAspectFill
         return cell

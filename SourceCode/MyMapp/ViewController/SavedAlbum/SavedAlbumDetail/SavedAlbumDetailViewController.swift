@@ -18,7 +18,7 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.registerCellNib(identifier: TitleHeaderTVCell.identifier)
             tblviewData.registerCellNib(identifier: TripMainLocationCellXIB.identifier)
             tblviewData.registerCellNib(identifier: CollectionViewTVCell.identifier)
-
+            
             tblviewData.registerCellNib(identifier: SavedAdviceParentCell.identifier)
             tblviewData.registerCellNib(identifier: SavedAdviceParentBottomViewCell.identifier)
             tblviewData.registerCellNib(identifier: SavedAdviceChildCell.identifier)
@@ -43,10 +43,10 @@ class SavedAlbumDetailViewController: UIViewController {
     var viewModel = SavedAlbumListViewModel()
     
     var sections:[SectionModel] = []
-    var arraySavedAlbums = [TripDataModel]()
+//    var arraySavedAlbums = [TripDataModel]()
     var arraySavedLocations = [AddTripFavouriteLocationDetail]()
     var nextPageToken:String = ""
-    var cityId = 0
+    var cityId = 1
     var cityName = "Spain"
     
     struct SectionModel {
@@ -68,33 +68,36 @@ class SavedAlbumDetailViewController: UIViewController {
         labelGotoCityPage.addGestureRecognizer(tap)
         
         
+        self.getSavedTripListApi()
+        
+        /*
         //savedAlbums
         arraySavedAlbums.append(TripDataModel())
         arraySavedAlbums.append(TripDataModel())
         arraySavedAlbums.append(TripDataModel())
         arraySavedAlbums.append(TripDataModel())
         arraySavedAlbums.append(TripDataModel())
-
+        
         if !arraySavedAlbums.count.isZero() {
             sections.append(SectionModel(sectionType: .savedAlbums))
         }
-
+        
         sections.append(SectionModel(sectionType: .savedLocations))
         
         var toolTips = [TravelAdviceDataModel]()
         toolTips.append(TravelAdviceDataModel())
         toolTips.append(TravelAdviceDataModel())
         toolTips.append(TravelAdviceDataModel())
-
+        
         if !toolTips.count.isZero() {
             sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: "Top Tips", isOpenCell: false, array: toolTips))
         }
-
+        
         var favoriteTravelStorys = [TravelAdviceDataModel]()
         favoriteTravelStorys.append(TravelAdviceDataModel())
         favoriteTravelStorys.append(TravelAdviceDataModel())
         favoriteTravelStorys.append(TravelAdviceDataModel())
-
+        
         if !favoriteTravelStorys.count.isZero() {
             sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Favorite Travel Story", isOpenCell: false, array: favoriteTravelStorys))
         }
@@ -103,15 +106,15 @@ class SavedAlbumDetailViewController: UIViewController {
         logisticsAndRoutes.append(TravelAdviceDataModel())
         logisticsAndRoutes.append(TravelAdviceDataModel())
         logisticsAndRoutes.append(TravelAdviceDataModel())
-
+        
         if !logisticsAndRoutes.count.isZero() {
             sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Logistics & Routes", isOpenCell: false, array: logisticsAndRoutes))
         }
-
-
-        tblviewData.reloadData()
         
-        getSavedTripListApi()
+        
+        tblviewData.reloadData()
+         */
+        
         //        getSavedLocationsListApi()
         //        getSavedTopTipListApi()
     }
@@ -136,7 +139,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         case .savedLocations:
             return 2//arraySavedLocations.count
         case .savedAlbums:
-            return arraySavedAlbums.count.isZero() ? 0 : 1
+            return viewModel.arrayOfTripList.count.isZero() ? 0 : 1
         case .savedAdvice:
             if sections[section].isOpenCell {
                 return sections[section].array.count + 1
@@ -147,11 +150,11 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
-            cell.cellConfigSavedAlbums(data: arraySavedAlbums)
+            cell.cellConfigSavedAlbums(data: viewModel.arrayOfTripList)
             return cell
             
         case .savedLocations:
@@ -169,11 +172,11 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     cell.locationImage.image = image
                 }else{
                     /* temp commeneted code
-                    cell.locationImage.image = UIImage.init(named: "not_icon")
-                    cell.locationImage.contentMode = .scaleToFill
-                    cell.locationImage.backgroundColor = .white
-                    cell.locationImage.borderWidth = 0.5
-                    cell.locationImage.borderColor = UIColor.App_BG_silver_Color
+                     cell.locationImage.image = UIImage.init(named: "not_icon")
+                     cell.locationImage.contentMode = .scaleToFill
+                     cell.locationImage.backgroundColor = .white
+                     cell.locationImage.borderWidth = 0.5
+                     cell.locationImage.borderColor = UIColor.App_BG_silver_Color
                      */
                     
                     cell.getGooglePhotoByCity(cityName: cell.labelTitle.text!)
@@ -189,7 +192,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
             
             cell.buttonBookmark.isHidden = false
-
+            
             return cell
             
         case .savedAdvice:
@@ -298,7 +301,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     func getChildCellRow(indexPath: IndexPath) -> Int {
         return indexPath.row - 1
     }
-
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         switch sections[section].sectionType {
         case .savedAdvice:
@@ -317,28 +320,42 @@ extension SavedAlbumDetailViewController{
     // get saved trips
     func getSavedTripListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
-        
-        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param]
-        viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
-            debugPrint("feed Response:-\(response)")
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param, "city":self.cityId]
+        viewModel.getSavedTripListApi(paramDict: paramDict, success: { [weak self] response in
+            // add saved
+            if !(self?.viewModel.arrayOfTripList.count.isZero() ?? false) {
+                self?.sections.append(SectionModel(sectionType: .savedAlbums))
+            }
+            self?.tblviewData.reloadData()
+            
+            self?.getSavedLocationsListApi()
         })
     }
     
     // get saved locations
     func getSavedLocationsListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
-        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param]
-        viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
-            debugPrint("location Response:-\(response)")
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
+        viewModel.getSavedTripListApi(paramDict: paramDict, success: { [weak self] response in
+            self?.getSavedTopTipListApi()
+            guard let locations = response?["responseJson"]?.dictionaryValue["locations"]?.array, let totalRecord = response?["totalRecord"]?.int else {
+                return
+            }
+            
+            debugPrint("location Response:-\(locations)")
         })
     }
     
     // get saved toptips
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
-        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param]
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
-            debugPrint("topTips Response:-\(response)")
+            guard let advices = response?["responseJson"]?.dictionaryValue["advices"]?.array, let totalRecord = response?["totalRecord"]?.int else {
+                return
+            }
+            
+            debugPrint("topTips Response:-\(advices)")
         })
     }
     
@@ -371,7 +388,7 @@ extension SavedAlbumDetailViewController{
         guard let userId = APP_USER?.userId else {
             return
         }
-
+        
         let strJson = JSON(["advice": ["id":id],
                             "userId":userId,
                             "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""

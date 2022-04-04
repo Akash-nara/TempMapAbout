@@ -21,7 +21,11 @@ class TripImagesModel:NSObject {
     var nameOfImage = ""
     var id = 0
     var keyToSubmitServer  = ""
-    var isVerticalImage:Bool{
+    var serverUplaodIsVerictialImageOrNot = false
+   private func getIsImagevertical() -> Bool {
+        if isEdit{
+            return serverUplaodIsVerictialImageOrNot
+        }
         if let sizeOfImage = image?.size, sizeOfImage.width > sizeOfImage.height {
             //since the width > height we may fit it and we'll have bands on top/bottom
             return false
@@ -29,6 +33,17 @@ class TripImagesModel:NSObject {
             //width < height we fill it until width is taken up and clipped on top/bottom
             return true
         }
+    }
+    var isVerticalImage:Bool{
+        return getIsImagevertical()
+        /*
+        if let sizeOfImage = image?.size, sizeOfImage.width > sizeOfImage.height {
+            //since the width > height we may fit it and we'll have bands on top/bottom
+            return false
+        } else {
+            //width < height we fill it until width is taken up and clipped on top/bottom
+            return true
+        }*/
     }
     
 

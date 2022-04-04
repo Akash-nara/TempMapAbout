@@ -451,6 +451,8 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
         }
         
         
+        cell.imgviewZoom.setBorderWithColor()
+        
 //        cell.scrollViewImg.layer.borderWidth = 2
 //        cell.scrollViewImg.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
 //

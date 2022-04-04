@@ -21,14 +21,20 @@ class SavedAlbumCVCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
     func cellConfig(data: TripDataModel) {
-        labelTripDate.text = "labelTripDate"
-        labelUsername.text = "labelUsername"
+        labelTripDate.text = data.dateFromatedOftrip
+        labelUsername.text = data.userCreatedTrip?.displayName
         imageViewPhoto.backgroundColor = UIColor.green
         imageViewProfilePic.backgroundColor = UIColor.red
+        
+        imageViewPhoto.contentMode = .scaleToFill
+        imageViewPhoto.setImage(url: data.defaultImageKey, placeholder: UIImage.init(named: "not_icon"))
+        imageViewPhoto.setBorderWithColor()
+        
+        imageViewProfilePic.setImage(url: data.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "not_icon"))
+        imageViewProfilePic.setBorderWithColor()
     }
     
 }

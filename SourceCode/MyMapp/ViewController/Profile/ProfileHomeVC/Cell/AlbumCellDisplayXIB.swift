@@ -23,17 +23,26 @@ class AlbumCellDisplayXIB: UICollectionViewCell {
         imageTrip.cornerRadius = 15
         imageTrip.borderColor = .App_BG_SecondaryDark2_Color
         imageTrip.borderWidth = 0.1
-        imageTrip.contentMode = .scaleAspectFit
-
     }
     
     
-    func configureCell(dataModel:TripDataModel, completion: ((Bool,Int) -> Void)? = nil){
-        labelBookmarkCount.text = "\(dataModel.bookmarkedTotalCount)"
-        labelBookmarkCount.isHidden = dataModel.bookmarkedTotalCount.isZero()
-        tripTitle.text = dataModel.city.cityName
-        tripSubTitle.text = dataModel.city.countryName
+    func configureCell(dataModel:CityModel, completion: ((Bool,Int) -> Void)? = nil){
+        labelBookmarkCount.text = "\(dataModel.totalCount)"
+        labelBookmarkCount.isHidden = dataModel.totalCount.isZero()
+        tripTitle.text = dataModel.name
+        tripSubTitle.text = dataModel.countryName
         
+        
+        self.getGooglePhotoByCity(cityName: dataModel.name) { [weak self] in
+            if let image = self?.imageTrip.image, image.isImageVerticle{
+                completion?(true, self?.imageTrip.tag ?? 0)
+            }else{
+                completion?(false, self?.imageTrip.tag ?? 0)
+            }
+        }
+        
+        
+        /*
         var defaultKey = dataModel.defaultImageKey
         if defaultKey.isEmpty, let firstObject = dataModel.photoUploadedArray.first?.arrayOfImageURL.first{
             defaultKey = firstObject.image
@@ -70,6 +79,51 @@ class AlbumCellDisplayXIB: UICollectionViewCell {
             self.imageTrip.contentMode = .scaleToFill
             self.imageTrip.image = UIImage.init(named: "not_icon")
             //            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
-        }
+        }*/
+    }
+    
+    func getGooglePhotoByCity(cityName:String, completion: (() -> Void)? = nil) {
+        
+        var serviceUrl:URL? = nil
+        let key = appDelegateShared.googleKey
+        
+        let queryItems = [URLQueryItem(name: "key", value: key), URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction")]
+        var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
+        urlComps?.queryItems = queryItems
+        serviceUrl = urlComps?.url
+        
+        guard let urlGoogle = serviceUrl else { return }
+        
+        var request = URLRequest(url: urlGoogle)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        self.imageTrip.showSkeleton()
+        session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do{
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let jsonObj = JSON.init(json)
+                    if let placeIdsArray = jsonObj["results"].array, let firstPhotoObj = placeIdsArray.first?.dictionaryValue["photos"]?.arrayValue.first, let key = firstPhotoObj["photo_reference"].string{
+                        let width = firstPhotoObj["width"].intValue
+                        let height = firstPhotoObj["height"].intValue
+                        let url = "https://maps.googleapis.com/maps/api/place/photo?photo_reference=\(key)&maxwidth=\(width)&maxheight=\(height)&key=\(appDelegateShared.googleKey)"
+                        
+                        self.imageTrip.sd_setImage(with: URL.init(string: url)) { img, eror, cache, url in
+                            self.imageTrip.hideSkeleton()
+                            if let imgObj = img{
+                                self.imageTrip.image = imgObj
+                            }else{
+                                self.imageTrip.image = UIImage.init(named: "not_icon")
+                            }
+                            
+                            completion?()
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
     }
 }

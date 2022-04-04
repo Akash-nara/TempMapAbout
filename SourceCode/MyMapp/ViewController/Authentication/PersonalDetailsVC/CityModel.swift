@@ -17,6 +17,9 @@ class CityModel:Equatable{
 	var id : Int!
 	var latitude : Double!
 	var longitude : Double!
+    var totalCount = 0
+    var isVerticle = false
+    
 	/**
 	 * Instantiate the instance using the passed json values to set the properties values
 	 */
@@ -42,5 +45,12 @@ class CityModel:Equatable{
         self.id = param["id"].intValue
         self.name = param["displayName"].stringValue
     }
+    
+    init(withSavedAlbum param:JSON) {
+        self.id = param["id"].intValue
+        self.totalCount = param["count"].intValue
+        self.name = param["city"].stringValue
+        self.countryName = param["country"].stringValue
 
+    }
 }

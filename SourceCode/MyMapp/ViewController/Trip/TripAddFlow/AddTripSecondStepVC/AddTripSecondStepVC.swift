@@ -170,6 +170,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
                 if let filterdObj  = obDataModel.photoUploadedArray.filter({$0.hash == objAddTripFavouriteLocationDetail.locationHash}).first{
                     filterdObj.arrayOfImageURL.forEach { objTripImg in
                         let model = TripImagesModel.init(image: UIImage(), url: objTripImg.image)
+                        model.serverUplaodIsVerictialImageOrNot = objTripImg.isVerticle
                         model.url = objTripImg.image
                         let url = URL.init(string: objTripImg.image)
                         let name = url?.lastPathComponent ?? ""
@@ -198,6 +199,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
                         model.statusUpload = .done
 //                        model.id = mainObj.element.id
                         model.isEdit = true
+                        model.serverUplaodIsVerictialImageOrNot = objTripImg.isVerticle
                         totalGlobalTripPhotoCount -= 1
                         model.nameOfImage = name
                         model.isCityUploadeImage = true

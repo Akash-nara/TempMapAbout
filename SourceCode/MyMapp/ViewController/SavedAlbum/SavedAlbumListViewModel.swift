@@ -34,7 +34,6 @@ class SavedAlbumListViewModel{
         }
     }
     
-    var isTripListFetched: Bool = false
     // Pagination work for Binding Rule
     private var totalElements = 0
     var getAvailableElements: Int { return arrayOfTripList.count }

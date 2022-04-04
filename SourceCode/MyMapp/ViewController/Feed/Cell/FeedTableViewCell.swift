@@ -133,6 +133,8 @@ class FeedTableViewCell: UITableViewCell{
         
         postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
         postedUserName.text = modelData.userCreatedTrip?.username ?? "-"
+        postedUserPic.setBorderWithColor()
+        postedUserPic.contentMode = .scaleToFill
         
         postedUserAddress.text = modelData.userCreatedTrip?.region ?? "-"
         postedUserAddress.isHidden = (modelData.userCreatedTrip?.region ?? "").isEmpty
