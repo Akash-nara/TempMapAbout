@@ -86,6 +86,9 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
             cell.cellConfig(data: arraySavedAlbums[indexPath.row])
             cell.buttonUser.tag = indexPath.row
             cell.buttonUser.addTarget(self, action: #selector(cellButtonUserActionListener(_:)), for: .touchUpInside)
+            cell.labelTripDate.textColor = UIColor.white
+            cell.labelUsername.textColor = UIColor.white
+
             return cell
         }
     }

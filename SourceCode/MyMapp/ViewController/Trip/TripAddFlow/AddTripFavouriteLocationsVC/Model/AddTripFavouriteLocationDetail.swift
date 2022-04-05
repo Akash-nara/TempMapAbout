@@ -46,6 +46,7 @@ class AddTripFavouriteLocationDetail{
     var isEdited = false
     var firstLocationImage = ""
     var isSaved = false
+    var savedLocationId = 0
     init(){}
     init(param:JSON) {
         

@@ -96,6 +96,7 @@
                 <outlet property="labelTitle" destination="Zhk-8k-epc" id="g82-gR-58O"/>
                 <outlet property="locationImage" destination="KMK-fO-jRz" id="EpB-H2-eGE"/>
                 <outlet property="subTitle" destination="AaF-hK-Wc0" id="jCK-hV-Jmx"/>
+                <outlet property="trealingBookmarkConstrain" destination="xO5-qJ-Eph" id="abn-bn-6sd"/>
             </connections>
             <point key="canvasLocation" x="132" y="83"/>
         </tableViewCell>

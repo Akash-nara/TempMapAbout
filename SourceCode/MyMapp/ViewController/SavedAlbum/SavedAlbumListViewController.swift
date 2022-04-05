@@ -184,9 +184,15 @@ extension SavedAlbumListViewController{
         }
     }
     
+    func updateCellWithStatus(index:Int){
+        arrayJsonCityArray.remove(at: index)
+        collectionviewProfile.reloadData()
+        collectionviewProfile.figureOutAndShowNoResults()
+    }
+
     func unSaveFeedApi(indexRow:Int){
         let id = arrayJsonCityArray[indexRow].id
-        let strJson = JSON(["id":id,"INTEREST_CATEGORY":"feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let strJson = JSON(["id":id,"INTEREST_CATEGORY":"location"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
             self?.HIDE_CUSTOM_LOADER()
@@ -194,9 +200,7 @@ extension SavedAlbumListViewController{
                 return
             }
             NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadForSaveUnSaveTrip"), object: id)
-//            self?.viewModel.updateCount(id: id)
-            self?.collectionviewProfile.reloadData()
-            self?.collectionviewProfile.figureOutAndShowNoResults()
+            self?.updateCellWithStatus(index: indexRow)
         }  internetFailure: {
             API_LOADER.HIDE_CUSTOM_LOADER()
             debugPrint("internetFailure")

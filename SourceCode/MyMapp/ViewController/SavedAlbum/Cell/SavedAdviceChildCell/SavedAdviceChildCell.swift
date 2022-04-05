@@ -34,10 +34,12 @@ class SavedAdviceChildCell: UITableViewCell {
 
     func cellConfig(data: TravelAdviceDataModel, isLastCell: Bool) {
         imageViewProfilePic.backgroundColor = UIColor.green
-        labelUsername.text = "labelUsername"
-        labelTips.text = "labelTips labelTips labelTips labelTips labelTips labelTips"
+        labelUsername.text = data.userName
+        labelTips.text = data.savedComment
         buttonSaveToggle.isSelected = data.isSaved
         constraintBottomTopTipView.constant = isLastCell ? 0 : 11
+        imageViewProfilePic.setImage(url: data.userProfilePic, placeholder: UIImage.init(named: "not_icon"))
+        imageViewProfilePic.setBorderWithColor()
     }
     
 }

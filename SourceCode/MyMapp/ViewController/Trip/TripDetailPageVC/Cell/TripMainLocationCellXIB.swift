@@ -16,7 +16,8 @@ class TripMainLocationCellXIB: UITableViewCell {
     @IBOutlet weak var buttonBookmark : UIButton!
     @IBOutlet weak var locationImage : UIImageView!
     @IBOutlet weak var tagListView : TagListView!
-    
+    @IBOutlet weak var trealingBookmarkConstrain : NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         

@@ -406,7 +406,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.tag = indexPath.section
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
             
-            cell.buttonBookmark.isHidden = isOwnProfile
+//            cell.buttonBookmark.isHidden = isOwnProfile
             
             return cell
         case .topTips(let obj):
@@ -449,7 +449,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkTravelAdvoiceClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = dataModel.id
         cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
-        cell.buttonBookmark.isHidden = isOwnProfile
+//        cell.buttonBookmark.isHidden = isOwnProfile
         cell.buttonBookmark.isSelected = dataModel.isSaved
 
         cell.lblHeader.text = dataModel.title

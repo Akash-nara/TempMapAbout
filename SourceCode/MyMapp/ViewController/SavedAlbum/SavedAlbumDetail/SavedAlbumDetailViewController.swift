@@ -41,10 +41,12 @@ class SavedAlbumDetailViewController: UIViewController {
         }
     }
     var viewModel = SavedAlbumListViewModel()
+    var savedAlbumLocationViewModel = SavedAlbumLocationViewModel()
+    var savedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
     
     var sections:[SectionModel] = []
-//    var arraySavedAlbums = [TripDataModel]()
-    var arraySavedLocations = [AddTripFavouriteLocationDetail]()
+    var arrayAdviceListArrray = [JSON]()
+    
     var nextPageToken:String = ""
     var cityId = 1
     var cityName = "Spain"
@@ -60,6 +62,9 @@ class SavedAlbumDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        getAdviceForTripAPi()
+        
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelGotoCityPage.isHidden = false
@@ -71,48 +76,48 @@ class SavedAlbumDetailViewController: UIViewController {
         self.getSavedTripListApi()
         
         /*
-        //savedAlbums
-        arraySavedAlbums.append(TripDataModel())
-        arraySavedAlbums.append(TripDataModel())
-        arraySavedAlbums.append(TripDataModel())
-        arraySavedAlbums.append(TripDataModel())
-        arraySavedAlbums.append(TripDataModel())
-        
-        if !arraySavedAlbums.count.isZero() {
-            sections.append(SectionModel(sectionType: .savedAlbums))
-        }
-        
-        sections.append(SectionModel(sectionType: .savedLocations))
-        
-        var toolTips = [TravelAdviceDataModel]()
-        toolTips.append(TravelAdviceDataModel())
-        toolTips.append(TravelAdviceDataModel())
-        toolTips.append(TravelAdviceDataModel())
-        
-        if !toolTips.count.isZero() {
-            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: "Top Tips", isOpenCell: false, array: toolTips))
-        }
-        
-        var favoriteTravelStorys = [TravelAdviceDataModel]()
-        favoriteTravelStorys.append(TravelAdviceDataModel())
-        favoriteTravelStorys.append(TravelAdviceDataModel())
-        favoriteTravelStorys.append(TravelAdviceDataModel())
-        
-        if !favoriteTravelStorys.count.isZero() {
-            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Favorite Travel Story", isOpenCell: false, array: favoriteTravelStorys))
-        }
-        
-        var logisticsAndRoutes = [TravelAdviceDataModel]()
-        logisticsAndRoutes.append(TravelAdviceDataModel())
-        logisticsAndRoutes.append(TravelAdviceDataModel())
-        logisticsAndRoutes.append(TravelAdviceDataModel())
-        
-        if !logisticsAndRoutes.count.isZero() {
-            sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Logistics & Routes", isOpenCell: false, array: logisticsAndRoutes))
-        }
-        
-        
-        tblviewData.reloadData()
+         //savedAlbums
+         arraySavedAlbums.append(TripDataModel())
+         arraySavedAlbums.append(TripDataModel())
+         arraySavedAlbums.append(TripDataModel())
+         arraySavedAlbums.append(TripDataModel())
+         arraySavedAlbums.append(TripDataModel())
+         
+         if !arraySavedAlbums.count.isZero() {
+         sections.append(SectionModel(sectionType: .savedAlbums))
+         }
+         
+         sections.append(SectionModel(sectionType: .savedLocations))
+         
+         var toolTips = [TravelAdviceDataModel]()
+         toolTips.append(TravelAdviceDataModel())
+         toolTips.append(TravelAdviceDataModel())
+         toolTips.append(TravelAdviceDataModel())
+         
+         if !toolTips.count.isZero() {
+         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: "Top Tips", isOpenCell: false, array: toolTips))
+         }
+         
+         var favoriteTravelStorys = [TravelAdviceDataModel]()
+         favoriteTravelStorys.append(TravelAdviceDataModel())
+         favoriteTravelStorys.append(TravelAdviceDataModel())
+         favoriteTravelStorys.append(TravelAdviceDataModel())
+         
+         if !favoriteTravelStorys.count.isZero() {
+         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Favorite Travel Story", isOpenCell: false, array: favoriteTravelStorys))
+         }
+         
+         var logisticsAndRoutes = [TravelAdviceDataModel]()
+         logisticsAndRoutes.append(TravelAdviceDataModel())
+         logisticsAndRoutes.append(TravelAdviceDataModel())
+         logisticsAndRoutes.append(TravelAdviceDataModel())
+         
+         if !logisticsAndRoutes.count.isZero() {
+         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Logistics & Routes", isOpenCell: false, array: logisticsAndRoutes))
+         }
+         
+         
+         tblviewData.reloadData()
          */
         
         //        getSavedLocationsListApi()
@@ -163,14 +168,16 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                 for: indexPath) as? TripMainLocationCellXIB else {
                     return UITableViewCell()
                 }
-            cell.labelTitle.text = "Ahmdabad"//arrayLocation[indexPath.row].locationFav?.name
-            cell.subTitle.text = ""//arrayLocation[indexPath.row].locationFav?.name
+            
+            cell.labelTitle.text = savedAlbumLocationViewModel.arrayOfSavedLocationList[indexPath.row].locationFav?.name
+            //            cell.subTitle.text = ""//arrayLocation[indexPath.row].locationFav?.name
             cell.locationImage.showSkeleton()
             cell.locationImage.sd_setImage(with: URL.init(string: ""), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
                 cell.locationImage.hideSkeleton()
                 if let image = img{
                     cell.locationImage.image = image
                 }else{
+                    
                     /* temp commeneted code
                      cell.locationImage.image = UIImage.init(named: "not_icon")
                      cell.locationImage.contentMode = .scaleToFill
@@ -183,10 +190,11 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                 }
             }
             
+            cell.trealingBookmarkConstrain.constant = 10
             cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
             cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
             cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarLocationkClicked(sender:)), for: .touchUpInside)
-            cell.buttonBookmark.isSelected = false//arrayLocation[indexPath.row].isSaved
+            cell.buttonBookmark.isSelected = savedAlbumLocationViewModel.arrayOfSavedLocationList[indexPath.row].isSaved
             
             cell.buttonBookmark.tag = indexPath.section
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
@@ -202,6 +210,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                 cell.buttonDropDown.tag = indexPath.section
                 cell.buttonDropDown.addTarget(self, action: #selector(dropDownActionListenerSavedAdviceParentCell(_:)), for: .touchUpInside)
                 return cell
+                
             } else {
                 let row = getChildCellRow(indexPath: indexPath)
                 let cell = self.tblviewData.dequeueCell(withType: SavedAdviceChildCell.self, for: indexPath) as! SavedAdviceChildCell
@@ -217,24 +226,37 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     @objc func saveToggleActionListenerSavedAdviceChildCell(_ sender : UIButton){
         guard let rowString = sender.accessibilityHint, let rowCell = Int(rowString) else { return }
         let row = getChildCellRow(indexPath: IndexPath(row: rowCell, section: sender.tag))
-        sections[sender.tag].array[row].isSaved.toggle()
-        tblviewData.reloadData()
+        
+        let id = sections[sender.tag].array[row].savedId
+        self.unSaveLocationAndTravelApi(id: id, key: "advice") { [self] in
+            self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
+            self.sections[sender.tag].array[row].isSaved.toggle()
+            self.sections[sender.tag].array.remove(at: row)
+            
+            if self.sections[sender.tag].array.count == 0{
+                self.sections.remove(at: sender.tag)
+            }
+        
+            self.tblviewData.reloadData()
+        }
     }
     
     @objc func buttonBookmarLocationkClicked(sender:UIButton){
         sender.isSelected.toggle()
         let indexRow = Int(sender.accessibilityHint ?? "") ?? 0
-        if arraySavedLocations.indices.contains(indexRow){
-            debugPrint("locationList:\(arraySavedLocations[indexRow])")
-            if arraySavedLocations[indexRow].isSaved{
-                self.unSaveLocationAndTravelApi(id: arraySavedLocations[indexRow].id, key:"location") {
+        if savedAlbumLocationViewModel.arrayOfSavedLocationList.indices.contains(indexRow){
+            debugPrint("locationList:\(savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow])")
+            if savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved{
+                self.unSaveLocationAndTravelApi(id: savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId, key:"location") {
                     sender.isSelected.toggle()
-                    self.arraySavedLocations[indexRow].isSaved.toggle()
+                    self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
+                    self.savedAlbumLocationViewModel.removedSavedObject(id: self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId)
+                    self.tblviewData.reloadData()
                 }
             }else{
-                self.saveLocationTripApi(id: arraySavedLocations[indexRow].id) {
+                self.saveLocationTripApi(id: savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId) {
                     sender.isSelected.toggle()
-                    self.arraySavedLocations[indexRow].isSaved.toggle()
+                    self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
                 }
             }
         }
@@ -322,12 +344,12 @@ extension SavedAlbumDetailViewController{
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param, "city":self.cityId]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { [weak self] response in
-            // add saved
+            
+            // add saved albums section
             if !(self?.viewModel.arrayOfTripList.count.isZero() ?? false) {
                 self?.sections.append(SectionModel(sectionType: .savedAlbums))
             }
             self?.tblviewData.reloadData()
-            
             self?.getSavedLocationsListApi()
         })
     }
@@ -336,13 +358,14 @@ extension SavedAlbumDetailViewController{
     func getSavedLocationsListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
-        viewModel.getSavedTripListApi(paramDict: paramDict, success: { [weak self] response in
-            self?.getSavedTopTipListApi()
-            guard let locations = response?["responseJson"]?.dictionaryValue["locations"]?.array, let totalRecord = response?["totalRecord"]?.int else {
-                return
-            }
+        savedAlbumLocationViewModel.getSavedLocationListApi(paramDict: paramDict, success: { [weak self] response in
             
-            debugPrint("location Response:-\(locations)")
+            // add saved location section
+            if !(self?.savedAlbumLocationViewModel.arrayOfSavedLocationList.count.isZero() ?? false) {
+                self?.sections.append(SectionModel(sectionType: .savedLocations))
+            }
+            self?.tblviewData.reloadData()
+            self?.getSavedTopTipListApi()
         })
     }
     
@@ -350,13 +373,42 @@ extension SavedAlbumDetailViewController{
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
-        viewModel.getSavedTripListApi(paramDict: paramDict, success: { response in
-            guard let advices = response?["responseJson"]?.dictionaryValue["advices"]?.array, let totalRecord = response?["totalRecord"]?.int else {
-                return
-            }
+        savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
             
-            debugPrint("topTips Response:-\(advices)")
+            // add saved advices section
+            if !(self?.savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.count.isZero() ?? false) {
+                self?.preparedSectionAndArrayOfTraveAdvice()
+            }
+            self?.tblviewData.reloadData()
         })
+    }
+    
+    func preparedSectionAndArrayOfTraveAdvice(){
+        
+        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
+        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
+        
+        arrayAdviceListArrray.forEach { jsonObj in
+            let title = jsonObj["value"].stringValue
+            let placeHolder = jsonObj["placeHolder"].stringValue
+            switch jsonObj["id"].intValue{
+            case 1:
+                if !toolTips.count.isZero() {
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: title, isOpenCell: false, array: toolTips))
+                }
+            case 2:
+                if !favoriteTravelStorys.count.isZero() {
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: title, isOpenCell: false, array: favoriteTravelStorys))
+                }
+            case 3:
+                if !logisticsAndRoutes.count.isZero() {
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: title, isOpenCell: false, array: logisticsAndRoutes))
+                }
+            default:
+                break
+            }
+        }
     }
     
     func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
@@ -426,6 +478,23 @@ extension SavedAlbumDetailViewController{
             debugPrint("internetFailure")
         } failureInform: {
             self.HIDE_CUSTOM_LOADER()
+        }
+    }
+    
+    func getAdviceForTripAPi(){
+        
+        API_SERVICES.callAPI([:], path: .getAdviceForCityTrip, method: .get) { [weak self] response in
+            guard let status = response?["status"]?.intValue, status == 200 else {
+                Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
+                return
+            }
+            
+            guard let arrayOfAdvices = response?["responseJson"]?.dictionaryValue["advices"]?.arrayValue  else {
+                return
+            }
+            self?.arrayAdviceListArrray = arrayOfAdvices
+        } internetFailure: {
+            debugPrint("internetFailure")
         }
     }
 }

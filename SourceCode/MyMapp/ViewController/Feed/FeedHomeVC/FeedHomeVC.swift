@@ -119,6 +119,8 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         
+//        cell.buttonBookmark.isHidden = viewModel.arrayOfTripList[indexPath.row].userCreatedTrip?.userId == APP_USER?.userId
+        
         cell.buttonLike.addTarget(self, action: #selector(buttonLikeUnLikedClicked(sender:)), for: .touchUpInside)
         cell.buttonLike.tag = indexPath.row
         
