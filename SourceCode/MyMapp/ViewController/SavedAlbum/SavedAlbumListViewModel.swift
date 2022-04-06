@@ -134,7 +134,7 @@ class SavedAlbumLocationViewModel{
     }
         
     func removedSavedObject(id:Int) {
-        if let index = self.arrayOfSavedLocationList.firstIndex(where: {$0.savedLocationId == id}){
+        if let index = self.arrayOfSavedLocationList.firstIndex(where: {$0.id == id}){
             if totalElements > 0{
                 totalElements -= 1
             }
@@ -204,7 +204,7 @@ class SavedAlbumTravelAdviceViewModel{
     }
         
     func removedSavedObject(id:Int) {
-        if let index = self.arrayOfSavedTopTipsList.firstIndex(where: {$0.savedId == id}){
+        if let index = self.arrayOfSavedTopTipsList.firstIndex(where: {$0.id == id}){
             if totalElements > 0{
                 totalElements -= 1
             }
@@ -213,7 +213,7 @@ class SavedAlbumTravelAdviceViewModel{
     }
     
     func updateStatusSavedObject(id:Int) {
-        if let index = self.arrayOfSavedTopTipsList.firstIndex(where: {$0.savedId == id}){
+        if let index = self.arrayOfSavedTopTipsList.firstIndex(where: {$0.id == id}){
             self.arrayOfSavedTopTipsList[index].isSaved.toggle()
         }
     }

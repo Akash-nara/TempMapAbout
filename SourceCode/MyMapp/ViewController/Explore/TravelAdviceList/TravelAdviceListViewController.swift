@@ -197,11 +197,11 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         var id  = 0
         switch self.selectedTab {
         case .topTips:
-            id = arrayOfToolTips[sender.tag].savedId
+            id = arrayOfToolTips[sender.tag].id
         case .stories:
-            id = arrayOfStories[sender.tag].savedId
+            id = arrayOfStories[sender.tag].id
         case .logistics:
-            id = arrayOfLogistics[sender.tag].savedId
+            id = arrayOfLogistics[sender.tag].id
         }
         
         
@@ -223,9 +223,10 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                 objVc.removedObject(id: id)
                 objVc.tblviewData.reloadData()
                 objVc.tblviewData.figureOutAndShowNoResults()
+                
+                self.tblviewData.reloadData()
+                self.tblviewData.figureOutAndShowNoResults()
             }
-            self.tblviewData.reloadData()
-            self.tblviewData.figureOutAndShowNoResults()
         }else{
             // from city search
             if sender.isSelected{
@@ -303,6 +304,7 @@ extension  TravelAdviceListViewController{
                 return
             }
             
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadUserTripList"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {
@@ -328,6 +330,7 @@ extension  TravelAdviceListViewController{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadUserTripList"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {

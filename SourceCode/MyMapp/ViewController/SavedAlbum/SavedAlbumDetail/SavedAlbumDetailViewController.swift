@@ -268,7 +268,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard let rowString = sender.accessibilityHint, let rowCell = Int(rowString) else { return }
         let row = getChildCellRow(indexPath: IndexPath(row: rowCell, section: sender.tag))
         
-        let id = sections[sender.tag].array[row].savedId
+        let id = sections[sender.tag].array[row].id
         self.unSaveLocationAndTravelApi(id: id, key: "advice") { [self] in
             self.removeTravelAdvice(id: id, indexpath: IndexPath.init(row: row, section: sender.tag))
         }
@@ -300,11 +300,12 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         let indexRow = Int(sender.accessibilityHint ?? "") ?? 0
         if savedAlbumLocationViewModel.arrayOfSavedLocationList.indices.contains(indexRow){
             debugPrint("locationList:\(savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow])")
+            let id = savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].id
             if savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved{
-                self.unSaveLocationAndTravelApi(id: savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId, key:"location") {
+                self.unSaveLocationAndTravelApi(id: id, key:"location") {
                     sender.isSelected.toggle()
                     self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
-                    self.savedAlbumLocationViewModel.removedSavedObject(id: self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId)
+                    self.savedAlbumLocationViewModel.removedSavedObject(id: id)
                     
                     if self.savedAlbumLocationViewModel.arrayOfSavedLocationList.count == 0{
                         self.sections.removeAll { enumCase in
@@ -315,7 +316,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     self.tblviewData.figureOutAndShowNoResults()
                 }
             }else{
-                self.saveLocationTripApi(id: savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId) {
+                self.saveLocationTripApi(id: id) {
                     sender.isSelected.toggle()
                     self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
                 }
@@ -428,7 +429,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             let doneButton = UIButton(frame: CGRect(x: tableView.frame.width - 130, y: 0, width: 130, height: 44.0))
             doneButton.setAttributedTitle(attributeString, for: .normal)
             doneButton.layer.cornerRadius = 10.0
-            doneButton.addTarget(self, action: #selector(buttonReadMoreTravelAdviceClikced), for: .touchUpInside)
+            doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
             return footerView//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
@@ -517,7 +518,7 @@ extension SavedAlbumDetailViewController{
 //        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
 //        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         
-        if let indexSection = sections.firstIndex(where: {$0.sectionType == .savedAdvice}), let row = sections[indexSection].array.firstIndex(where: {$0.savedId == id}){
+        if let indexSection = sections.firstIndex(where: {$0.sectionType == .savedAdvice}), let row = sections[indexSection].array.firstIndex(where: {$0.id == id}){
             removeTravelAdvice(id: id, indexpath: IndexPath.init(row: row, section: indexSection))
         }
     }
@@ -591,6 +592,7 @@ extension SavedAlbumDetailViewController{
             guard let status = dataResponce?["status"]?.intValue, status == 200 else {
                 return
             }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadUserTripList"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {
@@ -611,6 +613,8 @@ extension SavedAlbumDetailViewController{
                 return
             }
             
+            
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadUserTripList"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
             success?()
         }  internetFailure: {

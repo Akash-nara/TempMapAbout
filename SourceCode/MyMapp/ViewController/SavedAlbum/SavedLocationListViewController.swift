@@ -112,11 +112,12 @@ extension SavedLocationListViewController: UITableViewDataSource, UITableViewDel
         let indexRow = Int(sender.accessibilityHint ?? "") ?? 0
         if viewModel.arrayOfSavedLocationList.indices.contains(indexRow){
             debugPrint("locationList:\(viewModel.arrayOfSavedLocationList[indexRow])")
+            let id = viewModel.arrayOfSavedLocationList[indexRow].id
             if viewModel.arrayOfSavedLocationList[indexRow].isSaved{
-                self.unSaveLocationAndTravelApi(id: viewModel.arrayOfSavedLocationList[indexRow].savedLocationId, key:"location") {
+                self.unSaveLocationAndTravelApi(id: id, key:"location") {
                     sender.isSelected.toggle()
                     viewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
-                    viewModel.removedSavedObject(id: viewModel.arrayOfSavedLocationList[indexRow].savedLocationId)
+                    viewModel.removedSavedObject(id: id)
                     
                     if  viewModel.arrayOfSavedLocationList.count == 0{
                         self.objSavedDetailVc?.sections.removeAll { enumCase in

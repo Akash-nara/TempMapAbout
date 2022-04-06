@@ -50,6 +50,40 @@ class FeedHomeVC: UIViewController {
         }
     }
     
+    /*
+    @objc func updateTripForSaveUnSaveTravel(notification:NSNotification) {
+        if let id = notification.object as? Int{
+            
+            for (i,obj) in self.viewModel.arrayOfTripList.enumerated(){
+                for (j,obj1) in obj.advicesOfArray.enumerated(){
+                    switch obj1{
+                    case .topTips(let title, let sub, let id, let isSaved):
+                        if id == id{
+                            self.viewModel.arrayOfTripList[i].advicesOfArray[j] = EnumTripSection.topTips(title, sub, id, isSaved?.toggle())
+                        }
+                    case .travelStory(let title, let sub, let id, let isSaved):
+                        if id == id{
+                            self.viewModel.arrayOfTripList[i].advicesOfArray[j] = EnumTripSection.travelStory(title, sub, id, isSaved?.toggle())
+                        }
+
+                    case .logisticsRoute(let title, let sub, let id, let isSaved):
+                        if id == id{
+                            self.viewModel.arrayOfTripList[i].advicesOfArray[j] = EnumTripSection.logisticsRoute(title, sub, id, isSaved?.toggle())
+                        }
+                    default:break
+                    }
+                }
+            }
+            
+            if let index = self.viewModel.arrayOfTripList.firstIndex(where: {$0.id == id}){
+                self.viewModel.arrayOfTripList[index].isBookmarked.toggle()
+                self.viewModel.arrayOfTripList[index].increaeeDecreaseBookmarkCount()
+                self.tableViewFeedList.reloadData()
+            }
+        }
+    }*/
+    
+    
     @objc func reCallTripListApi() {
         stopLoaders()
         self.getTripListApi(isPullToRefresh: true)
