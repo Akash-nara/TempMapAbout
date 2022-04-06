@@ -104,9 +104,6 @@ extension UIStoryboard {
         return getViewController(vcClass: TripImagesUploadVC.self)
     }
 
-    var testTableViewUseCase: TestTableViewUseCase? {
-        return getViewController(vcClass: TestTableViewUseCase.self)
-    }
     
     var profileHomeVC: ProfileHomeVC? {
         return getViewController(vcClass: ProfileHomeVC.self)
