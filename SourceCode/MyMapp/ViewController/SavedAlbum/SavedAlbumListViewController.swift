@@ -50,7 +50,6 @@ class SavedAlbumListViewController: UIViewController {
         
         self.collectionviewProfile.collectionViewLayout = layout
         collectionviewProfile.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 40, right: 0)
-//        collectionView.userInteractionEnabled = true
 
         collectionviewProfile.sayNoSection = .none//noSavedTripListFound("No Saved albums found")
         

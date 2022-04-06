@@ -13,7 +13,7 @@ class SavedAdviceChildCell: UITableViewCell {
     @IBOutlet weak var buttonSaveToggle: UIButton!
     @IBOutlet weak var imageViewProfilePic: UIImageView!
     @IBOutlet weak var labelUsername: UILabel!
-    @IBOutlet weak var labelTips: UILabel!
+    @IBOutlet weak var labelTips: LessMoreCustomizeLabel!
     @IBOutlet weak var constraintBottomTopTipView: NSLayoutConstraint!
     
     override func awakeFromNib() {
@@ -24,6 +24,13 @@ class SavedAdviceChildCell: UITableViewCell {
 
         buttonSaveToggle.setImage(UIImage(named: "ic_SavedUnselected"), for: .normal)
         buttonSaveToggle.setImage(UIImage(named: "iconsSavedTip"), for: .selected)
+        
+        labelTips.textColor = UIColor.App_BG_SecondaryDark2_Color
+        labelTips.numberOfLines = 0
+        labelTips.seeMoreLessColor = UIColor.grayLightReadLessMore
+        labelTips.setTextFont = UIFont.Montserrat.Medium(14)
+        labelTips.seeMoreLessFont = UIFont.Montserrat.Medium(12.7)
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

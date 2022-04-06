@@ -12,7 +12,7 @@ class SavedAlbumDetailViewController: UIViewController {
     //MARK: - OUTLETS
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelGotoCityPage: UILabel!
-    @IBOutlet weak var tblviewData: UITableView!{
+    @IBOutlet weak var tblviewData: SayNoForDataTableView!{
         didSet{
             tblviewData.setDefaultProperties(vc: self)
             tblviewData.registerCellNib(identifier: TitleHeaderTVCell.identifier)
@@ -23,10 +23,13 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.registerCellNib(identifier: SavedAdviceParentBottomViewCell.identifier)
             tblviewData.registerCellNib(identifier: SavedAdviceChildCell.identifier)
             tblviewData.registerCellNib(identifier: SavedAdviceFooterCell.identifier)
-            
+            tblviewData.registerCellNib(identifier: SkeletonTripTVCell.identifier)
+            tblviewData.sayNoSection = .noDataFound("\(cityName.capitalized)'s data not found.")
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
+            tblviewData.reloadData()
         }
     }
+    
     enum EnumSection:Int {
         case savedAlbums = 0, savedLocations, savedAdvice
         var title:String{
@@ -50,7 +53,9 @@ class SavedAlbumDetailViewController: UIViewController {
     var nextPageToken:String = ""
     var cityId = 1
     var cityName = "Spain"
-    
+    var isShowWholeContent = false
+    var isApiDataFeched = false
+
     struct SectionModel {
         var sectionType: EnumSection
         var sectionTitle = ""
@@ -63,17 +68,15 @@ class SavedAlbumDetailViewController: UIViewController {
         super.viewDidLoad()
         
         
-        getAdviceForTripAPi()
-        
+        self.getAdviceForTripAPi()
+        self.getSavedTripListApi()
+
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelGotoCityPage.isHidden = false
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleGestureGotoCityPage))
         tap.numberOfTapsRequired = 1
         labelGotoCityPage.addGestureRecognizer(tap)
-        
-        
-        self.getSavedTripListApi()
         
         /*
          //savedAlbums
@@ -136,18 +139,27 @@ class SavedAlbumDetailViewController: UIViewController {
 //MARK: - TABLEVIEW METHODS
 extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int{
+        if !isApiDataFeched{
+            return 1
+        }
         return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard isApiDataFeched else {
+            return 5
+        }
+        
         switch sections[section].sectionType{
-        case .savedLocations:
-            return 2//arraySavedLocations.count
         case .savedAlbums:
             return viewModel.arrayOfTripList.count.isZero() ? 0 : 1
+        case .savedLocations:
+            let count  = savedAlbumLocationViewModel.arrayOfSavedLocationList.count
+            return count >= 4 ? 4 : count
         case .savedAdvice:
             if sections[section].isOpenCell {
-                return sections[section].array.count + 1
+                let count  = sections[section].array.count
+                return (count >= 4 ? 4 : count) + 1
             } else {
                 return 1
             }
@@ -155,7 +167,12 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        guard isApiDataFeched else {
+            let cell = tblviewData.dequeueReusableCell(withIdentifier: "SkeletonTripTVCell", for: indexPath) as! SkeletonTripTVCell
+            cell.startAnimating(index: indexPath.row)
+            return cell
+        }
+
         switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
@@ -218,11 +235,34 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                 cell.buttonSaveToggle.tag = indexPath.section
                 cell.buttonSaveToggle.accessibilityHint = "\(indexPath.row)"
                 cell.buttonSaveToggle.addTarget(self, action: #selector(saveToggleActionListenerSavedAdviceChildCell(_:)), for: .touchUpInside)
+                
+                cell.labelTips.tag = row
+                let str = sections[indexPath.section].array[row].savedComment
+                if str.isEmpty {
+                    cell.labelTips.isHidden = true
+                } else {
+                    cell.labelTips.isHidden = false
+                    cell.labelTips.isShowWholeContent = sections[indexPath.section].array[row].isExpand
+                    cell.labelTips.readLessText = " " + "see less"
+                    cell.labelTips.readMoreText = " " + "see more"
+                    cell.labelTips.isOneLinedContent = true
+                    cell.labelTips.setContent(str, noOfCharacters: 120, readMoreTapped: {
+                        self.sections[indexPath.section].array[row].isExpand = true
+
+                        self.isShowWholeContent = true
+                        self.tblviewData.reloadData()
+                    }) {
+                        self.sections[indexPath.section].array[row].isExpand = false
+                        self.isShowWholeContent = false
+                        self.tblviewData.reloadData()
+                    }
+                }
+
                 return cell
             }
         }
     }
-    
+        
     @objc func saveToggleActionListenerSavedAdviceChildCell(_ sender : UIButton){
         guard let rowString = sender.accessibilityHint, let rowCell = Int(rowString) else { return }
         let row = getChildCellRow(indexPath: IndexPath(row: rowCell, section: sender.tag))
@@ -233,11 +273,19 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             self.sections[sender.tag].array[row].isSaved.toggle()
             self.sections[sender.tag].array.remove(at: row)
             
+            let sectionTitle = self.sections[sender.tag].sectionTitle
             if self.sections[sender.tag].array.count == 0{
                 self.sections.remove(at: sender.tag)
+                
+                if !sectionTitle.isEmpty{
+                    if sections.count > sender.tag, sections[sender.tag].sectionType == .savedAdvice{
+                        sections[sender.tag].sectionTitle = sectionTitle
+                    }
+                }
             }
-        
+            
             self.tblviewData.reloadData()
+            self.tblviewData.figureOutAndShowNoResults()
         }
     }
     
@@ -251,7 +299,14 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     sender.isSelected.toggle()
                     self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
                     self.savedAlbumLocationViewModel.removedSavedObject(id: self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId)
+                    
+                    if self.savedAlbumLocationViewModel.arrayOfSavedLocationList.count == 0{
+                        self.sections.removeAll { enumCase in
+                           return enumCase.sectionType == .savedLocations
+                        }
+                    }
                     self.tblviewData.reloadData()
+                    self.tblviewData.figureOutAndShowNoResults()
                 }
             }else{
                 self.saveLocationTripApi(id: savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].savedLocationId) {
@@ -263,6 +318,10 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard isApiDataFeched else {
+            return 100
+        }
+
         switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             return SavedAlbumCVCell.cellSize.height
@@ -272,17 +331,24 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        guard isApiDataFeched else {
+            return
+        }
+
         switch sections[indexPath.section].sectionType{
         case .savedAdvice:
             let row = getChildCellRow(indexPath: indexPath)
-            sections[indexPath.section].array[row].isSaved.toggle()
-            tblviewData.reloadData()
         default:
             break
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard isApiDataFeched else {
+            return nil
+        }
+
         switch sections[section].sectionType{
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceParentCell.self) as! SavedAdviceParentCell
@@ -303,6 +369,10 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        guard isApiDataFeched else {
+            return 0
+        }
         switch sections[section].sectionType{
         case .savedAdvice:
             return SavedAdviceParentCell.getCellHeight(sectionTitle: sections[section].sectionTitle)
@@ -312,7 +382,13 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard isApiDataFeched else {
+            return 0.01
+        }
+
         switch sections[section].sectionType{
+        case .savedLocations:
+            return 50
         case .savedAdvice:
             return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell)
         default:
@@ -325,7 +401,32 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard isApiDataFeched else {
+            return nil
+        }
+
         switch sections[section].sectionType {
+        case .savedLocations:
+            let yourAttributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.font: UIFont.Montserrat.Medium(15),
+                NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+                NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
+            ] // .styleDouble.rawValue, .styleThick.rawValue, .styleNone.rawValue
+            
+            let attributeString = NSMutableAttributedString(
+                string: "Read more",
+                attributes: yourAttributes
+            )
+            
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44.0))
+            let doneButton = UIButton(frame: CGRect(x: tableView.frame.width - 130, y: 0, width: 130, height: 44.0))
+            doneButton.setAttributedTitle(attributeString, for: .normal)
+            doneButton.layer.cornerRadius = 10.0
+            doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
+            footerView.addSubview(doneButton)
+            
+            return footerView
+            
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
             cell.cellConfig(isOpenCell: sections[section].isOpenCell)
@@ -333,6 +434,16 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         default:
             return nil
         }
+    }
+    
+    
+    @objc func buttonReadMoreClikced(){
+        guard let vc = UIStoryboard.tabbar.travelAdviceListVC else {
+            return
+        }
+        vc.cityName = self.cityName
+        vc.cityId = cityId
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -349,7 +460,6 @@ extension SavedAlbumDetailViewController{
             if !(self?.viewModel.arrayOfTripList.count.isZero() ?? false) {
                 self?.sections.append(SectionModel(sectionType: .savedAlbums))
             }
-            self?.tblviewData.reloadData()
             self?.getSavedLocationsListApi()
         })
     }
@@ -364,7 +474,6 @@ extension SavedAlbumDetailViewController{
             if !(self?.savedAlbumLocationViewModel.arrayOfSavedLocationList.count.isZero() ?? false) {
                 self?.sections.append(SectionModel(sectionType: .savedLocations))
             }
-            self?.tblviewData.reloadData()
             self?.getSavedTopTipListApi()
         })
     }
@@ -379,7 +488,9 @@ extension SavedAlbumDetailViewController{
             if !(self?.savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.count.isZero() ?? false) {
                 self?.preparedSectionAndArrayOfTraveAdvice()
             }
+            self?.isApiDataFeched = true
             self?.tblviewData.reloadData()
+            self?.tblviewData.figureOutAndShowNoResults()
         })
     }
     
@@ -409,6 +520,8 @@ extension SavedAlbumDetailViewController{
                 break
             }
         }
+        
+        
     }
     
     func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
