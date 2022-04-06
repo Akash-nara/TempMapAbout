@@ -48,7 +48,8 @@ class TravelAdviceListViewController: UIViewController {
     var arrayOfLogistics = [TravelAdviceDataModel]()
     
     var selectedTab:EnumTravelType = .topTips
-    
+    var savedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -213,4 +214,37 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
+}
+extension  TravelAdviceListViewController{
+    // get saved toptips
+    func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        let param = viewModel.getPageDict(isPullToRefresh)
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
+        savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
+            
+            // add saved advices section
+            if !(self?.savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.count.isZero() ?? false) {
+                self?.preparedSectionAndArrayOfTraveAdvice()
+            }
+            self?.isApiDataFeched = true
+            self?.tblviewData.reloadData()
+            self?.tblviewData.figureOutAndShowNoResults()
+        })
+    }
+
+}
+
+extension TravelAdviceListViewController{
+    // get saved locations
+    func getSavedLocationsListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        guard let viewModel = savedAlbumLocationViewModel else {
+            return
+        }
+        
+        let param = self.savedAlbumLocationViewModel?.getPageDict(isPullToRefresh)
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
+        viewModel.getSavedLocationListApi(paramDict: paramDict, success: { [weak self] response in
+            self?.tblviewData.reloadData()
+        })
+    }
 }

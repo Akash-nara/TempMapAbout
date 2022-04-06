@@ -273,6 +273,7 @@
 		AA64793227F314670048FDEA /* SavedAlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */; };
 		AA64793427F315600048FDEA /* SavedAlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */; };
 		AA64793827F4C54E0048FDEA /* SavedAlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */; };
+		AABECFC127FDD05A00497952 /* SavedLocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABECFC027FDD05A00497952 /* SavedLocationListViewController.swift */; };
 		AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
@@ -551,6 +552,7 @@
 		AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewController.swift; sourceTree = "<group>"; };
 		AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumListViewModel.swift; sourceTree = "<group>"; };
 		AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumDetailViewController.swift; sourceTree = "<group>"; };
+		AABECFC027FDD05A00497952 /* SavedLocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationListViewController.swift; sourceTree = "<group>"; };
 		AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserDataModel.swift; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1548,6 +1550,7 @@
 				AA64793627F4C52E0048FDEA /* SavedAlbumDetail */,
 				AA64793127F314670048FDEA /* SavedAlbumListViewController.swift */,
 				AA64793327F315600048FDEA /* SavedAlbumListViewModel.swift */,
+				AABECFC027FDD05A00497952 /* SavedLocationListViewController.swift */,
 			);
 			path = SavedAlbum;
 			sourceTree = "<group>";
@@ -1876,6 +1879,7 @@
 				884543422737FA7F00B52FED /* FeedHomeVC.swift in Sources */,
 				8885DFB42733B88500AE698B /* ImagePickerManager.swift in Sources */,
 				886A0C9527366E5600DC0B30 /* CityListCell.swift in Sources */,
+				AABECFC127FDD05A00497952 /* SavedLocationListViewController.swift in Sources */,
 				38AE152F2782D6630016F80E /* CustomAlertHelpingUtility.swift in Sources */,
 				38152A4727DB37F50077BDB5 /* ExploreTripTopCellXIB.swift in Sources */,
 				88122D51273FD935003512C1 /* LoginViewModel.swift in Sources */,

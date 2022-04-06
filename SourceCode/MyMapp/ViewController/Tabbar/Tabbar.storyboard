@@ -1048,6 +1048,79 @@
             </objects>
             <point key="canvasLocation" x="35" y="1724"/>
         </scene>
+        <!--SavedLocationListViewController-->
+        <scene sceneID="8Mb-NH-3Un">
+            <objects>
+                <viewController storyboardIdentifier="SavedLocationListViewController" title="SavedLocationListViewController" id="s96-rO-hHz" customClass="SavedLocationListViewController" customModule="MyMapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VBV-Uq-0rD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7WX-8N-Fpw">
+                                <rect key="frame" x="0.0" y="68" width="389" height="218"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5P-8p-wmy">
+                                        <rect key="frame" x="0.0" y="86.5" width="389" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hza-sW-zda">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="gJM-rx-N8M"/>
+                                                    <constraint firstAttribute="height" constant="45" id="p5G-vm-Es4"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="5" maxY="10"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_back_black"/>
+                                                <connections>
+                                                    <action selector="buttonBackTapp:" destination="s96-rO-hHz" eventType="touchUpInside" id="iGI-xr-37o"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTx-C1-mD3">
+                                                <rect key="frame" x="45" y="0.0" width="344" height="45"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                                <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DvE-ss-AGe">
+                                <rect key="frame" x="0.0" y="286" width="414" height="576"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pqG-dh-QgQ" customClass="SayNoForDataTableView" customModule="MyMapp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="576"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lNx-Qd-0Ca"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lNx-Qd-0Ca" firstAttribute="trailing" secondItem="7WX-8N-Fpw" secondAttribute="trailing" constant="25" id="Fis-PI-n8f"/>
+                            <constraint firstItem="DvE-ss-AGe" firstAttribute="top" secondItem="7WX-8N-Fpw" secondAttribute="bottom" id="aJN-wG-zAK"/>
+                            <constraint firstItem="7WX-8N-Fpw" firstAttribute="top" secondItem="lNx-Qd-0Ca" secondAttribute="top" constant="24" id="eTj-pZ-JZG"/>
+                            <constraint firstItem="DvE-ss-AGe" firstAttribute="trailing" secondItem="lNx-Qd-0Ca" secondAttribute="trailing" id="kbO-r4-nuO"/>
+                            <constraint firstItem="7WX-8N-Fpw" firstAttribute="leading" secondItem="lNx-Qd-0Ca" secondAttribute="leading" id="nYM-Vi-G2V"/>
+                            <constraint firstItem="DvE-ss-AGe" firstAttribute="leading" secondItem="lNx-Qd-0Ca" secondAttribute="leading" id="pTx-Ay-akE"/>
+                            <constraint firstItem="lNx-Qd-0Ca" firstAttribute="bottom" secondItem="DvE-ss-AGe" secondAttribute="bottom" id="yqJ-5m-eLy"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Explore" id="5DE-jV-BRZ">
+                        <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="labelTitle" destination="MTx-C1-mD3" id="8qI-s5-49g"/>
+                        <outlet property="tblviewData" destination="pqG-dh-QgQ" id="ROO-tz-nUM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wAY-x9-QXw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-586" y="2369"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic_back_black" width="48" height="48"/>

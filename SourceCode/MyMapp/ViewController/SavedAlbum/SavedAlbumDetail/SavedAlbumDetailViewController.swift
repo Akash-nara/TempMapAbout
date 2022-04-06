@@ -43,6 +43,7 @@ class SavedAlbumDetailViewController: UIViewController {
             }
         }
     }
+    
     var viewModel = SavedAlbumListViewModel()
     var savedAlbumLocationViewModel = SavedAlbumLocationViewModel()
     var savedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
@@ -290,7 +291,6 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     @objc func buttonBookmarLocationkClicked(sender:UIButton){
-        sender.isSelected.toggle()
         let indexRow = Int(sender.accessibilityHint ?? "") ?? 0
         if savedAlbumLocationViewModel.arrayOfSavedLocationList.indices.contains(indexRow){
             debugPrint("locationList:\(savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow])")
@@ -388,7 +388,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
 
         switch sections[section].sectionType{
         case .savedLocations:
-            return 50
+            return 50//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? 50 : 0.01
         case .savedAdvice:
             return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell)
         default:
@@ -425,8 +425,8 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
-            return footerView
-            
+            return footerView//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
+
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
             cell.cellConfig(isOpenCell: sections[section].isOpenCell)
@@ -436,14 +436,15 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         }
     }
     
-    
     @objc func buttonReadMoreClikced(){
-        guard let vc = UIStoryboard.tabbar.travelAdviceListVC else {
+        guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
             return
         }
-        vc.cityName = self.cityName
-        vc.cityId = cityId
-        self.navigationController?.pushViewController(vc, animated: true)
+        savedLocationListVC.cityName = self.cityName
+        savedLocationListVC.cityId = cityId
+        savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
+        savedLocationListVC.objSavedDetailVc = self
+        self.navigationController?.pushViewController(savedLocationListVC, animated: true)
     }
 }
 
@@ -466,7 +467,7 @@ extension SavedAlbumDetailViewController{
     
     // get saved locations
     func getSavedLocationsListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
-        let param = viewModel.getPageDict(isPullToRefresh)
+        let param = savedAlbumLocationViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
         savedAlbumLocationViewModel.getSavedLocationListApi(paramDict: paramDict, success: { [weak self] response in
             
@@ -480,7 +481,7 @@ extension SavedAlbumDetailViewController{
     
     // get saved toptips
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
-        let param = viewModel.getPageDict(isPullToRefresh)
+        let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
         savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
             
@@ -520,8 +521,6 @@ extension SavedAlbumDetailViewController{
                 break
             }
         }
-        
-        
     }
     
     func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
