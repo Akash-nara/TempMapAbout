@@ -49,7 +49,7 @@ class SavedAlbumDetailViewController: UIViewController {
     var savedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
     
     var sections:[SectionModel] = []
-    var arrayAdviceListArrray = [JSON]()
+    var arrayAdviceListArrray = [JSON]() // get list of top tips
     
     var nextPageToken:String = ""
     var cityId = 1
@@ -270,24 +270,30 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         
         let id = sections[sender.tag].array[row].savedId
         self.unSaveLocationAndTravelApi(id: id, key: "advice") { [self] in
-            self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
-            self.sections[sender.tag].array[row].isSaved.toggle()
-            self.sections[sender.tag].array.remove(at: row)
+            self.removeTravelAdvice(id: id, indexpath: IndexPath.init(row: row, section: sender.tag))
+        }
+    }
+    
+    func removeTravelAdvice(id:Int,indexpath:IndexPath){
+        
+        self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
+        self.sections[indexpath.section].array[indexpath.row].isSaved.toggle()
+        self.sections[indexpath.section].array.remove(at: indexpath.row)
+        
+        let sectionTitle = self.sections[indexpath.section].sectionTitle
+        if self.sections[indexpath.section].array.count == 0{
+            self.sections.remove(at: indexpath.section)
             
-            let sectionTitle = self.sections[sender.tag].sectionTitle
-            if self.sections[sender.tag].array.count == 0{
-                self.sections.remove(at: sender.tag)
-                
-                if !sectionTitle.isEmpty{
-                    if sections.count > sender.tag, sections[sender.tag].sectionType == .savedAdvice{
-                        sections[sender.tag].sectionTitle = sectionTitle
-                    }
+            if !sectionTitle.isEmpty{
+                if sections.count > indexpath.section, sections[indexpath.section].sectionType == .savedAdvice{
+                    sections[indexpath.section].sectionTitle = sectionTitle
                 }
             }
-            
-            self.tblviewData.reloadData()
-            self.tblviewData.figureOutAndShowNoResults()
         }
+        
+        self.tblviewData.reloadData()
+        self.tblviewData.figureOutAndShowNoResults()
+
     }
     
     @objc func buttonBookmarLocationkClicked(sender:UIButton){
@@ -422,7 +428,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             let doneButton = UIButton(frame: CGRect(x: tableView.frame.width - 130, y: 0, width: 130, height: 44.0))
             doneButton.setAttributedTitle(attributeString, for: .normal)
             doneButton.layer.cornerRadius = 10.0
-            doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
+            doneButton.addTarget(self, action: #selector(buttonReadMoreTravelAdviceClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
             return footerView//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
@@ -445,6 +451,17 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
         savedLocationListVC.objSavedDetailVc = self
         self.navigationController?.pushViewController(savedLocationListVC, animated: true)
+    }
+    
+    @objc func buttonReadMoreTravelAdviceClikced(){
+        guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
+            return
+        }
+        travelAdviceListVC.cityName = self.cityName
+        travelAdviceListVC.cityId = cityId
+        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+        travelAdviceListVC.objSavedDetailVc = self
+        self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
     }
 }
 
@@ -494,6 +511,17 @@ extension SavedAlbumDetailViewController{
             self?.tblviewData.figureOutAndShowNoResults()
         })
     }
+    
+    func removedObject(id:Int){
+//        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+//        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
+//        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
+        
+        if let indexSection = sections.firstIndex(where: {$0.sectionType == .savedAdvice}), let row = sections[indexSection].array.firstIndex(where: {$0.savedId == id}){
+            removeTravelAdvice(id: id, indexpath: IndexPath.init(row: row, section: indexSection))
+        }
+    }
+    
     
     func preparedSectionAndArrayOfTraveAdvice(){
         

@@ -11,7 +11,7 @@ import MapKit
 
 
 class ExploreTripDetailViewController: UIViewController {
-
+    
     
     //MARK: - OUTLETS
     var cityId = 0
@@ -50,15 +50,16 @@ class ExploreTripDetailViewController: UIViewController {
         }
     }
     
-    var arrayOfToolTips = [Bool]()
+    var arrayOfToolTips = [TravelAdviceDataModel]()
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [JSON]()
     var arrayExpandable = [ExploreSuggestionDataModel]()
     var latLong:CLLocationCoordinate2D? = nil
     var nextPageToken:String = ""
-  
+    
     static var arrayStorePlaceId:[String]  = [String]()
-
+    var savedAlbumTravelAdviceViewModel:SavedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,15 +83,15 @@ class ExploreTripDetailViewController: UIViewController {
     func configureTopTipsArray(){
         
         // here static displayed for kabul only
-        if cityId == 1{
-            // ToolTips
-            arrayOfToolTips.append(false)
-            arrayOfToolTips.append(false)
-            arrayOfToolTips.append(false)
-            if !arrayOfToolTips.count.isZero() {
-                arrayOfSections.append(.topTips)
-            }
-        }
+        //        if cityId == 1{
+        //            // ToolTips
+        //            arrayOfToolTips.append(false)
+        //            arrayOfToolTips.append(false)
+        //            arrayOfToolTips.append(false)
+        //            if !arrayOfToolTips.count.isZero() {
+        //                arrayOfSections.append(.topTips)
+        //            }
+        //        }
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -131,11 +132,11 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.cityName = self.cityName
             cell.latLong = self.latLong
             cell.loadDefaultPosition()
-//            cell.configureMap()
+            //            cell.configureMap()
             return cell
         case .expandableViews:
             let cell = tblviewData.dequeueCell(withType: ExpandableTVCell.self, for: indexPath) as! ExpandableTVCell
-//            cell.cellConfigExpandable(isOpen: arrayExpandable[indexPath.row].isOpenCell)
+            //            cell.cellConfigExpandable(isOpen: arrayExpandable[indexPath.row].isOpenCell)
             cell.cellConfig(data: arrayExpandable[indexPath.row])
             cell.buttonExpandToggle.tag = indexPath.row
             cell.buttonExpandToggle.addTarget(self, action: #selector(self.cellButtonExpandToggleClicked(_:)), for: .touchUpInside)
@@ -156,7 +157,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             
             return cell
         case .topTips:
-            return configureAdvanceTravelCell(indexPath: indexPath, title: "Xi Yang", subTitle: "I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because I would suggest to book all public transport tickets beforehand because", icon: "ic_Default_city_image_one", isExpadCell: arrayOfToolTips[indexPath.row])
+            return configureAdvanceTravelCell(indexPath: indexPath, title: arrayOfToolTips[indexPath.row].userName, subTitle: arrayOfToolTips[indexPath.row].savedComment, icon: arrayOfToolTips[indexPath.row].userProfilePic, isExpadCell: arrayOfToolTips[indexPath.row].isExpand)
         default:
             return UITableViewCell()
         }
@@ -182,7 +183,8 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool) -> ExploreTripTopCellXIB{
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "ExploreTripTopCellXIB", for: indexPath) as! ExploreTripTopCellXIB
-        cell.userIcon.image = UIImage.init(named: icon)
+        cell.userIcon.setImage(url: icon, placeholder: UIImage.init(named: "not_icon"))
+        cell.userIcon.setBorderWithColor()
         cell.trealingViewExpand.constant = 50
         
         cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
@@ -190,6 +192,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
+        cell.buttonBookmark.isSelected  = arrayOfToolTips[indexPath.row].isSaved
         
         cell.lblHeader.text = title
         cell.labelSubTitle.text = subTitle
@@ -201,17 +204,17 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             cell.labelSubTitle.isHidden = true
         } else {
             cell.labelSubTitle.isHidden = false
-            cell.labelSubTitle.isShowWholeContent = self.arrayOfToolTips[cell.labelSubTitle.tag]
+            cell.labelSubTitle.isShowWholeContent = self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand
             cell.labelSubTitle.readLessText = " " + "see less"
             cell.labelSubTitle.readMoreText = " " + "see more"
             cell.labelSubTitle.isOneLinedContent = true
             cell.labelSubTitle.setContent(str, noOfCharacters: 120, readMoreTapped: {
-                self.arrayOfToolTips[cell.labelSubTitle.tag] = true
-//                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
+                self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand = true
+                //                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
                 self.tblviewData.reloadData()
             }) {
-                self.arrayOfToolTips[cell.labelSubTitle.tag] = false
-//                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
+                self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand = false
+                //                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
                 self.tblviewData.reloadData()
             }
         }
@@ -221,19 +224,25 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     func reloadToptipsSection(sender:Int){
         if let section = arrayOfSections.firstIndex(where: {$0 == .topTips}){
             self.tblviewData.reloadRows(at: [IndexPath.init(row: sender, section: section)], with: .automatic)
-//            self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
+            //            self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
         }
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
-        sender.isSelected.toggle()
+        let id  = arrayOfToolTips[sender.tag].savedId
+        self.unSaveLocationAndTravelApi(id: id, key: "advice") {
+            sender.isSelected.toggle()
+            self.arrayOfToolTips[sender.tag].isSaved.toggle()
+//            self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
+            self.tblviewData.reloadData()
+        }
     }
     
     //MARK: - OTHER FUNCTIONS
     @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
         let section = (Int(sender.accessibilityHint ?? "") ?? 0)
         let row = (Int(sender.accessibilityLabel ?? "") ?? 0)
-        arrayOfToolTips[IndexPath.init(row: row, section: section).row].toggle()
+        arrayOfToolTips[IndexPath.init(row: row, section: section).row].isExpand.toggle()
         self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
         //        self.tblviewData.reloadData()
     }
@@ -304,12 +313,17 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     
     @objc func buttonReadMoreClikced(){
         
-        guard let vc = UIStoryboard.tabbar.travelAdviceListVC else {
+        guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
             return
         }
-        vc.cityName = self.cityName
-        vc.cityId = cityId
-        self.navigationController?.pushViewController(vc, animated: true)
+        travelAdviceListVC.cityName = self.cityName
+        travelAdviceListVC.cityId = cityId
+        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+        travelAdviceListVC.saveUnSaveStatusUpdateCallback = { id in
+            self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
+            self.tblviewData.reloadData()
+        }
+        self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
         
     }
     
@@ -361,7 +375,7 @@ extension ExploreTripDetailViewController{
             DispatchQueue.getMain {
                 self.tblviewData.reloadData()
             }
-
+            
             self.getGoogleTripsDetial()
         } failure: { str in
         } internetFailure: {
@@ -380,7 +394,7 @@ extension ExploreTripDetailViewController{
             var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
             urlComps?.queryItems = queryItems
             serviceUrl = urlComps?.url
-
+            
         }else{
             let queryItems = [URLQueryItem(name: "key", value: key), URLQueryItem(name: "query", value: cityName),URLQueryItem(name: "type", value: "tourist_attraction")]
             var urlComps = URLComponents(string: "https://maps.googleapis.com/maps/api/place/textsearch/json")
@@ -389,7 +403,7 @@ extension ExploreTripDetailViewController{
         }
         
         guard let urlGoogle = serviceUrl else { return }
-
+        
         var request = URLRequest(url: urlGoogle)
         request.httpMethod = "GET"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -401,7 +415,7 @@ extension ExploreTripDetailViewController{
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     let jsonObj = JSON.init(json)
                     let placeIdsArray = jsonObj["results"].arrayValue
-
+                    
                     self.nextPageToken = ""
                     if let nextToken = jsonObj["next_page_token"].string, !nextToken.isEmpty{
                         self.nextPageToken = nextToken
@@ -444,13 +458,14 @@ extension ExploreTripDetailViewController{
                             self.tblviewData.reloadData()
                         }
                     }
+                    
+                    self.getSavedTopTipListApi()
                 } catch {
                     print(error)
                 }
             }
         }.resume()
     }
-    
     
     func getSavedGooglePlaceIdListApi(success: (() -> ())? = nil){
         let strJson = JSON(["city":self.cityId]).rawString(.utf8, options: .sortedKeys) ?? ""
@@ -468,4 +483,48 @@ extension ExploreTripDetailViewController{
             self?.getAdminSuggestion()
         }
     }
+    
+    func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        
+        let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
+        savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
+            self?.preparedSectionAndArrayOfTraveAdvice()
+            self?.tblviewData.reloadData()
+        })
+    }
+    
+    func preparedSectionAndArrayOfTraveAdvice(){
+        
+        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+        //        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
+        //        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
+        self.arrayOfToolTips = toolTips
+        
+        if !arrayOfToolTips.count.isZero() {
+            arrayOfSections.append(.topTips)
+        }
+        tblviewData.reloadData()
+    }
+    
+    // un saved travel and location
+    func unSaveLocationAndTravelApi(id:Int, key:String, success: (() -> ())? = nil){
+        let strJson = JSON(["id":id,"INTEREST_CATEGORY": key]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .unSaveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+
 }

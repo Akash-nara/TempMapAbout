@@ -211,5 +211,11 @@ class SavedAlbumTravelAdviceViewModel{
             self.arrayOfSavedTopTipsList.remove(at: index)
         }
     }
+    
+    func updateStatusSavedObject(id:Int) {
+        if let index = self.arrayOfSavedTopTipsList.firstIndex(where: {$0.savedId == id}){
+            self.arrayOfSavedTopTipsList[index].isSaved.toggle()
+        }
+    }
 
 }
