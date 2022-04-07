@@ -452,18 +452,18 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     
     @objc func buttonReadMoreSavedAdvisedCell(_ sender: UIButton){
         
-        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
-        /*
-         print(sections[sender.tag])
-         guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
-         return
-         }
-         travelAdviceListVC.cityName = self.cityName
-         travelAdviceListVC.cityId = cityId
-         travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
-         travelAdviceListVC.objSavedDetailVc = self
-         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
-         */
+        //        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
+        
+        print(sections[sender.tag])
+        guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
+            return
+        }
+        travelAdviceListVC.cityName = self.cityName
+        travelAdviceListVC.cityId = cityId
+        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+        travelAdviceListVC.objSavedDetailVc = self
+        self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
+        
     }
 
     @objc func buttonReadMoreClikced(){
@@ -515,6 +515,7 @@ extension SavedAlbumDetailViewController{
     
     // get saved toptips
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        savedAlbumTravelAdviceViewModel.pageSize = 100
         let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
         savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in

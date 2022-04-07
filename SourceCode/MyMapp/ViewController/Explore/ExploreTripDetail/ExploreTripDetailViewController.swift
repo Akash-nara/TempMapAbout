@@ -487,6 +487,7 @@ extension ExploreTripDetailViewController{
     
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
         
+        savedAlbumTravelAdviceViewModel.pageSize = 200
         let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
         savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in

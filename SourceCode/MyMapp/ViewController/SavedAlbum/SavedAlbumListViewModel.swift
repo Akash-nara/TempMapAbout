@@ -165,6 +165,7 @@ class SavedAlbumTravelAdviceViewModel{
                 objSavedModel.isSaved = true
                 self.arrayOfSavedTopTipsList.append(objSavedModel)
             }
+            self.pageSize = 10
             success?(nil)
         } failureInform: {
             HIDE_CUSTOM_LOADER()
