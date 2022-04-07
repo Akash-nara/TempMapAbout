@@ -209,7 +209,9 @@ extension NetworkingManager{
                        errorDesc == "URLSessionTask failed with error: The request timed out." {
                         DispatchQueue.main.async {
                             API_LOADER.HIDE_CUSTOM_LOADER()
-                            Utility.errorMessage(message: "slow_or_internet_failure")
+//                            "No Internet Connection,or slow internet"
+//                            "facing internet slow or internet failure"
+                            Utility.errorMessage(message: "No Internet, or slow internet connection")
                             internetFailure?()
                         }
                     }else{
