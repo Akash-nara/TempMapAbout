@@ -59,6 +59,7 @@ class ExploreTripDetailViewController: UIViewController {
     
     static var arrayStorePlaceId:[String]  = [String]()
     var savedAlbumTravelAdviceViewModel:SavedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
+    var readMoreCount = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +115,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         case .featuredPlaces:
             return 1
         case .topTips:
-            return arrayOfToolTips.count > 4 ? 3 : arrayOfToolTips.count
+            return arrayOfToolTips.count >= readMoreCount ? readMoreCount : arrayOfToolTips.count
         default:
             return 0
         }
@@ -304,7 +305,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
-            return footerView
+            return arrayOfToolTips.count >= readMoreCount ? footerView : nil
             
         default:
             return  nil
@@ -333,7 +334,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         }
         switch arrayOfSections[section] {
         case .topTips:
-            return 50
+            return arrayOfToolTips.count >= readMoreCount ? 50 : 0.01
         default:
             return  0.01
         }

@@ -9,7 +9,7 @@ import UIKit
 
 class SavedAdviceFooterCell: UITableViewCell {
 
-    static private var readmoreDataCount = 2
+    static private var readmoreDataCount = 5
     
     static func getHeight(isOpenCell: Bool, dataCount: Int) -> CGFloat {
         if isOpenCell {

@@ -67,7 +67,7 @@ class SavedAlbumDetailViewController: UIViewController {
         var array = [TravelAdviceDataModel]()
     }
     
-    var readMoreCount = 2
+    var readMoreCount = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,7 +161,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             return viewModel.arrayOfTripList.count.isZero() ? 0 : 1
         case .savedLocations:
             let count  = savedAlbumLocationViewModel.arrayOfSavedLocationList.count
-            return count >= 4 ? 4 : count
+            return count >= readMoreCount ? readMoreCount : count
         case .savedAdvice:
             if sections[section].isOpenCell {
                 let count = sections[section].array.count
@@ -400,7 +400,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
 
         switch sections[section].sectionType{
         case .savedLocations:
-            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? 50 : 0.01
+            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count >= readMoreCount ? 50 : 0.01
         case .savedAdvice:
             return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell, dataCount: sections[section].array.count)
         default:
@@ -437,7 +437,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
-            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
+            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count >= readMoreCount ? footerView : nil
 
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
@@ -451,19 +451,25 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     @objc func buttonReadMoreSavedAdvisedCell(_ sender: UIButton){
-        print(sections[sender.tag])
-        guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
-            return
-        }
-        savedLocationListVC.cityName = self.cityName
-        savedLocationListVC.cityId = cityId
-        savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
-        savedLocationListVC.objSavedDetailVc = self
-        self.navigationController?.pushViewController(savedLocationListVC, animated: true)
+        
+        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
+        /*
+         print(sections[sender.tag])
+         guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
+         return
+         }
+         travelAdviceListVC.cityName = self.cityName
+         travelAdviceListVC.cityId = cityId
+         travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+         travelAdviceListVC.objSavedDetailVc = self
+         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
+         */
     }
-    
 
     @objc func buttonReadMoreClikced(){
+        
+        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
+        /*
         guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
             return
         }
@@ -472,20 +478,8 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
         savedLocationListVC.objSavedDetailVc = self
         self.navigationController?.pushViewController(savedLocationListVC, animated: true)
+         */
     }
-    
-    @objc func buttonReadMoreTravelAdviceClikced(){
-        guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
-            return
-        }
-        travelAdviceListVC.cityName = self.cityName
-        travelAdviceListVC.cityId = cityId
-        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
-        travelAdviceListVC.objSavedDetailVc = self
-        self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
-    }
-    
-
 }
 
 // apis
