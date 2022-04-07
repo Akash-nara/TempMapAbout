@@ -97,6 +97,12 @@ class AppUser : NSObject, NSCoding {
         }
     }
     
+    init(savedTrip param:JSON) {
+        self.profilePicPath = param["profilePicPath"].stringValue
+        self.displayName = param["userDisplayName"].stringValue
+        self.userId = param["userId"].intValue
+    }
+    
     required init(accessToken: String, refreshToken: String) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken

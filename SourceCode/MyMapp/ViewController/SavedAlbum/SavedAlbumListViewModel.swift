@@ -22,7 +22,6 @@ class SavedAlbumListViewModel{
             }
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfTripList.removeAll() }
-            debugPrint(feedList)
             for obj in feedList{
                 let objSavedModel = TripDataModel.init(withSavedFeed: obj["feed"])
                 objSavedModel.tripSavedId = obj["id"].intValue
@@ -34,7 +33,7 @@ class SavedAlbumListViewModel{
         }
     }
     
-    // Pagination work for Binding Rule
+    // Pagination work
     private var totalElements = 0
     var getAvailableElements: Int { return arrayOfTripList.count }
     var getTotalElements: Int { return totalElements }
@@ -88,7 +87,7 @@ class SavedAlbumLocationViewModel{
             }
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfSavedLocationList.removeAll() }
-            debugPrint(feedList)
+//            debugPrint(feedList)
             for obj in feedList{
                 let objSavedModel = AddTripFavouriteLocationDetail.init(param: obj["location"])
                 objSavedModel.isSaved = true
@@ -158,7 +157,7 @@ class SavedAlbumTravelAdviceViewModel{
             
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfSavedTopTipsList.removeAll() }
-            debugPrint(feedList)
+//            debugPrint(feedList)
             for obj in feedList{
                 let objSavedModel = TravelAdviceDataModel.init(savedObject: obj["advice"])
                 objSavedModel.savedId = obj["id"].intValue

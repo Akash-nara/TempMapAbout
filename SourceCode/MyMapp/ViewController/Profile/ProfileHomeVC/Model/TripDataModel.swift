@@ -279,19 +279,20 @@ class TripDataModel{
 //        advicesOfArray.append(.logisticsRoute("Logistics & Tips", "damdakldmadlakdmadlkamdaldkamdalkdmadlakdmadlkdmadlkdmd"))
 
     }
-    var userDisplayName = ""
-     var userSavedId = 0
+//    var userDisplayName = ""
+//     var userSavedId = 0
     var tripSavedId = 0
     init(withSavedFeed param:JSON) {
         self.tripDate = param["tripDate"].int64Value
         self.tripEndDate = param["tripEndDate"].int64Value
         self.city = TripCity.init(param: param["city"])
-        self.userDisplayName = param["userDisplayName"].stringValue
-        self.userSavedId = param["userId"].intValue
-        self.defaultImageKey = param["defaultImageKey"].stringValue
         self.id = param["id"].intValue
         self.isBookmarked = param["isSaved"].boolValue
         self.bookmarkedTotalCount = param["savedCount"].intValue
+        
+        let userJsonObj = param["user"]
+        self.userCreatedTrip = AppUser.init(savedTrip: userJsonObj)
+        self.defaultImageKey = userJsonObj["defaultImageKey"].stringValue
 
         let photoArray = param["photoDetails"].dictionaryValue
         self.photoUploadedArray.removeAll()

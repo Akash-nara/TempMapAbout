@@ -27,6 +27,12 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.sayNoSection = .noDataFound("\(cityName.capitalized)'s data not found.")
             tblviewData.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: CGFloat.leastNormalMagnitude)))
             
+            tblviewData.addRefreshControlForPullToRefresh { [weak self] in
+                self?.sections.removeAll()
+                self?.isApiDataFeched = false
+                self?.tblviewData.reloadData()
+                self?.getSavedTripListApi(isNextPageRequest: false, isPullToRefresh: true)
+            }
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
             tblviewData.reloadData()
         }
@@ -83,54 +89,6 @@ class SavedAlbumDetailViewController: UIViewController {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleGestureGotoCityPage))
         tap.numberOfTapsRequired = 1
         labelGotoCityPage.addGestureRecognizer(tap)
-        
-        /*
-         //savedAlbums
-         arraySavedAlbums.append(TripDataModel())
-         arraySavedAlbums.append(TripDataModel())
-         arraySavedAlbums.append(TripDataModel())
-         arraySavedAlbums.append(TripDataModel())
-         arraySavedAlbums.append(TripDataModel())
-         
-         if !arraySavedAlbums.count.isZero() {
-         sections.append(SectionModel(sectionType: .savedAlbums))
-         }
-         
-         sections.append(SectionModel(sectionType: .savedLocations))
-         
-         var toolTips = [TravelAdviceDataModel]()
-         toolTips.append(TravelAdviceDataModel())
-         toolTips.append(TravelAdviceDataModel())
-         toolTips.append(TravelAdviceDataModel())
-         
-         if !toolTips.count.isZero() {
-         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: "Top Tips", isOpenCell: false, array: toolTips))
-         }
-         
-         var favoriteTravelStorys = [TravelAdviceDataModel]()
-         favoriteTravelStorys.append(TravelAdviceDataModel())
-         favoriteTravelStorys.append(TravelAdviceDataModel())
-         favoriteTravelStorys.append(TravelAdviceDataModel())
-         
-         if !favoriteTravelStorys.count.isZero() {
-         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Favorite Travel Story", isOpenCell: false, array: favoriteTravelStorys))
-         }
-         
-         var logisticsAndRoutes = [TravelAdviceDataModel]()
-         logisticsAndRoutes.append(TravelAdviceDataModel())
-         logisticsAndRoutes.append(TravelAdviceDataModel())
-         logisticsAndRoutes.append(TravelAdviceDataModel())
-         
-         if !logisticsAndRoutes.count.isZero() {
-         sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: "Logistics & Routes", isOpenCell: false, array: logisticsAndRoutes))
-         }
-         
-         
-         tblviewData.reloadData()
-         */
-        
-        //        getSavedLocationsListApi()
-        //        getSavedTopTipListApi()
     }
     
     @objc func handleGestureGotoCityPage(){
@@ -176,6 +134,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             let cell = tblviewData.dequeueReusableCell(withIdentifier: "SkeletonTripTVCell", for: indexPath) as! SkeletonTripTVCell
             cell.startAnimating(index: indexPath.row)
+            cell.selectionStyle = .none
             return cell
         }
         
@@ -183,6 +142,15 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         case .savedAlbums:
             let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigSavedAlbums(data: viewModel.arrayOfTripList)
+            cell.reachedScrollEndTap = { [weak self] in
+                guard let selfStrong = self else {
+                    return
+                }
+                if selfStrong.viewModel.getTotalElements > selfStrong.viewModel.getAvailableElements &&
+                    !selfStrong.tblviewData.isAPIstillWorking{
+                    selfStrong.getSavedTripListApi(isNextPageRequest: true, isPullToRefresh: false)
+                }
+            }
             cell.didTapUserName = { [weak self] userId in
                 if let loginUserId = APP_USER?.userId, loginUserId == userId{
                     guard let profileHomeVC = UIStoryboard.tabbar.profileHomeVC else {
@@ -238,7 +206,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
             
             cell.buttonBookmark.isHidden = false
-            
+                                                                                                                                                                                                              
             return cell
             
         case .savedAdvice:
@@ -498,29 +466,45 @@ extension SavedAlbumDetailViewController{
     
     // get saved trips
     func getSavedTripListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        
+        if isNextPageRequest{
+            self.tblviewData.isAPIstillWorking = true
+        }
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"feed", "pager":param, "city":self.cityId]
         viewModel.getSavedTripListApi(paramDict: paramDict, success: { [weak self] response in
             
-            // add saved albums section
-            if !(self?.viewModel.arrayOfTripList.count.isZero() ?? false) {
-                self?.sections.append(SectionModel(sectionType: .savedAlbums))
+            if !isNextPageRequest{
+                // add saved albums section
+                if !(self?.viewModel.arrayOfTripList.count.isZero() ?? false) {
+                    self?.sections.append(SectionModel(sectionType: .savedAlbums))
+                }
+                self?.getSavedLocationsListApi(isNextPageRequest: isNextPageRequest, isPullToRefresh: isPullToRefresh)
+            }else{
+                
+                self?.tblviewData.isAPIstillWorking = false
+                guard let selfStrong = self else {
+                    return
+                }
+                if let index = selfStrong.sections.firstIndex(where: {$0.sectionType == .savedAlbums}), let cell = selfStrong.tblviewData.cellForRow(at: IndexPath.init(row: 0, section: index)) as? CollectionViewTVCell{
+                    cell.isLoading = false
+                    cell.cellConfigSavedAlbums(data: selfStrong.viewModel.arrayOfTripList)
+                }
             }
-            self?.getSavedLocationsListApi()
         })
     }
     
     // get saved locations
     func getSavedLocationsListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+
         let param = savedAlbumLocationViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
         savedAlbumLocationViewModel.getSavedLocationListApi(paramDict: paramDict, success: { [weak self] response in
-            
             // add saved location section
             if !(self?.savedAlbumLocationViewModel.arrayOfSavedLocationList.count.isZero() ?? false) {
                 self?.sections.append(SectionModel(sectionType: .savedLocations))
             }
-            self?.getSavedTopTipListApi()
+            self?.getSavedTopTipListApi(isNextPageRequest: isNextPageRequest, isPullToRefresh: isPullToRefresh)
         })
     }
     
@@ -536,6 +520,7 @@ extension SavedAlbumDetailViewController{
                 self?.preparedSectionAndArrayOfTraveAdvice()
             }
             self?.isApiDataFeched = true
+            self?.tblviewData.stopPullToRefresh()
             self?.tblviewData.reloadData()
             self?.tblviewData.figureOutAndShowNoResults()
         })

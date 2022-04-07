@@ -63,11 +63,6 @@ class FeedTableViewCell: UITableViewCell{
         layout.spacingMode = SJCenterFlowLayoutSpacingMode.fixed(spacing: -(CarouselCollectionViewCell.cellSize * 0.4))
         collectionView.setInitialOffset()
         collectionView.infiniteScrollDelegate = self
-
-//        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: -250)
-//        layout.al = 0.6
-//        layout.sideItemScale = 0.6
-//        layout.sideItemShift = 1
     }
     
     override func awakeFromNib() {
@@ -186,7 +181,6 @@ class FeedTableViewCell: UITableViewCell{
         }
         pageControll.isHidden = arrayOfImageURL.count == 0
         collectionView.isHidden = arrayOfImageURL.count == 0
-
     }
 }
 

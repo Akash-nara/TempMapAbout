@@ -24,7 +24,8 @@ class CollectionViewTVCell: UITableViewCell {
     var didTapUserName: ((Int) -> Void)?
     static var isGooglelPageApiWorking = false
     var cityId = 0
-    
+    var isLoading: Bool = false
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -96,7 +97,7 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     
     @objc func cellButtonUserActionListener(_ sender: UIControl){
         print("cellControlUserActionListener : \(sender.tag)")
-        didTapUserName?(arraySavedAlbums[sender.tag].userSavedId )
+        didTapUserName?(arraySavedAlbums[sender.tag].userCreatedTrip?.userId ?? 0 )
     }
     
     func  getCell(index:Int) -> FeaturedPlacesCVCell? {
@@ -197,6 +198,19 @@ extension CollectionViewTVCell{
         } failureInform: {
         }
     }
-
-    
 }
+// MARK: - UIScrollViewDelegate
+extension CollectionViewTVCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let contentOffsetX = scrollView.contentOffset.x
+        if contentOffsetX >= (scrollView.contentSize.width - scrollView.bounds.width) - 20 /* Needed offset */ {
+            guard !self.isLoading else { return }
+            self.isLoading = true
+            reachedScrollEndTap?()
+            // load more data
+            // than set self.isLoading to false when new data is loaded
+        }
+    }
+}
+

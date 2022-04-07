@@ -25,7 +25,7 @@ class SavedAlbumCVCell: UICollectionViewCell {
 
     func cellConfig(data: TripDataModel) {
         labelTripDate.text = data.dateFromatedOftrip
-        labelUsername.text = data.userDisplayName
+        labelUsername.text = data.userCreatedTrip?.displayName ?? ""
         imageViewPhoto.backgroundColor = UIColor.green
         imageViewProfilePic.backgroundColor = UIColor.red
         
