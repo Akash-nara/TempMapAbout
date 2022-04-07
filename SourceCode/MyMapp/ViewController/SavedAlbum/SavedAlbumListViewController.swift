@@ -90,7 +90,7 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
         let objModel = self.arrayJsonCityArray[indexPath.row]
         cell.imageTrip.tag = indexPath.row
         cell.buttonSaved.tag = indexPath.row
-        cell.buttonSaved.addTarget(self, action: #selector(unSavedButtonClicked(sender:)), for: .touchUpInside)
+//        cell.buttonSaved.addTarget(self, action: #selector(unSavedButtonClicked(sender:)), for: .touchUpInside)
         
         cell.configureCell(dataModel: objModel) { isVertical, index in
             cell.imageTrip.contentMode = .scaleToFill

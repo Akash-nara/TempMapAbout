@@ -25,6 +25,8 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.registerCellNib(identifier: SavedAdviceFooterCell.identifier)
             tblviewData.registerCellNib(identifier: SkeletonTripTVCell.identifier)
             tblviewData.sayNoSection = .noDataFound("\(cityName.capitalized)'s data not found.")
+            tblviewData.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: CGFloat.leastNormalMagnitude)))
+
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
             tblviewData.reloadData()
         }
