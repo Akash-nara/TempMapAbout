@@ -182,6 +182,7 @@ extension SavedLocationListViewController{
             return
         }
         
+        self.tblviewData.isAPIstillWorking = true
         let param = self.savedAlbumLocationViewModel?.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"location", "pager":param,"city":self.cityId]
         viewModel.getSavedLocationListApi(paramDict: paramDict, success: { [weak self] response in

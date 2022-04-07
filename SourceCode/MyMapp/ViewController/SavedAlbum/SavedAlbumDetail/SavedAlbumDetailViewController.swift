@@ -75,6 +75,7 @@ class SavedAlbumDetailViewController: UIViewController {
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelGotoCityPage.isHidden = false
+        labelGotoCityPage.text = "go to saved page"
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleGestureGotoCityPage))
         tap.numberOfTapsRequired = 1
         labelGotoCityPage.addGestureRecognizer(tap)
@@ -395,7 +396,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
 
         switch sections[section].sectionType{
         case .savedLocations:
-            return 50//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? 50 : 0.01
+            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? 50 : 0.01
         case .savedAdvice:
             return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell)
         default:
@@ -432,7 +433,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
-            return footerView//savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
+            return savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? footerView : nil
 
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
@@ -530,21 +531,33 @@ extension SavedAlbumDetailViewController{
         let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
         let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         
+        var sectionName = ""
         arrayAdviceListArrray.forEach { jsonObj in
             let title = jsonObj["value"].stringValue
             let placeHolder = jsonObj["placeHolder"].stringValue
             switch jsonObj["id"].intValue{
             case 1:
                 if !toolTips.count.isZero() {
-                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "Saved Advice" , subTitle: title, isOpenCell: false, array: toolTips))
+                    sectionName = "Saved Advice"
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName, subTitle: title, isOpenCell: false, array: toolTips))
                 }
             case 2:
                 if !favoriteTravelStorys.count.isZero() {
-                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: title, isOpenCell: false, array: favoriteTravelStorys))
+                    if !sectionName.isEmpty{
+                        sectionName = ""
+                    }else{
+                        sectionName = "Saved Advice"
+                    }
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName , subTitle: title, isOpenCell: false, array: favoriteTravelStorys))
                 }
             case 3:
                 if !logisticsAndRoutes.count.isZero() {
-                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: "" , subTitle: title, isOpenCell: false, array: logisticsAndRoutes))
+                    if !sectionName.isEmpty{
+                        sectionName = ""
+                    }else{
+                        sectionName = "Saved Advice"
+                    }
+                    sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName , subTitle: title, isOpenCell: false, array: logisticsAndRoutes))
                 }
             default:
                 break
