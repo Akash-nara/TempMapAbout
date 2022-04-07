@@ -45,6 +45,11 @@ extension Array {
         return index == self.count - 1
     }
     
+    func isLastIndex(_ index: Int, visibleCount: Int) -> Bool {
+        let dataCount = Swift.min(visibleCount, self.count)
+        return index == dataCount - 1
+    }
+    
     func isCount(_ number: Int) -> Bool {
         return self.count == number
     }

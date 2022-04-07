@@ -67,6 +67,8 @@ class SavedAlbumDetailViewController: UIViewController {
         var array = [TravelAdviceDataModel]()
     }
     
+    var readMoreCount = 2
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,8 +164,8 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             return count >= 4 ? 4 : count
         case .savedAdvice:
             if sections[section].isOpenCell {
-                let count  = sections[section].array.count
-                return (count >= 4 ? 4 : count) + 1
+                let count = sections[section].array.count
+                return min(readMoreCount-1, count) + 1
             } else {
                 return 1
             }
@@ -235,7 +237,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             } else {
                 let row = getChildCellRow(indexPath: indexPath)
                 let cell = self.tblviewData.dequeueCell(withType: SavedAdviceChildCell.self, for: indexPath) as! SavedAdviceChildCell
-                cell.cellConfig(data: sections[indexPath.section].array[row], isLastCell: sections[indexPath.section].array.isLastIndex(row))
+                cell.cellConfig(data: sections[indexPath.section].array[row], isLastCell: sections[indexPath.section].array.isLastIndex(row, visibleCount: readMoreCount - 1))
                 cell.buttonSaveToggle.tag = indexPath.section
                 cell.buttonSaveToggle.accessibilityHint = "\(indexPath.row)"
                 cell.buttonSaveToggle.addTarget(self, action: #selector(saveToggleActionListenerSavedAdviceChildCell(_:)), for: .touchUpInside)
@@ -400,7 +402,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         case .savedLocations:
             return savedAlbumLocationViewModel.arrayOfSavedLocationList.count > 4 ? 50 : 0.01
         case .savedAdvice:
-            return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell)
+            return SavedAdviceFooterCell.getHeight(isOpenCell: sections[section].isOpenCell, dataCount: sections[section].array.count)
         default:
             return 0.01
         }
@@ -439,13 +441,28 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
 
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
-            cell.cellConfig(isOpenCell: sections[section].isOpenCell)
+            cell.cellConfig(isOpenCell: sections[section].isOpenCell, dataCount: sections[section].array.count)
+            cell.buttonReadMore.tag = section
+            cell.buttonReadMore.addTarget(self, action: #selector(buttonReadMoreSavedAdvisedCell(_:)), for: .touchUpInside)
             return cell
         default:
             return nil
         }
     }
     
+    @objc func buttonReadMoreSavedAdvisedCell(_ sender: UIButton){
+        print(sections[sender.tag])
+        guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
+            return
+        }
+        savedLocationListVC.cityName = self.cityName
+        savedLocationListVC.cityId = cityId
+        savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
+        savedLocationListVC.objSavedDetailVc = self
+        self.navigationController?.pushViewController(savedLocationListVC, animated: true)
+    }
+    
+
     @objc func buttonReadMoreClikced(){
         guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
             return
@@ -467,6 +484,8 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         travelAdviceListVC.objSavedDetailVc = self
         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
     }
+    
+
 }
 
 // apis
@@ -533,31 +552,32 @@ extension SavedAlbumDetailViewController{
         let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
         let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         
-        var sectionName = ""
+        var isSectionNameAssigned = false
         arrayAdviceListArrray.forEach { jsonObj in
             let title = jsonObj["value"].stringValue
             let placeHolder = jsonObj["placeHolder"].stringValue
             switch jsonObj["id"].intValue{
             case 1:
                 if !toolTips.count.isZero() {
-                    sectionName = "Saved Advice"
+                    let sectionName = isSectionNameAssigned ? "" : "Saved Advice"
+                    if !sectionName.isEmpty {
+                        isSectionNameAssigned = true
+                    }
                     sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName, subTitle: title, isOpenCell: false, array: toolTips))
                 }
             case 2:
                 if !favoriteTravelStorys.count.isZero() {
-                    if !sectionName.isEmpty{
-                        sectionName = ""
-                    }else{
-                        sectionName = "Saved Advice"
+                    let sectionName = isSectionNameAssigned ? "" : "Saved Advice"
+                    if !sectionName.isEmpty {
+                        isSectionNameAssigned = true
                     }
                     sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName , subTitle: title, isOpenCell: false, array: favoriteTravelStorys))
                 }
             case 3:
                 if !logisticsAndRoutes.count.isZero() {
-                    if !sectionName.isEmpty{
-                        sectionName = ""
-                    }else{
-                        sectionName = "Saved Advice"
+                    let sectionName = isSectionNameAssigned ? "" : "Saved Advice"
+                    if !sectionName.isEmpty {
+                        isSectionNameAssigned = true
                     }
                     sections.append(SectionModel(sectionType: .savedAdvice, sectionTitle: sectionName , subTitle: title, isOpenCell: false, array: logisticsAndRoutes))
                 }

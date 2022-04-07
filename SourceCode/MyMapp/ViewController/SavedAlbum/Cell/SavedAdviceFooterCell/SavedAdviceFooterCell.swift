@@ -9,18 +9,27 @@ import UIKit
 
 class SavedAdviceFooterCell: UITableViewCell {
 
-    static func getHeight(isOpenCell: Bool) -> CGFloat {
-        return isOpenCell ? 35 : 15
+    static private var readmoreDataCount = 2
+    
+    static func getHeight(isOpenCell: Bool, dataCount: Int) -> CGFloat {
+        if isOpenCell {
+            return dataCount < readmoreDataCount ? 35 : 53
+        } else {
+            return 15
+        }
     }
 
     @IBOutlet weak var viewBottom: UIView!
+    @IBOutlet weak var buttonReadMore: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
 
+//        backgroundColor = UIColor.red
+//        buttonReadMore.backgroundColor = UIColor.green
         selectionStyle = .none
-
+        viewBottom.selectedCorners(radius: 20, [.bottomLeft, .bottomRight])
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,8 +38,9 @@ class SavedAdviceFooterCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func cellConfig(isOpenCell: Bool) {
+    func cellConfig(isOpenCell: Bool, dataCount: Int) {
         viewBottom.isHidden = !isOpenCell
+        buttonReadMore.isHidden = dataCount < SavedAdviceFooterCell.readmoreDataCount
     }
     
 }

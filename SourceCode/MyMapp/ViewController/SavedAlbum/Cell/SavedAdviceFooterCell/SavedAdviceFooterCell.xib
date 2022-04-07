@@ -26,26 +26,54 @@
                             <constraint firstAttribute="height" constant="40" id="WEB-ba-I91"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                 <color key="value" name="App_Bg_Seafoamblue_Color"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eoj-oD-PCp">
+                        <rect key="frame" x="191" y="-18.5" width="104" height="38.5"/>
+                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal">
+                            <attributedString key="attributedTitle">
+                                <fragment content="Read more">
+                                    <attributes>
+                                        <color key="NSBackgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <font key="NSFont" size="15" name="Montserrat-Medium"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                            <tabStops>
+                                                <textTab alignment="left" location="34.599998474121094">
+                                                    <options/>
+                                                </textTab>
+                                            </tabStops>
+                                        </paragraphStyle>
+                                        <integer key="NSUnderline" value="1"/>
+                                        <color key="NSUnderlineColor" red="0.99988999999999995" green="0.50532999999999995" blue="0.43741000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="nBe-Rg-9Nc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-20" id="7tu-QJ-8ew"/>
+                    <constraint firstItem="Eoj-oD-PCp" firstAttribute="trailing" secondItem="nBe-Rg-9Nc" secondAttribute="trailing" id="0y2-53-vEL"/>
+                    <constraint firstAttribute="bottom" secondItem="nBe-Rg-9Nc" secondAttribute="bottom" constant="15" id="9vJ-uc-hDD"/>
                     <constraint firstAttribute="trailing" secondItem="nBe-Rg-9Nc" secondAttribute="trailing" constant="25" id="LG8-7n-WKk"/>
                     <constraint firstItem="nBe-Rg-9Nc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="jQU-3U-DfR"/>
+                    <constraint firstItem="Eoj-oD-PCp" firstAttribute="bottom" secondItem="nBe-Rg-9Nc" secondAttribute="bottom" id="q2S-s0-JHE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="buttonReadMore" destination="Eoj-oD-PCp" id="TEh-CX-dph"/>
                 <outlet property="viewBottom" destination="nBe-Rg-9Nc" id="00Y-VX-6lV"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="84.709821428571431"/>
