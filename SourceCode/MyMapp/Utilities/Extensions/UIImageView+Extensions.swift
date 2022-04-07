@@ -23,7 +23,7 @@ extension UIImageView {
     }
     
     func setBorderWithColor(){
-        self.layer.borderWidth = 0.4
+        self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
     }
     

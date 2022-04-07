@@ -26,7 +26,7 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.registerCellNib(identifier: SkeletonTripTVCell.identifier)
             tblviewData.sayNoSection = .noDataFound("\(cityName.capitalized)'s data not found.")
             tblviewData.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: CGFloat.leastNormalMagnitude)))
-
+            
             tblviewData.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 30, right: 0)
             tblviewData.reloadData()
         }
@@ -58,7 +58,7 @@ class SavedAlbumDetailViewController: UIViewController {
     var cityName = "Spain"
     var isShowWholeContent = false
     var isApiDataFeched = false
-
+    
     struct SectionModel {
         var sectionType: EnumSection
         var sectionTitle = ""
@@ -75,7 +75,7 @@ class SavedAlbumDetailViewController: UIViewController {
         
         self.getAdviceForTripAPi()
         self.getSavedTripListApi()
-
+        
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         labelGotoCityPage.isHidden = false
@@ -178,11 +178,26 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             cell.startAnimating(index: indexPath.row)
             return cell
         }
-
+        
         switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             let cell = self.tblviewData.dequeueCell(withType: CollectionViewTVCell.self, for: indexPath) as! CollectionViewTVCell
             cell.cellConfigSavedAlbums(data: viewModel.arrayOfTripList)
+            cell.didTapUserName = { [weak self] userId in
+                if let loginUserId = APP_USER?.userId, loginUserId == userId{
+                    guard let profileHomeVC = UIStoryboard.tabbar.profileHomeVC else {
+                        return
+                    }
+                    profileHomeVC.isFromFeedList = true
+                    self?.navigationController?.pushViewController(profileHomeVC, animated: true)
+                }else{
+                    guard let otherProfileHomeVC = UIStoryboard.profile.otherProfileHomeVC else {
+                        return
+                    }
+                    otherProfileHomeVC.userId = userId
+                    self?.navigationController?.pushViewController(otherProfileHomeVC, animated: true)
+                }
+            }
             return cell
             
         case .savedLocations:
@@ -254,7 +269,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     cell.labelTips.isOneLinedContent = true
                     cell.labelTips.setContent(str, noOfCharacters: 120, readMoreTapped: {
                         self.sections[indexPath.section].array[row].isExpand = true
-
+                        
                         self.isShowWholeContent = true
                         self.tblviewData.reloadData()
                     }) {
@@ -263,12 +278,12 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                         self.tblviewData.reloadData()
                     }
                 }
-
+                
                 return cell
             }
         }
     }
-        
+    
     @objc func saveToggleActionListenerSavedAdviceChildCell(_ sender : UIButton){
         guard let rowString = sender.accessibilityHint, let rowCell = Int(rowString) else { return }
         let row = getChildCellRow(indexPath: IndexPath(row: rowCell, section: sender.tag))
@@ -298,7 +313,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         
         self.tblviewData.reloadData()
         self.tblviewData.figureOutAndShowNoResults()
-
+        
     }
     
     @objc func buttonBookmarLocationkClicked(sender:UIButton){
@@ -314,7 +329,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     
                     if self.savedAlbumLocationViewModel.arrayOfSavedLocationList.count == 0{
                         self.sections.removeAll { enumCase in
-                           return enumCase.sectionType == .savedLocations
+                            return enumCase.sectionType == .savedLocations
                         }
                     }
                     self.tblviewData.reloadData()
@@ -333,7 +348,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             return 100
         }
-
+        
         switch sections[indexPath.section].sectionType{
         case .savedAlbums:
             return SavedAlbumCVCell.cellSize.height
@@ -346,7 +361,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             return
         }
-
+        
         switch sections[indexPath.section].sectionType{
         case .savedAdvice:
             let row = getChildCellRow(indexPath: indexPath)
@@ -360,7 +375,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             return nil
         }
-
+        
         switch sections[section].sectionType{
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceParentCell.self) as! SavedAdviceParentCell
@@ -397,7 +412,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             return 0.01
         }
-
+        
         switch sections[section].sectionType{
         case .savedLocations:
             return savedAlbumLocationViewModel.arrayOfSavedLocationList.count >= readMoreCount ? 50 : 0.01
@@ -416,7 +431,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         guard isApiDataFeched else {
             return nil
         }
-
+        
         switch sections[section].sectionType {
         case .savedLocations:
             let yourAttributes: [NSAttributedString.Key: Any] = [
@@ -438,7 +453,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
             footerView.addSubview(doneButton)
             
             return savedAlbumLocationViewModel.arrayOfSavedLocationList.count >= readMoreCount ? footerView : nil
-
+            
         case .savedAdvice:
             let cell = self.tblviewData.dequeueCell(withType: SavedAdviceFooterCell.self) as! SavedAdviceFooterCell
             cell.cellConfig(isOpenCell: sections[section].isOpenCell, dataCount: sections[section].array.count)
@@ -452,8 +467,6 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     
     @objc func buttonReadMoreSavedAdvisedCell(_ sender: UIButton){
         
-        //        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
-        
         print(sections[sender.tag])
         guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
             return
@@ -465,11 +478,10 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
         
     }
-
+    
     @objc func buttonReadMoreClikced(){
         
-        CustomAlertView.init(title: "Coming soon", forPurpose: .success).showForWhile(animated: true)
-        /*
+        
         guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
             return
         }
@@ -478,7 +490,6 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         savedLocationListVC.savedAlbumLocationViewModel = self.savedAlbumLocationViewModel
         savedLocationListVC.objSavedDetailVc = self
         self.navigationController?.pushViewController(savedLocationListVC, animated: true)
-         */
     }
 }
 
@@ -531,9 +542,9 @@ extension SavedAlbumDetailViewController{
     }
     
     func removedObject(id:Int){
-//        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
-//        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
-//        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
+        //        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+        //        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
+        //        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         
         if let indexSection = sections.firstIndex(where: {$0.sectionType == .savedAdvice}), let row = sections[indexSection].array.firstIndex(where: {$0.id == id}){
             removeTravelAdvice(id: id, indexpath: IndexPath.init(row: row, section: indexSection))

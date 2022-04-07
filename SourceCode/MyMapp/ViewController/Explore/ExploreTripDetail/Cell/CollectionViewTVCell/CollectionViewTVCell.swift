@@ -21,6 +21,7 @@ class CollectionViewTVCell: UITableViewCell {
     var arraySavedAlbums = [TripDataModel]()
 
     var reachedScrollEndTap: (() -> Void)?
+    var didTapUserName: ((Int) -> Void)?
     static var isGooglelPageApiWorking = false
     var cityId = 0
     
@@ -95,6 +96,7 @@ extension CollectionViewTVCell: UICollectionViewDataSource {
     
     @objc func cellButtonUserActionListener(_ sender: UIControl){
         print("cellControlUserActionListener : \(sender.tag)")
+        didTapUserName?(arraySavedAlbums[sender.tag].userSavedId )
     }
     
     func  getCell(index:Int) -> FeaturedPlacesCVCell? {
