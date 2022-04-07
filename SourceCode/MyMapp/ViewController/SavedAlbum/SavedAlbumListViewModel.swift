@@ -175,7 +175,7 @@ class SavedAlbumTravelAdviceViewModel{
     private var totalElements = 0
     var getAvailableElements: Int { return arrayOfSavedTopTipsList.count }
     var getTotalElements: Int { return totalElements }
-    private let pageSize = 10
+    var pageSize = 10
     func getPageDict(_ isFromPullToRefresh: Bool) -> [String: Any] {
         // here 1 for requested list
         func getPageNo() -> Int {

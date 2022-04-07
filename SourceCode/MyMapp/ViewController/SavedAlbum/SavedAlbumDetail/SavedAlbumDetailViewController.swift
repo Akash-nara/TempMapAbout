@@ -163,7 +163,7 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
         case .savedAdvice:
             if sections[section].isOpenCell {
                 let count  = sections[section].array.count
-                return (count >= 4 ? 4 : count) + 1
+                return count + 1
             } else {
                 return 1
             }
@@ -502,6 +502,7 @@ extension SavedAlbumDetailViewController{
     
     // get saved toptips
     func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+        self.savedAlbumTravelAdviceViewModel.pageSize = 100
         let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
         savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
