@@ -216,20 +216,3 @@ extension SavedAlbumListViewController{
         self.collectionviewProfile.figureOutAndShowNoResults()
     }
 }
-
-// MARK: - UIScrollViewDelegate
-extension SavedAlbumListViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let height = scrollView.frame.size.height
-        let contentYoffset = scrollView.contentOffset.y
-        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        if distanceFromBottom < height {
-            // pagination
-//            if viewModel.getTotalElements > viewModel.getAvailableElements &&
-//                !self.collectionviewProfile.isAPIstillWorking {
-//                self.getTripListApi(isNextPageRequest: true, isPullToRefresh: false)
-//            }
-        }
-    }
-}

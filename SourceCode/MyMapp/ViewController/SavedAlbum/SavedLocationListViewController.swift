@@ -43,7 +43,6 @@ class SavedLocationListViewController: UIViewController {
     @IBAction func buttonBackTapp(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 //MARK: - TABLEVIEW METHODS
@@ -51,11 +50,11 @@ extension SavedLocationListViewController: UITableViewDataSource, UITableViewDel
     func numberOfSections(in tableView: UITableView) -> Int{
         return 1
     }
-    
+     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.savedAlbumLocationViewModel?.arrayOfSavedLocationList.count ?? 0
     }
-    
+                                                                                    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tblviewData.dequeueCell(
             withType: TripMainLocationCellXIB.self,
@@ -65,7 +64,6 @@ extension SavedLocationListViewController: UITableViewDataSource, UITableViewDel
         guard let viewModel = savedAlbumLocationViewModel else {
             return cell
         }
-        
         
         cell.labelTitle.text = viewModel.arrayOfSavedLocationList[indexPath.row].locationFav?.name
         //            cell.subTitle.text = ""//arrayLocation[indexPath.row].locationFav?.name

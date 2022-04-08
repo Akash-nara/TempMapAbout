@@ -25,13 +25,13 @@ class SigninVC: UIViewController,UITextFieldDelegate{
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.btnTitleSignin.dropShadowButton()
         })
-        
+                                                                                                     
         txtEmailAddress.tintColor = .App_BG_SeafoamBlue_Color
         txtPassword.tintColor = .App_BG_SeafoamBlue_Color
         
         txtEmailAddress.textContentType = .username
         txtPassword.textContentType = .password
-        
+                                                                                    
         self.txtEmailAddress.delegate = self
         self.txtPassword.delegate = self
         self.txtEmailAddress.tag = 1
@@ -82,7 +82,7 @@ class SigninVC: UIViewController,UITextFieldDelegate{
             appDelegateShared.checkRedirectionFlow()
         }
     }
-    
+                          
     //MARK: - OTHER FUNCTIONS
     @objc func textFieldDidChange(textField : UITextField){
         if textField.tag == 1{
@@ -91,7 +91,7 @@ class SigninVC: UIViewController,UITextFieldDelegate{
             }else{
                 self.txtEmailAddress.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor
             }
-        }else{
+        }else{                                                                                                                                                                                                  
             if textField.text?.count == 0{
                 self.txtPassword.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
             }else{
