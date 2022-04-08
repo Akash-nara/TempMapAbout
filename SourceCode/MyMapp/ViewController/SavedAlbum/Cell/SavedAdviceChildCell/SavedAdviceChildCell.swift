@@ -2,7 +2,7 @@
 //  SavedAdviceChildCell.swift
 //  MyMapp
 //
-//  Created by smartsense ConsultingSolutions on 03/04/22.
+//  Created by Akash  on 03/04/22.
 //
 
 import UIKit

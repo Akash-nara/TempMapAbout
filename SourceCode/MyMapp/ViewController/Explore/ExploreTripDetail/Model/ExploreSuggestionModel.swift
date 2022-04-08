@@ -2,7 +2,7 @@
 //  ExploreSuggestionModel.swift
 //  MyMapp
 //
-//  Created by smartsense ConsultingSolutions on 24/03/22.
+//  Created by Akash  on 24/03/22.
 //
 
 import SwiftyJSON
