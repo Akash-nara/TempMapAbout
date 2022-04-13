@@ -470,6 +470,14 @@ extension UIImageView{
         let points = [GradientPoint(location: 0, color: .clear), GradientPoint(location: 0, color:UIColor.orange.withAlphaComponent(0.15))]
         self.gradated(gradientPoints: points)
     }
+    
+    func addGradianColorAlbum(){
+        let points = [GradientPoint(location: 0, color: .black.withAlphaComponent(0.5)),
+                      GradientPoint(location: 0.5, color: .clear),
+                      GradientPoint(location: 1, color: .black.withAlphaComponent(0.5))]
+        self.gradated(gradientPoints: points)
+    }
+
 }
 
 //MARK: - TABLEVIEW METHODS
