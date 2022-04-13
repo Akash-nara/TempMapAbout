@@ -265,6 +265,8 @@
 		A440D07827F988E8005A0DED /* SavedAdviceChildCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D07627F988E8005A0DED /* SavedAdviceChildCell.xib */; };
 		A440D07C27F989DB005A0DED /* SavedAdviceFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A440D07A27F989DB005A0DED /* SavedAdviceFooterCell.swift */; };
 		A440D07D27F989DC005A0DED /* SavedAdviceFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A440D07B27F989DB005A0DED /* SavedAdviceFooterCell.xib */; };
+		A4DB8F6D28070DC100E3ACF2 /* TabCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB8F6B28070DC100E3ACF2 /* TabCVCell.swift */; };
+		A4DB8F6E28070DC100E3ACF2 /* TabCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DB8F6C28070DC100E3ACF2 /* TabCVCell.xib */; };
 		A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */; };
 		A4FD5AB927D38E38007C8FCF /* TripImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD5AB827D38E38007C8FCF /* TripImageView.xib */; };
 		AA411F8427E4E870009B498D /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AA411F8327E4E870009B498D /* sample.json */; };
@@ -547,6 +549,8 @@
 		A440D07627F988E8005A0DED /* SavedAdviceChildCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceChildCell.xib; sourceTree = "<group>"; };
 		A440D07A27F989DB005A0DED /* SavedAdviceFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAdviceFooterCell.swift; sourceTree = "<group>"; };
 		A440D07B27F989DB005A0DED /* SavedAdviceFooterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedAdviceFooterCell.xib; sourceTree = "<group>"; };
+		A4DB8F6B28070DC100E3ACF2 /* TabCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCVCell.swift; sourceTree = "<group>"; };
+		A4DB8F6C28070DC100E3ACF2 /* TabCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabCVCell.xib; sourceTree = "<group>"; };
 		A4FD5AB627D38E2D007C8FCF /* TripImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImageView.swift; sourceTree = "<group>"; };
 		A4FD5AB827D38E38007C8FCF /* TripImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripImageView.xib; sourceTree = "<group>"; };
 		AA411F8327E4E870009B498D /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
@@ -580,6 +584,7 @@
 				AAFBD2ED2804707500718C39 /* SegmentClass */,
 				38DE30E427DC93070048563E /* MaterialDesignWidgets */,
 				38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */,
+				A4DB8F6928070D9600E3ACF2 /* Cell */,
 				38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */,
 			);
 			path = TravelAdviceList;
@@ -1538,6 +1543,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A4DB8F6928070D9600E3ACF2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB8F6A28070D9F00E3ACF2 /* TabCVCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A4DB8F6A28070D9F00E3ACF2 /* TabCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB8F6B28070DC100E3ACF2 /* TabCVCell.swift */,
+				A4DB8F6C28070DC100E3ACF2 /* TabCVCell.xib */,
+			);
+			path = TabCVCell;
+			sourceTree = "<group>";
+		};
 		A4FD5AB527D38DEC007C8FCF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1692,6 +1714,7 @@
 				88100B53272A3328008A01F7 /* Montserrat-Regular.ttf in Resources */,
 				88F0ADFF276FAB6B005C9657 /* MapStyle.json in Resources */,
 				88100B49272A3328008A01F7 /* OFL.txt in Resources */,
+				A4DB8F6E28070DC100E3ACF2 /* TabCVCell.xib in Resources */,
 				88100B4B272A3328008A01F7 /* Montserrat-BoldItalic.ttf in Resources */,
 				88122D5E27400B10003512C1 /* Profile.storyboard in Resources */,
 				38584CE627BD098600FACF6D /* FeedTableViewCell.xib in Resources */,
@@ -1928,6 +1951,7 @@
 				88B596FB2740CC9000CBA48C /* ActivityHeaderCell.swift in Sources */,
 				38DE30F327DC93070048563E /* RippleLayer.swift in Sources */,
 				8853FBE7272E80A900787059 /* ProfilePhotoUploadVC.swift in Sources */,
+				A4DB8F6D28070DC100E3ACF2 /* TabCVCell.swift in Sources */,
 				A4FD5AB727D38E2D007C8FCF /* TripImageView.swift in Sources */,
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
 				38D06DFE27A5063A0022C2C0 /* SayNoForDataTableView.swift in Sources */,

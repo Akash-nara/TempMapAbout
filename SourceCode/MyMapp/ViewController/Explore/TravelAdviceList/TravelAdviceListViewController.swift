@@ -39,6 +39,8 @@ class TravelAdviceListViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var collectionViewTabs: UICollectionView!
+    
     /// Segmented Control
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var tblviewData: SayNoForDataTableView!{
@@ -60,6 +62,9 @@ class TravelAdviceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        arrayOfTravelCategory += arrayOfTravelCategory
+        configureCollectionView()
+        
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
         setSampleSegments()
@@ -67,7 +72,13 @@ class TravelAdviceListViewController: UIViewController {
         self.preparedSectionAndArrayOfTraveAdvice()
     }
     
-    
+    func configureCollectionView(){
+        collectionViewTabs.registerCellNib(identifier: TabCVCell.identifier)
+        collectionViewTabs.showsHorizontalScrollIndicator = false
+        collectionViewTabs.dataSource = self
+        collectionViewTabs.delegate = self
+        collectionViewTabs.reloadData()
+    }
     
     func setSampleSegments() {
         let segmentCn = MaterialSegmentedControl.init()
@@ -80,8 +91,9 @@ class TravelAdviceListViewController: UIViewController {
         
         segmentedControl.addSubview(segmentCn)
         
-        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
-        titles.forEach { enmType in
+        let titles:[EnumTravelType] =  [.topTips, .stories, .logistics, .topTips, .logistics, .stories]
+//        titles.forEach { enmType in
+        arrayOfTravelCategory.forEach { enmType in
             segmentCn.appendTextSegment(text: enmType.title, textColor: .gray, font: UIFont.Montserrat.Medium(13), rippleColor: .lightGray)
         }
         segmentCn.moveSegmentOnSelectedIndex = currentIndex
@@ -459,3 +471,35 @@ extension UIImageView{
         self.gradated(gradientPoints: points)
     }
 }
+
+//MARK: - TABLEVIEW METHODS
+extension TravelAdviceListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrayOfTravelCategory.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCVCell.identifier, for: indexPath) as! TabCVCell
+        cell.cellConfig(data: arrayOfTravelCategory[indexPath.row], selected: currentIndex == indexPath.row)
+        return cell
+    }
+}
+
+extension TravelAdviceListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = arrayOfTravelCategory[indexPath.row].title.sized(UIFont.systemFont(ofSize: 17)).width
+        return CGSize(width: width + 2, height: 50)
+    }
+}
+
+extension TravelAdviceListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(arrayOfTravelCategory[indexPath.row].title)
+        currentIndex = indexPath.row
+        collectionViewTabs.reloadData()
+        tblviewData.sayNoSection = .noDataFound("No \(self.arrayOfTravelCategory[currentIndex].title.lowercased()) found.")
+        tblviewData.reloadData()
+        tblviewData.figureOutAndShowNoResults()
+    }
+}
+

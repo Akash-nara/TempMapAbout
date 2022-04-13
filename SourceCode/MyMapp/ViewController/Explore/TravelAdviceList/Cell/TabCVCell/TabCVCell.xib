@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TabCVCell" id="gTV-IL-0wX" customClass="TabCVCell" customModule="MyMapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="285" height="41"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="285" height="41"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Lz-J6b">
+                        <rect key="frame" x="122" y="0.0" width="41.5" height="41"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cL1-ub-qjn">
+                        <rect key="frame" x="0.0" y="39" width="285" height="2"/>
+                        <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="Ew2-UT-2zk"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="Xcc-Lz-J6b" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ehc-Xd-fzK"/>
+                <constraint firstAttribute="bottom" secondItem="cL1-ub-qjn" secondAttribute="bottom" id="g3p-HP-hUW"/>
+                <constraint firstAttribute="bottom" secondItem="Xcc-Lz-J6b" secondAttribute="bottom" id="gFZ-Yz-0jp"/>
+                <constraint firstItem="cL1-ub-qjn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kWI-aI-bjT"/>
+                <constraint firstAttribute="trailing" secondItem="cL1-ub-qjn" secondAttribute="trailing" id="q0B-Ez-WvZ"/>
+                <constraint firstItem="Xcc-Lz-J6b" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="uY2-iH-sAR"/>
+            </constraints>
+            <size key="customSize" width="285" height="41"/>
+            <connections>
+                <outlet property="bottomIndicator" destination="cL1-ub-qjn" id="4lI-Dn-8VZ"/>
+                <outlet property="labelTabName" destination="Xcc-Lz-J6b" id="fCH-uN-j7J"/>
+            </connections>
+            <point key="canvasLocation" x="306.52173913043481" y="81.361607142857139"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="App_Bg_Seafoamblue_Color">
+            <color red="0.42352941176470588" green="0.83137254901960789" blue="0.7686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
