@@ -62,7 +62,7 @@ class TravelAdviceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        arrayOfTravelCategory += arrayOfTravelCategory
+//        arrayOfTravelCategory += arrayOfTravelCategory
         configureCollectionView()
         
         labelTitle.text = cityName
@@ -487,8 +487,8 @@ extension TravelAdviceListViewController: UICollectionViewDataSource {
 
 extension TravelAdviceListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = arrayOfTravelCategory[indexPath.row].title.sized(UIFont.systemFont(ofSize: 17)).width
-        return CGSize(width: width + 2, height: 50)
+        let width = arrayOfTravelCategory[indexPath.row].title.sized(UIFont.Montserrat.Medium(13)).width
+        return CGSize(width: max(100, width + 2), height: 50)
     }
 }
 
