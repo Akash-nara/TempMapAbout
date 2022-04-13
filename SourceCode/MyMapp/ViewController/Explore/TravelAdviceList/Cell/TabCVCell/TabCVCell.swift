@@ -16,7 +16,7 @@ class TabCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        labelTabName.font = UIFont.Montserrat.Medium(13)
+        labelTabName.font = UIFont.Montserrat.Medium(15)
     }
 
     func cellConfig(data: TravelAdviceDataModel, selected: Bool) {

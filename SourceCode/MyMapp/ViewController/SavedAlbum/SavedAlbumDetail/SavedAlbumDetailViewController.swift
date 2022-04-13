@@ -316,11 +316,6 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
                     self.tblviewData.reloadData()
                     self.tblviewData.figureOutAndShowNoResults()
                 }
-            }else{
-                self.saveLocationTripApi(id: id) {
-                    sender.isSelected.toggle()
-                    self.savedAlbumLocationViewModel.arrayOfSavedLocationList[indexRow].isSaved.toggle()
-                }
             }
         }
     }
@@ -679,57 +674,6 @@ extension SavedAlbumDetailViewController{
             }
         }*/
     }*/
-    
-    func saveLocationTripApi(id:Int, success: (() -> ())? = nil){
-        guard let userId = APP_USER?.userId else {
-            return
-        }
-        let strJson = JSON(["location": ["id":id],
-                            "userId":userId,
-                            "INTEREST_CATEGORY": "location"]).rawString(.utf8, options: .sortedKeys) ?? ""
-        let param: [String: Any] = ["requestJson" : strJson]
-        
-        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
-            self?.HIDE_CUSTOM_LOADER()
-            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
-                return
-            }
-            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
-            success?()
-        }  internetFailure: {
-            API_LOADER.HIDE_CUSTOM_LOADER()
-            debugPrint("internetFailure")
-        } failureInform: {
-            self.HIDE_CUSTOM_LOADER()
-        }
-    }
-    
-    // saved travel
-    func saveTravelAdviceApi(id:Int, success: (() -> ())? = nil){
-        guard let userId = APP_USER?.userId else {
-            return
-        }
-        
-        let strJson = JSON(["advice": ["id":id],
-                            "userId":userId,
-                            "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
-        let param: [String: Any] = ["requestJson" : strJson]
-        
-        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
-            self?.HIDE_CUSTOM_LOADER()
-            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
-                return
-            }
-            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadUserTripList"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
-            success?()
-        }  internetFailure: {
-            API_LOADER.HIDE_CUSTOM_LOADER()
-            debugPrint("internetFailure")
-        } failureInform: {
-            self.HIDE_CUSTOM_LOADER()
-        }
-    }
     
     // un saved travel and location
     func unSaveLocationAndTravelApi(id:Int, key:String, success: (() -> ())? = nil){

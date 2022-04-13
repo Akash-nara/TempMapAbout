@@ -13,18 +13,18 @@ class TravelAdviceListViewController: UIViewController {
     //MARK: - OUTLETS
     enum EnumTravelType:Int {
         case topTips = 0,stories, logistics
-
+        
         var title:String{
             switch self {
             case .topTips:
                 return "Top Tips"
-
+                
             case .stories:
                 return "Stories"
-
+                
             case .logistics:
                 return "Logistics"
-
+                
             }
         }
     }
@@ -58,7 +58,7 @@ class TravelAdviceListViewController: UIViewController {
     var arrayOfTravelCategory = [TravelAdviceDataModel]()
     var currentIndex = 0
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,7 +67,7 @@ class TravelAdviceListViewController: UIViewController {
         
         labelTitle.text = cityName
         labelTitle.numberOfLines = 2
-        setSampleSegments()
+//        setSampleSegments()
         
         self.preparedSectionAndArrayOfTraveAdvice()
     }
@@ -101,45 +101,45 @@ class TravelAdviceListViewController: UIViewController {
         self.tblviewData.figureOutAndShowNoResults()
         segmentCn.addTarget(self, action: #selector(segmentedControlTap(_:)), for: .valueChanged)
     }
-
+    
     @objc func segmentedControlTap(_ sender:MaterialSegmentedControl){
         debugPrint(sender.selectedSegmentIndex)
         currentIndex = sender.selectedSegmentIndex
-//        self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
+        //        self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
         tblviewData.sayNoSection = .noDataFound("No \(self.arrayOfTravelCategory[currentIndex].title.lowercased()) found.")
         tblviewData.reloadData()
         self.tblviewData.figureOutAndShowNoResults()
     }
     
     /*
-    func setSampleSegments() {
-        let segmentCn = MXSegmentedControl.init()
-        segmentCn.frame = CGRect.init(x: 15, y: 0, width: segmentedControl.frame.width - 30, height: segmentedControl.frame.height)
-        segmentCn.segmentWidth = (segmentedControl.frame.size.width - 30)/3
-        segmentCn.font = UIFont.Montserrat.Medium(14)
-        segmentCn.indicatorHeight = 2
-        segmentCn.indicatorLeft = 10
-        segmentCn.indicatorRight = 20
-        segmentCn.selectedTextColor = UIColor.App_BG_SeafoamBlue_Color
-        segmentCn.indicatorColor = UIColor.App_BG_SeafoamBlue_Color
-        segmentCn.textColor = UIColor.App_BG_SecondaryDark2_Color
-        segmentedControl.addSubview(segmentCn)
-        
-//        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
-        arrayOfTravelCategory.forEach { enmType in
-            segmentCn.append(title: enmType.title)
-        }
-        segmentCn.addTarget(self, action: #selector(segmentedControlTap(_:)), for: .valueChanged)
-    }
-    
-    @objc func segmentedControlTap(_ sender:MXSegmentedControl){
-        debugPrint(sender.selectedIndex)
-        currentIndex = sender.selectedIndex
-//        self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
-        tblviewData.sayNoSection = .noDataFound("No \(self.arrayOfTravelCategory[currentIndex].title.lowercased()) found.")
-        tblviewData.reloadData()
-        self.tblviewData.figureOutAndShowNoResults()
-    }*/
+     func setSampleSegments() {
+     let segmentCn = MXSegmentedControl.init()
+     segmentCn.frame = CGRect.init(x: 15, y: 0, width: segmentedControl.frame.width - 30, height: segmentedControl.frame.height)
+     segmentCn.segmentWidth = (segmentedControl.frame.size.width - 30)/3
+     segmentCn.font = UIFont.Montserrat.Medium(14)
+     segmentCn.indicatorHeight = 2
+     segmentCn.indicatorLeft = 10
+     segmentCn.indicatorRight = 20
+     segmentCn.selectedTextColor = UIColor.App_BG_SeafoamBlue_Color
+     segmentCn.indicatorColor = UIColor.App_BG_SeafoamBlue_Color
+     segmentCn.textColor = UIColor.App_BG_SecondaryDark2_Color
+     segmentedControl.addSubview(segmentCn)
+     
+     //        let titles:[EnumTravelType] = [.topTips, .stories, .logistics]
+     arrayOfTravelCategory.forEach { enmType in
+     segmentCn.append(title: enmType.title)
+     }
+     segmentCn.addTarget(self, action: #selector(segmentedControlTap(_:)), for: .valueChanged)
+     }
+     
+     @objc func segmentedControlTap(_ sender:MXSegmentedControl){
+     debugPrint(sender.selectedIndex)
+     currentIndex = sender.selectedIndex
+     //        self.selectedTab = EnumTravelType.init(rawValue: sender.selectedSegmentIndex) ?? .topTips
+     tblviewData.sayNoSection = .noDataFound("No \(self.arrayOfTravelCategory[currentIndex].title.lowercased()) found.")
+     tblviewData.reloadData()
+     self.tblviewData.figureOutAndShowNoResults()
+     }*/
     
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -182,7 +182,7 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         
         cell.labelSubTitle.tag = indexPath.row
         cell.labelSubTitle.accessibilityHint = "\(currentIndex)"
-
+        
         
         if isExpadCell{
             cell.viewExpand.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
@@ -219,52 +219,38 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         let row = index
         
         let objMOdel = (arrayOfTravelCategory[sectionIndex].viewModel?.arrayOfSavedTopTipsList ?? [])[row].isExpand.toggle()
-
+        
         /*
-        switch self.selectedTab{
-        case .topTips:
-            self.arrayOfToolTips[index].isExpand = flag
-        case .stories:
-            self.arrayOfStories[index].isExpand = flag
-        case .logistics:
-            self.arrayOfLogistics[index].isExpand = flag
-        }*/
+         switch self.selectedTab{
+         case .topTips:
+         self.arrayOfToolTips[index].isExpand = flag
+         case .stories:
+         self.arrayOfStories[index].isExpand = flag
+         case .logistics:
+         self.arrayOfLogistics[index].isExpand = flag
+         }*/
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
         let section = (Int(sender.accessibilityHint ?? "") ?? 0)
         let row = sender.tag
-
-//        self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id
+        
+        //        self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id
         var id  = self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id ?? 0
         /*
-        switch self.selectedTab {
-        case .topTips:
-            id = arrayOfToolTips[sender.tag].id
-        case .stories:
-            id = arrayOfStories[sender.tag].id
-        case .logistics:
-            id = arrayOfLogistics[sender.tag].id
-        }*/
+         switch self.selectedTab {
+         case .topTips:
+         id = arrayOfToolTips[sender.tag].id
+         case .stories:
+         id = arrayOfStories[sender.tag].id
+         case .logistics:
+         id = arrayOfLogistics[sender.tag].id
+         }*/
         
         
         if let objVc = self.objSavedDetailVc{
             // from saved page
             self.unSaveLocationAndTravelApi(id: id, key: "advice") {
-                
-//                self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList.remove(at: row)
-
-                /*
-                switch self.selectedTab {
-                case .topTips:
-                    self.arrayOfToolTips.remove(at: sender.tag)
-                case .stories:
-                    self.arrayOfStories.remove(at: sender.tag)
-                case .logistics:
-                    self.arrayOfLogistics.remove(at: sender.tag)
-                }*/
-//                self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
-//                objVc.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
                 self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
                 objVc.arrayAdviceListArrray[section].viewModel?.removedSavedObject(id: id)
                 objVc.removedObject(id: id)
@@ -275,6 +261,7 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                 self.tblviewData.figureOutAndShowNoResults()
             }
         }else{
+            
             // from city search
             if sender.isSelected{
                 // un saved
@@ -283,28 +270,26 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                     self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
                     
                     /*
-                    switch self.selectedTab {
-                    case .topTips:
-                        self.arrayOfToolTips[sender.tag].isSaved.toggle()
-                    case .stories:
-                        self.arrayOfStories[sender.tag].isSaved.toggle()
-                    case .logistics:
-                        self.arrayOfLogistics[sender.tag].isSaved.toggle()
-                    }*/
+                     switch self.selectedTab {
+                     case .topTips:
+                     self.arrayOfToolTips[sender.tag].isSaved.toggle()
+                     case .stories:
+                     self.arrayOfStories[sender.tag].isSaved.toggle()
+                     case .logistics:
+                     self.arrayOfLogistics[sender.tag].isSaved.toggle()
+                     }*/
                     self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
-//                    self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
+                    //                    self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
                     self.saveUnSaveStatusUpdateCallback?(id)
                     self.tblviewData.reloadData()
                     self.tblviewData.figureOutAndShowNoResults()
                 }
             }else{
-                
                 // save again
                 saveTravelAdviceApi(id: id) {
                     
                 }
             }
-            
         }
     }
     
@@ -315,15 +300,15 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         
         (arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList ?? [])[row].isExpand.toggle()
         
-/*
-        switch self.selectedTab {
-        case .topTips:
-            arrayOfToolTips[IndexPath.init(row: row, section: section).row].isExpand.toggle()
-        case .stories:
-            arrayOfStories[IndexPath.init(row: row, section: section).row].isExpand.toggle()
-        case .logistics:
-            arrayOfLogistics[IndexPath.init(row: row, section: section).row].isExpand.toggle()
-        }*/
+        /*
+         switch self.selectedTab {
+         case .topTips:
+         arrayOfToolTips[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+         case .stories:
+         arrayOfStories[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+         case .logistics:
+         arrayOfLogistics[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+         }*/
         self.tblviewData.reloadData()
     }
     
@@ -346,9 +331,9 @@ extension  TravelAdviceListViewController{
     }
     
     func preparedSectionAndArrayOfTraveAdvice(){
-//        arrayOfToolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
-//        arrayOfStories = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
-//        arrayOfLogistics = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
+        //        arrayOfToolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+        //        arrayOfStories = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
+        //        arrayOfLogistics = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         self.tblviewData.reloadData()
         self.tblviewData.figureOutAndShowNoResults()
     }
@@ -378,7 +363,7 @@ extension  TravelAdviceListViewController{
         guard let userId = APP_USER?.userId else {
             return
         }
-
+        
         let strJson = JSON(["advice": ["id":id],
                             "userId":userId,
                             "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
@@ -399,32 +384,32 @@ extension  TravelAdviceListViewController{
             self.HIDE_CUSTOM_LOADER()
         }
     }
-
     
-//    func saveTravelAdviceApi(id:Int, success: (() -> ())? = nil){
-//        guard let userId = detailTripDataModel?.userCreatedTrip?.userId else {
-//            return
-//        }
-//
-//        let strJson = JSON(["advice": ["id":id],
-//                            "userId":userId,
-//                            "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
-//        let param: [String: Any] = ["requestJson" : strJson]
-//
-//        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
-//            self?.HIDE_CUSTOM_LOADER()
-//            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
-//                return
-//            }
-//            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
-//            success?()
-//        }  internetFailure: {
-//            API_LOADER.HIDE_CUSTOM_LOADER()
-//            debugPrint("internetFailure")
-//        } failureInform: {
-//            self.HIDE_CUSTOM_LOADER()
-//        }
-//    }
+    
+    //    func saveTravelAdviceApi(id:Int, success: (() -> ())? = nil){
+    //        guard let userId = detailTripDataModel?.userCreatedTrip?.userId else {
+    //            return
+    //        }
+    //
+    //        let strJson = JSON(["advice": ["id":id],
+    //                            "userId":userId,
+    //                            "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
+    //        let param: [String: Any] = ["requestJson" : strJson]
+    //
+    //        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+    //            self?.HIDE_CUSTOM_LOADER()
+    //            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+    //                return
+    //            }
+    //            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+    //            success?()
+    //        }  internetFailure: {
+    //            API_LOADER.HIDE_CUSTOM_LOADER()
+    //            debugPrint("internetFailure")
+    //        } failureInform: {
+    //            self.HIDE_CUSTOM_LOADER()
+    //        }
+    //    }
 }
 // MARK: - UIScrollViewDelegate
 extension TravelAdviceListViewController: UIScrollViewDelegate {
@@ -439,7 +424,7 @@ extension TravelAdviceListViewController: UIScrollViewDelegate {
             guard let viewModel = arrayOfTravelCategory[currentIndex].viewModel else {
                 return
             }
-
+            
             if viewModel.getTotalElements > viewModel.getAvailableElements &&
                 !self.tblviewData.isAPIstillWorking {
                 self.getSavedTopTipListApi(isNextPageRequest: true, isPullToRefresh: false)
@@ -449,8 +434,8 @@ extension TravelAdviceListViewController: UIScrollViewDelegate {
 }
 
 struct GradientPoint {
-   var location: CGFloat
-   var color: UIColor
+    var location: CGFloat
+    var color: UIColor
 }
 
 extension UIImageView{
@@ -460,9 +445,7 @@ extension UIImageView{
         gradientMaskLayer.frame     = frame
         gradientMaskLayer.colors    = gradientPoints.map { $0.color.cgColor }
         gradientMaskLayer.locations = gradientPoints.map { $0.location as NSNumber }
-//        gradientMaskLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-//        gradientMaskLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-
+        
         self.layer.sublayers?.remove(at: 0)
         self.layer.insertSublayer(gradientMaskLayer, at: 0)
     }
@@ -495,7 +478,7 @@ extension TravelAdviceListViewController: UICollectionViewDataSource {
 
 extension TravelAdviceListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = arrayOfTravelCategory[indexPath.row].title.sized(UIFont.Montserrat.Medium(13)).width
+        let width = arrayOfTravelCategory[indexPath.row].title.sized(UIFont.Montserrat.Medium(15)).width
         return CGSize(width: max(100, width + 2), height: 50)
     }
 }
@@ -505,6 +488,7 @@ extension TravelAdviceListViewController: UICollectionViewDelegate {
         print(arrayOfTravelCategory[indexPath.row].title)
         currentIndex = indexPath.row
         collectionViewTabs.reloadData()
+        collectionViewTabs.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         tblviewData.sayNoSection = .noDataFound("No \(self.arrayOfTravelCategory[currentIndex].title.lowercased()) found.")
         tblviewData.reloadData()
         tblviewData.figureOutAndShowNoResults()

@@ -211,7 +211,7 @@ extension ProfileHomeVC: UICollectionViewDataSource,UICollectionViewDelegate{
                     UIView.animate(withDuration: 0.2) {
                         self.collectionviewProfile.collectionViewLayout.invalidateLayout()
                         DispatchQueue.getMain(delay: 0.2) {
-                            cell.imgviewBG.addGradianColor()
+//                            cell.imgviewBG.addGradianColorAlbum()
                         }
                     }
                 }

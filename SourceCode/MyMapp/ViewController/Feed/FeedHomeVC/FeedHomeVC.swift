@@ -339,7 +339,7 @@ extension FeedHomeVC{
     
     func saveFeedApi(indexRow:Int){
         let strJson = JSON(["trip": ["id":viewModel.arrayOfTripList[indexRow].id],
-                            "userId":APP_USER?.userId ?? 0,
+                            "userId":viewModel.arrayOfTripList[indexRow].userCreatedTrip?.userId ?? 0,
                             "INTEREST_CATEGORY": "feed"]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
