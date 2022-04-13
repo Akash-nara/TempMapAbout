@@ -16,7 +16,7 @@ enum EnumTripToalSections:Equatable {
         return lhs == rhs.self
     }
     
-    case userDetail, tripImages, locationList([AddTripFavouriteLocationDetail]), topTips(TravelAdviceDataModel), travelStory(TravelAdviceDataModel), logisticsRoute(TravelAdviceDataModel), comments, travelAdvice
+    case userDetail, tripImages, locationList([AddTripFavouriteLocationDetail]), comments, travelAdvice
 }
 
 enum EnumTripPageFlow {
@@ -72,9 +72,9 @@ class TripDetailVC: UIViewController {
     
     //MARK: - VARIABLES
     var collectionPhotos:UICollectionView?
-    var isTopTipExpand:Bool = false
-    var isFavouriteExpand:Bool = false
-    var isLogisticsExpand:Bool = false
+//    var isTopTipExpand:Bool = false
+//    var isFavouriteExpand:Bool = false
+//    var isLogisticsExpand:Bool = false
     var detailTripDataModel:TripDataModel? = nil
     var currentChatIsBookmark = false{
         didSet{
@@ -102,9 +102,11 @@ class TripDetailVC: UIViewController {
         self.vwImage.isHidden = true
         self.txtComment.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         self.txtComment.delegate = self
-        self.isTopTipExpand = false
-        self.isFavouriteExpand = false
-        self.isLogisticsExpand = false
+        viewCommentHeightConstraint.constant = 0
+        viewComment.isHidden = true
+//        self.isTopTipExpand = false
+//        self.isFavouriteExpand = false
+//        self.isLogisticsExpand = false
         
         
         buttonCurrentChatBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
@@ -113,9 +115,12 @@ class TripDetailVC: UIViewController {
         buttonCurrentChatLikeUnLike.setImage(UIImage(named: "iconsHeartSelected"), for: .selected)
         buttonCurrentChatLikeUnLike.setImage(UIImage(named: "ic_Heart_unselected"), for: .normal)
         
-        preparedArrayofSections()
-        tblviewTrip.reloadData()
-        tblviewTrip.figureOutAndShowNoResults()
+        self.getAdviceForTripAPi { [weak self] arrayOfTravel in
+            self?.arrayOfTravelAdvice = arrayOfTravel
+            self?.preparedArrayofSections()
+            self?.tblviewTrip.reloadData()
+            self?.tblviewTrip.figureOutAndShowNoResults()
+        }
         
         self.viewSep.isHidden = true
         
@@ -182,24 +187,41 @@ class TripDetailVC: UIViewController {
             }
             
             // travel advice
-            arrayOfTravelAdvice = objDetailtrip.advicesOfArrayOfDataModel
+            objDetailtrip.advicesOfArrayOfDataModel.forEach { objTravel in
+                if let index = arrayOfTravelAdvice.firstIndex(where: {$0.id == objTravel.adviceCategoryId}){
+                    arrayOfTravelAdvice[index].isSaved = objTravel.isSaved
+                    arrayOfTravelAdvice[index].savedComment = objTravel.savedComment
+                    arrayOfTravelAdvice[index].savedId = objTravel.id
+                }
+            }
+            
+            // remove those have not comment
+            arrayOfTravelAdvice.removeAll { objModel in
+                return objModel.savedComment.isEmpty
+            }
+            
+            
             if arrayOfTravelAdvice.count > 0{
                 arrayOfSections.append(.travelAdvice)
             }
             
+            /*
+             //            arrayOfTravelAdvice = objDetailtrip.advicesOfArrayOfDataModel
             arrayOfTravelAdvice.forEach { Obj in
+                var objModel = Obj
+                
                 debugPrint(Obj.id)
                 switch Obj.enumAdviceType {
                 case .topTips:
-                    arrayOfSections.append(.topTips(Obj))
+                    arrayOfSections.append(.topTips(objModel))
                 case .stories:
-                    arrayOfSections.append(.travelStory(Obj))
+                    arrayOfSections.append(.travelStory(objModel))
                 case .logistics:
-                    arrayOfSections.append(.logisticsRoute(Obj))
+                    arrayOfSections.append(.logisticsRoute(objModel))
                 default:
                     break
                 }
-            }
+            }*/
             
             // comments
             if enumCurrentFlow == .otherUser{
@@ -283,6 +305,9 @@ class TripDetailVC: UIViewController {
     //MARK: - OTHER FUNCTIONS
     @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
         let section = (Int(sender.accessibilityHint ?? "") ?? 0)
+        arrayOfTravelAdvice[section].isExpand.toggle()
+        
+        /*
         switch arrayOfSections[section] {
         case .topTips:
             self.isTopTipExpand = !isTopTipExpand
@@ -293,6 +318,7 @@ class TripDetailVC: UIViewController {
         default:
             break
         }
+         */
 //        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
 //        self.tblviewTrip.reloadRows(at: [IndexPath.init(row: 0, section: section)], with: .automatic)
 //        self.tblviewTrip.layoutIfNeeded()
@@ -314,16 +340,18 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             return 1
         case .locationList(let arrayLocation):
             return arrayLocation.count
+            /*
         case .topTips:
             return 1
         case .travelStory:
             return 1
         case .logisticsRoute:
             return 1
+             */
         case .comments:
             return arrayOfComments.count
         case .travelAdvice:
-            return 0
+            return arrayOfTravelAdvice.count
         }
     }
     
@@ -409,12 +437,17 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             cell.buttonBookmark.isHidden = isOwnProfile
             
             return cell
+        case .travelAdvice:
+            let objModel = arrayOfTravelAdvice[indexPath.row]
+            return configureAdvanceTravelCell(indexPath: indexPath, dataModel: objModel)
+            /*
         case .topTips(let obj):
             return configureAdvanceTravelCell(indexPath: indexPath, dataModel: obj, isExpadCell: isTopTipExpand)
         case .travelStory(let obj):
             return configureAdvanceTravelCell(indexPath: indexPath, dataModel: obj, isExpadCell: isFavouriteExpand)
         case .logisticsRoute(let obj):
             return configureAdvanceTravelCell(indexPath: indexPath, dataModel: obj, isExpadCell: isLogisticsExpand)
+             */
         case .comments:
             guard let cell = self.tblviewTrip.dequeueCell(
                 withType: TripMainPageCommentsCellXIB.self,
@@ -433,7 +466,7 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    func configureAdvanceTravelCell(indexPath:IndexPath, dataModel:TravelAdviceDataModel, isExpadCell:Bool) -> TripMainPageTopCellXIB{
+    func configureAdvanceTravelCell(indexPath:IndexPath, dataModel:TravelAdviceDataModel) -> TripMainPageTopCellXIB{
         let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageTopCellXIB", for: indexPath) as! TripMainPageTopCellXIB
         
         cell.trealingViewExpand.constant = isOwnProfile ? 20 : 50
@@ -441,26 +474,30 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         cell.viewExpand.accessibilityHint = "\(indexPath.row)"
         cell.viewExpand.tag = indexPath.section
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.isExpandTravelAdvice(_:)))
-        tap.accessibilityHint = "\(indexPath.section)"
+//        tap.accessibilityHint = "\(indexPath.section)"
+        tap.accessibilityHint = "\(indexPath.row)"
         cell.viewExpand.addGestureRecognizer(tap)
         
         cell.buttonBookmark.setImage(UIImage(named: "ic_selected_saved"), for: .selected)
         cell.buttonBookmark.setImage(UIImage(named: "ic_saved_Selected_With_just_border"), for: .normal)
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkTravelAdvoiceClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = dataModel.id
-        cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
+//        cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
+        cell.buttonBookmark.accessibilityHint = "\(indexPath.row)"
         cell.buttonBookmark.isHidden = isOwnProfile
         cell.buttonBookmark.isSelected = dataModel.isSaved
 
         cell.lblHeader.text = dataModel.title
-        cell.labelSubTitle.text = dataModel.subTitle
+        cell.labelSubTitle.text = dataModel.savedComment
         
-        cell.bottomConstrainOfMainStackView.constant = isExpadCell ? 20 : 8
-        if isExpadCell{
+        cell.bottomConstrainOfMainStackView.constant = dataModel.isExpand ? 20 : 8
+        if dataModel.isExpand{
             cell.buttonArrow.setImage(UIImage(named: "ic_black_expand_icon"), for: .normal)
             cell.lblHeader.numberOfLines = 0
             cell.labelSubTitle.isHidden = false
+            cell.viewExpand.borderColor = UIColor.App_BG_SeafoamBlue_Color
         }else{
+            cell.viewExpand.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color
             cell.buttonArrow.setImage(UIImage(named: "ic_black_collpase_icon"), for: .normal)
             cell.lblHeader.numberOfLines = 1
             cell.labelSubTitle.isHidden = true
@@ -580,20 +617,20 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
             if arrayOfTravelAdvice.indices.contains(indexRow){
                 debugPrint("selected :\(arrayOfTravelAdvice[indexRow].title)")
                 if self.arrayOfTravelAdvice[indexRow].isSaved{
-                    self.unSaveLocationAndTravelApi(id: arrayOfTravelAdvice[indexRow].id, key:"advice") {
+                    self.unSaveLocationAndTravelApi(id: arrayOfTravelAdvice[indexRow].savedId, key:"advice") {
                         sender.isSelected.toggle()
                         self.arrayOfTravelAdvice[indexRow].isSaved.toggle()
-//                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
-//                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
-//                        self.tblviewTrip.reloadData()
+                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
+                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+                        self.tblviewTrip.reloadData()
                     }
                 }else{
-                    self.saveTravelAdviceApi(id: arrayOfTravelAdvice[indexRow].id) {
+                    self.saveTravelAdviceApi(id: arrayOfTravelAdvice[indexRow].savedId) {
                         sender.isSelected.toggle()
                         self.arrayOfTravelAdvice[indexRow].isSaved.toggle()
-//                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
-//                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
-//                        self.tblviewTrip.reloadData()
+                        self.detailTripDataModel?.advicesOfArrayOfDataModel[indexRow].isSaved.toggle()
+                        self.tblviewTrip.reloadSections(IndexSet(integer: section), with: .automatic)
+                        self.tblviewTrip.reloadData()
                     }
                 }
             }
@@ -705,7 +742,6 @@ extension TripDetailVC{
         }
     }
     
-    
     func unSaveLocationAndTravelApi(id:Int, key:String, success: (() -> ())? = nil){
         let strJson = JSON(["id":id,"INTEREST_CATEGORY": key]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
@@ -724,5 +760,28 @@ extension TripDetailVC{
             self.HIDE_CUSTOM_LOADER()
         }
     }
-
+    
+    func getAdviceForTripAPi(callback: (([TravelAdviceDataModel]) -> ())? = nil) {
+        SHOW_CUSTOM_LOADER()
+        API_SERVICES.callAPI([:], path: .getAdviceForCityTrip, method: .get) { [weak self] response in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = response?["status"]?.intValue, status == 200 else {
+                Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
+                return
+            }
+            
+            guard let arrayOfAdvices = response?["responseJson"]?.dictionaryValue["advices"]?.arrayValue  else {
+                return
+            }
+            
+            var travelAdvices = [TravelAdviceDataModel]()
+            arrayOfAdvices.forEach { jsonObj in
+                travelAdvices.append(TravelAdviceDataModel.init(withAddTrip: jsonObj))
+            }
+            callback?(travelAdvices)
+        } internetFailure: {
+            self.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        }
+    }
 }

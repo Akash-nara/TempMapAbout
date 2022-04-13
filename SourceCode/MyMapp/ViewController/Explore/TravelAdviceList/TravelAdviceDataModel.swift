@@ -8,33 +8,37 @@
 import Foundation
 class TravelAdviceDataModel{
     
-    enum EnumAdviceType:Int {
-    case topTips = 1, stories, logistics
-    }
+//    enum EnumAdviceType:Int {
+//    case topTips = 1, stories, logistics
+//    }
+    
     var isExpand = false
     var isSaved = false
     var id  = 0
     var savedCount = 0
-    var key = 0
+//    var key = 0
     var subTitle = ""
     var title = ""
     var savedId = 0
-    var enumAdviceType:EnumAdviceType{
-        return EnumAdviceType.init(rawValue: key) ?? .topTips
-    }
-    
+    var viewModel:SavedAlbumTravelAdviceViewModel? = nil
+//    var enumAdviceType:EnumAdviceType{
+//        return EnumAdviceType.init(rawValue: key) ?? .topTips
+//    }
+    var adviceCategoryId = 0
     init() {}
     init(param:JSON) {
         self.isSaved = param["isSaved"].boolValue
         self.id = param["id"].intValue
         self.savedCount = param["savedCount"].intValue
+        self.savedComment = param["comment"].stringValue
+        self.adviceCategoryId = param["adviceCategoryId"].intValue
     }
     
     var userName = ""
     var userProfilePic = ""
     var savedComment = ""
     var userId = 0
-    var travelEnumTypeValue = 0
+//    var travelEnumTypeValue = 0
     init(savedObject param:JSON) {
         self.userId = param["userId"].intValue
         self.id = param["id"].intValue
@@ -42,6 +46,7 @@ class TravelAdviceDataModel{
         self.userProfilePic = param["profilePicPath"].stringValue
         self.savedComment = param["comment"].stringValue
         
+        /*
         if let topTips = param["1"].string{
             savedComment = topTips
             travelEnumTypeValue = 1
@@ -55,6 +60,12 @@ class TravelAdviceDataModel{
         if let logistic = param["3"].string{
             savedComment = logistic
             travelEnumTypeValue = 3
-        }
+        }*/
+    }
+    
+    init(withAddTrip param:JSON) {
+        self.id = param["id"].intValue
+        self.title = param["value"].stringValue
+        self.subTitle = param["placeHolder"].stringValue
     }
 }

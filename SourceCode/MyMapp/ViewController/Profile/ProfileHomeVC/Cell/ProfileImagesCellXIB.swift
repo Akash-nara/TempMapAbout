@@ -56,11 +56,18 @@ class ProfileImagesCellXIB: UICollectionViewCell {
         widthCancelButton.constant = 0
         
         self.startAnimating()
-        if let firstObject = objTripModel.photoUploadedArray.first?.arrayOfImageURL.first{
-            let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
-            imgviewBG.sd_setImage(with: URL.init(string: urlStr), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
+        
+        
+        
+        func loadImage(imgURL:String){
+            
+            imgviewBG.sd_setImage(with: URL.init(string: imgURL), placeholderImage: nil, options: .highPriority) { [self] img, error, cache, url in
                 self.stopAnimating()
                 self.imgviewBG.image = img
+                
+                if img == nil{
+                    self.imgviewBG.image = UIImage.init(named: "not_icon")
+                }
                 
                 if let image = img, image.isImageVerticle{
                     //since the width > height we may fit it and we'll have bands on top/bottom
@@ -72,12 +79,17 @@ class ProfileImagesCellXIB: UICollectionViewCell {
                     completion?(false,self.imgviewBG.tag)
                 }
             }
+        }
+        
+        if let firstObject = objTripModel.photoUploadedArray.first?.arrayOfImageURL.first{
+            let urlStr = objTripModel.defaultImageKey.isEmpty ? firstObject.image : objTripModel.defaultImageKey
+            loadImage(imgURL: urlStr)
             self.imgviewBG.clipsToBounds = true
+        }else if !objTripModel.defaultImageKey.isEmpty {
+            loadImage(imgURL: objTripModel.defaultImageKey)
         }else{
-//            startAnimating()
             self.imgviewBG.backgroundColor = .clear
             self.imgviewBG.contentMode = .scaleToFill
-//            self.imgviewBG.image = UIImage.init(named: "ic_Default_city_image_one")
         }
     }
 }

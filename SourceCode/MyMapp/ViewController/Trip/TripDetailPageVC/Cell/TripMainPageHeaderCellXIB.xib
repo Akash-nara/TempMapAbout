@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -34,10 +34,10 @@
                         <rect key="frame" x="20" y="0.0" width="280" height="296"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="3cl-P0-nrq">
-                                <rect key="frame" x="10" y="30" width="260" height="246"/>
+                                <rect key="frame" x="0.0" y="30" width="280" height="246"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="RR2-zE-cdp">
-                                        <rect key="frame" x="0.0" y="0.0" width="260" height="92.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="92.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYv-xD-FO9">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
@@ -64,16 +64,16 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g2J-TN-xrc">
-                                                <rect key="frame" x="85" y="0.0" width="175" height="44.5"/>
+                                                <rect key="frame" x="85" y="0.0" width="195" height="44.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="José Luis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4S2-w6-uVi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="175" height="24.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="24.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancún, Mexico" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFb-LN-9MI">
-                                                        <rect key="frame" x="0.0" y="29.5" width="175" height="15"/>
+                                                        <rect key="frame" x="0.0" y="29.5" width="195" height="15"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                         <nil key="highlightedColor"/>
@@ -83,10 +83,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6ko-fx-gga">
-                                        <rect key="frame" x="0.0" y="117.5" width="260" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="280" height="44.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sWR-5M-EbC">
-                                                <rect key="frame" x="0.0" y="0.0" width="260" height="24.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="24.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mexico City" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBd-oR-y66">
                                                         <rect key="frame" x="0.0" y="0.0" width="119" height="24.5"/>
@@ -95,7 +95,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May, 2020" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGb-o5-pID">
-                                                        <rect key="frame" x="199.5" y="0.0" width="60.5" height="24.5"/>
+                                                        <rect key="frame" x="219.5" y="0.0" width="60.5" height="24.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                                                         <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                         <nil key="highlightedColor"/>
@@ -103,7 +103,7 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Mexico, South America" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggv-qt-rXb">
-                                                <rect key="frame" x="0.0" y="29.5" width="260" height="15"/>
+                                                <rect key="frame" x="0.0" y="29.5" width="280" height="15"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                 <nil key="highlightedColor"/>
@@ -111,7 +111,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acf-M8-H2j">
-                                        <rect key="frame" x="0.0" y="187" width="260" height="59"/>
+                                        <rect key="frame" x="0.0" y="187" width="280" height="59"/>
                                         <string key="text">This city is beautiful during summer. The weather is so pleasant with the summer breeze. I would not recommend more than 5 days to see the whole city. </string>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                         <nil key="textColor"/>
@@ -122,10 +122,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="3cl-P0-nrq" secondAttribute="trailing" constant="10" id="Po2-SS-Nf3"/>
+                            <constraint firstAttribute="trailing" secondItem="3cl-P0-nrq" secondAttribute="trailing" id="Po2-SS-Nf3"/>
                             <constraint firstItem="3cl-P0-nrq" firstAttribute="top" secondItem="tlJ-i9-0MU" secondAttribute="top" constant="30" id="Qis-9s-Ris"/>
                             <constraint firstAttribute="bottom" secondItem="3cl-P0-nrq" secondAttribute="bottom" constant="20" id="TCr-Ve-NSY"/>
-                            <constraint firstItem="3cl-P0-nrq" firstAttribute="leading" secondItem="tlJ-i9-0MU" secondAttribute="leading" constant="10" id="chK-vJ-xND"/>
+                            <constraint firstItem="3cl-P0-nrq" firstAttribute="leading" secondItem="tlJ-i9-0MU" secondAttribute="leading" id="chK-vJ-xND"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -154,10 +154,10 @@
     <resources>
         <image name="ic_user_image_defaulut_one" width="512" height="512"/>
         <namedColor name="App_BG_SecondaryDark2_Color">
-            <color red="0.2199999988079071" green="0.13300000131130219" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="App_Bg_Seafoamblue_Color">
-            <color red="0.42399999499320984" green="0.83099997043609619" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.42352941176470588" green="0.83137254901960789" blue="0.7686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

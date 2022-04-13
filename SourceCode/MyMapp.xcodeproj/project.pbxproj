@@ -274,6 +274,9 @@
 		AA64793827F4C54E0048FDEA /* SavedAlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */; };
 		AABECFC127FDD05A00497952 /* SavedLocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABECFC027FDD05A00497952 /* SavedLocationListViewController.swift */; };
 		AAED4A5F27F0915400AEF74E /* SearchUserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */; };
+		AAFBD2F12804708200718C39 /* MXSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFBD2EE2804708200718C39 /* MXSegmentedControl.swift */; };
+		AAFBD2F22804708200718C39 /* MXSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFBD2EF2804708200718C39 /* MXSegment.swift */; };
+		AAFBD2F32804708200718C39 /* MXIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFBD2F02804708200718C39 /* MXIndicator.swift */; };
 		EC71B5EAE4D4771387372C6B /* Pods_MyMapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C7F806BECB44E1B2CCDF86 /* Pods_MyMapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -552,6 +555,9 @@
 		AA64793727F4C54E0048FDEA /* SavedAlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumDetailViewController.swift; sourceTree = "<group>"; };
 		AABECFC027FDD05A00497952 /* SavedLocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationListViewController.swift; sourceTree = "<group>"; };
 		AAED4A5E27F0915400AEF74E /* SearchUserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserDataModel.swift; sourceTree = "<group>"; };
+		AAFBD2EE2804708200718C39 /* MXSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXSegmentedControl.swift; sourceTree = "<group>"; };
+		AAFBD2EF2804708200718C39 /* MXSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXSegment.swift; sourceTree = "<group>"; };
+		AAFBD2F02804708200718C39 /* MXIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXIndicator.swift; sourceTree = "<group>"; };
 		C790E0A552D53787824DBFF0 /* Pods-MyMapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMapp.debug.xcconfig"; path = "Target Support Files/Pods-MyMapp/Pods-MyMapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -571,6 +577,7 @@
 		38152A4B27DB66830077BDB5 /* TravelAdviceList */ = {
 			isa = PBXGroup;
 			children = (
+				AAFBD2ED2804707500718C39 /* SegmentClass */,
 				38DE30E427DC93070048563E /* MaterialDesignWidgets */,
 				38152A4C27DB669F0077BDB5 /* TravelAdviceListViewController.swift */,
 				38DE30E227DC4F060048563E /* TravelAdviceDataModel.swift */,
@@ -1560,6 +1567,16 @@
 			path = SavedAlbumDetail;
 			sourceTree = "<group>";
 		};
+		AAFBD2ED2804707500718C39 /* SegmentClass */ = {
+			isa = PBXGroup;
+			children = (
+				AAFBD2F02804708200718C39 /* MXIndicator.swift */,
+				AAFBD2EF2804708200718C39 /* MXSegment.swift */,
+				AAFBD2EE2804708200718C39 /* MXSegmentedControl.swift */,
+			);
+			path = SegmentClass;
+			sourceTree = "<group>";
+		};
 		D36E295DDDAA877AB62D6551 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1859,6 +1876,7 @@
 				38AE15362782D6630016F80E /* NSURLSession+Multipart.swift in Sources */,
 				38ED7CC427BE73BF00794C43 /* ActivityHomeViewModel.swift in Sources */,
 				38CC20CB27D65193008E952B /* ExploreTableDataCell.swift in Sources */,
+				AAFBD2F32804708200718C39 /* MXIndicator.swift in Sources */,
 				A440832D27DC8239004589FC /* CollectionViewTVCell.swift in Sources */,
 				69F436B8277495D000CC5F44 /* Advice.swift in Sources */,
 				690D0558274785100022682D /* ProfilePhotoUploadViewModel.swift in Sources */,
@@ -1914,6 +1932,7 @@
 				8835464A2729CB1900DAD2B5 /* AppDelegate.swift in Sources */,
 				38D06DFE27A5063A0022C2C0 /* SayNoForDataTableView.swift in Sources */,
 				38B14C6E27ABF2D0001D21D4 /* MapScrollCell.swift in Sources */,
+				AAFBD2F12804708200718C39 /* MXSegmentedControl.swift in Sources */,
 				A440832827DC76CD004589FC /* FeaturedPlacesCVCell.swift in Sources */,
 				38C684DC27D920F9008ACD05 /* MapExploreTVCell.swift in Sources */,
 				8885DFB12733A71D00AE698B /* ResetPasswordVC.swift in Sources */,
@@ -1968,6 +1987,7 @@
 				884D7A31272D67B100730734 /* SignupVC.swift in Sources */,
 				88122D58273FFEE5003512C1 /* LocationDescriptionCell.swift in Sources */,
 				69F436BB277495D000CC5F44 /* Location.swift in Sources */,
+				AAFBD2F22804708200718C39 /* MXSegment.swift in Sources */,
 				3840460B27840EFE00BF206D /* SceneDelegate.swift in Sources */,
 				88ECE0F1273059810000AEA3 /* ForgotPasswordVC.swift in Sources */,
 				88122D4F273FD92D003512C1 /* userDataModel.swift in Sources */,
@@ -2114,7 +2134,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2159,7 +2179,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 2859WFA2CV;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;

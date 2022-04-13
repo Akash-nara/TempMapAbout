@@ -126,13 +126,18 @@ class FeedTableViewCell: UITableViewCell{
         buttonBookmark.isSelected = modelData.isBookmarked
         buttonLike.isSelected = modelData.isLiked
         
-        postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
-        postedUserName.text = modelData.userCreatedTrip?.username ?? "-"
+        
+        let name = (modelData.userCreatedTrip?.username ?? "")
+        let address = (modelData.userCreatedTrip?.region ?? "-")
+
+        postedUserPic.setImage(url: modelData.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "not_icon"))
+        postedUserName.text = name.isEmpty ? "-" : name
+        
         postedUserPic.setBorderWithColor()
         postedUserPic.contentMode = .scaleToFill
         
-        postedUserAddress.text = modelData.userCreatedTrip?.region ?? "-"
-        postedUserAddress.isHidden = (modelData.userCreatedTrip?.region ?? "").isEmpty
+        postedUserAddress.text = address.isEmpty ? "-" : address
+        postedUserAddress.isHidden = address.isEmpty
         
         arrayOfImageURL.removeAll()
         modelData.photoUploadedArray.forEach { obj in
@@ -141,8 +146,13 @@ class FeedTableViewCell: UITableViewCell{
             }
         }
         
+        if modelData.photoUploadedArray.count.isZero() && !modelData.defaultImageKey.isEmpty && arrayOfImageURL.count.isZero(){
+            var model = TripDataModel.TripPhotoDetails.TripImage.init()
+            model.image = modelData.defaultImageKey
+            arrayOfImageURL.append(model)
+        }
+        
         pageControll.numberOfPages = arrayOfImageURL.count
-        //        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         self.collectionView.isScrollEnabled = arrayOfImageURL.count == 1 ? false : true
         arrayOfImageURL = collectionView.prepareDataSourceForInfiniteScroll(array: arrayOfImageURL) as! [TripDataModel.TripPhotoDetails.TripImage]
 
@@ -179,7 +189,8 @@ class FeedTableViewCell: UITableViewCell{
                 self.collectionviewTags.reloadData()
             }
         }
-        pageControll.isHidden = arrayOfImageURL.count == 0
+//        pageControll.isHidden = arrayOfImageURL.count == 0
+        pageControll.isHidden = arrayOfImageURL.count == 1 ? true : false
         collectionView.isHidden = arrayOfImageURL.count == 0
     }
 }

@@ -573,7 +573,9 @@ extension PersonalDetailsVC: UITableViewDataSource, UITableViewDelegate {
             }
         
         cell.lblCity.textAlignment = NSTextAlignment.left
-        cell.lblCity.text = cityData[indexPath.row].name
+        if cityData.indices.contains(indexPath.row){
+            cell.lblCity.text = cityData[indexPath.row].name
+        }
         return cell
     }
     

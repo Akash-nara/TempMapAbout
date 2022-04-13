@@ -102,7 +102,11 @@ class TripImagesUploadVC: UIViewController {
         setPhotoCount()
         
         if isEditFlow{
-            buttonAddToFeed.setTitle("Update to feed")
+            buttonAddToFeed.setTitle("Update public")
+            buttonMakePrivate.setTitle("Update private")
+        }else{
+            buttonAddToFeed.setTitle("Make public")
+            buttonMakePrivate.setTitle("Make private")
         }
         
         if let index = arrayJsonFilterImages.firstIndex(where: {$0.keyToSubmitServer == keyForDafultImageSelected}){
@@ -394,10 +398,15 @@ class TripImagesUploadVC: UIViewController {
     
     @IBAction func buttonMakePrivateTapp(sender:UIButton){
         isPublicTrip = false
+        callUpdateApi()
     }
     
     @IBAction func buttonAddToFeedTap(sender:UIButton){
         isPublicTrip = true
+        callUpdateApi()
+    }
+    
+    func callUpdateApi(){
         if totalGlobalTripPhotoCount == 21{
             Utility.errorMessage(message: "Please select photo for trip")
             return
@@ -575,7 +584,8 @@ extension  TripImagesUploadVC{
             keyForDafultImageSelected = key
         }
         self.paramDict?["defaultImageKey"] = keyForDafultImageSelected
-        paramDict?["addToFeed"] = isPublicTrip
+        paramDict?["addToFeed"] = true
+        paramDict?["visibility"] = isPublicTrip ? "PUBLIC" : "PRIVATE"
         guard let jsonDict = paramDict else {
             return
         }

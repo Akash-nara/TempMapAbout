@@ -416,6 +416,7 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
             cell.configureSkelton()
             cell.startAnimating()
             cell.imgviewZoom.sd_setImage(with: URL.init(string: img), placeholderImage: nil, options: .highPriority) { img, error, cache, url in
+                
                 cell.imgviewZoom.image = img
                 //            self.stopAnimating()
                 if let sizeOfImage = cell.imgviewZoom.image?.size, sizeOfImage.width > sizeOfImage.height {
@@ -440,10 +441,8 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
                     cell.stopAnimating()
                     cell.imgviewZoom.cornerRadius = 15
                     cell.imgviewZoom.image = lodedImage //.withRoundedCorners(radius: 15)
-                    //                cell.imgviewZoom.image = cell.imgviewZoom.image?.drawOutlie()
                 }
                 
-                //            cell.imgviewZoom.clipsToBounds = true
                 collectionView.collectionViewLayout.invalidateLayout()
             }
         }else{
@@ -453,20 +452,6 @@ extension TripMainPageTableCell: UICollectionViewDataSource, UICollectionViewDel
         
         cell.imgviewZoom.setBorderWithColor()
         
-//        cell.scrollViewImg.layer.borderWidth = 2
-//        cell.scrollViewImg.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
-//
-//        cell.imgviewZoom.layer.borderWidth = 2
-//        cell.imgviewZoom.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
-//
-//        cell.viewBG.layer.borderWidth = 2
-//        cell.viewBG.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
-//
-//        cell.contentView.layer.borderWidth = 2
-//        cell.contentView.layer.borderColor = UIColor.App_BG_silver_Color.cgColor
-
-        
-        //        if !arrayOfImageURL[indexPath.row].isDummyItem{
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGestureHandler))
         longPressGesture.accessibilityLabel = "\(indexPath.row)"
         longPressGesture.accessibilityHint = "\(indexPath.section)"

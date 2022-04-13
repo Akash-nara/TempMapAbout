@@ -43,7 +43,7 @@
                                         <rect key="frame" x="10" y="10" width="300" height="437"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Sog-Vv-7yb">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="173.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="123.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xpn-20-dBg">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="93.5"/>
@@ -125,13 +125,13 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rs7-rU-O4q">
-                                                        <rect key="frame" x="0.0" y="123.5" width="300" height="50"/>
+                                                        <rect key="frame" x="0.0" y="123.5" width="300" height="0.0"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ycg-C5-JWm">
-                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7bl-Da-he1">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7bl-Da-he1">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="569.5" height="50"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Fhk-ba-m5U">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -163,7 +163,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I love to share my travel discoveries with the people who share this passion." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vJ-U2-fd4">
-                                                                                <rect key="frame" x="111" y="0.0" width="179" height="50"/>
+                                                                                <rect key="frame" x="111" y="0.0" width="448.5" height="50"/>
                                                                                 <fontDescription key="fontDescription" name="Montserrat-LightItalic" family="Montserrat" pointSize="12"/>
                                                                                 <color key="textColor" name="App_BG_SecondaryDark2_Color"/>
                                                                                 <nil key="highlightedColor"/>
@@ -183,16 +183,16 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ygm-Kj-Ch3">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="569.5" height="80"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="M5c-d6-ctY">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="569.5" height="0.0"/>
                                                                                 <subviews>
                                                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zlq-sV-GuD">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="86.5" height="0.0"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Albmus_Tab" translatesAutoresizingMaskIntoConstraints="NO" id="0AH-zj-BIg">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="86.5" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <userDefinedRuntimeAttributes>
                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                                         <real key="value" value="10"/>
@@ -200,7 +200,7 @@
                                                                                                 </userDefinedRuntimeAttributes>
                                                                                             </imageView>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sp-Wj-jgo">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="86.5" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                             </button>
                                                                                         </subviews>
@@ -222,10 +222,10 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </view>
                                                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVh-Gh-dz9">
-                                                                                        <rect key="frame" x="106.5" y="0.0" width="87" height="0.0"/>
+                                                                                        <rect key="frame" x="196.5" y="0.0" width="176.5" height="0.0"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_map_Tab" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-yp-6fp">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="87" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <userDefinedRuntimeAttributes>
                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                                         <real key="value" value="10"/>
@@ -233,7 +233,7 @@
                                                                                                 </userDefinedRuntimeAttributes>
                                                                                             </imageView>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czd-jr-dkq">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="87" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                             </button>
                                                                                         </subviews>
@@ -255,10 +255,10 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </view>
                                                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EC1-eZ-45b">
-                                                                                        <rect key="frame" x="213.5" y="0.0" width="86.5" height="0.0"/>
+                                                                                        <rect key="frame" x="393" y="0.0" width="176.5" height="0.0"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_saved_tab" translatesAutoresizingMaskIntoConstraints="NO" id="0bE-63-BPe">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="86.5" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <userDefinedRuntimeAttributes>
                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                                         <real key="value" value="10"/>
@@ -266,7 +266,7 @@
                                                                                                 </userDefinedRuntimeAttributes>
                                                                                             </imageView>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P24-dJ-xcX">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="86.5" height="0.0"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                             </button>
                                                                                         </subviews>
@@ -290,13 +290,13 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-7L-aha">
-                                                                                <rect key="frame" x="0.0" y="30" width="300" height="50"/>
+                                                                                <rect key="frame" x="0.0" y="30" width="569.5" height="50"/>
                                                                                 <subviews>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojD-eC-s1h">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="569.5" height="50"/>
                                                                                         <subviews>
                                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by trip" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CGm-47-HoB" customClass="PaddingTextField" customModule="MyMapp" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="569.5" height="50"/>
                                                                                                 <color key="tintColor" name="App_Bg_Seafoamblue_Color"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="50" id="wPQ-co-bIB"/>
@@ -334,7 +334,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Idr-z0-qdt">
-                                                                                <rect key="frame" x="0.0" y="80" width="300" height="1"/>
+                                                                                <rect key="frame" x="0.0" y="80" width="569.5" height="1"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" id="RqK-Vf-JiG"/>
                                                                                 </constraints>
@@ -432,7 +432,7 @@
         <image name="ic_saved_tab" width="95" height="70"/>
         <image name="ic_user_image_defaulut_one" width="512" height="512"/>
         <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
-            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.90588235294117647" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="App_BG_SecondaryDark2_Color">
             <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -100,6 +100,9 @@ extension SavedAlbumListViewController: UICollectionViewDataSource,UICollectionV
             }
             UIView.animate(withDuration: 0.2) {
                 self.collectionviewProfile.collectionViewLayout.invalidateLayout()
+                DispatchQueue.getMain(delay: 0.2) {
+                    cell.imageTrip.addGradianColor()
+                }
             }
         }
         cell.layoutIfNeeded()

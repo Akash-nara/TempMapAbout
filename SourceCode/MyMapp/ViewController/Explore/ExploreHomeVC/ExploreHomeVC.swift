@@ -380,10 +380,10 @@ extension ExploreHomeVC{
         let strJson = JSON(param1).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
-        print(param)
+//        print(param)
         
         self.personalViewModel.getCityListAPI(param: param) { response in
-            debugPrint(response)
+//            debugPrint(response)
             
             guard let cityList = response?["responseJson"]?["cityList"].arrayObject, let totalRecord = response?["responseJson"]?["totalRecord"].intValue else {
                 
@@ -452,10 +452,10 @@ extension ExploreHomeVC{
         let strJson = JSON(param1).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         
-        print(param)
+//        print(param)
         
         self.personalViewModel.getUserListAPI(param: param) { response in
-            debugPrint(response)
+//            debugPrint(response)
             
             guard let cityList = response?["responseJson"]?["user"].arrayObject, let totalRecord = response?["responseJson"]?["totalRecord"].intValue else {
                 

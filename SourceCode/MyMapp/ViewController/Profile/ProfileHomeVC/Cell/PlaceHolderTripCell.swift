@@ -18,12 +18,12 @@ class PlaceHolderTripCell: UICollectionViewCell {
         title.text = "No trip found"
         title.font = UIFont.Montserrat.Medium(15)
         title.textColor = .App_BG_SecondaryDark2_Color
-        title.isHidden = true
+//        title.isHidden = true
         
         subTitle.text = "Added trip will display here"
         subTitle.font = UIFont.Montserrat.Regular(13)
         subTitle.textColor = .App_BG_SecondaryDark2_Color
-        subTitle.isHidden = true
+//        subTitle.isHidden = true
     }
 
 }

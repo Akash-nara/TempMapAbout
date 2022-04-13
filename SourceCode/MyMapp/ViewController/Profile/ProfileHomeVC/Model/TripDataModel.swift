@@ -12,18 +12,6 @@ import MapKit
 class TripDataModel{
     
     
-//    struct UserCreatedTrip{
-//        var username = ""
-//        var profilePic = ""
-//        var region = ""
-//        
-//        init() {}
-//        init(param:JSON) {
-//            self.username = param["username"].stringValue
-//            self.profilePic = param["profilePic"].stringValue
-//            self.region = param["region"].stringValue
-//        }
-//    }
     class TripCity{
         var cityName = ""
         var countryName = ""
@@ -113,7 +101,6 @@ class TripDataModel{
     var locationList = [AddTripFavouriteLocationDetail]()
     var photoUploadedArray = [TripPhotoDetails]()
     var tripDescription = ""
-    var advicesOfArray = [EnumTripSection]()
     var advicesOfArrayOfDataModel = [TravelAdviceDataModel]()
     var isBookmarked = false
     var isLiked = false
@@ -139,20 +126,6 @@ class TripDataModel{
         }
     }
 
-    func UTCToLocal(date:Date) -> Date? {
-        let localDateFormatter = DateFormatter()
-        // No timeZone configuration is required to obtain the
-        // local time from DateFormatter.
-
-        // Printing a Date
-        let date = date
-        print(localDateFormatter.string(from: date))
-        // Parsing a string representing a date
-        let dateString = "May 30, 2020"
-        guard let localDate = localDateFormatter.date(from: dateString) else { return nil }
-       return localDate
-    }
-
     var dateFromatedOftrip:String{
         let date = Date(timeIntervalSince1970: TimeInterval(tripDate/1000))
         let endDate = Date(timeIntervalSince1970: TimeInterval(tripEndDate/1000))
@@ -163,37 +136,6 @@ class TripDataModel{
             return diffInDays > 1 ? "\(diffInDays) days" : "\(diffInDays) day"
         }
     }
-    
-    func relativeDate(for date:Date) -> String {
-         let components = Calendar.current.dateComponents([.day, .year, .month, .weekOfYear], from: date, to: Date())
-         if let year = components.year, year == 1{
-             return "\(year) year"
-         }
-         if let year = components.year, year > 1{
-             return "\(year) years"
-         }
-         if let month = components.month, month == 1{
-             return "\(month) month"
-         }
-         if let month = components.month, month > 1{
-             return "\(month) months"
-         }
-
-         if let week = components.weekOfYear, week == 1{
-             return "\(week) week"
-         }
-         if let week = components.weekOfYear, week > 1{
-             return "\(week) weeks"
-         }        
-         if let day = components.day{
-             if day > 1{
-                 return "\(day) days"
-             }else{
-                 return "Yesterday"
-             }
-         }
-         return "Today"
-     }
 
     var defaultImageKey = ""
     var arraYOfPhotoCount = [Int]()
@@ -251,36 +193,13 @@ class TripDataModel{
                 
         if let adviceArray = param["additionalInfo"].dictionary?["advice"]?.arrayValue{
             adviceArray.forEach { jsonObject in
-                let id = jsonObject.dictionaryValue["id"]?.intValue
-                let isSaved = jsonObject.dictionaryValue["isSaved"]?.boolValue
                 let model = TravelAdviceDataModel.init(param: jsonObject)
-                
-                if jsonObject.dictionaryValue.keys.contains("1"){
-                    model.key = 1
-                    model.title = "Top Tip"
-                    advicesOfArray.append(.topTips("Top Tip", jsonObject.dictionaryValue["1"]?.stringValue ?? "",id,isSaved))
-                }else if jsonObject.dictionaryValue.keys.contains("2"){
-                    model.key = 2
-                    model.title = "Favorite Travel Story"
-                    advicesOfArray.append(.travelStory("Favorite Travel Story", jsonObject.dictionaryValue["2"]?.stringValue ?? "",id,isSaved))
-                }else if jsonObject.dictionaryValue.keys.contains("3"){
-                    model.key = 3
-                    model.title = "Logistics & Tips"
-                    advicesOfArray.append(.logisticsRoute("Logistics & Tips", jsonObject.dictionaryValue["3"]?.stringValue ?? "",id,isSaved))
-                }
-                model.subTitle = jsonObject.dictionaryValue["\(model.key)"]?.stringValue ?? ""
                 advicesOfArrayOfDataModel.append(model)
             }
         }
-        
-//        advicesOfArray.removeAll()
-//        advicesOfArray.append(.topTips("Top Tip", "adajddjanalkdadljkadnadljkandajldkandadda"))
-//        advicesOfArray.append(.travelStory("Favorite Travel Story", "dmadndlkjndalkdjnadlajdnadljkadnaldjdnadlajkdnaldjaksnas"))
-//        advicesOfArray.append(.logisticsRoute("Logistics & Tips", "damdakldmadlakdmadlkamdaldkamdalkdmadlakdmadlkdmadlkdmd"))
-
     }
-//    var userDisplayName = ""
-//     var userSavedId = 0
+    
+    
     var tripSavedId = 0
     init(withSavedFeed param:JSON) {
         self.tripDate = param["tripDate"].int64Value

@@ -565,7 +565,7 @@
                                     <constraint firstAttribute="bottom" secondItem="F7x-Lp-L4H" secondAttribute="bottom" id="zl9-4Q-mVQ"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mrn-Ze-Zdx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mrn-Ze-Zdx">
                                 <rect key="frame" x="10" y="122" width="394" height="708"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
@@ -2651,54 +2651,55 @@
                                         <constraint firstItem="0eo-uU-RoX" firstAttribute="leading" secondItem="Tfb-k2-n5e" secondAttribute="leading" id="ndX-ck-Jfg"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfE-Qc-Q3u">
-                                    <rect key="frame" x="25" y="181" width="106" height="40"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="P7C-LO-e3F">
+                                    <rect key="frame" x="15" y="181" width="345" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfE-Qc-Q3u">
+                                            <rect key="frame" x="0.0" y="0.0" width="162.5" height="40"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="add to existing">
+                                                <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnHandlerCreateNewTripWithSender:" destination="kmO-Ag-ktw" eventType="touchUpInside" id="gWF-MU-RFT"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx1-Fd-Mlg" userLabel="Sign up">
+                                            <rect key="frame" x="182.5" y="0.0" width="162.5" height="40"/>
+                                            <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                            <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Creat New Trip">
+                                                <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="btnHandlerSubmitWithSender:" destination="kmO-Ag-ktw" eventType="touchUpInside" id="htQ-ip-aVs"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="x75-Ac-MZa"/>
+                                        <constraint firstAttribute="height" constant="40" id="ITl-NH-Tee"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="add to existing">
-                                        <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="btnHandlerCreateNewTripWithSender:" destination="kmO-Ag-ktw" eventType="touchUpInside" id="gWF-MU-RFT"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx1-Fd-Mlg" userLabel="Sign up">
-                                    <rect key="frame" x="192" y="181" width="158" height="40"/>
-                                    <color key="backgroundColor" name="App_Bg_Seafoamblue_Color"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="3ld-Wt-OrH"/>
-                                        <constraint firstAttribute="width" constant="158" id="laR-vF-TmM"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Creat New Trip">
-                                        <color key="titleColor" name="App_BG_SecondaryDark2_Color"/>
-                                    </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="20"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="btnHandlerSubmitWithSender:" destination="kmO-Ag-ktw" eventType="touchUpInside" id="htQ-ip-aVs"/>
-                                    </connections>
-                                </button>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="VfE-Qc-Q3u" secondAttribute="bottom" constant="20" id="6fM-TN-bwY"/>
-                                <constraint firstItem="VfE-Qc-Q3u" firstAttribute="leading" secondItem="gy0-Dd-2hM" secondAttribute="leading" constant="25" id="6sr-aO-yHO"/>
                                 <constraint firstAttribute="trailing" secondItem="ge5-zO-Vj0" secondAttribute="trailing" constant="20" symbolic="YES" id="DCf-aD-TW2"/>
-                                <constraint firstAttribute="bottom" secondItem="Dx1-Fd-Mlg" secondAttribute="bottom" constant="20" id="apt-QN-5Vu"/>
+                                <constraint firstAttribute="bottom" secondItem="P7C-LO-e3F" secondAttribute="bottom" constant="20" id="JVn-pT-c8S"/>
+                                <constraint firstAttribute="trailing" secondItem="P7C-LO-e3F" secondAttribute="trailing" constant="15" id="UgU-VN-9Zh"/>
+                                <constraint firstItem="P7C-LO-e3F" firstAttribute="leading" secondItem="gy0-Dd-2hM" secondAttribute="leading" constant="15" id="btt-cO-COC"/>
                                 <constraint firstItem="ge5-zO-Vj0" firstAttribute="top" secondItem="gy0-Dd-2hM" secondAttribute="top" constant="20" symbolic="YES" id="cr6-pK-ydP"/>
+                                <constraint firstItem="P7C-LO-e3F" firstAttribute="top" secondItem="Tfb-k2-n5e" secondAttribute="bottom" constant="20" id="dUG-Kp-mas"/>
                                 <constraint firstAttribute="height" constant="241" id="dup-bZ-0at"/>
-                                <constraint firstAttribute="trailing" secondItem="Dx1-Fd-Mlg" secondAttribute="trailing" constant="25" id="i7g-NG-MSI"/>
                                 <constraint firstItem="Tfb-k2-n5e" firstAttribute="leading" secondItem="gy0-Dd-2hM" secondAttribute="leading" constant="25" id="onE-7b-xAG"/>
                                 <constraint firstItem="Tfb-k2-n5e" firstAttribute="top" secondItem="ge5-zO-Vj0" secondAttribute="bottom" constant="20" id="ow3-jk-Aod"/>
-                                <constraint firstItem="VfE-Qc-Q3u" firstAttribute="top" secondItem="Tfb-k2-n5e" secondAttribute="bottom" constant="20" id="yKB-xQ-IJa"/>
                                 <constraint firstAttribute="trailing" secondItem="Tfb-k2-n5e" secondAttribute="trailing" constant="25" id="zz1-YB-FV1"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -2974,14 +2975,6 @@
             <point key="canvasLocation" x="4589.8550724637689" y="88.392857142857139"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="0Tb-Sr-MFx">
-            <size key="intrinsicContentSize" width="364" height="32"/>
-        </designable>
-        <designable name="uxx-tO-DEr">
-            <size key="intrinsicContentSize" width="268" height="8"/>
-        </designable>
-    </designables>
     <resources>
         <image name="ic_Heart_unselected" width="25" height="25"/>
         <image name="ic_Trip_Added" width="215" height="188"/>
@@ -2994,7 +2987,7 @@
         <image name="ic_selected_saved" width="25" height="25"/>
         <image name="ic_unselected_checkbox" width="48" height="48"/>
         <namedColor name="App_BG_App_BG_colorsNeutralLightDark2">
-            <color red="0.89800000190734863" green="0.90600001811981201" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.90588235294117647" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="App_BG_SecondaryDark2_Color">
             <color red="0.2196078431372549" green="0.13333333333333333" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

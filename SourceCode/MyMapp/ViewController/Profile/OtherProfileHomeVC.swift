@@ -211,9 +211,10 @@ extension OtherProfileHomeVC: UICollectionViewDataSource,UICollectionViewDelegat
                     }
                     UIView.animate(withDuration: 0.2) {
                         self.collectionviewProfile.collectionViewLayout.invalidateLayout()
-//                        self.collectionviewProfile.reloadItems(at: [IndexPath.init(row: index, section: 0)])
+                        DispatchQueue.getMain(delay: 0.2) {
+                            cell.imgviewBG.addGradianColor()
+                        }
                     }
-                    //                    collectionView.reloadItems(at: [IndexPath.init(item: index, section: 0)])
                 }
                 cell.layoutIfNeeded()
                 return cell
@@ -434,7 +435,7 @@ extension OtherProfileHomeVC: CHTCollectionViewDelegateWaterfallLayout {
     // header section hieght
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
         if collectionView == collectionviewProfile{
-            return 320 - 130 // here 80 minus for boxes map, albums, saved
+            return 320 - 130 - 40// here 80 minus for boxes map, albums, saved 40 for status
             /*
             switch self.selectedTab{
             case .map:

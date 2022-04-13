@@ -13,6 +13,15 @@ open class MaterialSegmentedControl: UIControl {
     
     public var selectedSegmentIndex = 0
     
+    public var moveSegmentOnSelectedIndex:Int = 0{
+        didSet{
+            segments.forEach { btn in
+                if moveSegmentOnSelectedIndex == btn.tag{
+                    buttonTapped(button: btn)
+                }
+            }
+        }
+    }
     var stackView: UIStackView!
     open var selector: UIView!
     open var segments = [UIButton]() {

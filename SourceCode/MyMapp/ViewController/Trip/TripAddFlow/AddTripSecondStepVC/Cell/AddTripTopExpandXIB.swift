@@ -10,14 +10,15 @@ import IQKeyboardManagerSwift
 
 protocol AddTripTopExpandProtocol {
     
-    func getData(DataString:String)
+    func getData(dataString:String, indexRow:Int)
 }
 
 class AddTripTopExpandXIB: UITableViewCell,UITextViewDelegate{
 
     @IBOutlet weak var txtviewTopTip: IQTextView!
     @IBOutlet weak var btnTitleExpand: UIButton!
-    
+    @IBOutlet weak var labelTitle: UILabel!
+
     var AddTripTopExpandDelegate : AddTripTopExpandProtocol?
     
     override func awakeFromNib() {
@@ -38,9 +39,9 @@ class AddTripTopExpandXIB: UITableViewCell,UITextViewDelegate{
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.count == 0{
-            AddTripTopExpandDelegate?.getData(DataString: textView.text)
+            AddTripTopExpandDelegate?.getData(dataString: textView.text, indexRow: textView.tag)
         }else{
-            AddTripTopExpandDelegate?.getData(DataString: textView.text)
+            AddTripTopExpandDelegate?.getData(dataString: textView.text,indexRow: textView.tag)
         }
     }
 }

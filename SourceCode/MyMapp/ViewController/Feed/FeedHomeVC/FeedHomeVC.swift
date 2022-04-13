@@ -178,6 +178,7 @@ extension FeedHomeVC:UITableViewDelegate, UITableViewDataSource{
                 self.tableViewFeedList.reloadData()
             }
         }
+
         return cell
     }
     

@@ -48,6 +48,10 @@ class CarouselCollectionViewCell: UICollectionViewCell {
                 self.stopAnimating()
                 self.tripImage.image = lodedImage.withRoundedCorners(radius: 15)
                 self.tripImage.image = self.tripImage.image?.drawOutlie()
+            }else{
+                self.stopAnimating()
+                self.tripImage.image = UIImage.init(named: "not_icon")?.withRoundedCorners(radius: 15)
+                self.tripImage.image = self.tripImage.image?.drawOutlie()
             }
         }
         //        tripImage.setImage(url: model.image, placeholder: nil)

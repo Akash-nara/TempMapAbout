@@ -199,6 +199,12 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         cell.labelSubTitle.text = subTitle
         cell.bottomConstrainOfMainStackView.constant = isExpadCell ? 20 : 8
         
+        if isExpadCell{
+            cell.viewExpand.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
+        }else{
+            cell.viewExpand.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor
+        }
+
         cell.labelSubTitle.tag = indexPath.row
         let str = subTitle
         if str.isEmpty {
@@ -319,7 +325,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         }
         travelAdviceListVC.cityName = self.cityName
         travelAdviceListVC.cityId = cityId
-        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+//        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
         travelAdviceListVC.saveUnSaveStatusUpdateCallback = { id in
             self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
             self.tblviewData.reloadData()
@@ -460,7 +466,7 @@ extension ExploreTripDetailViewController{
                         }
                     }
                     
-                    self.getSavedTopTipListApi()
+//                    self.getSavedTopTipListApi()
                 } catch {
                     print(error)
                 }
@@ -498,15 +504,15 @@ extension ExploreTripDetailViewController{
     
     func preparedSectionAndArrayOfTraveAdvice(){
         
-        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
+//        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
         //        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
         //        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
-        self.arrayOfToolTips = toolTips
+//        self.arrayOfToolTips = toolTips
         
-        if !arrayOfToolTips.count.isZero() {
-            arrayOfSections.append(.topTips)
-        }
-        tblviewData.reloadData()
+//        if !arrayOfToolTips.count.isZero() {
+//            arrayOfSections.append(.topTips)
+//        }
+//        tblviewData.reloadData()
     }
     
     // un saved travel and location

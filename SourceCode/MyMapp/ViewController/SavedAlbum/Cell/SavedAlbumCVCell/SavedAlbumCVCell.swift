@@ -35,6 +35,8 @@ class SavedAlbumCVCell: UICollectionViewCell {
         
         imageViewProfilePic.setImage(url: data.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "not_icon"))
         imageViewProfilePic.setBorderWithColor()
+        
     }
     
 }
+

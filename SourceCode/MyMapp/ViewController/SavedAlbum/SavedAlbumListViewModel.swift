@@ -157,14 +157,12 @@ class SavedAlbumTravelAdviceViewModel{
             
             self.totalElements = totalRecord
             if pageNo == 1 { self.arrayOfSavedTopTipsList.removeAll() }
-//            debugPrint(feedList)
             for obj in feedList{
                 let objSavedModel = TravelAdviceDataModel.init(savedObject: obj["advice"])
                 objSavedModel.savedId = obj["id"].intValue
                 objSavedModel.isSaved = true
                 self.arrayOfSavedTopTipsList.append(objSavedModel)
             }
-            self.pageSize = 10
             success?(nil)
         } failureInform: {
             HIDE_CUSTOM_LOADER()

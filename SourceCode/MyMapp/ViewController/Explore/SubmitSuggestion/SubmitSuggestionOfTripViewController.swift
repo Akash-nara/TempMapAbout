@@ -175,7 +175,9 @@ extension SubmitSuggestionOfTripViewController{
     }
     
     func submitSuggestionList(text:String,index:Int) {
-        let strJson = JSON(["suggestion": text, "suggestionCategory":["id":arraySuggestionList[index].suggestionCategory.id]]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let strJson = JSON(["suggestion": text,
+                            "city":["id":cityId],
+                            "suggestionCategory":["id":arraySuggestionList[index].suggestionCategory.id]]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .submitListOfSuggestions, method: .post) { [weak self] response in
             debugPrint(response)

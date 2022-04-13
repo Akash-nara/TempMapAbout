@@ -28,14 +28,18 @@ class TripMainPageHeaderCellXIB: UITableViewCell {
         guard let model = dataModel else {
             return
         }
-        labelUserName.text = model.userCreatedTrip?.username
-        labelAddress.text = model.userCreatedTrip?.region
-        userImage.setImage(url: model.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "ic_user_image_defaulut_one"))
+        let name = (model.userCreatedTrip?.username ?? "")
+        let address = (model.userCreatedTrip?.region ?? "")
+        labelUserName.text = name.isEmpty ? "-" : name
+        labelAddress.text = address.isEmpty ? "-" : address
+        userImage.setImage(url: model.userCreatedTrip?.profilePicPath ?? "", placeholder: UIImage.init(named: "not_icon"))
+        userImage.setBorderWithColor()
         cityName.text = model.city.cityName
         cityAddress.text = model.city.cityName+", "+model.city.countryName
         tripDate.text = model.monthYearOfTrip//model.dateFromatedOftrip
         tripDescription.text = "This city is beautiful during summer. The weather is so pleasant with the summer breeze. I would not recommend more than 5 days to see the whole city. "//model.tripDescription
         tripDescription.text = model.tripDescription
         tripDescription.isHidden = model.tripDescription.isEmpty
+        tripDescription.isHidden = true
     }
 }
