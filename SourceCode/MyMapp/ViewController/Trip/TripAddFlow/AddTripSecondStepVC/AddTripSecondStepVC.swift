@@ -451,7 +451,8 @@ extension AddTripSecondStepVC{
             }else{
                 self?.arrayOfTripLocationListData.remove(at: index)
             }
-            self?.tblviewCity.reloadSections([1], with: .none)
+//            self?.tblviewCity.reloadSections([1], with: .none)
+            self?.tblviewCity.reloadData()
         }
     }
 }
@@ -479,11 +480,13 @@ extension AddTripSecondStepVC{
                     let lastBeforeIndex = self.arrayOfTripLocationListData.count - 1
                     self.arrayOfTripLocationListData.insert(obj, at: lastBeforeIndex)
 //                    self.tblviewCity.reloadSections([1], with: .none)
-                    if let section = self.arrayOfSection.firstIndex(where: {$0 == .favouriteLocation}){
-                        self.tblviewCity.reloadSections(IndexSet.init(integer: section), with: .automatic)
+//                    if let section = self.arrayOfSection.firstIndex(where: {$0 == .favouriteLocation}){
+//                        self.tblviewCity.reloadSections(IndexSet.init(integer: section), with: .automatic)
+//                    }
+                    
+                    self.dismiss(animated: true) {
+                        self.tblviewCity.reloadData()
                     }
-                    self.dismiss(animated: true, completion: nil)
-                    self.tblviewCity.reloadData()
                 }
                 return
             }
@@ -577,7 +580,8 @@ extension AddTripSecondStepVC{
         popupVC.selectedTripDetailCallBackBlock = { [weak self] objModel in
             self?.arrayOfTripLocationListData[sender.tag] = objModel
             self?.countTotalPhoto()
-            self?.tblviewCity.reloadSections([1], with: .none)
+//            self?.tblviewCity.reloadSections([1], with: .none)
+            self?.tblviewCity.reloadData()
         }
         DispatchQueue.main.async {
             self.present(popupVC, animated: true, completion: nil)
