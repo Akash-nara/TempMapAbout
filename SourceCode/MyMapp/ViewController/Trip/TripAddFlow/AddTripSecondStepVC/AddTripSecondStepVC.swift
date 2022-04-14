@@ -161,8 +161,12 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
             arrayOfSection.append(.description)
             self.arrayOfTripLocationListData.removeAll()
             obDataModel.locationList.forEach { objAddTripFavouriteLocationDetail in
+                
                 objAddTripFavouriteLocationDetail.isEdited = true
+                
                 if let filterdObj  = obDataModel.photoUploadedArray.filter({$0.hash == objAddTripFavouriteLocationDetail.locationHash}).first{
+                    
+                    var arrayOfImages = [TripImagesModel]()
                     filterdObj.arrayOfImageURL.forEach { objTripImg in
                         let model = TripImagesModel.init(image: UIImage(), url: objTripImg.image)
                         model.serverUplaodIsVerictialImageOrNot = objTripImg.isVerticle
@@ -175,8 +179,30 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
                         model.isEdit = true
                         model.nameOfImage = name
                         totalGlobalTripPhotoCount -= 1
-                        objAddTripFavouriteLocationDetail.arrayOfImages.append(model)
+//                        objAddTripFavouriteLocationDetail.arrayOfImages.append(model)
+                        arrayOfImages.append(model)
                     }
+                    objAddTripFavouriteLocationDetail.arrayOfImages = arrayOfImages
+                }
+                
+                let tagWithoutParen = objAddTripFavouriteLocationDetail.firstTagFeed
+                var arrayParentIDs = [Int]()
+                var arrayChildIDs = [Int]()
+                tagWithoutParen.components(separatedBy: ",").forEach { str in
+                    if let id = Int(str.trimSpace()){
+                        arrayParentIDs.append(id)
+                    }
+                }
+
+                let tagWithoutChild = objAddTripFavouriteLocationDetail.secondTagFeed
+                tagWithoutChild.components(separatedBy: ",").forEach { str in
+                    if let id = Int(str.trimSpace()){
+                        arrayChildIDs.append(id)
+                    }
+                }
+                
+                if objAddTripFavouriteLocationDetail.arrayOfImages.count == 0, arrayParentIDs.count == 0, arrayChildIDs.count == 0, objAddTripFavouriteLocationDetail.notes.isEmpty{
+                    objAddTripFavouriteLocationDetail.isEdited = false
                 }
                 
                 self.arrayOfTripLocationListData.append(objAddTripFavouriteLocationDetail)
@@ -205,38 +231,7 @@ class AddTripSecondStepVC: UIViewController, GMSAutocompleteViewControllerDelega
             
             defaultCityLocationAdded(isDeleteArray: false)
             arrayOfSection.append(.favouriteLocation)
-                        
-//            objTirpDatModel?.advicesOfArray.forEach({ objAdvice in
-//                if let index = travelAdvices.firstIndex(where: {$0.id == objAdvice.id}}){
-//                    travelAdvices[index].savedComment = objAdvice.
-//                }
-//                switch objAdvice{
-//                case .topTips(let _, let subTitle,_,_):
-//                    self.topTipContent = subTitle
-//                case .travelStory(let _, let subTitle,_,_):
-//                    self.favouriteStoryContent = subTitle
-//                case .logisticsRoute(let _, let subTitle,_,_):
-//                    logisticContent = subTitle
-//                default:break
-//                }
-
-            /*
-            objTirpDatModel?.advicesOfArray.forEach({ objAdvice in
-                switch objAdvice{
-                case .topTips(let _, let subTitle,_,_):
-                    self.topTipContent = subTitle
-                case .travelStory(let _, let subTitle,_,_):
-                    self.favouriteStoryContent = subTitle
-                case .logisticsRoute(let _, let subTitle,_,_):
-                    logisticContent = subTitle
-                default:break
-                }
-            })*/
-            
-//            self.isTopDataAdded = !self.topTipContent.isEmpty
-//            self.isFavouriteDataAdded = !self.favouriteStoryContent.isEmpty
-//            self.isLogisticDataAdded = !self.logisticContent.isEmpty
-            
+                                    
             DispatchQueue.getMain {
                 self.tblviewCity.reloadData()
             }
@@ -471,7 +466,7 @@ extension AddTripSecondStepVC{
                     objectLocation.longitude = place.coordinate.longitude
                     objectLocation.name = place.name!
                     objectLocation.lastRecord = false
-//                    let objectLocation = Keylocation.init(name: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+                    
                     let obj = AddTripFavouriteLocationDetail()
                     obj.locationFav = objectLocation
                     obj.locationHash = hashStr
@@ -479,6 +474,7 @@ extension AddTripSecondStepVC{
 //                    self.arrayOfTripLocationListData.append(obj)
                     let lastBeforeIndex = self.arrayOfTripLocationListData.count - 1
                     self.arrayOfTripLocationListData.insert(obj, at: lastBeforeIndex)
+//                    self.addDefaultWhileAddLocation()
 //                    self.tblviewCity.reloadSections([1], with: .none)
 //                    if let section = self.arrayOfSection.firstIndex(where: {$0 == .favouriteLocation}){
 //                        self.tblviewCity.reloadSections(IndexSet.init(integer: section), with: .automatic)
@@ -499,19 +495,23 @@ extension AddTripSecondStepVC{
             objectLocation.id = self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav?.id ?? 0
             self.arrayOfTripLocationListData[self.selectedAddDetailButtonTag]?.locationFav = objectLocation
             
-            if let lastObj  = self.arrayOfTripLocationListData.last, !(lastObj?.locationFav?.lastRecord ?? false){
-                // added deafult add new location
-                let model = AddTripFavouriteLocationDetail()
-                model.locationFav = AddTripFavouriteLocationDetail.TripFavLocations()
-                model.locationFav?.lastRecord = true
-                self.arrayOfTripLocationListData.append(model)
-            }
+            self.addDefaultWhileAddLocation()
             if let section = arrayOfSection.firstIndex(where: {$0 == .favouriteLocation}){
                 self.tblviewCity.reloadSections(IndexSet.init(integer: section), with: .automatic)
             }
             self.tblviewCity.reloadData()
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    func addDefaultWhileAddLocation(){
+        if let lastObj  = self.arrayOfTripLocationListData.last, !(lastObj?.locationFav?.lastRecord ?? false){
+            // added deafult add new location
+            let model = AddTripFavouriteLocationDetail()
+            model.locationFav = AddTripFavouriteLocationDetail.TripFavLocations()
+            model.locationFav?.lastRecord = true
+            self.arrayOfTripLocationListData.append(model)
+        }
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -578,6 +578,7 @@ extension AddTripSecondStepVC{
         
         self.countTotalPhoto()
         popupVC.selectedTripDetailCallBackBlock = { [weak self] objModel in
+            self?.arrayOfTripLocationListData[sender.tag] = nil
             self?.arrayOfTripLocationListData[sender.tag] = objModel
             self?.countTotalPhoto()
 //            self?.tblviewCity.reloadSections([1], with: .none)
@@ -740,9 +741,12 @@ extension AddTripSecondStepVC:UITableViewDelegate,UITableViewDataSource{
                     cell.btnHandlerGooglePicker.setTitle("Add location here", for: .normal)
                     cell.btnHandlerGooglePicker.setTitleColor(.lightGray, for: .normal)
                     cell.btnTitleRemove.isHidden = true
+                    
                 }else{
                     if self.arrayOfTripLocationListData[indexPath.row]?.isEdited ?? false{
                         cell.btnTitleAddDetails.setTitle("Edit details", for: .normal)
+                    }else{
+                        cell.btnTitleAddDetails.setTitle("Add details", for: .normal)
                     }
 
                     cell.btnHandlerGooglePicker.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor

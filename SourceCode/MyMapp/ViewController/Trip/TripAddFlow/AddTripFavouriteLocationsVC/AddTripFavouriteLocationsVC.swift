@@ -61,6 +61,7 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
     var arrayUploadedOnTripCityOnly = [TripDataModel.TripPhotoDetails.TripImage]()
     
     var cancelSubmitData = false
+    var isSubmitedData = false
 
     //MARK: - VIEW DID LOAD
     override func viewDidLoad() {
@@ -173,14 +174,14 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
             btnTitleSubmit.backgroundColor = .App_BG_SeafoamBlue_Color
             
 //            tripImages.removeAll()
-            for (_, obj) in  objDetail.arrayOfImages.enumerated(){
-                tripImages.append(obj)
-            }
+            let objImageArray  = objDetail.arrayOfImages
+            tripImages = objImageArray
+            
             self.collectionViewPhotos.reloadData()
             self.setPhotoCount()
             
             txtviewNotes.text = objDetail.notes
-            let tagWithoutParen = objDetail.firstTagFeed//(objDetail.firstTagFeed ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+            let tagWithoutParen = objDetail.firstTagFeed
             var arrayParentIDs = [Int]()
             var arrayChildIDs = [Int]()
             tagWithoutParen.components(separatedBy: ",").forEach { str in
@@ -189,22 +190,12 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
                 }
             }
 
-            let tagWithoutChild = objDetail.secondTagFeed//(objDetail.secondTagFeed ?? "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-
+            let tagWithoutChild = objDetail.secondTagFeed
             tagWithoutChild.components(separatedBy: ",").forEach { str in
                 if let id = Int(str.trimSpace()){
                     arrayChildIDs.append(id)
                 }
             }
-
-//            arrayParentIDs = objDetail.firstTag.components(separatedBy: ",").map({Int($0) ?? 0})
-//            arrayChildIDs = objDetail.secondTag.components(separatedBy: ",").map({Int($0) ?? 0})
-//            if let firstTagIndex = arrayParentTags.firstIndex(where: {$0.name.lowercased() == objDetail.firstTag.lowercased()}){
-//                self.activeIndexOfParenttag = firstTagIndex
-//                if let indexOfSecondtag = arrayParentTags[firstTagIndex].subTagsList.firstIndex(where: {$0.name.lowercased() == objDetail.secondTag.lowercased()}){
-//                    self.activeIndexOfChildTag = indexOfSecondtag
-//                }
-//            }
             
             var firstSeletedParentTagId = 0
             arrayParentTags.forEach { parentTag in
@@ -261,6 +252,13 @@ extension  AddTripFavouriteLocationsVC{
     }
     
     func submiteData(){
+        
+        
+        guard !isSubmitedData else {
+            return
+        }
+        
+        isSubmitedData = true
         /*
         if self.isSelectedFirstIndex == -1{
             Utility.errorMessage(message: "Please select a tag")
@@ -282,31 +280,25 @@ extension  AddTripFavouriteLocationsVC{
         
         arrayParentTags.removeAll(where: { !$0.isSelected })
         let arrayParentIDs = arrayParentTags.map({ $0.id! })
+        
         arraySubTags.removeAll(where: { !$0.isSelected })
         let arrayChildIDs = arraySubTags.map({ $0.id! })
-//        if activeIndexOfParenttag > 0{
-//        if arrayParentIDs.count > 0{
-        let firstTag = "\(arrayParentIDs.map({String($0)}).joined(separator: ","))"//arrayParentTags[self.activeIndexOfParenttag].name
+
+        let firstTag = "\(arrayParentIDs.map({String($0)}).joined(separator: ","))"
         objAddTripFavouriteLocationDetail.firstTagFeed = firstTag
         selectedAddTripFavouriteLocationDetail?.firstTagFeed = firstTag
-//        }
         
-//        if arrayChildIDs.count > 0{
-//        if activeIndexOfChildTag > 0 && activeIndexOfParenttag > 0{
         let secondTag = "\(arrayChildIDs.map({String($0)}).joined(separator: ","))"
         objAddTripFavouriteLocationDetail.secondTagFeed = secondTag
         selectedAddTripFavouriteLocationDetail?.secondTagFeed = secondTag
-//        }
+
         
-        let filterArrray = tripImages
-        objAddTripFavouriteLocationDetail.arrayOfImages = filterArrray
-        
-        if filterArrray.count == 0, arrayParentIDs.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty{
+        if tripImages.count == 0, arrayParentIDs.count == 0, arrayChildIDs.count == 0, txtviewNotes.text.isEmpty{
             selectedAddTripFavouriteLocationDetail?.notes = ""
             selectedAddTripFavouriteLocationDetail?.isEdited = false
             selectedTripDetailCallBackBlock?(selectedAddTripFavouriteLocationDetail)
-            
         }else{
+            objAddTripFavouriteLocationDetail.arrayOfImages = tripImages
             objAddTripFavouriteLocationDetail.locationFav = selectedAddTripFavouriteLocationDetail?.locationFav
             objAddTripFavouriteLocationDetail.locationHash = selectedAddTripFavouriteLocationDetail?.locationHash ?? ""
             objAddTripFavouriteLocationDetail.id = selectedAddTripFavouriteLocationDetail?.id ?? 0
