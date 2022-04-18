@@ -45,7 +45,8 @@ struct ExploreSuggestionDataModel{
     init() { }
     
     init(param: JSON) {
-        let typeName = param["category"]["suggestionCategory"]["value"].stringValue
+//        let typeName = param["category"]["suggestionCategory"]["value"].stringValue
+        let typeName = param["category"]["value"].stringValue
         guard let cellType = EnumCellType(typeName: typeName) else {
             return
         }

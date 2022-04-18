@@ -216,4 +216,28 @@ class SavedAlbumTravelAdviceViewModel{
         }
     }
 
+    
+    func getTopTipByCityListApi(paramDict:[String:Any],success: (([String: JSON]?) -> ())? = nil){
+        let pageNo = JSON.init(paramDict)["pager"]["currentPage"].intValue
+        let strJson = JSON(paramDict).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        API_SERVICES.callAPI(param, path: .getTopTipsSearchByCity, method: .post) { response in
+            guard let feedList = response?["responseJson"]?["advices"].arrayValue, let totalRecord =  response?["responseJson"]?["totalRecord"].intValue else {
+                return
+            }
+            
+            self.totalElements = totalRecord
+            if pageNo == 1 { self.arrayOfSavedTopTipsList.removeAll() }
+            for obj in feedList{
+                let objSavedModel = TravelAdviceDataModel.init(savedObject: obj["advice"])
+                objSavedModel.savedId = obj["id"].intValue
+                objSavedModel.isSaved = true
+                self.arrayOfSavedTopTipsList.append(objSavedModel)
+            }
+            success?(nil)
+        } failureInform: {
+            HIDE_CUSTOM_LOADER()
+        }
+    }
+
 }

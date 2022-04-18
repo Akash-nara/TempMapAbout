@@ -12,7 +12,6 @@ import MapKit
 
 class ExploreTripDetailViewController: UIViewController {
     
-    
     //MARK: - OUTLETS
     var cityId = 0
     var cityName = "Spain"
@@ -50,7 +49,6 @@ class ExploreTripDetailViewController: UIViewController {
         }
     }
     
-    var arrayOfToolTips = [TravelAdviceDataModel]()
     var arrayOfSections:[EnumTripType] = []
     var arrayFeaturedPlaces = [JSON]()
     var arrayExpandable = [ExploreSuggestionDataModel]()
@@ -58,8 +56,11 @@ class ExploreTripDetailViewController: UIViewController {
     var nextPageToken:String = ""
     
     static var arrayStorePlaceId:[String]  = [String]()
-    var savedAlbumTravelAdviceViewModel:SavedAlbumTravelAdviceViewModel = SavedAlbumTravelAdviceViewModel()
     var readMoreCount = 5
+    var arrayAdviceListArrray = [TravelAdviceDataModel]() // get list of top tips added
+    let dispatchQueue = DispatchQueue(label: "myQueue", qos: .background)
+    let semaphore = DispatchSemaphore(value: 0)
+    var currentIndexOfAdviceListIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +70,7 @@ class ExploreTripDetailViewController: UIViewController {
         labelToSaved.isHidden = true
         
         ExploreTripDetailViewController.arrayStorePlaceId.removeAll()
-        getSavedGooglePlaceIdListApi { [weak self] in
-            self?.getAdminSuggestion()
-        }
+        getAdviceForTripAPi()
         
         // Maps
         arrayOfSections.append(.maps)
@@ -79,20 +78,6 @@ class ExploreTripDetailViewController: UIViewController {
     
     deinit {
         ExploreTripDetailViewController.arrayStorePlaceId.removeAll()
-    }
-    
-    func configureTopTipsArray(){
-        
-        // here static displayed for kabul only
-        //        if cityId == 1{
-        //            // ToolTips
-        //            arrayOfToolTips.append(false)
-        //            arrayOfToolTips.append(false)
-        //            arrayOfToolTips.append(false)
-        //            if !arrayOfToolTips.count.isZero() {
-        //                arrayOfSections.append(.topTips)
-        //            }
-        //        }
     }
     
     @IBAction func buttonBackTapp(_ sender:UIButton){
@@ -115,7 +100,10 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         case .featuredPlaces:
             return 1
         case .topTips:
-            return arrayOfToolTips.count >= readMoreCount ? readMoreCount : arrayOfToolTips.count
+            guard let viewModel = arrayAdviceListArrray[currentIndexOfAdviceListIndex].viewModel else {
+                return 0
+            }
+            return viewModel.arrayOfSavedTopTipsList.count >= readMoreCount ? readMoreCount : viewModel.arrayOfSavedTopTipsList.count
         default:
             return 0
         }
@@ -158,7 +146,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             
             return cell
         case .topTips:
-            return configureAdvanceTravelCell(indexPath: indexPath, title: arrayOfToolTips[indexPath.row].userName, subTitle: arrayOfToolTips[indexPath.row].savedComment, icon: arrayOfToolTips[indexPath.row].userProfilePic, isExpadCell: arrayOfToolTips[indexPath.row].isExpand)
+            return configureAdvanceTravelCell(indexPath: indexPath)
         default:
             return UITableViewCell()
         }
@@ -182,9 +170,17 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         self.navigationController?.present(submitSuggestionOfTripVC, animated: true, completion: nil)
     }
     
-    func configureAdvanceTravelCell(indexPath:IndexPath, title:String, subTitle:String, icon:String,isExpadCell:Bool) -> ExploreTripTopCellXIB{
+    
+    func configureAdvanceTravelCell(indexPath:IndexPath) -> ExploreTripTopCellXIB{
+        
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "ExploreTripTopCellXIB", for: indexPath) as! ExploreTripTopCellXIB
-        cell.userIcon.setImage(url: icon, placeholder: UIImage.init(named: "not_icon"))
+        
+        guard let viewModel = arrayAdviceListArrray[currentIndexOfAdviceListIndex].viewModel else {
+            return cell
+        }
+
+        let model = viewModel.arrayOfSavedTopTipsList[indexPath.row]
+        cell.userIcon.setImage(url: model.userProfilePic, placeholder: UIImage.init(named: "not_icon"))
         cell.userIcon.setBorderWithColor()
         cell.trealingViewExpand.constant = 50
         
@@ -193,35 +189,35 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         cell.buttonBookmark.addTarget(self, action: #selector(buttonBookmarkClicked(sender:)), for: .touchUpInside)
         cell.buttonBookmark.tag = indexPath.row
         cell.buttonBookmark.accessibilityHint = "\(indexPath.section)"
-        cell.buttonBookmark.isSelected  = arrayOfToolTips[indexPath.row].isSaved
+        cell.buttonBookmark.isSelected  = viewModel.arrayOfSavedTopTipsList[indexPath.row].isSaved
         
-        cell.lblHeader.text = title
-        cell.labelSubTitle.text = subTitle
-        cell.bottomConstrainOfMainStackView.constant = isExpadCell ? 20 : 8
+        cell.lblHeader.text = model.userName
+        cell.labelSubTitle.text = model.savedComment
+        cell.bottomConstrainOfMainStackView.constant = model.isExpand ? 20 : 8
         
-        if isExpadCell{
+        if model.isExpand{
             cell.viewExpand.layer.borderColor = UIColor.App_BG_Textfield_Unselected_Border_Color.cgColor
         }else{
             cell.viewExpand.layer.borderColor = UIColor.App_BG_SeafoamBlue_Color.cgColor
         }
 
         cell.labelSubTitle.tag = indexPath.row
-        let str = subTitle
+        
+        
+        let str = model.savedComment
         if str.isEmpty {
             cell.labelSubTitle.isHidden = true
         } else {
             cell.labelSubTitle.isHidden = false
-            cell.labelSubTitle.isShowWholeContent = self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand
+            cell.labelSubTitle.isShowWholeContent = model.isExpand
             cell.labelSubTitle.readLessText = " " + "see less"
             cell.labelSubTitle.readMoreText = " " + "see more"
             cell.labelSubTitle.isOneLinedContent = true
             cell.labelSubTitle.setContent(str, noOfCharacters: 120, readMoreTapped: {
-                self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand = true
-                //                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
+                self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[cell.labelSubTitle.tag].isExpand = true
                 self.tblviewData.reloadData()
             }) {
-                self.arrayOfToolTips[cell.labelSubTitle.tag].isExpand = false
-                //                self.reloadToptipsSection(sender: cell.labelSubTitle.tag)
+                self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[cell.labelSubTitle.tag].isExpand = false
                 self.tblviewData.reloadData()
             }
         }
@@ -231,16 +227,24 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     func reloadToptipsSection(sender:Int){
         if let section = arrayOfSections.firstIndex(where: {$0 == .topTips}){
             self.tblviewData.reloadRows(at: [IndexPath.init(row: sender, section: section)], with: .automatic)
-            //            self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
         }
     }
     
     @objc func buttonBookmarkClicked(sender:UIButton){
-        let id  = arrayOfToolTips[sender.tag].savedId
+        guard let viewModel = arrayAdviceListArrray[currentIndexOfAdviceListIndex].viewModel else {
+            return
+        }
+        let id  = viewModel.arrayOfSavedTopTipsList[sender.tag].id
         self.unSaveLocationAndTravelApi(id: id, key: "advice") {
             sender.isSelected.toggle()
-            self.arrayOfToolTips[sender.tag].isSaved.toggle()
-//            self.savedAlbumTravelAdviceViewModel.removedSavedObject(id: id)
+            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[sender.tag].isSaved.toggle()
+            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
+
+            if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
+                if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
+                    self.arrayOfSections.remove(at: index)
+                }
+            }
             self.tblviewData.reloadData()
         }
     }
@@ -249,7 +253,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     @objc func isExpandTravelAdvice(_ sender:UITapGestureRecognizer){
         let section = (Int(sender.accessibilityHint ?? "") ?? 0)
         let row = (Int(sender.accessibilityLabel ?? "") ?? 0)
-        arrayOfToolTips[IndexPath.init(row: row, section: section).row].isExpand.toggle()
+        self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[IndexPath.init(row: row, section: section).row].isExpand.toggle()
         self.tblviewData.reloadSections(IndexSet.init(integer: section), with: .automatic)
         //        self.tblviewData.reloadData()
     }
@@ -287,7 +291,11 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard arrayOfToolTips.count != 0 else {
+        if self.arrayAdviceListArrray.count.isZero(){
+            return nil
+        }
+
+        guard self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count != 0 else {
             return nil
         }
         switch arrayOfSections[section] {
@@ -311,7 +319,7 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             doneButton.addTarget(self, action: #selector(buttonReadMoreClikced), for: .touchUpInside)
             footerView.addSubview(doneButton)
             
-            return arrayOfToolTips.count >= readMoreCount ? footerView : nil
+            return self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0 >= readMoreCount ? footerView : nil
             
         default:
             return  nil
@@ -319,15 +327,22 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     }
     
     @objc func buttonReadMoreClikced(){
-        
         guard let travelAdviceListVC = UIStoryboard.tabbar.travelAdviceListVC else {
             return
         }
+        
         travelAdviceListVC.cityName = self.cityName
         travelAdviceListVC.cityId = cityId
-//        travelAdviceListVC.savedAlbumTravelAdviceViewModel = self.savedAlbumTravelAdviceViewModel
+        travelAdviceListVC.arrayOfTravelCategory = self.arrayAdviceListArrray
+        travelAdviceListVC.categoryId = self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].id
         travelAdviceListVC.saveUnSaveStatusUpdateCallback = { id in
-            self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
+//            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.updateStatusSavedObject(id: id)
+            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
+            if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
+                if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
+                    self.arrayOfSections.remove(at: index)
+                }
+            }
             self.tblviewData.reloadData()
         }
         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
@@ -335,12 +350,16 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard arrayOfToolTips.count != 0 else {
+        if self.arrayAdviceListArrray.count.isZero(){
+            return 0.01
+        }
+        
+        guard self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count != 0 else {
             return 0.01
         }
         switch arrayOfSections[section] {
         case .topTips:
-            return arrayOfToolTips.count >= readMoreCount ? 50 : 0.01
+            return self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0 >= readMoreCount ? 50 : 0.01
         default:
             return  0.01
         }
@@ -415,58 +434,88 @@ extension ExploreTripDetailViewController{
         request.httpMethod = "GET"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            self.HIDE_CUSTOM_LOADER()
+        session.dataTask(with: request) { [weak self] (data, response, error) in
+            self?.HIDE_CUSTOM_LOADER()
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     let jsonObj = JSON.init(json)
                     let placeIdsArray = jsonObj["results"].arrayValue
                     
-                    self.nextPageToken = ""
+                    self?.nextPageToken = ""
                     if let nextToken = jsonObj["next_page_token"].string, !nextToken.isEmpty{
-                        self.nextPageToken = nextToken
+                        self?.nextPageToken = nextToken
                     }
                     
                     CollectionViewTVCell.isGooglelPageApiWorking = false
                     
                     var ids = [String]()
-                    self.arrayFeaturedPlaces.forEach { objJson in
+                    self?.arrayFeaturedPlaces.forEach { objJson in
                         if let id = objJson.dictionaryValue["place_id"]?.stringValue{
                             ids.append(id)
                         }
                     }
                     
                     if !isNextPage{
-                        self.arrayFeaturedPlaces.removeAll()
-                        self.arrayFeaturedPlaces = placeIdsArray
+                        self?.arrayFeaturedPlaces.removeAll()
+                        self?.arrayFeaturedPlaces = placeIdsArray
                         
-                        if !self.arrayFeaturedPlaces.count.isZero() {
-                            self.arrayOfSections.append(.featuredPlaces)
+                        if !(self?.arrayFeaturedPlaces.count.isZero() ?? false) {
+                            self?.arrayOfSections.append(.featuredPlaces)
                         }
                         
                         DispatchQueue.main.async {
-                            self.configureTopTipsArray()
-                            self.tblviewData.reloadData()
+                            self?.tblviewData.reloadData()
                         }
                     }else{
-                        let arrayCount = self.arrayFeaturedPlaces.count
+                        let arrayCount = self?.arrayFeaturedPlaces.count
                         placeIdsArray.forEach { obj in
                             if let id = obj.dictionaryValue["place_id"]?.stringValue, !ids.contains(id){
-                                self.arrayFeaturedPlaces.append(obj)
+                                self?.arrayFeaturedPlaces.append(obj)
                             }
                         }
                         
-                        if arrayCount == self.arrayFeaturedPlaces.count{
-                            self.nextPageToken = ""
+                        if arrayCount == self?.arrayFeaturedPlaces.count{
+                            self?.nextPageToken = ""
                         }
                         
                         DispatchQueue.main.async {
-                            self.tblviewData.reloadData()
+                            self?.tblviewData.reloadData()
                         }
                     }
                     
-//                    self.getSavedTopTipListApi()
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    
+                    self?.dispatchQueue.async {
+                        for (index, obj) in strongSelf.arrayAdviceListArrray.enumerated(){
+                            self?.getSavedTopTipListApi(indexRow: index, callback: {
+                                let array = obj.viewModel?.arrayOfSavedTopTipsList ?? []
+                                self?.semaphore.signal()
+                                if strongSelf.arrayAdviceListArrray.count == index+1{
+                                    self?.preparedSectionAndArrayOfTraveAdvice()
+                                }
+                            })
+                            // Wait until the previous API request completes
+                            self?.semaphore.wait()
+                        }
+                    }
+                    
+                    //                    self?.dispatchQueue.async {
+                    //                        for (index, obj) in strongSelf.arrayAdviceListArrray.enumerated(){
+                    //                            self?.getSavedTopTipListApi(indexRow: index, callback: {
+                    //                                let array = obj.viewModel?.arrayOfSavedTopTipsList ?? []
+                    //                                self?.semaphore.signal()
+                    //                                if strongSelf.arrayAdviceListArrray.count == index+1{
+                    //                                    self?.preparedSectionAndArrayOfTraveAdvice()
+                    //                                }
+                    //                            })
+                    //                            // Wait until the previous API request completes
+                    //                            self?.semaphore.wait()
+                    //                        }
+                    //                    }
                 } catch {
                     print(error)
                 }
@@ -491,28 +540,29 @@ extension ExploreTripDetailViewController{
         }
     }
     
-    func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false){
+    func getSavedTopTipListApi(isNextPageRequest: Bool = false, isPullToRefresh:Bool = false, indexRow:Int, callback: (() -> ())? = nil){
         
-        savedAlbumTravelAdviceViewModel.pageSize = 200
-        let param = savedAlbumTravelAdviceViewModel.getPageDict(isPullToRefresh)
-        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "pager":param,"city":self.cityId]
-        savedAlbumTravelAdviceViewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
-            self?.preparedSectionAndArrayOfTraveAdvice()
-            self?.tblviewData.reloadData()
+        let objModel = arrayAdviceListArrray[indexRow]
+        if arrayAdviceListArrray[indexRow].viewModel == nil{
+            arrayAdviceListArrray[indexRow].viewModel =  SavedAlbumTravelAdviceViewModel()
+        }
+        guard let savedTreavelViewModel = objModel.viewModel else {
+            return
+        }
+
+        let categoryId = objModel.id
+        let param = savedTreavelViewModel.getPageDict(isPullToRefresh)
+        let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "categoryId":categoryId,"pager":param,"city":self.cityId]
+        savedTreavelViewModel.getTopTipByCityListApi(paramDict: paramDict, success: { response in
+            callback?()
         })
     }
     
     func preparedSectionAndArrayOfTraveAdvice(){
-        
-//        let toolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
-        //        let favoriteTravelStorys = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
-        //        let logisticsAndRoutes = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
-//        self.arrayOfToolTips = toolTips
-        
-//        if !arrayOfToolTips.count.isZero() {
-//            arrayOfSections.append(.topTips)
-//        }
-//        tblviewData.reloadData()
+        if !(self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count.isZero() ?? false) {
+            arrayOfSections.append(.topTips)
+        }
+        tblviewData.reloadData()
     }
     
     // un saved travel and location
@@ -534,5 +584,30 @@ extension ExploreTripDetailViewController{
             self.HIDE_CUSTOM_LOADER()
         }
     }
-
+    
+    func getAdviceForTripAPi(){
+        API_SERVICES.callAPI([:], path: .getAdviceForCityTrip, method: .get) { [weak self] response in
+            guard let status = response?["status"]?.intValue, status == 200 else {
+                Utility.errorMessage(message: response?["msg"]?.stringValue ?? "")
+                return
+            }
+            
+            guard let arrayOfAdvices = response?["responseJson"]?.dictionaryValue["advices"]?.arrayValue  else {
+                return
+            }
+            
+            for (index, obj) in arrayOfAdvices.enumerated(){
+                let model = TravelAdviceDataModel.init(withAddTrip: obj)
+                self?.arrayAdviceListArrray.append(model)
+                if model.id == 1{
+                    self?.currentIndexOfAdviceListIndex = index
+                }
+            }
+            self?.getSavedGooglePlaceIdListApi { [weak self] in
+                self?.getAdminSuggestion()
+            }
+        } internetFailure: {
+            debugPrint("internetFailure")
+        }
+    }
 }

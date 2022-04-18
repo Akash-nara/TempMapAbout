@@ -165,8 +165,8 @@ class AddTripFavouriteLocationsVC: BottomPopupViewController, BottomPopupDelegat
 //        self.lblCount.text = "\(self.tripImages.count)" + "/\(totalGlobalTripPhotoCount)"
 //        self.lblCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
         let count = 21 - totalGlobalTripPhotoCount
-//        self.lblCount.text = "\(count < 0 ? 0 : count)" + "/\(21)"
-        self.lblCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
+        self.lblCount.text = "\(count < 0 ? 0 : count)" + "/\(21)"
+//        self.lblCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadEditData(){

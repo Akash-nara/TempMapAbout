@@ -88,7 +88,7 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
         }
     }
     
-    var arraySuggestionList = [TripSuggestion.Category]()
+    var arraySuggestionList = [TripSuggestion.Category.SuggestionCategory]()
     var tripId = 0
     var cityId = 0
     var cityName = ""
@@ -109,7 +109,7 @@ class SubmitSuggestionOfTripViewController: BottomPopupViewController {
     }
     
     @IBAction func btnHandlerSubmit(_ sender:UIButton){
-        let arrrayCount = self.arraySuggestionList.filter({!$0.suggestionCategory.customFieldForTextStore.isEmpty})
+        let arrrayCount = self.arraySuggestionList.filter({!$0.customFieldForTextStore.isEmpty})
         if arrrayCount.count != 0{
             CustomAlertView.init(title: "Thank you for your contribution! Submissions are periodically reviewed by members of our team.", forPurpose: .success).showForWhile(animated: true)
             DispatchQueue.getMain(delay: 0) {
@@ -134,7 +134,7 @@ extension SubmitSuggestionOfTripViewController{
             }
             self?.arraySuggestionList.removeAll()
             suggestionObjArray.forEach { obj in
-                self?.arraySuggestionList.append(TripSuggestion.Category.init(param: obj))
+                self?.arraySuggestionList.append(TripSuggestion.Category.SuggestionCategory.init(param: obj))
             }
 //            self?.arraySuggestionList.removeFirst()
 //            self?.arraySuggestionList.removeFirst()
@@ -177,11 +177,11 @@ extension SubmitSuggestionOfTripViewController{
     func submitSuggestionList(text:String,index:Int) {
         let strJson = JSON(["suggestion": text,
                             "city":["id":cityId],
-                            "suggestionCategory":["id":arraySuggestionList[index].suggestionCategory.id]]).rawString(.utf8, options: .sortedKeys) ?? ""
+                            "suggestionCategory":["id":arraySuggestionList[index].id]]).rawString(.utf8, options: .sortedKeys) ?? ""
         let param: [String: Any] = ["requestJson" : strJson]
         API_SERVICES.callAPI(param, path: .submitListOfSuggestions, method: .post) { [weak self] response in
             debugPrint(response)
-            self?.arraySuggestionList[index].suggestionCategory.customFieldForTextStore = text
+            self?.arraySuggestionList[index].customFieldForTextStore = text
         } failure: { str in
         } internetFailure: {
         } failureInform: {
@@ -204,11 +204,11 @@ extension SubmitSuggestionOfTripViewController: UITableViewDataSource, UITableVi
         }
         
         let cell = self.tblviewData.dequeueReusableCell(withIdentifier: "TripSuggestionTVCell", for: indexPath) as! TripSuggestionTVCell
-        cell.labelTitle.text = "  "+arraySuggestionList[indexPath.row].suggestionCategory.value
-        cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].suggestionCategory.customFieldForTextStore
+        cell.labelTitle.text = "  "+arraySuggestionList[indexPath.row].value
+        cell.textViewTripSuggestion.text = arraySuggestionList[indexPath.row].customFieldForTextStore
         cell.textViewTripSuggestion.delegate = self
         cell.textViewTripSuggestion.tag = indexPath.row
-        cell.textViewTripSuggestion.placeholder = arraySuggestionList[indexPath.row].suggestionCategory.placeholder
+        cell.textViewTripSuggestion.placeholder = arraySuggestionList[indexPath.row].placeholder
         return cell
     }
     
@@ -232,7 +232,7 @@ extension SubmitSuggestionOfTripViewController: UITextViewDelegate{
     
     func textViewDidEndEditing(_ textView: UITextView) {
         debugPrint("end edting row \(textView.tag) \(textView.text!)")
-        if arraySuggestionList[textView.tag].suggestionCategory.customFieldForTextStore != textView.text!{
+        if arraySuggestionList[textView.tag].customFieldForTextStore != textView.text!{
             submitSuggestionList(text: textView.text!, index: textView.tag)
         }
     }

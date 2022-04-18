@@ -57,8 +57,8 @@ class TripImagesUploadVC: UIViewController {
 //        self.labelImageUploadedCount.text = "\(self.arrayJsonFilterImages.count+locationLevelUploadCount)" + "/\(totalGlobalTripPhotoCount)"
 //        self.labelImageUploadedCount.text = "\(totalGlobalTripPhotoCount)" + "/\(21)"
         let count = 21 - totalGlobalTripPhotoCount
-        self.labelImageUploadedCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
-//        self.labelImageUploadedCount.text = "\(21 - totalGlobalTripPhotoCount)" + "/\(21)"
+        self.labelImageUploadedCount.text = "\(count < 0 ? 0 : count)" + "/\(21)"
+        //        self.labelImageUploadedCount.text = "\(count < 0 ? 0 : totalGlobalTripPhotoCount)" + "/\(21)"
     }
     
     func loadData(){

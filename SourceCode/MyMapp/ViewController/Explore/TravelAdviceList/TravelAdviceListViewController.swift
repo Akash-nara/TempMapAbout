@@ -236,18 +236,8 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         let row = sender.tag
         
         //        self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id
-        var id  = self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id ?? 0
-        /*
-         switch self.selectedTab {
-         case .topTips:
-         id = arrayOfToolTips[sender.tag].id
-         case .stories:
-         id = arrayOfStories[sender.tag].id
-         case .logistics:
-         id = arrayOfLogistics[sender.tag].id
-         }*/
-        
-        
+        let id  = self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].id ?? 0
+
         if let objVc = self.objSavedDetailVc{
             // from saved page
             self.unSaveLocationAndTravelApi(id: id, key: "advice") {
@@ -268,18 +258,9 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                 self.unSaveLocationAndTravelApi(id: id, key: "advice") {
                     sender.isSelected.toggle()
                     self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
-                    
-                    /*
-                     switch self.selectedTab {
-                     case .topTips:
-                     self.arrayOfToolTips[sender.tag].isSaved.toggle()
-                     case .stories:
-                     self.arrayOfStories[sender.tag].isSaved.toggle()
-                     case .logistics:
-                     self.arrayOfLogistics[sender.tag].isSaved.toggle()
-                     }*/
-                    self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
-                    //                    self.savedAlbumTravelAdviceViewModel.updateStatusSavedObject(id: id)
+                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
+
+//                    self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
                     self.saveUnSaveStatusUpdateCallback?(id)
                     self.tblviewData.reloadData()
                     self.tblviewData.figureOutAndShowNoResults()
@@ -324,16 +305,20 @@ extension  TravelAdviceListViewController{
         let param = viewModel.getPageDict(isPullToRefresh)
         let paramDict:[String:Any] = ["INTEREST_CATEGORY":"advice", "categoryId": categoryId,"pager":param,"city":self.cityId]
         tblviewData.isAPIstillWorking = true
-        viewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
-            self?.tblviewData.isAPIstillWorking = false
-            self?.preparedSectionAndArrayOfTraveAdvice()
-        })
+        if objSavedDetailVc == nil{
+            viewModel.getTopTipByCityListApi(paramDict: paramDict, success: { [weak self] response in
+                self?.tblviewData.isAPIstillWorking = false
+                self?.preparedSectionAndArrayOfTraveAdvice()
+            })
+        }else{
+            viewModel.getSavedTravelAdvicesListApi(paramDict: paramDict, success: { [weak self] response in
+                self?.tblviewData.isAPIstillWorking = false
+                self?.preparedSectionAndArrayOfTraveAdvice()
+            })
+        }
     }
     
     func preparedSectionAndArrayOfTraveAdvice(){
-        //        arrayOfToolTips = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 1})
-        //        arrayOfStories = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 2})
-        //        arrayOfLogistics = savedAlbumTravelAdviceViewModel.arrayOfSavedTopTipsList.filter({$0.travelEnumTypeValue == 3})
         self.tblviewData.reloadData()
         self.tblviewData.figureOutAndShowNoResults()
     }

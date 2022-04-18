@@ -28,6 +28,7 @@ class SavedAlbumDetailViewController: UIViewController {
             tblviewData.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: CGFloat.leastNormalMagnitude)))
             
             tblviewData.addRefreshControlForPullToRefresh { [weak self] in
+                self?.arrayAdviceListArrray.removeAll()
                 self?.sections.removeAll()
                 self?.isApiDataFeched = false
                 self?.tblviewData.reloadData()
@@ -472,7 +473,6 @@ extension SavedAlbumDetailViewController: UITableViewDataSource, UITableViewDele
     }
     
     @objc func buttonReadMoreClikced(){
-        
         
         guard let savedLocationListVC = UIStoryboard.tabbar.savedLocationListVC else {
             return
