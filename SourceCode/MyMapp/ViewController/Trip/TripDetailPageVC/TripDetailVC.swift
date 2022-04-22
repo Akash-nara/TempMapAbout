@@ -86,7 +86,6 @@ class TripDetailVC: UIViewController {
             
         }
     }
-    
     var arrayOfSections = [EnumTripToalSections]()
     var arrayOfTravelAdvice = [TravelAdviceDataModel]()
     var arrayOfComments = [TripCommmnets]()
@@ -164,6 +163,7 @@ class TripDetailVC: UIViewController {
         return enumCurrentFlow != .otherUser
     }
     
+
     func preparedArrayofSections(){
                 viewCommentHeightConstraint.constant = 0
                 viewComment.isHidden = true
@@ -361,6 +361,11 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         case .userDetail:
             let cell = self.tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB", for: indexPath) as! TripMainPageHeaderCellXIB
             
+            let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleCityNametapGeture(sender: )))
+            tap.numberOfTapsRequired  = 1
+            cell.cityName.isUserInteractionEnabled = true
+            cell.cityName.addGestureRecognizer(tap)
+            
             //            let headerCell = tblviewTrip.dequeueReusableCell(withIdentifier: "TripMainPageHeaderCellXIB") as! TripMainPageHeaderCellXIB
             cell.configureCell(dataModel: detailTripDataModel)
             //        headerCell.layoutIfNeeded()
@@ -464,6 +469,18 @@ extension TripDetailVC:UITableViewDelegate,UITableViewDataSource{
         default:
             return UITableViewCell()
         }
+    }
+    
+    @objc func handleCityNametapGeture(sender:UITapGestureRecognizer){
+                
+        guard let exploreTripDetailVC = UIStoryboard.tabbar.exploreTripDetailVC, let dataModel = detailTripDataModel else {
+            return
+        }
+        exploreTripDetailVC.hidesBottomBarWhenPushed = true
+        exploreTripDetailVC.cityName = dataModel.city.cityName
+        exploreTripDetailVC.cityId = dataModel.city.id
+        exploreTripDetailVC.latLong = CLLocationCoordinate2D.init(latitude: dataModel.city.latitude, longitude: dataModel.city.longitude)
+        self.navigationController?.pushViewController(exploreTripDetailVC, animated: true)
     }
     
     func configureAdvanceTravelCell(indexPath:IndexPath, dataModel:TravelAdviceDataModel) -> TripMainPageTopCellXIB{

@@ -17,13 +17,17 @@ class TripDataModel{
         var countryName = ""
         var id = 0
         var countryCode = ""
-        
+        var longitude:Double = 0.0
+        var latitude:Double = 0.0
+
         init() {}
         init(param:JSON) {
             self.cityName = param["cityName"].stringValue
             self.countryName = param["country"].stringValue
             self.countryCode = param["countryCode"].stringValue
             self.id = param["id"].intValue
+            self.longitude = param["longitude"].doubleValue
+            self.latitude = param["latitude"].doubleValue
         }
     }
     
