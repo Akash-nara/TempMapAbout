@@ -58,9 +58,12 @@ struct ExploreSuggestionDataModel{
             title = "Languages and Currencies"
         }
         items.removeAll()
-        param["suggestion"].stringValue.components(separatedBy: ",").forEach { item in
-            items.append(ExploreSuggestionItemDataModel(title: cellType.subType, detail: item))
-        }
+        let detail = param["suggestion"].stringValue.replace(from: "\n", with: "")
+        items.append(ExploreSuggestionItemDataModel(title: cellType.subType, detail: detail))
+//        param["suggestion"].stringValue.components(separatedBy: ",").forEach { item in
+//            guard !item.contains("\n") else { return }
+//            items.append(ExploreSuggestionItemDataModel(title: cellType.subType, detail: item))
+//        }
         
 //        "id" : 3,
 //        "category" : {
