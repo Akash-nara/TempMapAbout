@@ -253,11 +253,11 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         }else{
             
             // from city search
-            if sender.isSelected{
+            if self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved ?? false{
                 // un saved
                 self.unSaveLocationAndTravelApi(id: id, key: "advice") {
                     sender.isSelected.toggle()
-                    self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
+//                    self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
 //                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
                     self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
                     self.saveUnSaveStatusUpdateCallback?(id)
@@ -269,7 +269,7 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                 // save again
                 saveTravelAdviceApi(id: id) {
                     sender.isSelected.toggle()
-                    self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
+//                    self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
 //                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
                     self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
                     self.saveUnSaveStatusUpdateCallback?(id)
