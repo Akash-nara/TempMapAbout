@@ -253,7 +253,7 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
         }else{
             
             // from city search
-            if self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved ?? false{
+            if sender.isSelected{
                 // un saved
                 self.unSaveLocationAndTravelApi(id: id, key: "advice") {
                     sender.isSelected.toggle()
