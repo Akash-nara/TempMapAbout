@@ -45,7 +45,6 @@ class TravelAdviceDataModel{
         self.userName = param["userDisplayName"].stringValue
         self.userProfilePic = param["profilePicPath"].stringValue
         self.savedComment = param["comment"].stringValue
-        self.isSaved = param["isSaved"].boolValue
         
         /*
         if let topTips = param["1"].string{

@@ -231,7 +231,7 @@ class SavedAlbumTravelAdviceViewModel{
             for obj in feedList{
                 let objSavedModel = TravelAdviceDataModel.init(savedObject: obj["advice"])
                 objSavedModel.savedId = obj["id"].intValue
-                objSavedModel.isSaved = true
+                objSavedModel.isSaved = obj["isSaved"].boolValue
                 self.arrayOfSavedTopTipsList.append(objSavedModel)
             }
             success?(nil)

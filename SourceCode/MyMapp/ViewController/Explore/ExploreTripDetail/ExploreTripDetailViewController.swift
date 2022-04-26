@@ -235,17 +235,28 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
             return
         }
         let id  = viewModel.arrayOfSavedTopTipsList[sender.tag].id
-        self.unSaveLocationAndTravelApi(id: id, key: "advice") {
-            sender.isSelected.toggle()
-            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[sender.tag].isSaved.toggle()
-            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
-
-            if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
-                if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
-                    self.arrayOfSections.remove(at: index)
-                }
+        
+        if viewModel.arrayOfSavedTopTipsList[sender.tag].isSaved{
+            // un saved here
+            self.unSaveLocationAndTravelApi(id: id, key: "advice") {
+                sender.isSelected.toggle()
+                self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[sender.tag].isSaved.toggle()
+//                self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
+                
+//                if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
+//                    if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
+//                        self.arrayOfSections.remove(at: index)
+//                    }
+//                }
+                self.tblviewData.reloadData()
             }
-            self.tblviewData.reloadData()
+        }else{
+            // save here again
+            self.saveTravelAdviceApi(id: id, userId: viewModel.arrayOfSavedTopTipsList[sender.tag].userId) {
+                sender.isSelected.toggle()
+                self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList[sender.tag].isSaved.toggle()
+                self.tblviewData.reloadData()
+            }
         }
     }
     
@@ -336,13 +347,13 @@ extension ExploreTripDetailViewController: UITableViewDataSource, UITableViewDel
         travelAdviceListVC.arrayOfTravelCategory = self.arrayAdviceListArrray
         travelAdviceListVC.categoryId = self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].id
         travelAdviceListVC.saveUnSaveStatusUpdateCallback = { id in
-//            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.updateStatusSavedObject(id: id)
-            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
-            if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
-                if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
-                    self.arrayOfSections.remove(at: index)
-                }
-            }
+            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.updateStatusSavedObject(id: id)
+//            self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.removedSavedObject(id: id)
+//            if (self.arrayAdviceListArrray[self.currentIndexOfAdviceListIndex].viewModel?.arrayOfSavedTopTipsList.count ?? 0).isZero(){
+//                if let index = self.arrayOfSections.firstIndex(where: {$0 == .topTips}){
+//                    self.arrayOfSections.remove(at: index)
+//                }
+//            }
             self.tblviewData.reloadData()
         }
         self.navigationController?.pushViewController(travelAdviceListVC, animated: true)
@@ -584,6 +595,29 @@ extension ExploreTripDetailViewController{
             self.HIDE_CUSTOM_LOADER()
         }
     }
+    
+    func saveTravelAdviceApi(id:Int, userId:Int,success: (() -> ())? = nil){
+
+        let strJson = JSON(["advice": ["id":id],
+                            "userId":userId,
+                            "INTEREST_CATEGORY": "advice"]).rawString(.utf8, options: .sortedKeys) ?? ""
+        let param: [String: Any] = ["requestJson" : strJson]
+        
+        API_SERVICES.callAPI(param, path: .saveTrip, method: .post) { [weak self] dataResponce in
+            self?.HIDE_CUSTOM_LOADER()
+            guard let status = dataResponce?["status"]?.intValue, status == 200 else {
+                return
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "reloadSavedTripList"), object: nil)
+            success?()
+        }  internetFailure: {
+            API_LOADER.HIDE_CUSTOM_LOADER()
+            debugPrint("internetFailure")
+        } failureInform: {
+            self.HIDE_CUSTOM_LOADER()
+        }
+    }
+
     
     func getAdviceForTripAPi(){
         API_SERVICES.callAPI([:], path: .getAdviceForCityTrip, method: .get) { [weak self] response in

@@ -24,7 +24,7 @@ class SocketIOManager: NSObject {
     
     static var sharedInstance = SocketIOManager()
         //"http://54.160.11.28:9090/"
-    var socketManager = SocketManager(socketURL: URL(string: "\(Environment.socketURL)/")!, config: [.log(true),.compress])
+    var socketManager = SocketManager(socketURL: URL(string: "\(Environment.socketURL)/")!, config: [.log(false),.compress])
     var socket:SocketIOClient!
     var callbackClouserOfTrip: ((TripDataModel?) -> Void)?
     

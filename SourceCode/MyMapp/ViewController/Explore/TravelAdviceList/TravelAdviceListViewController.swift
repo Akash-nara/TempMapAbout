@@ -258,17 +258,23 @@ extension TravelAdviceListViewController: UITableViewDataSource, UITableViewDele
                 self.unSaveLocationAndTravelApi(id: id, key: "advice") {
                     sender.isSelected.toggle()
                     self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
-                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
-
-//                    self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
+//                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
+                    self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
                     self.saveUnSaveStatusUpdateCallback?(id)
                     self.tblviewData.reloadData()
                     self.tblviewData.figureOutAndShowNoResults()
                 }
             }else{
+                
                 // save again
                 saveTravelAdviceApi(id: id) {
-                    
+                    sender.isSelected.toggle()
+                    self.arrayOfTravelCategory[section].viewModel?.arrayOfSavedTopTipsList[row].isSaved.toggle()
+//                    self.arrayOfTravelCategory[section].viewModel?.removedSavedObject(id: id)
+                    self.arrayOfTravelCategory[section].viewModel?.updateStatusSavedObject(id: id)
+                    self.saveUnSaveStatusUpdateCallback?(id)
+                    self.tblviewData.reloadData()
+                    self.tblviewData.figureOutAndShowNoResults()
                 }
             }
         }
